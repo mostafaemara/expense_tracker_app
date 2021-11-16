@@ -1,3 +1,13 @@
 {
-  "appTitle": "Expense Tracker"
+  "appTitle": "Expense Tracker",
+  "onBoardingTitle1":"احصل على السيطرة الكاملة على أموالك",
+  "onBoardingBody1":"كن مدير أموالك الخاص واجعل كل سنت مهمًا",
+  "onBoardingTitle2":"تعرف أين تذهب أموالك",
+  "onBoardingBody2":"تتبع معاملاتك بسهولة ، مع الفئات والتقرير المالي",
+  "onBoardingTitle3":"التخطيط للمستقبل",
+  "onBoardingBody3":"قم بإعداد ميزانيتك لكل فئة حتى تكون متحكمًا",
+  "login":"تسجيل الدخول",
+  "signUp":"انشاء حساب جديد"
+
+
 }

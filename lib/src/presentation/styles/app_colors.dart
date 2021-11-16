@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class AppColors {
-  static const light20 = Color(0xffE3E5E5);
+  static const light20 = Color(0xff91919F);
   static const light40 = Color(0xffF2F4F5);
   static const light60 = Color(0xffF7F9FA);
   static const light80 = Color(0xFFFBFBFB);

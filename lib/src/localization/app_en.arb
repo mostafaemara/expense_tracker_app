@@ -1,3 +1,13 @@
 {
-  "appTitle": "Expense Tracker"
+  "appTitle": "Expense Tracker",
+  "onBoardingTitle1":"Gain total control of your money",
+  "onBoardingBody1":"Become your own money manager and make every cent count",
+  "onBoardingTitle2":"Know where your money goes",
+  "onBoardingBody2":"Track your transaction easily,with categories and financial report",
+  "onBoardingTitle3":"Planning ahead",
+  "onBoardingBody3":"Setup your budget for each category so you in control",
+  "login":"Login",
+  "signUp":"Sign Up"
+
+
 }
