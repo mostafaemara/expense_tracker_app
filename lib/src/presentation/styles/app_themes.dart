@@ -4,6 +4,29 @@ import 'package:flutter/material.dart';
 class AppTheme {
   static get lightTheme {
     return ThemeData(
+        unselectedWidgetColor: AppColors.violet,
+        inputDecorationTheme: InputDecorationTheme(
+            fillColor: Colors.white,
+            hintStyle: const TextStyle(
+              color: AppColors.light20,
+              fontFamily: "Inter",
+            ),
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: const BorderSide(color: AppColors.light40)),
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: const BorderSide(color: AppColors.borderColor))),
+        appBarTheme: const AppBarTheme(
+            elevation: 0,
+            centerTitle: true,
+            iconTheme: IconThemeData(color: AppColors.dark),
+            backgroundColor: Colors.transparent,
+            titleTextStyle: TextStyle(
+                color: AppColors.dark,
+                fontSize: 20,
+                fontFamily: "Inter",
+                fontWeight: FontWeight.bold)),
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
                 shape: MaterialStateProperty.all(const RoundedRectangleBorder(

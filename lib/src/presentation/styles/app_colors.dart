@@ -3,9 +3,9 @@ import 'package:flutter/rendering.dart';
 
 class AppColors {
   static const light20 = Color(0xff91919F);
-  static const light40 = Color(0xffF2F4F5);
-  static const light60 = Color(0xffF7F9FA);
-  static const light80 = Color(0xFFFBFBFB);
+  static const light40 = Color(0xffE3E5E5);
+  static const light60 = Color(0xffF1F1FA);
+  static const light80 = Color(0xFFFCFCFC);
   static const light = Colors.white;
 
   static const dark25 = Color(0xff7A7E80);
@@ -42,4 +42,6 @@ class AppColors {
   static const blue60 = Color(0xff57A5FF);
   static const blue80 = Color(0xff248AFF);
   static const blue = Color(0xff0077FF);
+
+  static const borderColor = Color(0xff91919F);
 }

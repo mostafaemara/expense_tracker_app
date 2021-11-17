@@ -22,13 +22,23 @@ class _$AppRouter extends RootStackRouter {
     OnBoardingRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const OnBoardingPage());
+    },
+    SignupRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const SignupPage());
+    },
+    LoginRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const LoginPage());
     }
   };
 
   @override
   List<RouteConfig> get routes => [
         RouteConfig(SplashRoute.name, path: '/'),
-        RouteConfig(OnBoardingRoute.name, path: '/on-boarding-page')
+        RouteConfig(OnBoardingRoute.name, path: '/on-boarding-page'),
+        RouteConfig(SignupRoute.name, path: '/signup-page'),
+        RouteConfig(LoginRoute.name, path: '/login-page')
       ];
 }
 
@@ -44,4 +54,18 @@ class OnBoardingRoute extends PageRouteInfo<void> {
   const OnBoardingRoute() : super(name, path: '/on-boarding-page');
 
   static const String name = 'OnBoardingRoute';
+}
+
+/// generated route for [SignupPage]
+class SignupRoute extends PageRouteInfo<void> {
+  const SignupRoute() : super(name, path: '/signup-page');
+
+  static const String name = 'SignupRoute';
+}
+
+/// generated route for [LoginPage]
+class LoginRoute extends PageRouteInfo<void> {
+  const LoginRoute() : super(name, path: '/login-page');
+
+  static const String name = 'LoginRoute';
 }

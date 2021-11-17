@@ -7,7 +7,16 @@
   "onBoardingTitle3":"التخطيط للمستقبل",
   "onBoardingBody3":"قم بإعداد ميزانيتك لكل فئة حتى تكون متحكمًا",
   "login":"تسجيل الدخول",
-  "signUp":"انشاء حساب جديد"
+  "signUp":"انشاء حساب جديد",
+   "formFiledHintName":"الاسم",
+   "formFiledHintEmail":"البريد الإلكتروني",
+    "formFiledHintPassword":"كلمة المرور",
+     "formFiledHintConfirmPassword":"تأكيد كلمة المرور",
+     "formCheckBoxTitle1":"بالتسجيل ، فإنك توافق على",
+     "formCheckBoxTitle2":"بنود الخدمة وسياسة الخصوصية",
+     "orWith":"أو",
+     "signupWithGoogle":"تسجيل الدخول بواسطة جوجل",
+     "alreadyHaveAccount":"هل لديك حساب؟"
 
 
 }

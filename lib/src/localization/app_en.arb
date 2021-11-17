@@ -7,7 +7,16 @@
   "onBoardingTitle3":"Planning ahead",
   "onBoardingBody3":"Setup your budget for each category so you in control",
   "login":"Login",
-  "signUp":"Sign Up"
+  "signUp":"Sign Up",
+  "formFiledHintName":"Name",
+   "formFiledHintEmail":"Email",
+    "formFiledHintPassword":"Password",
+     "formFiledHintConfirmPassword":"Confirm password",
+     "formCheckBoxTitle1":"By signing up, you agree to the",
+     "formCheckBoxTitle2":"Terms of Service and Privacy Policy",
+     "orWith":"Or with",
+     "signupWithGoogle":"Sign Up with Google",
+     "alreadyHaveAccount":"Already have an account?"
 
 
 }
