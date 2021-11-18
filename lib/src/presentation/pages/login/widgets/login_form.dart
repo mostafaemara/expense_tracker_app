@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:auto_route/auto_route.dart';
 
-class SignupForm extends StatefulWidget {
-  const SignupForm({Key? key}) : super(key: key);
+class LoginForm extends StatefulWidget {
+  const LoginForm({Key? key}) : super(key: key);
 
   @override
-  State<SignupForm> createState() => _SignupFormState();
+  State<LoginForm> createState() => _LoginFormState();
 }
 
-class _SignupFormState extends State<SignupForm> {
+class _LoginFormState extends State<LoginForm> {
   final spacing = const SizedBox(
     height: 24,
   );

@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 class AppTheme {
   static get lightTheme {
     return ThemeData(
+        scaffoldBackgroundColor: AppColors.light80,
         unselectedWidgetColor: AppColors.violet,
         inputDecorationTheme: InputDecorationTheme(
-            fillColor: Colors.white,
+            fillColor: AppColors.light,
             hintStyle: const TextStyle(
               color: AppColors.light20,
               fontFamily: "Inter",
@@ -29,6 +30,7 @@ class AppTheme {
                 fontWeight: FontWeight.bold)),
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
+                elevation: MaterialStateProperty.all<double>(0),
                 shape: MaterialStateProperty.all(const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(16)))))),
         fontFamily: "Inter",

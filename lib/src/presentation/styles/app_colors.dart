@@ -5,7 +5,7 @@ class AppColors {
   static const light20 = Color(0xff91919F);
   static const light40 = Color(0xffE3E5E5);
   static const light60 = Color(0xffF1F1FA);
-  static const light80 = Color(0xFFFCFCFC);
+  static const light80 = Color(0xFFF7F7F7);
   static const light = Colors.white;
 
   static const dark25 = Color(0xff7A7E80);
