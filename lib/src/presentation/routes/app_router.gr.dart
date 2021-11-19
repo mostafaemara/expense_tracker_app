@@ -30,6 +30,10 @@ class _$AppRouter extends RootStackRouter {
     LoginRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const LoginPage());
+    },
+    RestPasswordRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const RestPasswordPage());
     }
   };
 
@@ -38,7 +42,8 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(SplashRoute.name, path: '/'),
         RouteConfig(OnBoardingRoute.name, path: '/on-boarding-page'),
         RouteConfig(SignupRoute.name, path: '/signup-page'),
-        RouteConfig(LoginRoute.name, path: '/login-page')
+        RouteConfig(LoginRoute.name, path: '/login-page'),
+        RouteConfig(RestPasswordRoute.name, path: '/rest-password-page')
       ];
 }
 
@@ -68,4 +73,11 @@ class LoginRoute extends PageRouteInfo<void> {
   const LoginRoute() : super(name, path: '/login-page');
 
   static const String name = 'LoginRoute';
+}
+
+/// generated route for [RestPasswordPage]
+class RestPasswordRoute extends PageRouteInfo<void> {
+  const RestPasswordRoute() : super(name, path: '/rest-password-page');
+
+  static const String name = 'RestPasswordRoute';
 }

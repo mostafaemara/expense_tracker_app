@@ -15,17 +15,13 @@ class _LoginFormState extends State<LoginForm> {
   final spacing = const SizedBox(
     height: 24,
   );
+
+  final double formTextFieldHight = 56;
   bool _isPasswordObscure = true;
-  bool _isConfirmPasswordObscure = true;
+
   void _togglePasswordVisibility() {
     setState(() {
       _isPasswordObscure = !_isPasswordObscure;
-    });
-  }
-
-  void _toggleConfirmPasswordVisibility() {
-    setState(() {
-      _isConfirmPasswordObscure = !_isConfirmPasswordObscure;
     });
   }
 
@@ -33,70 +29,36 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TextFormField(
-          decoration: InputDecoration(
-              hintText: AppLocalizations.of(context)!.formFiledHintName),
-        ),
-        spacing,
-        TextFormField(
-          decoration: InputDecoration(
-              hintText: AppLocalizations.of(context)!.formFiledHintEmail),
-        ),
-        spacing,
-        TextFormField(
-          obscureText: _isPasswordObscure,
-          decoration: InputDecoration(
-              suffixIcon: IconButton(
-                  onPressed: _togglePasswordVisibility,
-                  icon: Icon(_isPasswordObscure
-                      ? Icons.visibility_off_outlined
-                      : Icons.visibility_outlined)),
-              hintText: AppLocalizations.of(context)!.formFiledHintPassword),
-        ),
-        spacing,
-        TextFormField(
-          obscureText: _isConfirmPasswordObscure,
-          decoration: InputDecoration(
-              suffixIcon: IconButton(
-                  onPressed: _toggleConfirmPasswordVisibility,
-                  icon: Icon(_isConfirmPasswordObscure
-                      ? Icons.visibility_off_outlined
-                      : Icons.visibility_outlined)),
-              hintText:
-                  AppLocalizations.of(context)!.formFiledHintConfirmPassword),
-        ),
-        spacing,
-        CheckboxListTile(
-          checkColor: Theme.of(context).colorScheme.primary,
-          controlAffinity: ListTileControlAffinity.leading,
-          activeColor: Theme.of(context).colorScheme.surface,
-          title: RichText(
-            text: TextSpan(
-                style: Theme.of(context).textTheme.bodyText1,
-                children: [
-                  TextSpan(
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(color: AppColors.violet),
-                      text: AppLocalizations.of(context)!.formCheckBoxTitle2),
-                ],
-                text: AppLocalizations.of(context)!.formCheckBoxTitle1 + " "),
+        SizedBox(
+          height: formTextFieldHight,
+          child: TextFormField(
+            decoration: InputDecoration(
+                hintText: AppLocalizations.of(context)!.formFiledHintEmail),
           ),
-          value: false,
-          onChanged: (value) {
-            //TODO signup check box
-          },
+        ),
+        spacing,
+        SizedBox(
+          height: formTextFieldHight,
+          child: TextFormField(
+            obscureText: _isPasswordObscure,
+            decoration: InputDecoration(
+                suffixIcon: IconButton(
+                    onPressed: _togglePasswordVisibility,
+                    icon: Icon(_isPasswordObscure
+                        ? Icons.visibility_off_outlined
+                        : Icons.visibility_outlined)),
+                hintText: AppLocalizations.of(context)!.formFiledHintPassword),
+          ),
         ),
         const SizedBox(
-          height: 27,
+          height: 40,
         ),
         SizedBox(
           height: 56,
           width: double.infinity,
           child: ElevatedButton(
             onPressed: () {},
-            child: Text(AppLocalizations.of(context)!.signUp),
+            child: Text(AppLocalizations.of(context)!.login),
           ),
         ),
         const SizedBox(
@@ -128,17 +90,20 @@ class _LoginFormState extends State<LoginForm> {
             onPressed: () {
               //TODO signup with google
             },
-            label: Text(AppLocalizations.of(context)!.signupWithGoogle),
+            label: Text(AppLocalizations.of(context)!.loginWithGoogle),
           ),
         ),
-        const SizedBox(
-          height: 12,
-        ),
+        TextButton(
+            style: TextButton.styleFrom(
+                padding: const EdgeInsets.only(top: 30, bottom: 30),
+                alignment: AlignmentDirectional.centerStart),
+            onPressed: () => context.navigateTo(const RestPasswordRoute()),
+            child: Text(AppLocalizations.of(context)!.forgotPassword)),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              AppLocalizations.of(context)!.alreadyHaveAccount,
+              AppLocalizations.of(context)!.dontHaveAnAccount,
               style: TextStyle(
                   color:
                       Theme.of(context).inputDecorationTheme.hintStyle!.color!),
@@ -147,10 +112,10 @@ class _LoginFormState extends State<LoginForm> {
                 style: TextButton.styleFrom(
                     padding: const EdgeInsetsDirectional.only(start: 3),
                     alignment: AlignmentDirectional.centerStart),
-                onPressed: () => context.navigateTo(const LoginRoute()),
-                child: Text(AppLocalizations.of(context)!.login)),
+                onPressed: () => context.replaceRoute(const SignupRoute()),
+                child: Text(AppLocalizations.of(context)!.signUp)),
           ],
-        )
+        ),
       ],
     );
   }

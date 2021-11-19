@@ -15,8 +15,16 @@
      "formCheckBoxTitle1":"بالتسجيل ، فإنك توافق على",
      "formCheckBoxTitle2":"بنود الخدمة وسياسة الخصوصية",
      "orWith":"أو",
-     "signupWithGoogle":"تسجيل الدخول بواسطة جوجل",
-     "alreadyHaveAccount":"هل لديك حساب؟"
+     "loginWithGoogle":"تسجيل الدخول بواسطة جوجل",
+     "alreadyHaveAccount":"هل لديك حساب؟",
+     "dontHaveAnAccount":"ليس لديك حساب؟",
+     "forgotPassword":"هل نسيت كلمة المرور؟",
+     "restPasswordTitle":"إعادة تعيين كلمة المرور",
+       "enterYourEmailToRestPassword":"أدخل بريدك الإلكتروني وسنرسل لك رابطًا لإعادة تعيين كلمة المرور.",
+       "continueButtonTitle":"استمر",
+         "emailSent":"تم إرسال البريد الإلكتروني بنجاح",
+     "checkYourEmail":"تحقق من بريدك الإلكتروني واتبع التعليمات لإعادة تعيين كلمة المرور الخاصة بك",
+     "backToLgin":"العودة إلى تسجيل الدخول"
 
 
 }

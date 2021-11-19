@@ -15,6 +15,8 @@ class _SignupFormState extends State<SignupForm> {
   final spacing = const SizedBox(
     height: 24,
   );
+
+  final double formTextFieldHight = 56;
   bool _isPasswordObscure = true;
   bool _isConfirmPasswordObscure = true;
   void _togglePasswordVisibility() {
@@ -33,37 +35,49 @@ class _SignupFormState extends State<SignupForm> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TextFormField(
-          decoration: InputDecoration(
-              hintText: AppLocalizations.of(context)!.formFiledHintName),
+        SizedBox(
+          height: formTextFieldHight,
+          child: TextFormField(
+            decoration: InputDecoration(
+                hintText: AppLocalizations.of(context)!.formFiledHintName),
+          ),
         ),
         spacing,
-        TextFormField(
-          decoration: InputDecoration(
-              hintText: AppLocalizations.of(context)!.formFiledHintEmail),
+        SizedBox(
+          height: formTextFieldHight,
+          child: TextFormField(
+            decoration: InputDecoration(
+                hintText: AppLocalizations.of(context)!.formFiledHintEmail),
+          ),
         ),
         spacing,
-        TextFormField(
-          obscureText: _isPasswordObscure,
-          decoration: InputDecoration(
-              suffixIcon: IconButton(
-                  onPressed: _togglePasswordVisibility,
-                  icon: Icon(_isPasswordObscure
-                      ? Icons.visibility_off_outlined
-                      : Icons.visibility_outlined)),
-              hintText: AppLocalizations.of(context)!.formFiledHintPassword),
+        SizedBox(
+          height: formTextFieldHight,
+          child: TextFormField(
+            obscureText: _isPasswordObscure,
+            decoration: InputDecoration(
+                suffixIcon: IconButton(
+                    onPressed: _togglePasswordVisibility,
+                    icon: Icon(_isPasswordObscure
+                        ? Icons.visibility_off_outlined
+                        : Icons.visibility_outlined)),
+                hintText: AppLocalizations.of(context)!.formFiledHintPassword),
+          ),
         ),
         spacing,
-        TextFormField(
-          obscureText: _isConfirmPasswordObscure,
-          decoration: InputDecoration(
-              suffixIcon: IconButton(
-                  onPressed: _toggleConfirmPasswordVisibility,
-                  icon: Icon(_isConfirmPasswordObscure
-                      ? Icons.visibility_off_outlined
-                      : Icons.visibility_outlined)),
-              hintText:
-                  AppLocalizations.of(context)!.formFiledHintConfirmPassword),
+        SizedBox(
+          height: formTextFieldHight,
+          child: TextFormField(
+            obscureText: _isConfirmPasswordObscure,
+            decoration: InputDecoration(
+                suffixIcon: IconButton(
+                    onPressed: _toggleConfirmPasswordVisibility,
+                    icon: Icon(_isConfirmPasswordObscure
+                        ? Icons.visibility_off_outlined
+                        : Icons.visibility_outlined)),
+                hintText:
+                    AppLocalizations.of(context)!.formFiledHintConfirmPassword),
+          ),
         ),
         spacing,
         CheckboxListTile(
@@ -128,7 +142,7 @@ class _SignupFormState extends State<SignupForm> {
             onPressed: () {
               //TODO signup with google
             },
-            label: Text(AppLocalizations.of(context)!.signupWithGoogle),
+            label: Text(AppLocalizations.of(context)!.loginWithGoogle),
           ),
         ),
         const SizedBox(
@@ -147,7 +161,7 @@ class _SignupFormState extends State<SignupForm> {
                 style: TextButton.styleFrom(
                     padding: const EdgeInsetsDirectional.only(start: 3),
                     alignment: AlignmentDirectional.centerStart),
-                onPressed: () => context.navigateTo(const LoginRoute()),
+                onPressed: () => context.replaceRoute(const LoginRoute()),
                 child: Text(AppLocalizations.of(context)!.login)),
           ],
         )

@@ -15,8 +15,17 @@
      "formCheckBoxTitle1":"By signing up, you agree to the",
      "formCheckBoxTitle2":"Terms of Service and Privacy Policy",
      "orWith":"Or with",
-     "signupWithGoogle":"Sign Up with Google",
-     "alreadyHaveAccount":"Already have an account?"
+     "loginWithGoogle":"Login with Google",
+     "alreadyHaveAccount":"Already have an account?",
+     "dontHaveAnAccount":"Don’t have an account yet?",
+     "forgotPassword":"Forgot Password?",
+     "restPasswordTitle":"Rest password",
+     "enterYourEmailToRestPassword":"Enter your email and we’ll send you a link to reset your password.",
+     "continueButtonTitle":"Continue",
+     "emailSent":"Email sent",
+     "checkYourEmail":"Check your email and follow the instructions to reset your password",
+     "backToLgin":"Back to login"
+
 
 
 }

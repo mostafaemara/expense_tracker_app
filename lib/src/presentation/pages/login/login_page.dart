@@ -1,3 +1,4 @@
+import 'package:expense_tracker_app/src/presentation/pages/login/widgets/login_form.dart';
 import 'package:expense_tracker_app/src/presentation/pages/signup/widgets/signup_form.dart';
 
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.signUp),
+          title: Text(AppLocalizations.of(context)!.login),
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -19,7 +20,7 @@ class LoginPage extends StatelessWidget {
               SizedBox(
                 height: 56,
               ),
-              SignupForm()
+              LoginForm()
             ],
           ),
         ));
