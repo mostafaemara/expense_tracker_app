@@ -24,7 +24,17 @@
        "continueButtonTitle":"استمر",
          "emailSent":"تم إرسال البريد الإلكتروني بنجاح",
      "checkYourEmail":"تحقق من بريدك الإلكتروني واتبع التعليمات لإعادة تعيين كلمة المرور الخاصة بك",
-     "backToLgin":"العودة إلى تسجيل الدخول"
+     "backToLgin":"العودة إلى تسجيل الدخول",
+     "setupAccountTitle":"فلنبدأ في إعداد حسابك!",
+     "setupAccountBody":"يمكن أن يكون الحساب هو حساب البنك أو محفظتك.",
+     "letsGo":"بدأ",
+     "balance":"الرصيد",
+     "accountName":"إسم الحساب",
+     "accountType":"نوع الحساب",
+     "wallet":"محفظة",
+     "bankAccount":"حساب البنك",
+     "youAreAllSet":"أنت جاهز للبدء",
+      "addNewAccount":"إضافة حساب جديد"
 
 
 }

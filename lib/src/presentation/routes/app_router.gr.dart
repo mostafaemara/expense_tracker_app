@@ -34,22 +34,37 @@ class _$AppRouter extends RootStackRouter {
     RestPasswordRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const RestPasswordPage());
+    },
+    SetupAccountRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const SetupAccountPage());
+    },
+    AddNewAccountRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const AddNewAccountPage());
+    },
+    AccountAllSetRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const AccountAllSetPage());
     }
   };
 
   @override
   List<RouteConfig> get routes => [
-        RouteConfig(SplashRoute.name, path: '/'),
+        RouteConfig(SplashRoute.name, path: '/splash-page'),
         RouteConfig(OnBoardingRoute.name, path: '/on-boarding-page'),
         RouteConfig(SignupRoute.name, path: '/signup-page'),
         RouteConfig(LoginRoute.name, path: '/login-page'),
-        RouteConfig(RestPasswordRoute.name, path: '/rest-password-page')
+        RouteConfig(RestPasswordRoute.name, path: '/rest-password-page'),
+        RouteConfig(SetupAccountRoute.name, path: '/setup-account-page'),
+        RouteConfig(AddNewAccountRoute.name, path: '/add-new-account-page'),
+        RouteConfig(AccountAllSetRoute.name, path: '/')
       ];
 }
 
 /// generated route for [SplashPage]
 class SplashRoute extends PageRouteInfo<void> {
-  const SplashRoute() : super(name, path: '/');
+  const SplashRoute() : super(name, path: '/splash-page');
 
   static const String name = 'SplashRoute';
 }
@@ -80,4 +95,25 @@ class RestPasswordRoute extends PageRouteInfo<void> {
   const RestPasswordRoute() : super(name, path: '/rest-password-page');
 
   static const String name = 'RestPasswordRoute';
+}
+
+/// generated route for [SetupAccountPage]
+class SetupAccountRoute extends PageRouteInfo<void> {
+  const SetupAccountRoute() : super(name, path: '/setup-account-page');
+
+  static const String name = 'SetupAccountRoute';
+}
+
+/// generated route for [AddNewAccountPage]
+class AddNewAccountRoute extends PageRouteInfo<void> {
+  const AddNewAccountRoute() : super(name, path: '/add-new-account-page');
+
+  static const String name = 'AddNewAccountRoute';
+}
+
+/// generated route for [AccountAllSetPage]
+class AccountAllSetRoute extends PageRouteInfo<void> {
+  const AccountAllSetRoute() : super(name, path: '/');
+
+  static const String name = 'AccountAllSetRoute';
 }

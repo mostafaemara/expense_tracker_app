@@ -24,7 +24,17 @@
      "continueButtonTitle":"Continue",
      "emailSent":"Email sent",
      "checkYourEmail":"Check your email and follow the instructions to reset your password",
-     "backToLgin":"Back to login"
+     "backToLgin":"Back to login",
+     "setupAccountTitle":"Let’s setup your account!",
+     "setupAccountBody":"Account can be your bank account or your wallet.",
+     "letsGo":"Let’s go",
+     "balance":"Balance",
+     "accountName":"Account Name",
+     "accountType":"Account Type",
+     "wallet":"Wallet",
+     "bankAccount":"Bank Account",
+     "youAreAllSet":"You're all set to go",
+     "addNewAccount":"Add new account"
 
 
 
