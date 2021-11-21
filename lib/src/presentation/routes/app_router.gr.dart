@@ -46,6 +46,10 @@ class _$AppRouter extends RootStackRouter {
     AccountAllSetRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const AccountAllSetPage());
+    },
+    MainRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const MainPage());
     }
   };
 
@@ -58,7 +62,8 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(RestPasswordRoute.name, path: '/rest-password-page'),
         RouteConfig(SetupAccountRoute.name, path: '/setup-account-page'),
         RouteConfig(AddNewAccountRoute.name, path: '/add-new-account-page'),
-        RouteConfig(AccountAllSetRoute.name, path: '/')
+        RouteConfig(AccountAllSetRoute.name, path: '/account-all-set-page'),
+        RouteConfig(MainRoute.name, path: '/')
       ];
 }
 
@@ -113,7 +118,14 @@ class AddNewAccountRoute extends PageRouteInfo<void> {
 
 /// generated route for [AccountAllSetPage]
 class AccountAllSetRoute extends PageRouteInfo<void> {
-  const AccountAllSetRoute() : super(name, path: '/');
+  const AccountAllSetRoute() : super(name, path: '/account-all-set-page');
 
   static const String name = 'AccountAllSetRoute';
+}
+
+/// generated route for [MainPage]
+class MainRoute extends PageRouteInfo<void> {
+  const MainRoute() : super(name, path: '/');
+
+  static const String name = 'MainRoute';
 }

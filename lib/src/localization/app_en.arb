@@ -34,7 +34,11 @@
      "wallet":"Wallet",
      "bankAccount":"Bank Account",
      "youAreAllSet":"You're all set to go",
-     "addNewAccount":"Add new account"
+     "addNewAccount":"Add new account",
+     "home":"Home",
+     "transaction":"Transaction",
+     "budget":"Budget",
+     "profile":"Profile"
 
 
 

@@ -34,7 +34,11 @@
      "wallet":"محفظة",
      "bankAccount":"حساب البنك",
      "youAreAllSet":"أنت جاهز للبدء",
-      "addNewAccount":"إضافة حساب جديد"
+      "addNewAccount":"إضافة حساب جديد",
+      "home":"الصفحة الرئيسية",
+     "transaction":"تعاملات",
+     "budget":"ميزانية",
+     "profile":"الملف الشخصي"
 
 
 }

@@ -4,6 +4,12 @@ import 'package:flutter/material.dart';
 class AppTheme {
   static get lightTheme {
     return ThemeData(
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: AppColors.violet,
+            foregroundColor: AppColors.light),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+            selectedItemColor: AppColors.violet,
+            unselectedItemColor: AppColors.unselectedItemColor),
         scaffoldBackgroundColor: AppColors.light80,
         unselectedWidgetColor: AppColors.violet,
         inputDecorationTheme: InputDecorationTheme(

@@ -44,4 +44,5 @@ class AppColors {
   static const blue = Color(0xff0077FF);
 
   static const borderColor = Color(0xff91919F);
+  static const unselectedItemColor = Color(0xffC6C6C6);
 }
