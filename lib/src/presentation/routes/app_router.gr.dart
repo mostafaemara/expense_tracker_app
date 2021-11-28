@@ -50,6 +50,22 @@ class _$AppRouter extends RootStackRouter {
     MainRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const MainPage());
+    },
+    HomeRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const HomePage());
+    },
+    TransactionRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const TransactionPage());
+    },
+    BudgetRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const BudgetPage());
+    },
+    ProfileRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const ProfilePage());
     }
   };
 
@@ -63,7 +79,19 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(SetupAccountRoute.name, path: '/setup-account-page'),
         RouteConfig(AddNewAccountRoute.name, path: '/add-new-account-page'),
         RouteConfig(AccountAllSetRoute.name, path: '/account-all-set-page'),
-        RouteConfig(MainRoute.name, path: '/')
+        RouteConfig(MainRoute.name, path: '/', children: [
+          RouteConfig('#redirect',
+              path: '',
+              parent: MainRoute.name,
+              redirectTo: 'home',
+              fullMatch: true),
+          RouteConfig(HomeRoute.name, path: 'home', parent: MainRoute.name),
+          RouteConfig(TransactionRoute.name,
+              path: 'transaction', parent: MainRoute.name),
+          RouteConfig(BudgetRoute.name, path: 'budget', parent: MainRoute.name),
+          RouteConfig(ProfileRoute.name,
+              path: 'profile', parent: MainRoute.name)
+        ])
       ];
 }
 
@@ -125,7 +153,36 @@ class AccountAllSetRoute extends PageRouteInfo<void> {
 
 /// generated route for [MainPage]
 class MainRoute extends PageRouteInfo<void> {
-  const MainRoute() : super(name, path: '/');
+  const MainRoute({List<PageRouteInfo>? children})
+      : super(name, path: '/', initialChildren: children);
 
   static const String name = 'MainRoute';
+}
+
+/// generated route for [HomePage]
+class HomeRoute extends PageRouteInfo<void> {
+  const HomeRoute() : super(name, path: 'home');
+
+  static const String name = 'HomeRoute';
+}
+
+/// generated route for [TransactionPage]
+class TransactionRoute extends PageRouteInfo<void> {
+  const TransactionRoute() : super(name, path: 'transaction');
+
+  static const String name = 'TransactionRoute';
+}
+
+/// generated route for [BudgetPage]
+class BudgetRoute extends PageRouteInfo<void> {
+  const BudgetRoute() : super(name, path: 'budget');
+
+  static const String name = 'BudgetRoute';
+}
+
+/// generated route for [ProfilePage]
+class ProfileRoute extends PageRouteInfo<void> {
+  const ProfileRoute() : super(name, path: 'profile');
+
+  static const String name = 'ProfileRoute';
 }
