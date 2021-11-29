@@ -38,7 +38,17 @@
       "home":"الصفحة الرئيسية",
      "transaction":"تعاملات",
      "budget":"ميزانية",
-     "profile":"الملف الشخصي"
+     "profile":"الملف الشخصي",  "accountBalance":"Account Balance",
+     "currencySymbol":"$",
+     "income":"إيرادات",
+     "expenses":"مصاريف",
+     "spendFrequency":"مخطط الإنفاق",
+     "today":"اليوم",
+     "week":"أسبوع",
+     "month":"شهر",
+     "year":"عام",
+     "recentTransaction":"المعاملة الأخيرة",
+     "seeAll":"اظهار الكل"
 
 
 }

@@ -45,4 +45,6 @@ class AppColors {
 
   static const borderColor = Color(0xff91919F);
   static const unselectedItemColor = Color(0xffC6C6C6);
+  static const homeTopWidgetBackgroundStartColor = Color(0xffFFF6E5);
+  static const homeTopWidgetBackgroundEndColor = Color(0xffF8EDD8);
 }

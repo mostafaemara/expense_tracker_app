@@ -46,6 +46,8 @@ class BottomNavBar extends StatelessWidget {
                 ),
                 label: AppLocalizations.of(context)!.transaction),
             BottomNavigationBarItem(
+                activeIcon: Container(), icon: Container(), label: ""),
+            BottomNavigationBarItem(
                 activeIcon: Image.asset("assets/images/pie-chart.png",
                     color: selectedItemColor),
                 icon: Image.asset("assets/images/pie-chart.png",

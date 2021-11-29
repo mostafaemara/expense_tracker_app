@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 class AppTheme {
   static get lightTheme {
     return ThemeData(
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
+        textTheme: const TextTheme(
+          headline4:
+              TextStyle(fontWeight: FontWeight.w600, color: AppColors.dark),
+        ),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
             backgroundColor: AppColors.violet,
             foregroundColor: AppColors.light),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(

@@ -38,7 +38,20 @@
      "home":"Home",
      "transaction":"Transaction",
      "budget":"Budget",
-     "profile":"Profile"
+     "profile":"Profile",
+     "accountBalance":"Account Balance",
+     "currencySymbol":"$",
+     "income":"Income",
+     "expenses":"Expenses",
+     "spendFrequency":"Spend Frequency",
+     "today":"Today",
+     "week":"Week",
+     "month":"Month",
+     "year":"Year",
+     "recentTransaction":"Recent Transaction",
+     "seeAll":"See All"
+
+
 
 
 

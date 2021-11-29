@@ -15,7 +15,13 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
-      routes: [HomeRoute(), TransactionRoute(), BudgetRoute(), ProfileRoute()],
+      routes: const [
+        HomeRoute(),
+        TransactionRoute(),
+        TransactionRoute(),
+        BudgetRoute(),
+        ProfileRoute()
+      ],
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: ExpandableFab(
         distance: 60.0,
@@ -46,44 +52,10 @@ class MainPage extends StatelessWidget {
           ),
         ],
       ),
-
-      //  body: SfCartesianChart(
-      //  primaryYAxis: NumericAxis(
-      //      isVisible: false, majorGridLines: const MajorGridLines(width: 0)),
-      //   primaryXAxis: NumericAxis(
-      //       isVisible: false, majorGridLines: const MajorGridLines(width: 0)),
-      //   series: <ChartSeries>[
-      //     SplineSeries<ExpenseData, double>(
-      //       color: Theme.of(context).colorScheme.primary,
-      //      width: 5,
-      //     dataSource: getChartData(),
-      //     xValueMapper: (datum, index) => datum.year,
-      //   yValueMapper: (datum, index) => datum.sales,
-      //)
-      //],
-      //),
       bottomNavigationBuilder: (context, tabsRouter) => BottomNavBar(
         onTap: tabsRouter.setActiveIndex,
         currentIndex: tabsRouter.activeIndex,
       ),
     );
   }
-}
-
-List<ExpenseData> getChartData() {
-  final List<ExpenseData> expenseData = [
-    ExpenseData(2017, 15),
-    ExpenseData(2018, 10),
-    ExpenseData(2019, 20),
-    ExpenseData(2020, 25),
-    ExpenseData(2021, 30),
-  ];
-  return expenseData;
-}
-
-class ExpenseData {
-  final double year;
-  final double sales;
-
-  ExpenseData(this.year, this.sales);
 }
