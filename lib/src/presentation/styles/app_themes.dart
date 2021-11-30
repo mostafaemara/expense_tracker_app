@@ -7,6 +7,7 @@ class AppTheme {
         textTheme: const TextTheme(
           headline4:
               TextStyle(fontWeight: FontWeight.w600, color: AppColors.dark),
+          headline5: TextStyle(color: AppColors.dark),
         ),
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
             backgroundColor: AppColors.violet,

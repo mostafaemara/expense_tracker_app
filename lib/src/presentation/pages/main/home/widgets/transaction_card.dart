@@ -19,7 +19,7 @@ class TransactionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 80,
-      width: 164,
+      width: MediaQuery.of(context).size.width * 0.45,
       decoration: BoxDecoration(
           color: color,
           borderRadius: const BorderRadius.all(Radius.circular(28))),

@@ -68,7 +68,7 @@ class Head extends StatelessWidget {
                     "assets/images/expense.png",
                     color: AppColors.red,
                   ),
-                  title: AppLocalizations.of(context)!.income,
+                  title: AppLocalizations.of(context)!.expenses,
                   amount: 500,
                 ),
               ],
