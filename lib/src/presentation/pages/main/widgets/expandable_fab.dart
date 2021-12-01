@@ -56,14 +56,16 @@ class _ExpandableFabState extends State<ExpandableFab>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      clipBehavior: Clip.none,
-      children: [
-        _buildTapToCloseFab(),
-        ..._buildExpandingActionButtons(),
-        _buildTapToOpenFab(),
-      ],
+    return SizedBox.expand(
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        clipBehavior: Clip.none,
+        children: [
+          _buildTapToCloseFab(),
+          ..._buildExpandingActionButtons(),
+          _buildTapToOpenFab(),
+        ],
+      ),
     );
   }
 
@@ -87,44 +89,50 @@ class _ExpandableFabState extends State<ExpandableFab>
   }
 
   Widget _buildTapToCloseFab() {
-    return SizedBox(
-      width: 56.0,
-      height: 56.0,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          primary: Theme.of(context).colorScheme.primary,
-          shape: const CircleBorder(),
-        ),
-        clipBehavior: Clip.antiAlias,
-        onPressed: _toggle,
-        child: Icon(
-          Icons.close,
-          color: Theme.of(context).colorScheme.onPrimary,
+    return Positioned(
+      bottom: kBottomNavigationBarHeight / 2,
+      child: SizedBox(
+        width: 56.0,
+        height: 56.0,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: Theme.of(context).colorScheme.primary,
+            shape: const CircleBorder(),
+          ),
+          clipBehavior: Clip.antiAlias,
+          onPressed: _toggle,
+          child: Icon(
+            Icons.close,
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
         ),
       ),
     );
   }
 
   Widget _buildTapToOpenFab() {
-    return IgnorePointer(
-      ignoring: _open,
-      child: AnimatedContainer(
-        transformAlignment: Alignment.center,
-        transform: Matrix4.diagonal3Values(
-          _open ? 0.7 : 1.0,
-          _open ? 0.5 : 1.0,
-          1.0,
-        ),
-        duration: const Duration(milliseconds: 250),
-        curve: const Interval(0.0, 0.5, curve: Curves.easeOut),
-        child: AnimatedOpacity(
-          opacity: _open ? 0.0 : 1.0,
-          curve: const Interval(0.25, 1.0, curve: Curves.easeInOut),
+    return Positioned(
+      bottom: kBottomNavigationBarHeight / 2,
+      child: IgnorePointer(
+        ignoring: _open,
+        child: AnimatedContainer(
+          transformAlignment: Alignment.center,
+          transform: Matrix4.diagonal3Values(
+            _open ? 0.7 : 1.0,
+            _open ? 0.5 : 1.0,
+            1.0,
+          ),
           duration: const Duration(milliseconds: 250),
-          child: FloatingActionButton(
-            onPressed: _toggle,
-            child: const Icon(
-              Icons.add,
+          curve: const Interval(0.0, 0.5, curve: Curves.easeOut),
+          child: AnimatedOpacity(
+            opacity: _open ? 0.0 : 1.0,
+            curve: const Interval(0.25, 1.0, curve: Curves.easeInOut),
+            duration: const Duration(milliseconds: 250),
+            child: FloatingActionButton(
+              onPressed: _toggle,
+              child: const Icon(
+                Icons.add,
+              ),
             ),
           ),
         ),
@@ -134,7 +142,7 @@ class _ExpandableFabState extends State<ExpandableFab>
 }
 
 class _ExpandingActionButton extends StatelessWidget {
-  _ExpandingActionButton({
+  const _ExpandingActionButton({
     Key? key,
     required this.directionInDegrees,
     required this.maxDistance,
@@ -157,8 +165,10 @@ class _ExpandingActionButton extends StatelessWidget {
           progress.value * maxDistance,
         );
         return Positioned(
-          right: 4.0 + offset.dx,
-          bottom: maxDistance + offset.dy,
+          right: MediaQuery.of(context).size.width / 2 -
+              maxDistance / 2 +
+              offset.dx,
+          bottom: maxDistance + offset.dy + kBottomNavigationBarHeight / 2,
           child: Transform.rotate(
             angle: (1.0 - progress.value) * math.pi / 2,
             child: child!,

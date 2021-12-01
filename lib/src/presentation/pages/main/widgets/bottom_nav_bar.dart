@@ -16,7 +16,6 @@ class BottomNavBar extends StatelessWidget {
         Theme.of(context).bottomNavigationBarTheme.selectedItemColor;
     return BottomAppBar(
       elevation: 0,
-      shape: const CircularNotchedRectangle(),
       child: BottomNavigationBar(
           onTap: onTap,
           currentIndex: currentIndex,

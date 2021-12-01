@@ -11,6 +11,7 @@ class AppTheme {
         ),
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
             backgroundColor: AppColors.violet,
+            elevation: 0,
             foregroundColor: AppColors.light),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
             selectedItemColor: AppColors.violet,

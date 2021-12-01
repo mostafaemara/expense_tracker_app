@@ -48,7 +48,15 @@
      "month":"شهر",
      "year":"عام",
      "recentTransaction":"المعاملة الأخيرة",
-     "seeAll":"اظهار الكل"
+     "seeAll":"اظهار الكل",
+      "expense":"إنفاق",
+     "transfer":"تحويل",
+     "howMuch":"كم الثمن؟",
+     "category":"فئة",
+     "description":"وصف",
+     "addAttachment":"إضافة مرفق",
+     "from":"من",
+     "to":"إلى"
 
 
 }

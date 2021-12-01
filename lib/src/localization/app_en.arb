@@ -49,7 +49,16 @@
      "month":"Month",
      "year":"Year",
      "recentTransaction":"Recent Transaction",
-     "seeAll":"See All"
+     "seeAll":"See All",
+     "expense":"Expense",
+     "transfer":"Transfer",
+     "howMuch":"How much?",
+     "category":"Category",
+     "description":"Description",
+     "addAttachment":"Add attachment",
+     "from":"From",
+     "to":"To"
+     
 
 
 

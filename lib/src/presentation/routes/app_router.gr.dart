@@ -47,6 +47,13 @@ class _$AppRouter extends RootStackRouter {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const AccountAllSetPage());
     },
+    NewTransactionRoute.name: (routeData) {
+      final args = routeData.argsAs<NewTransactionRouteArgs>();
+      return MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: NewTransactionPage(
+              key: args.key, transactionType: args.transactionType));
+    },
     MainRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const MainPage());
@@ -79,6 +86,7 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(SetupAccountRoute.name, path: '/setup-account-page'),
         RouteConfig(AddNewAccountRoute.name, path: '/add-new-account-page'),
         RouteConfig(AccountAllSetRoute.name, path: '/account-all-set-page'),
+        RouteConfig(NewTransactionRoute.name, path: '/new-transaction-page'),
         RouteConfig(MainRoute.name, path: '/', children: [
           RouteConfig('#redirect',
               path: '',
@@ -149,6 +157,30 @@ class AccountAllSetRoute extends PageRouteInfo<void> {
   const AccountAllSetRoute() : super(name, path: '/account-all-set-page');
 
   static const String name = 'AccountAllSetRoute';
+}
+
+/// generated route for [NewTransactionPage]
+class NewTransactionRoute extends PageRouteInfo<NewTransactionRouteArgs> {
+  NewTransactionRoute({Key? key, required TransactionType transactionType})
+      : super(name,
+            path: '/new-transaction-page',
+            args: NewTransactionRouteArgs(
+                key: key, transactionType: transactionType));
+
+  static const String name = 'NewTransactionRoute';
+}
+
+class NewTransactionRouteArgs {
+  const NewTransactionRouteArgs({this.key, required this.transactionType});
+
+  final Key? key;
+
+  final TransactionType transactionType;
+
+  @override
+  String toString() {
+    return 'NewTransactionRouteArgs{key: $key, transactionType: $transactionType}';
+  }
 }
 
 /// generated route for [MainPage]
