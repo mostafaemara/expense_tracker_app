@@ -54,6 +54,10 @@ class _$AppRouter extends RootStackRouter {
           child: NewTransactionPage(
               key: args.key, transactionType: args.transactionType));
     },
+    NotificationRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const NotificationPage());
+    },
     MainRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const MainPage());
@@ -87,6 +91,7 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(AddNewAccountRoute.name, path: '/add-new-account-page'),
         RouteConfig(AccountAllSetRoute.name, path: '/account-all-set-page'),
         RouteConfig(NewTransactionRoute.name, path: '/new-transaction-page'),
+        RouteConfig(NotificationRoute.name, path: '/notification-page'),
         RouteConfig(MainRoute.name, path: '/', children: [
           RouteConfig('#redirect',
               path: '',
@@ -181,6 +186,13 @@ class NewTransactionRouteArgs {
   String toString() {
     return 'NewTransactionRouteArgs{key: $key, transactionType: $transactionType}';
   }
+}
+
+/// generated route for [NotificationPage]
+class NotificationRoute extends PageRouteInfo<void> {
+  const NotificationRoute() : super(name, path: '/notification-page');
+
+  static const String name = 'NotificationRoute';
 }
 
 /// generated route for [MainPage]

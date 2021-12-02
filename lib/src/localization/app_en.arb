@@ -57,7 +57,15 @@
      "description":"Description",
      "addAttachment":"Add attachment",
      "from":"From",
-     "to":"To"
+     "to":"To",
+     "notifications":"Notifications",
+     "markAllRead":"Mark all read",
+     "removeAll":"Remove all",
+         "repeat":"Repeat",
+         "repeatTransaction":"Repeat transaction",
+         "camera":"Camera",
+         "image":"Image",
+         "document":"Document"
      
 
 

@@ -56,7 +56,15 @@
      "description":"وصف",
      "addAttachment":"إضافة مرفق",
      "from":"من",
-     "to":"إلى"
+     "to":"إلى",
+     "notifications":"إشعارات",
+      "markAllRead":"اشر عليها بانها قرات",
+     "removeAll":"حذف الكل",
+     "repeat":"تكرار",
+      "repeatTransaction":"كرر المعاملة",
+        "camera":"الكاميرا",
+         "image":"صورة",
+         "document":"ملف"
 
 
 }

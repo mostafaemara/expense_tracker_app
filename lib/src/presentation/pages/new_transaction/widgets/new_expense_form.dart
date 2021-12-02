@@ -1,11 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../widgets/balance_text_field.dart';
+import 'attachment_bottom_sheet.dart';
 
 class NewExpenseForm extends StatelessWidget {
   const NewExpenseForm({
     Key? key,
   }) : super(key: key);
+
+  void _showChooseAttachmentModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(24),
+          topRight: Radius.circular(24),
+        ),
+      ),
+      builder: (context) => const AttachmentBottomSheet(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,13 +78,27 @@ class NewExpenseForm extends StatelessWidget {
                 height: 56,
                 width: double.infinity,
                 child: TextButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    _showChooseAttachmentModal(context);
+                  },
                   icon: Transform.rotate(
                     angle: 180,
                     child: const Icon(Icons.attach_file),
                   ),
                   label: Text(AppLocalizations.of(context)!.addAttachment),
                 ),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              SwitchListTile(
+                inactiveTrackColor: Theme.of(context).colorScheme.secondary,
+                activeColor: Theme.of(context).colorScheme.onPrimary,
+                activeTrackColor: Theme.of(context).colorScheme.primary,
+                value: false,
+                onChanged: (_) {},
+                title: Text(AppLocalizations.of(context)!.repeat),
+                subtitle: Text(AppLocalizations.of(context)!.repeatTransaction),
               ),
               const SizedBox(
                 height: 24,

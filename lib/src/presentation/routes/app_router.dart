@@ -10,6 +10,7 @@ import 'package:expense_tracker_app/src/presentation/pages/main/main_page.dart';
 import 'package:expense_tracker_app/src/presentation/pages/main/profile/profile_page.dart';
 import 'package:expense_tracker_app/src/presentation/pages/main/transaction/transaction_page.dart';
 import 'package:expense_tracker_app/src/presentation/pages/new_transaction/new_transaction_page.dart';
+import 'package:expense_tracker_app/src/presentation/pages/notification/notification_page.dart';
 
 import 'package:expense_tracker_app/src/presentation/pages/onboarding/onboarding_page.dart';
 import 'package:expense_tracker_app/src/presentation/pages/rest_password/rest_password_page.dart';
@@ -42,6 +43,9 @@ part 'app_router.gr.dart';
     ),
     AutoRoute(
       page: NewTransactionPage,
+    ),
+    AutoRoute(
+      page: NotificationPage,
     ),
     AutoRoute(page: MainPage, path: "/", initial: true, children: [
       AutoRoute(path: "home", initial: true, page: HomePage),
