@@ -1,23 +1,38 @@
+import 'package:expense_tracker_app/src/presentation/bloc/auth/auth_cubit.dart';
 import 'package:expense_tracker_app/src/presentation/routes/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SplashPage extends StatelessWidget {
+class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
 
-  void goToOnBoarding(BuildContext context) async {
-    await Future.delayed(const Duration(seconds: 2));
+  @override
+  State<SplashPage> createState() => _SplashPageState();
+}
 
-    context.navigateTo(const OnBoardingRoute());
+class _SplashPageState extends State<SplashPage> {
+  @override
+  void didChangeDependencies() {
+    context.read<AuthCubit>().checkAuthState();
+    super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    goToOnBoarding(context);
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
-      body:
-          Center(child: Image.asset("assets/images/expense_tracker_logo.png")),
+      body: BlocListener<AuthCubit, AuthState>(
+          listener: (context, state) => state.whenOrNull(
+                authenticated: (user) => context.navigateTo(
+                  const HomeRoute(),
+                ),
+                notAuthenticated: () =>
+                    context.navigateTo(const OnBoardingRoute()),
+              ),
+          child: Center(
+            child: Image.asset("assets/images/expense_tracker_logo.png"),
+          )),
     );
   }
 }
