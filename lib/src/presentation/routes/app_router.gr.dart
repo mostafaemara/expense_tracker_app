@@ -82,7 +82,7 @@ class _$AppRouter extends RootStackRouter {
 
   @override
   List<RouteConfig> get routes => [
-        RouteConfig(SplashRoute.name, path: '/splash-page'),
+        RouteConfig(SplashRoute.name, path: '/'),
         RouteConfig(OnBoardingRoute.name, path: '/on-boarding-page'),
         RouteConfig(SignupRoute.name, path: '/signup-page'),
         RouteConfig(LoginRoute.name, path: '/login-page'),
@@ -110,7 +110,7 @@ class _$AppRouter extends RootStackRouter {
 
 /// generated route for [SplashPage]
 class SplashRoute extends PageRouteInfo<void> {
-  const SplashRoute() : super(name, path: '/splash-page');
+  const SplashRoute() : super(name, path: '/');
 
   static const String name = 'SplashRoute';
 }

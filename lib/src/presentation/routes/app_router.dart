@@ -24,6 +24,7 @@ part 'app_router.gr.dart';
   replaceInRouteName: "Page,Route",
   routes: <AutoRoute>[
     AutoRoute(
+      initial: true,
       page: SplashPage,
     ),
     AutoRoute(
@@ -47,7 +48,7 @@ part 'app_router.gr.dart';
     AutoRoute(
       page: NotificationPage,
     ),
-    AutoRoute(page: MainPage, path: "/", initial: true, children: [
+    AutoRoute(page: MainPage, path: "/", children: [
       AutoRoute(path: "home", initial: true, page: HomePage),
       AutoRoute(path: "transaction", page: TransactionPage),
       AutoRoute(path: "budget", page: BudgetPage),
