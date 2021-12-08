@@ -19,6 +19,8 @@ class AppTheme {
         scaffoldBackgroundColor: AppColors.light80,
         unselectedWidgetColor: AppColors.violet,
         inputDecorationTheme: InputDecorationTheme(
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 18.0, horizontal: 10),
             fillColor: AppColors.light,
             hintStyle: const TextStyle(
               color: AppColors.light20,

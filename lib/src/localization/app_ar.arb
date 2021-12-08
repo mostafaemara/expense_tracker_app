@@ -64,7 +64,23 @@
       "repeatTransaction":"كرر المعاملة",
         "camera":"الكاميرا",
          "image":"صورة",
-         "document":"ملف"
+         "document":"ملف", "passwordTooShort":"كلمة المرور قصيرة جدًا",
+    "enterValidEmail":"أدخل بريدًا إلكترونيًا صالحًا",
+    "enterEmail":"أدخل البريد الإلكتروني",
+    "emailOrPasswordIncorrect":"البريد الالكتروني او كلمة المرور غير صحيحة!",
+    "serverError":"حدث خطأ ما. خطأ في الخادم",
+    "enterConfirmPassword":"أدخل تأكيد كلمة المرور",
+    "ok":"حسنا",
+    "error":"خطأ",
+    "emailAlreadyInUse":"البريد الإلكتروني مستخدم بالفعل",
+    "passwordNotMatch":"كلمة المرور وتأكيد كلمة المرور غير متطابقين",
+     "min":"دقائق",
+    "cal":"سعرات حرارية",
+    "addToCart":"أضف إلى السلة",
+    "userName":"اسم المستخدم",
+    "enterUserName":"ادخل اسم المستخدم",
+    "invalidUserName":"اسم المستخدم غير صالح",
+    "userNameIsTooShort":"اسم المستخدم قصير جدا"
 
 
 }
