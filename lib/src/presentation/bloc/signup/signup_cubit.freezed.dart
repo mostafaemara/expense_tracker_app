@@ -17,8 +17,19 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$SignupStateTearOff {
   const _$SignupStateTearOff();
 
-  _Initial initial() {
-    return const _Initial();
+  _SignupState call(
+      {required EmailInput emailInput,
+      required PasswordInput passwordInput,
+      required ConfirmPasswordInput confirmPasswordInput,
+      required UsernameInput usernameInput,
+      required SubmissionState<AuthError> submissionState}) {
+    return _SignupState(
+      emailInput: emailInput,
+      passwordInput: passwordInput,
+      confirmPasswordInput: confirmPasswordInput,
+      usernameInput: usernameInput,
+      submissionState: submissionState,
+    );
   }
 }
 
@@ -27,37 +38,16 @@ const $SignupState = _$SignupStateTearOff();
 
 /// @nodoc
 mixin _$SignupState {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-  }) =>
+  EmailInput get emailInput => throw _privateConstructorUsedError;
+  PasswordInput get passwordInput => throw _privateConstructorUsedError;
+  ConfirmPasswordInput get confirmPasswordInput =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? initial,
-  }) =>
+  UsernameInput get usernameInput => throw _privateConstructorUsedError;
+  SubmissionState<AuthError> get submissionState =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    required TResult orElse(),
-  }) =>
+
+  @JsonKey(ignore: true)
+  $SignupStateCopyWith<SignupState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -66,6 +56,14 @@ abstract class $SignupStateCopyWith<$Res> {
   factory $SignupStateCopyWith(
           SignupState value, $Res Function(SignupState) then) =
       _$SignupStateCopyWithImpl<$Res>;
+  $Res call(
+      {EmailInput emailInput,
+      PasswordInput passwordInput,
+      ConfirmPasswordInput confirmPasswordInput,
+      UsernameInput usernameInput,
+      SubmissionState<AuthError> submissionState});
+
+  $SubmissionStateCopyWith<AuthError, $Res> get submissionState;
 }
 
 /// @nodoc
@@ -75,100 +73,187 @@ class _$SignupStateCopyWithImpl<$Res> implements $SignupStateCopyWith<$Res> {
   final SignupState _value;
   // ignore: unused_field
   final $Res Function(SignupState) _then;
-}
-
-/// @nodoc
-abstract class _$InitialCopyWith<$Res> {
-  factory _$InitialCopyWith(_Initial value, $Res Function(_Initial) then) =
-      __$InitialCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$InitialCopyWithImpl<$Res> extends _$SignupStateCopyWithImpl<$Res>
-    implements _$InitialCopyWith<$Res> {
-  __$InitialCopyWithImpl(_Initial _value, $Res Function(_Initial) _then)
-      : super(_value, (v) => _then(v as _Initial));
 
   @override
-  _Initial get _value => super._value as _Initial;
+  $Res call({
+    Object? emailInput = freezed,
+    Object? passwordInput = freezed,
+    Object? confirmPasswordInput = freezed,
+    Object? usernameInput = freezed,
+    Object? submissionState = freezed,
+  }) {
+    return _then(_value.copyWith(
+      emailInput: emailInput == freezed
+          ? _value.emailInput
+          : emailInput // ignore: cast_nullable_to_non_nullable
+              as EmailInput,
+      passwordInput: passwordInput == freezed
+          ? _value.passwordInput
+          : passwordInput // ignore: cast_nullable_to_non_nullable
+              as PasswordInput,
+      confirmPasswordInput: confirmPasswordInput == freezed
+          ? _value.confirmPasswordInput
+          : confirmPasswordInput // ignore: cast_nullable_to_non_nullable
+              as ConfirmPasswordInput,
+      usernameInput: usernameInput == freezed
+          ? _value.usernameInput
+          : usernameInput // ignore: cast_nullable_to_non_nullable
+              as UsernameInput,
+      submissionState: submissionState == freezed
+          ? _value.submissionState
+          : submissionState // ignore: cast_nullable_to_non_nullable
+              as SubmissionState<AuthError>,
+    ));
+  }
+
+  @override
+  $SubmissionStateCopyWith<AuthError, $Res> get submissionState {
+    return $SubmissionStateCopyWith<AuthError, $Res>(_value.submissionState,
+        (value) {
+      return _then(_value.copyWith(submissionState: value));
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$SignupStateCopyWith<$Res>
+    implements $SignupStateCopyWith<$Res> {
+  factory _$SignupStateCopyWith(
+          _SignupState value, $Res Function(_SignupState) then) =
+      __$SignupStateCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {EmailInput emailInput,
+      PasswordInput passwordInput,
+      ConfirmPasswordInput confirmPasswordInput,
+      UsernameInput usernameInput,
+      SubmissionState<AuthError> submissionState});
+
+  @override
+  $SubmissionStateCopyWith<AuthError, $Res> get submissionState;
+}
+
+/// @nodoc
+class __$SignupStateCopyWithImpl<$Res> extends _$SignupStateCopyWithImpl<$Res>
+    implements _$SignupStateCopyWith<$Res> {
+  __$SignupStateCopyWithImpl(
+      _SignupState _value, $Res Function(_SignupState) _then)
+      : super(_value, (v) => _then(v as _SignupState));
+
+  @override
+  _SignupState get _value => super._value as _SignupState;
+
+  @override
+  $Res call({
+    Object? emailInput = freezed,
+    Object? passwordInput = freezed,
+    Object? confirmPasswordInput = freezed,
+    Object? usernameInput = freezed,
+    Object? submissionState = freezed,
+  }) {
+    return _then(_SignupState(
+      emailInput: emailInput == freezed
+          ? _value.emailInput
+          : emailInput // ignore: cast_nullable_to_non_nullable
+              as EmailInput,
+      passwordInput: passwordInput == freezed
+          ? _value.passwordInput
+          : passwordInput // ignore: cast_nullable_to_non_nullable
+              as PasswordInput,
+      confirmPasswordInput: confirmPasswordInput == freezed
+          ? _value.confirmPasswordInput
+          : confirmPasswordInput // ignore: cast_nullable_to_non_nullable
+              as ConfirmPasswordInput,
+      usernameInput: usernameInput == freezed
+          ? _value.usernameInput
+          : usernameInput // ignore: cast_nullable_to_non_nullable
+              as UsernameInput,
+      submissionState: submissionState == freezed
+          ? _value.submissionState
+          : submissionState // ignore: cast_nullable_to_non_nullable
+              as SubmissionState<AuthError>,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$_Initial implements _Initial {
-  const _$_Initial();
+class _$_SignupState implements _SignupState {
+  const _$_SignupState(
+      {required this.emailInput,
+      required this.passwordInput,
+      required this.confirmPasswordInput,
+      required this.usernameInput,
+      required this.submissionState});
+
+  @override
+  final EmailInput emailInput;
+  @override
+  final PasswordInput passwordInput;
+  @override
+  final ConfirmPasswordInput confirmPasswordInput;
+  @override
+  final UsernameInput usernameInput;
+  @override
+  final SubmissionState<AuthError> submissionState;
 
   @override
   String toString() {
-    return 'SignupState.initial()';
+    return 'SignupState(emailInput: $emailInput, passwordInput: $passwordInput, confirmPasswordInput: $confirmPasswordInput, usernameInput: $usernameInput, submissionState: $submissionState)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _Initial);
+        (other.runtimeType == runtimeType &&
+            other is _SignupState &&
+            const DeepCollectionEquality()
+                .equals(other.emailInput, emailInput) &&
+            const DeepCollectionEquality()
+                .equals(other.passwordInput, passwordInput) &&
+            const DeepCollectionEquality()
+                .equals(other.confirmPasswordInput, confirmPasswordInput) &&
+            const DeepCollectionEquality()
+                .equals(other.usernameInput, usernameInput) &&
+            const DeepCollectionEquality()
+                .equals(other.submissionState, submissionState));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(emailInput),
+      const DeepCollectionEquality().hash(passwordInput),
+      const DeepCollectionEquality().hash(confirmPasswordInput),
+      const DeepCollectionEquality().hash(usernameInput),
+      const DeepCollectionEquality().hash(submissionState));
 
+  @JsonKey(ignore: true)
   @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-  }) {
-    return initial();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? initial,
-  }) {
-    return initial?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-  }) {
-    return initial(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-  }) {
-    return initial?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial(this);
-    }
-    return orElse();
-  }
+  _$SignupStateCopyWith<_SignupState> get copyWith =>
+      __$SignupStateCopyWithImpl<_SignupState>(this, _$identity);
 }
 
-abstract class _Initial implements SignupState {
-  const factory _Initial() = _$_Initial;
+abstract class _SignupState implements SignupState {
+  const factory _SignupState(
+      {required EmailInput emailInput,
+      required PasswordInput passwordInput,
+      required ConfirmPasswordInput confirmPasswordInput,
+      required UsernameInput usernameInput,
+      required SubmissionState<AuthError> submissionState}) = _$_SignupState;
+
+  @override
+  EmailInput get emailInput;
+  @override
+  PasswordInput get passwordInput;
+  @override
+  ConfirmPasswordInput get confirmPasswordInput;
+  @override
+  UsernameInput get usernameInput;
+  @override
+  SubmissionState<AuthError> get submissionState;
+  @override
+  @JsonKey(ignore: true)
+  _$SignupStateCopyWith<_SignupState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
