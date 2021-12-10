@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expense_tracker_app/src/domain/exceptions/server_exception.dart';
 import 'package:expense_tracker_app/src/domain/reposiotries/user_repository.dart';
@@ -12,6 +14,7 @@ class UserRepositoryImpl implements UserRepository {
           .doc(uid)
           .update({"userName": username});
     } catch (e) {
+      log("firestore error" + e.toString());
       throw ServerException();
     }
   }

@@ -12,6 +12,7 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  final _formKey = GlobalKey<FormState>();
   final spacing = const SizedBox(
     height: 24,
   );
@@ -27,96 +28,103 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: formTextFieldHight,
-          child: TextFormField(
-            decoration: InputDecoration(
-                hintText: AppLocalizations.of(context)!.formFiledHintEmail),
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          SizedBox(
+            height: formTextFieldHight,
+            child: TextFormField(
+              decoration: InputDecoration(
+                  hintText: AppLocalizations.of(context)!.formFiledHintEmail),
+            ),
           ),
-        ),
-        spacing,
-        SizedBox(
-          height: formTextFieldHight,
-          child: TextFormField(
-            obscureText: _isPasswordObscure,
-            decoration: InputDecoration(
-                suffixIcon: IconButton(
-                    onPressed: _togglePasswordVisibility,
-                    icon: Icon(_isPasswordObscure
-                        ? Icons.visibility_off_outlined
-                        : Icons.visibility_outlined)),
-                hintText: AppLocalizations.of(context)!.formFiledHintPassword),
+          spacing,
+          SizedBox(
+            height: formTextFieldHight,
+            child: TextFormField(
+              obscureText: _isPasswordObscure,
+              decoration: InputDecoration(
+                  suffixIcon: IconButton(
+                      onPressed: _togglePasswordVisibility,
+                      icon: Icon(_isPasswordObscure
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_outlined)),
+                  hintText:
+                      AppLocalizations.of(context)!.formFiledHintPassword),
+            ),
           ),
-        ),
-        const SizedBox(
-          height: 40,
-        ),
-        SizedBox(
-          height: 56,
-          width: double.infinity,
-          child: ElevatedButton(
-            onPressed: () {},
-            child: Text(AppLocalizations.of(context)!.login),
+          const SizedBox(
+            height: 40,
           ),
-        ),
-        const SizedBox(
-          height: 12,
-        ),
-        Text(
-          AppLocalizations.of(context)!.orWith,
-          style: Theme.of(context).textTheme.bodyText1!.copyWith(
-              color: Theme.of(context).inputDecorationTheme.hintStyle!.color!),
-        ),
-        const SizedBox(
-          height: 12,
-        ),
-        SizedBox(
-          height: 56,
-          width: double.infinity,
-          child: ElevatedButton.icon(
-            style: ElevatedButton.styleFrom(
-                side: BorderSide(
+          SizedBox(
+            height: 56,
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {},
+              child: Text(AppLocalizations.of(context)!.login),
+            ),
+          ),
+          const SizedBox(
+            height: 12,
+          ),
+          Text(
+            AppLocalizations.of(context)!.orWith,
+            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                color:
+                    Theme.of(context).inputDecorationTheme.hintStyle!.color!),
+          ),
+          const SizedBox(
+            height: 12,
+          ),
+          SizedBox(
+            height: 56,
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                  side: BorderSide(
+                      color: Theme.of(context)
+                          .inputDecorationTheme
+                          .enabledBorder!
+                          .borderSide
+                          .color),
+                  elevation: 0,
+                  onPrimary: Theme.of(context).colorScheme.onBackground,
+                  primary: Theme.of(context).colorScheme.background),
+              icon: Image.asset("assets/images/google_logo.png"),
+              onPressed: () {
+                //TODO signup with google
+              },
+              label: Text(AppLocalizations.of(context)!.loginWithGoogle),
+            ),
+          ),
+          TextButton(
+              style: TextButton.styleFrom(
+                  padding: const EdgeInsets.only(top: 30, bottom: 30),
+                  alignment: AlignmentDirectional.centerStart),
+              onPressed: () => context.navigateTo(const RestPasswordRoute()),
+              child: Text(AppLocalizations.of(context)!.forgotPassword)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                AppLocalizations.of(context)!.dontHaveAnAccount,
+                style: TextStyle(
                     color: Theme.of(context)
                         .inputDecorationTheme
-                        .enabledBorder!
-                        .borderSide
-                        .color),
-                elevation: 0,
-                onPrimary: Theme.of(context).colorScheme.onBackground,
-                primary: Theme.of(context).colorScheme.background),
-            icon: Image.asset("assets/images/google_logo.png"),
-            onPressed: () {
-              //TODO signup with google
-            },
-            label: Text(AppLocalizations.of(context)!.loginWithGoogle),
+                        .hintStyle!
+                        .color!),
+              ),
+              TextButton(
+                  style: TextButton.styleFrom(
+                      padding: const EdgeInsetsDirectional.only(start: 3),
+                      alignment: AlignmentDirectional.centerStart),
+                  onPressed: () => context.replaceRoute(const SignupRoute()),
+                  child: Text(AppLocalizations.of(context)!.signUp)),
+            ],
           ),
-        ),
-        TextButton(
-            style: TextButton.styleFrom(
-                padding: const EdgeInsets.only(top: 30, bottom: 30),
-                alignment: AlignmentDirectional.centerStart),
-            onPressed: () => context.navigateTo(const RestPasswordRoute()),
-            child: Text(AppLocalizations.of(context)!.forgotPassword)),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              AppLocalizations.of(context)!.dontHaveAnAccount,
-              style: TextStyle(
-                  color:
-                      Theme.of(context).inputDecorationTheme.hintStyle!.color!),
-            ),
-            TextButton(
-                style: TextButton.styleFrom(
-                    padding: const EdgeInsetsDirectional.only(start: 3),
-                    alignment: AlignmentDirectional.centerStart),
-                onPressed: () => context.replaceRoute(const SignupRoute()),
-                child: Text(AppLocalizations.of(context)!.signUp)),
-          ],
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

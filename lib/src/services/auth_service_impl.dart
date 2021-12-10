@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:expense_tracker_app/injection.dart';
 import 'package:expense_tracker_app/src/domain/entities/user.dart';
 import 'package:expense_tracker_app/src/domain/exceptions/auth_exception.dart';
@@ -48,12 +50,13 @@ class AuthServiceImpl implements AuthService {
   @override
   Future<User> signup(String email, String password, String userName) async {
     try {
-      final userCredential = await _auth.signInWithEmailAndPassword(
+      final userCredential = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       await _userRepo.setUserName(userCredential.user!.uid, userName);
 
       return userCredential.toDomain();
     } on firebase.FirebaseAuthException catch (e) {
+      log(e.code, name: "sasa");
       if (e.code == "email-already-in-use") {
         throw AuthException(AuthError.emailAlreadyInUse);
       }

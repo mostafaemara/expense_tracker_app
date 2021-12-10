@@ -25,7 +25,7 @@ class _SplashPageState extends State<SplashPage> {
       body: BlocListener<AuthCubit, AuthState>(
           listener: (context, state) => state.whenOrNull(
                 authenticated: (user) => context.navigateTo(
-                  const HomeRoute(),
+                  const MainRoute(),
                 ),
                 notAuthenticated: () =>
                     context.navigateTo(const OnBoardingRoute()),
