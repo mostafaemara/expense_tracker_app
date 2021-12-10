@@ -1,17 +1,14 @@
 import 'package:expense_tracker_app/src/domain/failures/validation_failures.dart';
-import 'package:formz/formz.dart';
+
 import 'package:validators/validators.dart';
 
-import 'input_helper.dart';
+import 'input.dart';
 
-class UsernameInput extends FormzInput<String, UsernameValidationFailure>
-    with FormzInputHelper {
-  const UsernameInput.pure() : super.pure("");
-
-  const UsernameInput.dirty(String? value) : super.dirty(value ?? "");
-
+class UsernameInput extends Input<String, UsernameValidationFailure> {
+  UsernameInput.dirty(String value) : super(value);
+  UsernameInput.pure() : super("");
   @override
-  UsernameValidationFailure? validator(String value) {
+  UsernameValidationFailure? validator() {
     if (value.isEmpty) {
       return const UsernameValidationFailure.empty();
     }

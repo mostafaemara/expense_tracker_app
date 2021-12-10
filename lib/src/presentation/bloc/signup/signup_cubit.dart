@@ -18,15 +18,20 @@ class SignupCubit extends Cubit<SignupState> {
   SignupCubit(this._authCubit) : super(SignupState.initial());
 
   void usernameChanged(String username) {
-    emit(state.copyWith(usernameInput: UsernameInput.dirty(username)));
+    emit(state.copyWith(
+        submissionState: const SubmissionState.idle(),
+        usernameInput: UsernameInput.dirty(username)));
   }
 
   void emailChanged(String email) {
-    emit(state.copyWith(emailInput: EmailInput.dirty(email)));
+    emit(state.copyWith(
+        submissionState: const SubmissionState.idle(),
+        emailInput: EmailInput.dirty(email)));
   }
 
   void passwordChanged(String password) {
     emit(state.copyWith(
+        submissionState: const SubmissionState.idle(),
         passwordInput: PasswordInput.dirty(password),
         confirmPasswordInput: ConfirmPasswordInput.dirty(
             confirmPassword: state.confirmPasswordInput.value,
@@ -35,6 +40,7 @@ class SignupCubit extends Cubit<SignupState> {
 
   void confirmPasswordChanged(String confirmPassword) {
     emit(state.copyWith(
+        submissionState: const SubmissionState.idle(),
         confirmPasswordInput: ConfirmPasswordInput.dirty(
             confirmPassword: confirmPassword,
             password: state.passwordInput.value)));
@@ -47,7 +53,16 @@ class SignupCubit extends Cubit<SignupState> {
         state.passwordInput.valid);
   }
 
+  void _validateInputs() {
+    state.usernameInput.validator();
+    state.emailInput.validator();
+    state.passwordInput.validator();
+    state.confirmPasswordInput.validator();
+    emit(state.copyWith());
+  }
+
   void signUp() async {
+    _validateInputs();
     if (_formFieldsIsValid()) {
       try {
         emit(state.copyWith(

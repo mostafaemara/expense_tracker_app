@@ -10,10 +10,10 @@ class SignupState with _$SignupState {
     required SubmissionState<AuthError> submissionState,
   }) = _SignupState;
 
-  factory SignupState.initial() => const _SignupState(
+  factory SignupState.initial() => _SignupState(
       confirmPasswordInput: ConfirmPasswordInput.pure(),
       emailInput: EmailInput.pure(),
       passwordInput: PasswordInput.pure(),
       usernameInput: UsernameInput.pure(),
-      submissionState: SubmissionState.idle());
+      submissionState: const SubmissionState.idle());
 }
