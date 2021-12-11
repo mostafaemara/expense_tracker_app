@@ -65,6 +65,7 @@
         "camera":"الكاميرا",
          "image":"صورة",
          "document":"ملف", "passwordTooShort":"كلمة المرور قصيرة جدًا",
+          "enterPassword":"أدخل كلمة المرور",
     "enterValidEmail":"أدخل بريدًا إلكترونيًا صالحًا",
     "enterEmail":"أدخل البريد الإلكتروني",
     "emailOrPasswordIncorrect":"البريد الالكتروني او كلمة المرور غير صحيحة!",

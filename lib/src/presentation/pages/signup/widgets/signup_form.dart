@@ -1,5 +1,7 @@
 import 'package:expense_tracker_app/src/domain/exceptions/auth_exception.dart';
+
 import 'package:expense_tracker_app/src/presentation/bloc/signup/signup_cubit.dart';
+import 'package:expense_tracker_app/src/presentation/bloc/submission_state.dart';
 import 'package:expense_tracker_app/src/presentation/routes/app_router.dart';
 import 'package:expense_tracker_app/src/presentation/styles/app_colors.dart';
 import 'package:expense_tracker_app/src/presentation/widgets/error_dialog.dart';
@@ -8,6 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:auto_route/auto_route.dart';
+
+import 'confirm_password_form_field.dart';
+import 'email_form_field.dart';
+import 'password_form_field.dart';
+import 'username_form_field.dart';
 
 class SignupForm extends StatefulWidget {
   const SignupForm({Key? key}) : super(key: key);
@@ -20,18 +27,25 @@ class _SignupFormState extends State<SignupForm> {
   final spacing = const SizedBox(
     height: 24,
   );
-
+  final _formKey = GlobalKey<FormState>();
+  final _userNameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
   final double formTextFieldHight = 56;
 
-  bool _isConfirmPasswordObscure = true;
+  void _signUp() {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
 
-  void _toggleConfirmPasswordVisibility() {
-    setState(() {
-      _isConfirmPasswordObscure = !_isConfirmPasswordObscure;
-    });
+      BlocProvider.of<SignupCubit>(context).signUp(
+          email: _emailController.text,
+          password: _passwordController.text,
+          username: _userNameController.text);
+    }
   }
 
-  void showErrorDialog(BuildContext context, String failure) {
+  void _showErrorDialog(BuildContext context, String failure) {
     Navigator.of(context).pop();
     showDialog(
       context: context,
@@ -42,22 +56,28 @@ class _SignupFormState extends State<SignupForm> {
     );
   }
 
-  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final _signupCubit = BlocProvider.of<SignupCubit>(context);
-    return BlocListener<SignupCubit, SignupState>(
+    return BlocListener<SignupCubit, SubmissionState>(
       child: Form(
+        autovalidateMode: AutovalidateMode.disabled,
         key: _formKey,
         child: Column(
           children: [
-            UsernameFormField(),
+            UsernameFormField(
+              controller: _userNameController,
+            ),
             spacing,
-            EmailFormField(),
+            EmailFormField(controller: _emailController),
             spacing,
-            PasswordFormField(),
+            PasswordFormField(
+              controller: _passwordController,
+            ),
             spacing,
-            ConfirmPasswordFormField(),
+            ConfirmPasswordFormField(
+              passwordController: _passwordController,
+              controller: _confirmPasswordController,
+            ),
             spacing,
             CheckboxListTile(
               checkColor: Theme.of(context).colorScheme.primary,
@@ -90,9 +110,7 @@ class _SignupFormState extends State<SignupForm> {
               height: 56,
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {
-                  _signupCubit.signUp();
-                },
+                onPressed: _signUp,
                 child: Text(AppLocalizations.of(context)!.signUp),
               ),
             ),
@@ -155,7 +173,7 @@ class _SignupFormState extends State<SignupForm> {
         ),
       ),
       listener: (context, state) {
-        state.submissionState.whenOrNull(
+        state.whenOrNull(
             submitting: () => showDialog(
                   barrierDismissible: false,
                   context: context,
@@ -178,100 +196,9 @@ class _SignupFormState extends State<SignupForm> {
                   errorMessage = AppLocalizations.of(context)!.serverError;
                   break;
               }
-              showErrorDialog(context, errorMessage);
+              _showErrorDialog(context, errorMessage);
             });
       },
-    );
-  }
-}
-
-class EmailFormField extends StatelessWidget {
-  const EmailFormField({
-    Key? key,
-  }) : super(key: key);
-  final TextEditingController _controller = TextEditingController();
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      decoration: InputDecoration(
-          hintText: AppLocalizations.of(context)!.formFiledHintEmail),
-    );
-  }
-}
-
-class UsernameFormField extends StatelessWidget {
-  const UsernameFormField({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      decoration: InputDecoration(
-          hintText: AppLocalizations.of(context)!.formFiledHintName),
-    );
-  }
-}
-
-class PasswordFormField extends StatefulWidget {
-  const PasswordFormField({Key? key}) : super(key: key);
-
-  @override
-  State<PasswordFormField> createState() => _PasswordFormFieldState();
-}
-
-class _PasswordFormFieldState extends State<PasswordFormField> {
-  bool _isPasswordObscure = true;
-
-  void _togglePasswordVisibility() {
-    setState(() {
-      _isPasswordObscure = !_isPasswordObscure;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      obscureText: _isPasswordObscure,
-      decoration: InputDecoration(
-          suffixIcon: IconButton(
-              onPressed: _togglePasswordVisibility,
-              icon: Icon(_isPasswordObscure
-                  ? Icons.visibility_off_outlined
-                  : Icons.visibility_outlined)),
-          hintText: AppLocalizations.of(context)!.formFiledHintPassword),
-    );
-  }
-}
-
-class ConfirmPasswordFormField extends StatefulWidget {
-  const ConfirmPasswordFormField({Key? key}) : super(key: key);
-
-  @override
-  State<ConfirmPasswordFormField> createState() =>
-      _ConfirmPasswordFormFieldState();
-}
-
-class _ConfirmPasswordFormFieldState extends State<ConfirmPasswordFormField> {
-  bool _isConfirmPasswordObscure = true;
-
-  void _toggleConfirmPasswordVisibility() {
-    setState(() {
-      _isConfirmPasswordObscure = !_isConfirmPasswordObscure;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      obscureText: _isConfirmPasswordObscure,
-      decoration: InputDecoration(
-          suffixIcon: IconButton(
-              onPressed: _toggleConfirmPasswordVisibility,
-              icon: Icon(_isConfirmPasswordObscure
-                  ? Icons.visibility_off_outlined
-                  : Icons.visibility_outlined)),
-          hintText: AppLocalizations.of(context)!.formFiledHintConfirmPassword),
     );
   }
 }

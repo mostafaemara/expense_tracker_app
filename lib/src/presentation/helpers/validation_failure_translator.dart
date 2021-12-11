@@ -32,6 +32,6 @@ extension ConfirmPasswordFaliureTranslator on ConfirmPasswordValidationFailure {
   String toLocaleString(BuildContext context) {
     return when(
         passwordNotMatch: () => AppLocalizations.of(context)!.passwordNotMatch,
-        empty: () => AppLocalizations.of(context)!.enterPassword);
+        empty: () => AppLocalizations.of(context)!.enterConfirmPassword);
   }
 }
