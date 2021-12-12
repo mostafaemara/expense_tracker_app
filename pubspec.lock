@@ -322,13 +322,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  formz:
+  fluttertoast:
     dependency: "direct main"
     description:
-      name: formz
+      name: fluttertoast
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.1"
+    version: "8.0.8"
   freezed:
     dependency: "direct main"
     description:

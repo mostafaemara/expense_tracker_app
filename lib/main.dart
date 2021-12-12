@@ -1,4 +1,5 @@
 import 'package:expense_tracker_app/src/presentation/bloc/auth/auth_cubit.dart';
+import 'package:expense_tracker_app/src/presentation/bloc/login/login_cubit.dart';
 import 'package:expense_tracker_app/src/presentation/bloc/signup/signup_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,9 @@ void main() async {
       ),
       BlocProvider(
         create: (context) => SignupCubit(BlocProvider.of<AuthCubit>(context)),
+      ),
+      BlocProvider(
+        create: (context) => LoginCubit(BlocProvider.of<AuthCubit>(context)),
       )
     ], child: MyApp()),
   );

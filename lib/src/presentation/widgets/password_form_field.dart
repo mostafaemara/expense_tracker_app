@@ -1,7 +1,7 @@
 import 'package:expense_tracker_app/src/domain/validators/auth_validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import "../../../helpers/validation_failure_translator.dart";
+import "./../helpers/validation_failure_translator.dart";
 
 class PasswordFormField extends StatefulWidget {
   final TextEditingController controller;

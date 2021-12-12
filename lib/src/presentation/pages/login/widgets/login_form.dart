@@ -1,8 +1,21 @@
+import 'package:expense_tracker_app/src/domain/exceptions/auth_exception.dart';
+import 'package:expense_tracker_app/src/presentation/bloc/login/login_cubit.dart';
+import 'package:expense_tracker_app/src/presentation/bloc/submission_state.dart';
 import 'package:expense_tracker_app/src/presentation/routes/app_router.dart';
 import 'package:expense_tracker_app/src/presentation/styles/app_colors.dart';
+import 'package:expense_tracker_app/src/presentation/widgets/email_form_field.dart';
+import 'package:expense_tracker_app/src/presentation/widgets/error_dialog.dart';
+import 'package:expense_tracker_app/src/presentation/widgets/loading_dialog.dart';
+import 'package:expense_tracker_app/src/presentation/widgets/login_with_google_button.dart';
+import 'package:expense_tracker_app/src/presentation/widgets/password_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:auto_route/auto_route.dart';
+
+import 'forgot_password_button.dart';
+import 'login_button.dart';
+import 'signup_button.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -17,114 +30,102 @@ class _LoginFormState extends State<LoginForm> {
     height: 24,
   );
 
-  final double formTextFieldHight = 56;
-  bool _isPasswordObscure = true;
-
-  void _togglePasswordVisibility() {
-    setState(() {
-      _isPasswordObscure = !_isPasswordObscure;
-    });
-  }
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        children: [
-          SizedBox(
-            height: formTextFieldHight,
-            child: TextFormField(
-              decoration: InputDecoration(
-                  hintText: AppLocalizations.of(context)!.formFiledHintEmail),
+    return BlocListener<LoginCubit, SubmissionState>(
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            EmailFormField(controller: _emailController),
+            spacing,
+            PasswordFormField(controller: _passwordController),
+            const SizedBox(
+              height: 40,
             ),
-          ),
-          spacing,
-          SizedBox(
-            height: formTextFieldHight,
-            child: TextFormField(
-              obscureText: _isPasswordObscure,
-              decoration: InputDecoration(
-                  suffixIcon: IconButton(
-                      onPressed: _togglePasswordVisibility,
-                      icon: Icon(_isPasswordObscure
-                          ? Icons.visibility_off_outlined
-                          : Icons.visibility_outlined)),
-                  hintText:
-                      AppLocalizations.of(context)!.formFiledHintPassword),
+            LoginButton(
+              onPressed: _login,
             ),
-          ),
-          const SizedBox(
-            height: 40,
-          ),
-          SizedBox(
-            height: 56,
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {},
-              child: Text(AppLocalizations.of(context)!.login),
+            const SizedBox(
+              height: 12,
             ),
-          ),
-          const SizedBox(
-            height: 12,
-          ),
-          Text(
-            AppLocalizations.of(context)!.orWith,
-            style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                color:
-                    Theme.of(context).inputDecorationTheme.hintStyle!.color!),
-          ),
-          const SizedBox(
-            height: 12,
-          ),
-          SizedBox(
-            height: 56,
-            width: double.infinity,
-            child: ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                  side: BorderSide(
-                      color: Theme.of(context)
-                          .inputDecorationTheme
-                          .enabledBorder!
-                          .borderSide
-                          .color),
-                  elevation: 0,
-                  onPrimary: Theme.of(context).colorScheme.onBackground,
-                  primary: Theme.of(context).colorScheme.background),
-              icon: Image.asset("assets/images/google_logo.png"),
-              onPressed: () {
-                //TODO signup with google
-              },
-              label: Text(AppLocalizations.of(context)!.loginWithGoogle),
+            Text(
+              AppLocalizations.of(context)!.orWith,
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  color:
+                      Theme.of(context).inputDecorationTheme.hintStyle!.color!),
             ),
+            const SizedBox(
+              height: 12,
+            ),
+            LoginWithGoogleButton(onPressed: () {}),
+            const ForgotPasswordButton(),
+            const SignupButton(),
+          ],
+        ),
+      ),
+      listener: (context, state) {
+        state.whenOrNull(
+          submitting: () => showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (context) => const LoadingDialog(),
           ),
-          TextButton(
-              style: TextButton.styleFrom(
-                  padding: const EdgeInsets.only(top: 30, bottom: 30),
-                  alignment: AlignmentDirectional.centerStart),
-              onPressed: () => context.navigateTo(const RestPasswordRoute()),
-              child: Text(AppLocalizations.of(context)!.forgotPassword)),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                AppLocalizations.of(context)!.dontHaveAnAccount,
-                style: TextStyle(
-                    color: Theme.of(context)
-                        .inputDecorationTheme
-                        .hintStyle!
-                        .color!),
-              ),
-              TextButton(
-                  style: TextButton.styleFrom(
-                      padding: const EdgeInsetsDirectional.only(start: 3),
-                      alignment: AlignmentDirectional.centerStart),
-                  onPressed: () => context.replaceRoute(const SignupRoute()),
-                  child: Text(AppLocalizations.of(context)!.signUp)),
-            ],
-          ),
-        ],
+          success: () => context.replaceRoute(const MainRoute()),
+          failed: (failure) => _handleSubmissionFailure(failure),
+        );
+      },
+    );
+  }
+
+  void _login() {
+    if (_isFormValid()) {
+      BlocProvider.of<LoginCubit>(context).login(
+          email: _emailController.text, password: _passwordController.text);
+    }
+  }
+
+  bool _isFormValid() {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      return true;
+    }
+    return false;
+  }
+
+  void _showErrorDialog(BuildContext context, String failure) {
+    Navigator.of(context).pop();
+    showDialog(
+      context: context,
+      builder: (context) => ErrorDialog(
+        title: AppLocalizations.of(context)!.error,
+        body: failure,
       ),
     );
+  }
+
+  void _handleSubmissionFailure(AuthError error) {
+    String errorMessage = "";
+
+    switch (error) {
+      case AuthError.serverError:
+        errorMessage = AppLocalizations.of(context)!.serverError;
+        break;
+
+      case AuthError.invalidEmailOrPassword:
+        errorMessage = AppLocalizations.of(context)!.emailOrPasswordIncorrect;
+        break;
+      case AuthError.emailNotFound:
+        errorMessage = AppLocalizations.of(context)!.emailOrPasswordIncorrect;
+        break;
+
+      default:
+        errorMessage = AppLocalizations.of(context)!.serverError;
+        break;
+    }
+    _showErrorDialog(context, errorMessage);
   }
 }
