@@ -81,7 +81,8 @@
     "userName":"اسم المستخدم",
     "enterUserName":"ادخل اسم المستخدم",
     "invalidUserName":"اسم المستخدم غير صالح",
-    "userNameIsTooShort":"اسم المستخدم قصير جدا"
+    "userNameIsTooShort":"اسم المستخدم قصير جدا",
+      "userAgreementWarnningMessage":"حدد المربع للإشارة إلى أنك قد قرأت ووافقت على البنود الواردة في اتفاقية الشروط والأحكام"
 
 
 }
