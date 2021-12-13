@@ -105,7 +105,9 @@ class _SignupFormState extends State<SignupForm> {
             context: context,
             builder: (context) => const LoadingDialog(),
           ),
-          success: () => context.replaceRoute(const MainRoute()),
+          success: () {
+            context.replaceRoute(const SetupAccountRoute());
+          },
           failed: (failure) => _handleSubmissionFailure(failure),
         );
       },
