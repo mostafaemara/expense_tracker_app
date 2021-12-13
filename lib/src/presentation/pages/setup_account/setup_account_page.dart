@@ -1,5 +1,7 @@
+import 'package:expense_tracker_app/src/presentation/routes/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:auto_route/auto_route.dart';
 
 class SetupAccountPage extends StatelessWidget {
   const SetupAccountPage({Key? key}) : super(key: key);
@@ -33,7 +35,8 @@ class SetupAccountPage extends StatelessWidget {
                 height: 56,
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () =>
+                      context.navigateTo(const AddNewAccountRoute()),
                   child: Text(AppLocalizations.of(context)!.letsGo),
                 ),
               ),

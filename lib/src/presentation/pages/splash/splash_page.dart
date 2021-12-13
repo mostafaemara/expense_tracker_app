@@ -24,11 +24,11 @@ class _SplashPageState extends State<SplashPage> {
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: BlocListener<AuthCubit, AuthState>(
           listener: (context, state) => state.whenOrNull(
-                authenticated: (user) => context.navigateTo(
+                authenticated: (user) => context.replaceRoute(
                   const MainRoute(),
                 ),
                 notAuthenticated: () =>
-                    context.navigateTo(const OnBoardingRoute()),
+                    context.replaceRoute(const OnBoardingRoute()),
               ),
           child: Center(
             child: Image.asset("assets/images/expense_tracker_logo.png"),

@@ -1,11 +1,28 @@
+import 'package:expense_tracker_app/src/domain/entities/account.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../widgets/balance_text_field.dart';
 
-class AddNewAccountForm extends StatelessWidget {
+class AddNewAccountForm extends StatefulWidget {
   const AddNewAccountForm({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<AddNewAccountForm> createState() => _AddNewAccountFormState();
+}
+
+class _AddNewAccountFormState extends State<AddNewAccountForm> {
+  AccountType? _accountType;
+
+  void _handleSelectAccount(AccountType? type) {
+    if (type == null) {
+      return;
+    }
+    setState(() {
+      _accountType = type;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,16 +51,10 @@ class AddNewAccountForm extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
-              DropdownButtonFormField(
-                  hint: Text(AppLocalizations.of(context)!.accountType),
-                  items: [
-                    DropdownMenuItem(
-                        value: "bank",
-                        child: Text(AppLocalizations.of(context)!.bankAccount)),
-                    DropdownMenuItem(
-                        value: "wallet",
-                        child: Text(AppLocalizations.of(context)!.wallet))
-                  ]),
+              SelectAccountFormField(
+                selectedType: _accountType,
+                onChanged: _handleSelectAccount,
+              ),
               const SizedBox(
                 height: 24,
               ),
@@ -64,5 +75,30 @@ class AddNewAccountForm extends StatelessWidget {
         )
       ],
     );
+  }
+}
+
+class SelectAccountFormField extends StatelessWidget {
+  const SelectAccountFormField({
+    Key? key,
+    required this.selectedType,
+    required this.onChanged,
+  }) : super(key: key);
+  final AccountType? selectedType;
+  final void Function(AccountType?) onChanged;
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButtonFormField(
+        value: selectedType,
+        onChanged: onChanged,
+        hint: Text(AppLocalizations.of(context)!.accountType),
+        items: [
+          DropdownMenuItem(
+              value: AccountType.bankAccount,
+              child: Text(AppLocalizations.of(context)!.bankAccount)),
+          DropdownMenuItem(
+              value: AccountType.wallet,
+              child: Text(AppLocalizations.of(context)!.wallet))
+        ]);
   }
 }
