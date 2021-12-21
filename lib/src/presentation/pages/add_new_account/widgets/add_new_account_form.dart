@@ -13,16 +13,9 @@ class AddNewAccountForm extends StatefulWidget {
 }
 
 class _AddNewAccountFormState extends State<AddNewAccountForm> {
-  AccountType? _accountType;
-
-  void _handleSelectAccount(AccountType? type) {
-    if (type == null) {
-      return;
-    }
-    setState(() {
-      _accountType = type;
-    });
-  }
+  final _balanceController = TextEditingController();
+  final _accountNameController = TextEditingController();
+  AccountType? _selectedAccountType;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +45,7 @@ class _AddNewAccountFormState extends State<AddNewAccountForm> {
                 height: 16,
               ),
               SelectAccountFormField(
-                selectedType: _accountType,
+                selectedType: _selectedAccountType,
                 onChanged: _handleSelectAccount,
               ),
               const SizedBox(
@@ -75,6 +68,15 @@ class _AddNewAccountFormState extends State<AddNewAccountForm> {
         )
       ],
     );
+  }
+
+  void _handleSelectAccount(AccountType? type) {
+    if (type == null) {
+      return;
+    }
+    setState(() {
+      _selectedAccountType = type;
+    });
   }
 }
 

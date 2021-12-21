@@ -31,6 +31,7 @@ class AddNewTransformForm extends StatelessWidget {
                 children: [
                   Expanded(
                     child: DropdownButtonFormField(
+                        onChanged: (_) {},
                         hint: Text(AppLocalizations.of(context)!.from),
                         items: [
                           DropdownMenuItem(
@@ -45,6 +46,7 @@ class AddNewTransformForm extends StatelessWidget {
                   Image.asset("assets/images/colored_transaction.png"),
                   Expanded(
                     child: DropdownButtonFormField(
+                        onChanged: (_) {},
                         hint: Text(AppLocalizations.of(context)!.to),
                         items: [
                           DropdownMenuItem(

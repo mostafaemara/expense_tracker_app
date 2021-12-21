@@ -1,4 +1,5 @@
-import 'package:expense_tracker_app/src/presentation/bloc/auth/auth_cubit.dart';
+import 'package:expense_tracker_app/src/presentation/bloc/splash/splash_cubit.dart';
+import 'package:expense_tracker_app/src/presentation/pages/main/main_page.dart';
 import 'package:expense_tracker_app/src/presentation/routes/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
@@ -14,7 +15,7 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void didChangeDependencies() {
-    context.read<AuthCubit>().checkAuthState();
+    //context.read<AuthCubit>().checkAuthState();
     super.didChangeDependencies();
   }
 
@@ -22,13 +23,19 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
-      body: BlocListener<AuthCubit, AuthState>(
+      body: BlocListener<SplashCubit, SplashState>(
           listener: (context, state) => state.whenOrNull(
-                authenticated: (user) => context.replaceRoute(
-                  const MainRoute(),
-                ),
-                notAuthenticated: () =>
+                redirectToHome: () => context.replaceRoute(const MainRoute()),
+                redirectToLogin: () =>
                     context.replaceRoute(const OnBoardingRoute()),
+                redirectToSetUpAccount: () =>
+                    context.replaceRoute(const SetupAccountRoute()),
+
+                // authenticated: (user) => context.replaceRoute(
+                //   const SetupAccountRoute(),
+                // ),
+                // notAuthenticated: () =>
+                //     context.replaceRoute(const OnBoardingRoute()),
               ),
           child: Center(
             child: Image.asset("assets/images/expense_tracker_logo.png"),
