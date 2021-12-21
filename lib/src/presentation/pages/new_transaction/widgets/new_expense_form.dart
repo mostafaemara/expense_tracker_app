@@ -42,6 +42,7 @@ class NewExpenseForm extends StatelessWidget {
           child: Column(
             children: [
               DropdownButtonFormField(
+                  onChanged: (_) {},
                   hint: Text(AppLocalizations.of(context)!.category),
                   items: [
                     DropdownMenuItem(
@@ -62,6 +63,7 @@ class NewExpenseForm extends StatelessWidget {
                 height: 16,
               ),
               DropdownButtonFormField(
+                  onChanged: (_) {},
                   hint: Text(AppLocalizations.of(context)!.wallet),
                   items: [
                     DropdownMenuItem(

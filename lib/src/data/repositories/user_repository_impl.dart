@@ -20,4 +20,25 @@ class UserRepositoryImpl implements UserRepository {
     final snapshot = await _firestore.collection("users").doc(uid).get();
     return snapshot.exists;
   }
+
+  @override
+  Future<bool> getIsUserSetup(String uid) async {
+    try {
+      final snapshot = await _firestore.collection("users").doc(uid).get();
+
+      return snapshot.data()!["isSetup"] as bool;
+    } catch (e) {
+      log("firestore error", error: e.toString());
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<void> setUserIsSetup(String uid) async {
+    try {
+      await _firestore.collection("users").doc(uid).set({"isSetup": true});
+    } catch (e) {
+      throw ServerException();
+    }
+  }
 }

@@ -108,66 +108,80 @@ class _$AppRouter extends RootStackRouter {
       ];
 }
 
-/// generated route for [SplashPage]
+/// generated route for
+/// [SplashPage]
 class SplashRoute extends PageRouteInfo<void> {
-  const SplashRoute() : super(name, path: '/');
+  const SplashRoute() : super(SplashRoute.name, path: '/');
 
   static const String name = 'SplashRoute';
 }
 
-/// generated route for [OnBoardingPage]
+/// generated route for
+/// [OnBoardingPage]
 class OnBoardingRoute extends PageRouteInfo<void> {
-  const OnBoardingRoute() : super(name, path: '/on-boarding-page');
+  const OnBoardingRoute()
+      : super(OnBoardingRoute.name, path: '/on-boarding-page');
 
   static const String name = 'OnBoardingRoute';
 }
 
-/// generated route for [SignupPage]
+/// generated route for
+/// [SignupPage]
 class SignupRoute extends PageRouteInfo<void> {
-  const SignupRoute() : super(name, path: '/signup-page');
+  const SignupRoute() : super(SignupRoute.name, path: '/signup-page');
 
   static const String name = 'SignupRoute';
 }
 
-/// generated route for [LoginPage]
+/// generated route for
+/// [LoginPage]
 class LoginRoute extends PageRouteInfo<void> {
-  const LoginRoute() : super(name, path: '/login-page');
+  const LoginRoute() : super(LoginRoute.name, path: '/login-page');
 
   static const String name = 'LoginRoute';
 }
 
-/// generated route for [RestPasswordPage]
+/// generated route for
+/// [RestPasswordPage]
 class RestPasswordRoute extends PageRouteInfo<void> {
-  const RestPasswordRoute() : super(name, path: '/rest-password-page');
+  const RestPasswordRoute()
+      : super(RestPasswordRoute.name, path: '/rest-password-page');
 
   static const String name = 'RestPasswordRoute';
 }
 
-/// generated route for [SetupAccountPage]
+/// generated route for
+/// [SetupAccountPage]
 class SetupAccountRoute extends PageRouteInfo<void> {
-  const SetupAccountRoute() : super(name, path: '/setup-account-page');
+  const SetupAccountRoute()
+      : super(SetupAccountRoute.name, path: '/setup-account-page');
 
   static const String name = 'SetupAccountRoute';
 }
 
-/// generated route for [AddNewAccountPage]
+/// generated route for
+/// [AddNewAccountPage]
 class AddNewAccountRoute extends PageRouteInfo<void> {
-  const AddNewAccountRoute() : super(name, path: '/add-new-account-page');
+  const AddNewAccountRoute()
+      : super(AddNewAccountRoute.name, path: '/add-new-account-page');
 
   static const String name = 'AddNewAccountRoute';
 }
 
-/// generated route for [AccountAllSetPage]
+/// generated route for
+/// [AccountAllSetPage]
 class AccountAllSetRoute extends PageRouteInfo<void> {
-  const AccountAllSetRoute() : super(name, path: '/account-all-set-page');
+  const AccountAllSetRoute()
+      : super(AccountAllSetRoute.name, path: '/account-all-set-page');
 
   static const String name = 'AccountAllSetRoute';
 }
 
-/// generated route for [NewTransactionPage]
+/// generated route for
+/// [NewTransactionPage]
 class NewTransactionRoute extends PageRouteInfo<NewTransactionRouteArgs> {
   NewTransactionRoute({Key? key, required TransactionType transactionType})
-      : super(name,
+      : super(NewTransactionRoute.name,
             path: '/new-transaction-page',
             args: NewTransactionRouteArgs(
                 key: key, transactionType: transactionType));
@@ -188,45 +202,52 @@ class NewTransactionRouteArgs {
   }
 }
 
-/// generated route for [NotificationPage]
+/// generated route for
+/// [NotificationPage]
 class NotificationRoute extends PageRouteInfo<void> {
-  const NotificationRoute() : super(name, path: '/notification-page');
+  const NotificationRoute()
+      : super(NotificationRoute.name, path: '/notification-page');
 
   static const String name = 'NotificationRoute';
 }
 
-/// generated route for [MainPage]
+/// generated route for
+/// [MainPage]
 class MainRoute extends PageRouteInfo<void> {
   const MainRoute({List<PageRouteInfo>? children})
-      : super(name, path: '/', initialChildren: children);
+      : super(MainRoute.name, path: '/', initialChildren: children);
 
   static const String name = 'MainRoute';
 }
 
-/// generated route for [HomePage]
+/// generated route for
+/// [HomePage]
 class HomeRoute extends PageRouteInfo<void> {
-  const HomeRoute() : super(name, path: 'home');
+  const HomeRoute() : super(HomeRoute.name, path: 'home');
 
   static const String name = 'HomeRoute';
 }
 
-/// generated route for [TransactionPage]
+/// generated route for
+/// [TransactionPage]
 class TransactionRoute extends PageRouteInfo<void> {
-  const TransactionRoute() : super(name, path: 'transaction');
+  const TransactionRoute() : super(TransactionRoute.name, path: 'transaction');
 
   static const String name = 'TransactionRoute';
 }
 
-/// generated route for [BudgetPage]
+/// generated route for
+/// [BudgetPage]
 class BudgetRoute extends PageRouteInfo<void> {
-  const BudgetRoute() : super(name, path: 'budget');
+  const BudgetRoute() : super(BudgetRoute.name, path: 'budget');
 
   static const String name = 'BudgetRoute';
 }
 
-/// generated route for [ProfilePage]
+/// generated route for
+/// [ProfilePage]
 class ProfileRoute extends PageRouteInfo<void> {
-  const ProfileRoute() : super(name, path: 'profile');
+  const ProfileRoute() : super(ProfileRoute.name, path: 'profile');
 
   static const String name = 'ProfileRoute';
 }
