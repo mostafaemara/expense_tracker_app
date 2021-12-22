@@ -1,4 +1,4 @@
-import 'package:expense_tracker_app/src/domain/entities/user.dart';
+import 'package:expense_tracker_app/src/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
 
 extension FirebaseUserCredentialMapper on firebase.UserCredential {
