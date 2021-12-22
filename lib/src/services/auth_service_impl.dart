@@ -1,13 +1,14 @@
 import 'dart:developer';
 
 import 'package:expense_tracker_app/injection.dart';
-import 'package:expense_tracker_app/src/domain/entities/user.dart';
-import 'package:expense_tracker_app/src/domain/exceptions/auth_exception.dart';
-import 'package:expense_tracker_app/src/domain/reposiotries/user_repository.dart';
-import 'package:expense_tracker_app/src/domain/services/auth_service.dart';
+import 'package:expense_tracker_app/src/exceptions/auth_exception.dart';
+import 'package:expense_tracker_app/src/models/user.dart';
+import 'package:expense_tracker_app/src/repositories/user_repository.dart';
+
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
 
 import "./firebase_user_mapper.dart";
+import 'auth_service.dart';
 
 class AuthServiceImpl implements AuthService {
   final _auth = firebase.FirebaseAuth.instance;

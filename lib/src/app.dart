@@ -1,10 +1,9 @@
-import 'package:expense_tracker_app/src/presentation/pages/splash/splash_page.dart';
-import 'package:expense_tracker_app/src/presentation/styles/app_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'presentation/routes/app_router.dart';
+import 'routes/app_router.dart';
+import 'styles/app_themes.dart';
 
 /// The Widget that configures your application.
 class MyApp extends StatelessWidget {
