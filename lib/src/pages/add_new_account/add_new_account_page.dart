@@ -1,5 +1,8 @@
+import 'package:expense_tracker_app/src/bloc/auth/auth_cubit.dart';
+import 'package:expense_tracker_app/src/bloc/new_account/new_account_cubit.dart';
 import 'package:expense_tracker_app/src/widgets/my_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -11,15 +14,18 @@ class AddNewAccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Theme(
-      data: Theme.of(context).copyWith(
-          appBarTheme: AppBarTheme(
-              titleTextStyle: theme.appBarTheme.titleTextStyle!
-                  .copyWith(color: theme.colorScheme.onPrimary))),
-      child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        appBar: MyAppBar(title: AppLocalizations.of(context)!.addNewAccount),
-        body: const AddNewAccountForm(),
+    return BlocProvider(
+      create: (context) => NewAccountCubit(BlocProvider.of<AuthCubit>(context)),
+      child: Theme(
+        data: Theme.of(context).copyWith(
+            appBarTheme: AppBarTheme(
+                titleTextStyle: theme.appBarTheme.titleTextStyle!
+                    .copyWith(color: theme.colorScheme.onPrimary))),
+        child: Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          appBar: MyAppBar(title: AppLocalizations.of(context)!.addNewAccount),
+          body: const AddNewAccountForm(),
+        ),
       ),
     );
   }

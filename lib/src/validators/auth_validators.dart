@@ -40,3 +40,9 @@ ConfirmPasswordValidationFailure? confirmPasswordValidator(
     return const ConfirmPasswordValidationFailure.passwordNotMatch();
   }
 }
+
+EmptyFormFieldFailure? formFieldValidator(String value) {
+  if (value.isEmpty) {
+    return const EmptyFormFieldFailure();
+  }
+}

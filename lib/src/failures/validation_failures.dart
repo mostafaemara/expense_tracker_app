@@ -30,3 +30,7 @@ abstract class ConfirmPasswordValidationFailure
   const factory ConfirmPasswordValidationFailure.empty() =
       _ConfirmPasswordEmpty;
 }
+
+class EmptyFormFieldFailure {
+  const EmptyFormFieldFailure();
+}
