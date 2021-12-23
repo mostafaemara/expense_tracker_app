@@ -3,14 +3,30 @@ enum AccountType { bankAccount, wallet }
 class Account {
   final String title;
   final AccountType accountType;
-  final double initialBalance;
+  final double balance;
   final String id;
 
+  Account.input(
+      {required this.balance,
+      required this.title,
+      this.id = "",
+      required this.accountType});
   Account(
-      {required this.initialBalance,
+      {required this.balance,
       required this.title,
       required this.id,
       required this.accountType});
+
+  Map<String, dynamic> toMap() {
+    return {
+      "title": title,
+      "type": accountType == AccountType.bankAccount ? "bankAccount" : "wallet",
+      "balance": balance,
+    };
+  }
+
+  Account copyWithId(String id) =>
+      Account(accountType: accountType, balance: balance, title: title, id: id);
 
   // double get balance {
   //   double _balance = 0;

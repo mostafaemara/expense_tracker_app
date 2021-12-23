@@ -16,6 +16,7 @@ class AddNewTransformForm extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: BalanceFormField(
+            controller: TextEditingController(),
             title: AppLocalizations.of(context)!.balance,
           ),
         ),
