@@ -1,11 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import "../extenstions/account_type_mapper.dart";
+
 enum AccountType { bankAccount, wallet }
 
 class Account {
-  final String title;
-  final AccountType accountType;
-  final double balance;
-  final String id;
-
   Account.input(
       {required this.balance,
       required this.title,
@@ -17,10 +15,25 @@ class Account {
       required this.id,
       required this.accountType});
 
+  factory Account.fromDocument(
+      QueryDocumentSnapshot<Map<String, dynamic>> doc) {
+    final map = doc.data();
+
+    return Account(
+        balance: map["balance"].toDouble(),
+        title: map["title"],
+        id: doc.id,
+        accountType: (map["type"] as String).toAccountType());
+  }
+  final String title;
+  final AccountType accountType;
+  final double balance;
+  final String id;
+
   Map<String, dynamic> toMap() {
     return {
       "title": title,
-      "type": accountType == AccountType.bankAccount ? "bankAccount" : "wallet",
+      "type": accountType.toKey(),
       "balance": balance,
     };
   }

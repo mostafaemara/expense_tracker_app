@@ -2,8 +2,8 @@ import 'package:expense_tracker_app/src/models/account.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class SelectAccountFormField extends StatelessWidget {
-  const SelectAccountFormField({
+class SelectAccountTypeFormField extends StatelessWidget {
+  const SelectAccountTypeFormField({
     Key? key,
     required this.selectedType,
     required this.onChanged,

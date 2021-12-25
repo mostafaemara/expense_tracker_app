@@ -1,3 +1,5 @@
+import 'package:expense_tracker_app/src/bloc/accounts/accounts_cubit.dart';
+import 'package:expense_tracker_app/src/bloc/categories/categories_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,12 +21,23 @@ void main() async {
   runApp(
     MultiBlocProvider(providers: [
       BlocProvider(
-        create: (context) => AuthCubit()..checkAuthState(),
+        lazy: false,
+        create: (context) => AuthCubit(),
       ),
       BlocProvider(
+        lazy: false,
+        create: (context) => CategoriesCubit()..init(),
+      ),
+      BlocProvider(
+        lazy: false,
+        create: (context) => AccountsCubit(BlocProvider.of<AuthCubit>(context)),
+      ),
+      BlocProvider(
+        lazy: false,
         create: (context) => SignupCubit(BlocProvider.of<AuthCubit>(context)),
       ),
       BlocProvider(
+        lazy: false,
         create: (context) => LoginCubit(BlocProvider.of<AuthCubit>(context)),
       )
     ], child: MyApp()),

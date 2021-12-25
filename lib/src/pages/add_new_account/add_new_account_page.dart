@@ -9,13 +9,16 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'widgets/add_new_account_form.dart';
 
 class AddNewAccountPage extends StatelessWidget {
-  const AddNewAccountPage({Key? key}) : super(key: key);
+  final bool isSettingUpAccount;
+  const AddNewAccountPage({Key? key, required this.isSettingUpAccount})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return BlocProvider(
-      create: (context) => NewAccountCubit(BlocProvider.of<AuthCubit>(context)),
+      create: (context) => NewAccountCubit(BlocProvider.of<AuthCubit>(context),
+          isSettingUpAccount: isSettingUpAccount),
       child: Theme(
         data: Theme.of(context).copyWith(
             appBarTheme: AppBarTheme(
