@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart' as firebase;
 import 'package:expense_tracker_app/src/exceptions/server_exception.dart';
 import 'package:expense_tracker_app/src/models/transaction.dart';
@@ -5,16 +7,15 @@ import 'package:expense_tracker_app/src/models/account.dart';
 import 'package:expense_tracker_app/src/repositories/accounts_repository.dart';
 
 class FirestoreAccountsRepository implements AccountsRepository {
-  final _firestore = firebase.FirebaseFirestore.instance;
-  final _usersCollection = "users";
-  final _accountsCollection = "accounts";
+  final _usersCollection =
+      firebase.FirebaseFirestore.instance.collection("users");
+
   @override
   Future<void> addAccount(Account account, String uid) async {
     try {
-      await _firestore
-          .collection(_usersCollection)
+      await _usersCollection
           .doc(uid)
-          .collection(_accountsCollection)
+          .collection("accounts")
           .add(account.toMap());
     } catch (e) {
       throw ServerException();
@@ -28,9 +29,26 @@ class FirestoreAccountsRepository implements AccountsRepository {
   }
 
   @override
-  Future<List<Account>> getAccounts(String uid) {
-    // TODO: implement getAccounts
-    throw UnimplementedError();
+  Future<List<Account>> getAccounts(String uid) async {
+    try {
+      final snapshots =
+          await _usersCollection.doc(uid).collection("accounts").get();
+
+      return _documentsToAccounts(snapshots.docs);
+    } catch (e) {
+      log("Errror", error: e.toString());
+      throw ServerException();
+    }
+  }
+
+  List<Account> _documentsToAccounts(
+      List<firebase.QueryDocumentSnapshot<Map<String, dynamic>>> documents) {
+    List<Account> accounts = [];
+
+    for (final doc in documents) {
+      accounts.add(Account.fromDocument(doc));
+    }
+    return accounts;
   }
 
   @override

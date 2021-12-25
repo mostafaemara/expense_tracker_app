@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../widgets/balance_text_field.dart';
 import 'account_name_form_field.dart';
-import 'select_account_form_field.dart';
+import '../../../widgets/select_account_type_form_field.dart';
 import 'submit_button.dart';
 
 class AddNewAccountForm extends StatefulWidget {
@@ -57,7 +57,7 @@ class _AddNewAccountFormState extends State<AddNewAccountForm> {
                   const SizedBox(
                     height: 16,
                   ),
-                  SelectAccountFormField(
+                  SelectAccountTypeFormField(
                     selectedType: _selectedAccountType,
                     onChanged: _handleSelectAccount,
                   ),

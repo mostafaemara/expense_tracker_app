@@ -35,8 +35,8 @@ class SetupAccountPage extends StatelessWidget {
                 height: 56,
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () =>
-                      context.navigateTo(const AddNewAccountRoute()),
+                  onPressed: () => context
+                      .navigateTo(AddNewAccountRoute(isSettingUpAccount: true)),
                   child: Text(AppLocalizations.of(context)!.letsGo),
                 ),
               ),

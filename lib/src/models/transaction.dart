@@ -1,3 +1,6 @@
+enum TransferType { to, from }
+enum TransactionType { expense, income, transfer }
+
 class Transaction {
   final DateTime date;
   final double amount;
@@ -45,8 +48,6 @@ class Income extends Transaction {
             attachment: attachment,
             date: date);
 }
-
-enum TransferType { to, from }
 
 class SentTransfer extends Transaction {
   final String targetWallet;
