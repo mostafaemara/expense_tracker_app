@@ -29,6 +29,7 @@ dependencies:
   fluttertoast:
   validators: ^3.0.0
   equatable: ^2.0.3
+  camera: ^0.9.4+5
   
 dev_dependencies:
   build_runner:

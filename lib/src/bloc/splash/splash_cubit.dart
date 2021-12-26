@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:expense_tracker_app/injection.dart';
 import 'package:expense_tracker_app/src/bloc/auth/auth_cubit.dart';
+
 import 'package:expense_tracker_app/src/repositories/user_repository.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -35,10 +36,6 @@ class SplashCubit extends Cubit<SplashState> {
     } else {
       emit(const SplashState.redirectToSetUpAccount());
     }
-  }
-
-  void init() async {
-    _authCubit.checkAuthState();
   }
 
   void dispose() {

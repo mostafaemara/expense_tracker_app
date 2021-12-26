@@ -1,4 +1,4 @@
-import 'package:auto_route/src/router/auto_router_x.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:expense_tracker_app/src/bloc/new_account/new_account_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/submission_state.dart';
 import 'package:expense_tracker_app/src/models/account.dart';
@@ -11,7 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../widgets/balance_text_field.dart';
 import 'account_name_form_field.dart';
 import '../../../widgets/select_account_type_form_field.dart';
-import 'submit_button.dart';
+import '../../../widgets/submit_button.dart';
 
 class AddNewAccountForm extends StatefulWidget {
   const AddNewAccountForm({
