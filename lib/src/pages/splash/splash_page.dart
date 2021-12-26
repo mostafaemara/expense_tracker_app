@@ -18,8 +18,9 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   void didChangeDependencies() {
-    context.read<AuthCubit>().checkAuthState();
     _splashBloc = SplashCubit(BlocProvider.of<AuthCubit>(context));
+    context.read<AuthCubit>().checkAuthState();
+
     super.didChangeDependencies();
   }
 

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart' as firebase;
 import 'package:expense_tracker_app/src/exceptions/server_exception.dart';
 import 'package:expense_tracker_app/src/models/transaction.dart';
 import 'package:expense_tracker_app/src/models/account.dart';
+import 'package:expense_tracker_app/src/models/transaction_input.dart';
 import 'package:expense_tracker_app/src/repositories/accounts_repository.dart';
 
 class FirestoreAccountsRepository implements AccountsRepository {
@@ -23,9 +24,15 @@ class FirestoreAccountsRepository implements AccountsRepository {
   }
 
   @override
-  Future<void> addTransaction(Transaction transaction) async {
-    // TODO: implement addTransaction
-    throw UnimplementedError();
+  Future<void> addTransaction(TransactionInput transaction, String uid) async {
+    try {
+      await _usersCollection
+          .doc(uid)
+          .collection("transactions")
+          .add(transaction.toMapByType());
+    } catch (e) {
+      throw ServerException();
+    }
   }
 
   @override

@@ -2,6 +2,7 @@ enum TransferType { to, from }
 enum TransactionType { expense, income, transfer }
 
 class Transaction {
+  final String id;
   final DateTime date;
   final double amount;
   final String description;
@@ -9,6 +10,7 @@ class Transaction {
   final String accountId;
   Transaction(
       {required this.date,
+      required this.id,
       required this.accountId,
       required this.amount,
       required this.description,
@@ -19,13 +21,15 @@ class Expense extends Transaction {
   final String category;
   Expense(
       {required DateTime date,
-      required String walletId,
+      required String accountId,
       required this.category,
       required double amount,
+      required String id,
       required String description,
       required String attachment})
       : super(
-            accountId: walletId,
+            id: id,
+            accountId: accountId,
             amount: amount,
             description: description,
             attachment: attachment,
@@ -37,12 +41,14 @@ class Income extends Transaction {
   Income(
       {required DateTime date,
       required this.category,
-      required String walletId,
+      required String accountId,
       required double amount,
+      required String id,
       required String description,
       required String attachment})
       : super(
-            accountId: walletId,
+            id: id,
+            accountId: accountId,
             amount: amount,
             description: description,
             attachment: attachment,
@@ -50,16 +56,18 @@ class Income extends Transaction {
 }
 
 class SentTransfer extends Transaction {
-  final String targetWallet;
+  final String targetAccountId;
   SentTransfer(
       {required DateTime date,
-      required this.targetWallet,
-      required String walletId,
+      required this.targetAccountId,
+      required String accountId,
+      required String id,
       required double amount,
       required String description,
       required String attachment})
       : super(
-            accountId: walletId,
+            id: id,
+            accountId: accountId,
             amount: amount,
             description: description,
             attachment: attachment,
@@ -67,16 +75,18 @@ class SentTransfer extends Transaction {
 }
 
 class RecivedTransfer extends Transaction {
-  final String targetWallet;
+  final String targetAccountId;
   RecivedTransfer(
       {required DateTime date,
-      required this.targetWallet,
-      required String walletId,
+      required this.targetAccountId,
+      required String accountId,
       required double amount,
       required String description,
+      required String id,
       required String attachment})
       : super(
-            accountId: walletId,
+            id: id,
+            accountId: accountId,
             amount: amount,
             description: description,
             attachment: attachment,
