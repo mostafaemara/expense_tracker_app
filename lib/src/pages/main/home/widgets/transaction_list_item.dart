@@ -1,13 +1,20 @@
+import 'package:expense_tracker_app/src/bloc/categories/categories_cubit.dart';
+import 'package:expense_tracker_app/src/models/transaction.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import "../../../../extenstions/category_helper.dart";
 
 class TransactionListItem extends StatelessWidget {
-  const TransactionListItem({Key? key}) : super(key: key);
+  const TransactionListItem({Key? key, required this.transaction})
+      : super(key: key);
+  final Transaction transaction;
 
   @override
   Widget build(BuildContext context) {
     final hour = DateFormat('hh:mm a').format(DateTime.now());
+    final categories = context.categories(transaction.getType());
+
     return Container(
       padding: const EdgeInsets.all(14),
       height: 90,
@@ -19,7 +26,7 @@ class TransactionListItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16)),
             height: 60,
             child: Image.asset(
-              "assets/images/expense.png",
+              categories.categoryIconById((transaction as Expense).category),
               color: AppColors.red,
             ),
           ),

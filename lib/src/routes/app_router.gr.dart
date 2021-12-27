@@ -199,7 +199,7 @@ class AccountAllSetRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [NewTransactionPage]
 class NewTransactionRoute extends PageRouteInfo<NewTransactionRouteArgs> {
-  NewTransactionRoute({Key? key, required TransactionType transactionType})
+  NewTransactionRoute({Key? key, required TransactionFormType transactionType})
       : super(NewTransactionRoute.name,
             path: '/new-transaction-page',
             args: NewTransactionRouteArgs(
@@ -213,7 +213,7 @@ class NewTransactionRouteArgs {
 
   final Key? key;
 
-  final TransactionType transactionType;
+  final TransactionFormType transactionType;
 
   @override
   String toString() {

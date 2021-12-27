@@ -1,7 +1,9 @@
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
+import 'package:expense_tracker_app/src/bloc/transactions/transactions_cubit.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'transaction_list.dart';
@@ -90,9 +92,15 @@ class _RecentTransactionState extends State<RecentTransaction>
                   child: Text(AppLocalizations.of(context)!.seeAll))
             ],
           ),
-          const SizedBox(
+          SizedBox(
             height: 290,
-            child: TransactionList(),
+            child: BlocBuilder<TransactionsCubit, TransactionsState>(
+              builder: (context, state) {
+                return TransactionList(
+                  transactions: state.transactions,
+                );
+              },
+            ),
           )
         ],
       ),
