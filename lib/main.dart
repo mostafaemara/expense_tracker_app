@@ -1,6 +1,7 @@
 import 'package:expense_tracker_app/src/bloc/accounts/accounts_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/categories/categories_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_cubit.dart';
+import 'package:expense_tracker_app/src/bloc/transactions/transactions_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -45,6 +46,11 @@ void main() async {
         lazy: false,
         create: (context) =>
             NewTransactionCubit(BlocProvider.of<AuthCubit>(context)),
+      ),
+      BlocProvider(
+        lazy: false,
+        create: (context) =>
+            TransactionsCubit(BlocProvider.of<AuthCubit>(context)),
       )
     ], child: MyApp()),
   );

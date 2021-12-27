@@ -8,7 +8,7 @@ import 'widgets/add_new_transfer_form.dart';
 import 'widgets/new_expense_form.dart';
 
 class NewTransactionPage extends StatelessWidget {
-  final TransactionType transactionType;
+  final TransactionFormType transactionType;
   const NewTransactionPage({Key? key, required this.transactionType})
       : super(key: key);
 
@@ -33,39 +33,39 @@ class NewTransactionPage extends StatelessWidget {
 
   Color _getBackgroundColor() {
     switch (transactionType) {
-      case TransactionType.expense:
+      case TransactionFormType.expense:
         return AppColors.red;
 
-      case TransactionType.income:
+      case TransactionFormType.income:
         return AppColors.green;
 
-      case TransactionType.transfer:
+      case TransactionFormType.transfer:
         return AppColors.blue;
     }
   }
 
   String _getPageTitle(BuildContext context) {
     switch (transactionType) {
-      case TransactionType.expense:
+      case TransactionFormType.expense:
         return AppLocalizations.of(context)!.expense;
 
-      case TransactionType.income:
+      case TransactionFormType.income:
         return AppLocalizations.of(context)!.income;
 
-      case TransactionType.transfer:
+      case TransactionFormType.transfer:
         return AppLocalizations.of(context)!.transfer;
     }
   }
 
   Widget _getForm() {
     switch (transactionType) {
-      case TransactionType.expense:
+      case TransactionFormType.expense:
         return const NewExpenseForm();
 
-      case TransactionType.income:
+      case TransactionFormType.income:
         return const NewExpenseForm();
 
-      case TransactionType.transfer:
+      case TransactionFormType.transfer:
         return const AddNewTransformForm();
     }
   }

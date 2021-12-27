@@ -1,4 +1,4 @@
-class TransactionInput {
+abstract class TransactionInput {
   final double amount;
   final String description;
   final String attachment;
@@ -9,18 +9,7 @@ class TransactionInput {
       required this.description,
       required this.attachment});
 
-  Map<String, dynamic> toMapByType() {
-    if (this is ExpenseInput) {
-      return (this as ExpenseInput).toMap("expense");
-    } else if (this is IncomeInput) {
-      return (this as IncomeInput).toMap("income");
-    } else if (this is SentTransferInput) {
-      return (this as IncomeInput).toMap("income");
-    } else if (this is RecivedTransferInput) {
-      return (this as IncomeInput).toMap("income");
-    }
-    throw Exception("Invalid Transaction Type");
-  }
+  Map<String, dynamic> toMap();
 }
 
 class ExpenseInput extends TransactionInput {
@@ -48,14 +37,15 @@ class ExpenseInput extends TransactionInput {
           attachment: transaction.attachment,
         );
 
-  Map<String, dynamic> toMap(String type) {
+  @override
+  Map<String, dynamic> toMap() {
     return {
       "accountId": accountId,
       "amount": amount,
       "description": description,
       "attachment": attachment,
       "category": category,
-      "type": type
+      "type": "expense"
     };
   }
 }
@@ -83,14 +73,15 @@ class IncomeInput extends TransactionInput {
           description: transaction.description,
           attachment: transaction.attachment,
         );
-  Map<String, dynamic> toMap(String type) {
+  @override
+  Map<String, dynamic> toMap() {
     return {
       "accountId": accountId,
       "amount": amount,
       "description": description,
       "attachment": attachment,
       "category": category,
-      "type": type
+      "type": "income"
     };
   }
 }
@@ -109,6 +100,18 @@ class SentTransferInput extends TransactionInput {
           description: description,
           attachment: attachment,
         );
+
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      "accountId": accountId,
+      "amount": amount,
+      "description": description,
+      "attachment": attachment,
+      "targetAccountId": targetAccountId,
+      "type": "sent"
+    };
+  }
 }
 
 class RecivedTransferInput extends TransactionInput {
@@ -125,4 +128,15 @@ class RecivedTransferInput extends TransactionInput {
           description: description,
           attachment: attachment,
         );
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      "accountId": accountId,
+      "amount": amount,
+      "description": description,
+      "attachment": attachment,
+      "targetAccountId": targetAccountId,
+      "type": "recived"
+    };
+  }
 }

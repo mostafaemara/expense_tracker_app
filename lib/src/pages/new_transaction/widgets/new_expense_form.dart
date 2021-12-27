@@ -9,7 +9,7 @@ import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/widgets/error_dialog.dart';
 import 'package:expense_tracker_app/src/widgets/loading_dialog.dart';
 import 'package:expense_tracker_app/src/widgets/submit_button.dart';
-import '../../../extenstions/transaction_input.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -163,16 +163,29 @@ class _NewExpenseFormState extends State<NewExpenseForm> {
     if (_formKey.currentState!.validate() &&
         _selectedAccountId != null &&
         _selectedCategoryId != null) {
-      final transactionType = context.read<TransactionType>();
-      final transactionInput = TransactionInput(
-              accountId: _selectedAccountId!,
-              amount: double.parse(_balanceController.text),
-              description: _descriptionController.text,
-              attachment: "")
-          .toInternalTransactionByType(transactionType, _selectedCategoryId!);
+      final transactionInput = _createTransaction();
 
       BlocProvider.of<NewTransactionCubit>(context)
           .addTransaction(transactionInput);
+    }
+  }
+
+  TransactionInput _createTransaction() {
+    final transactionType = context.read<TransactionType>();
+    if (transactionType == TransactionType.expense) {
+      return ExpenseInput(
+          accountId: _selectedAccountId!,
+          category: _selectedCategoryId!,
+          amount: double.parse(_balanceController.text),
+          description: _descriptionController.text,
+          attachment: "");
+    } else {
+      return IncomeInput(
+          accountId: _selectedAccountId!,
+          category: _selectedCategoryId!,
+          amount: double.parse(_balanceController.text),
+          description: _descriptionController.text,
+          attachment: "");
     }
   }
 
