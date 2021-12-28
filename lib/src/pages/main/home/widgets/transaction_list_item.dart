@@ -1,9 +1,11 @@
-import 'package:expense_tracker_app/src/bloc/categories/categories_cubit.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:expense_tracker_app/src/models/transaction.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import "../../../../extenstions/category_helper.dart";
+
+import "../../../../extenstions/transaction_helper.dart";
+import "../../../../extenstions/multilingual_helper.dart";
 
 class TransactionListItem extends StatelessWidget {
   const TransactionListItem({Key? key, required this.transaction})
@@ -12,8 +14,10 @@ class TransactionListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final type = transaction.getType();
+    final _transactionIconColor = context.transactionIconColor(type);
+    final _transactionBackgroundColor = context.transactionColor(type);
     final hour = DateFormat('hh:mm a').format(DateTime.now());
-    final categories = context.categories(transaction.getType());
 
     return Container(
       padding: const EdgeInsets.all(14),
@@ -21,15 +25,20 @@ class TransactionListItem extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            decoration: BoxDecoration(
-                color: AppColors.red20,
-                borderRadius: BorderRadius.circular(16)),
-            height: 60,
-            child: Image.asset(
-              categories.categoryIconById((transaction as Expense).category),
-              color: AppColors.red,
-            ),
-          ),
+              decoration: BoxDecoration(
+                  color: _transactionBackgroundColor,
+                  borderRadius: BorderRadius.circular(16)),
+              height: 60,
+              width: 60,
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: CachedNetworkImage(
+                  color: _transactionIconColor,
+                  height: 40,
+                  width: 40,
+                  imageUrl: context.transactionIconUrl(transaction),
+                ),
+              )),
           const SizedBox(
             width: 9,
           ),
@@ -40,14 +49,17 @@ class TransactionListItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Title",
+                  context
+                      .categoryTitle(transaction)
+                      .translate(context)
+                      .toUpperCase(),
                   style: Theme.of(context)
                       .textTheme
                       .subtitle1!
                       .copyWith(fontWeight: FontWeight.w600),
                 ),
                 Text(
-                  "Salary for July",
+                  transaction.description,
                   style: Theme.of(context)
                       .textTheme
                       .caption!
@@ -66,7 +78,8 @@ class TransactionListItem extends StatelessWidget {
                 Text(
                   "-\$80",
                   style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                      color: AppColors.red, fontWeight: FontWeight.w600),
+                      color: _transactionIconColor,
+                      fontWeight: FontWeight.w600),
                 ),
                 Text(
                   hour,

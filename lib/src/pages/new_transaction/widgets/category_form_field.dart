@@ -31,9 +31,9 @@ class CategoryFormField extends StatelessWidget {
   }
 
   List<Category> _readCategories(BuildContext context) {
-    final transactionType = context.read<TransactionType>();
+    final transactionType = context.read<TransactionFormType>();
     final categoriesState = context.read<CategoriesCubit>().state;
-    return transactionType == TransactionType.income
+    return transactionType == TransactionFormType.income
         ? categoriesState.incomeCategories
         : categoriesState.expenseCategories;
   }

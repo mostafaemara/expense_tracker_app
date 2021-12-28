@@ -171,8 +171,8 @@ class _NewExpenseFormState extends State<NewExpenseForm> {
   }
 
   TransactionInput _createTransaction() {
-    final transactionType = context.read<TransactionType>();
-    if (transactionType == TransactionType.expense) {
+    final transactionType = context.read<TransactionFormType>();
+    if (transactionType == TransactionFormType.expense) {
       return ExpenseInput(
           accountId: _selectedAccountId!,
           category: _selectedCategoryId!,

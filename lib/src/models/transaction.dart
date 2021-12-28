@@ -48,12 +48,17 @@ class Transaction {
   }
 }
 
-class Expense extends Transaction {
-  final String category;
+abstract class CategoryId {
+  final String categoryId;
+
+  CategoryId(this.categoryId);
+}
+
+class Expense extends Transaction implements CategoryId {
   Expense(
       {required DateTime date,
       required String accountId,
-      required this.category,
+      required this.categoryId,
       required double amount,
       required String id,
       required String description,
@@ -75,19 +80,20 @@ class Expense extends Transaction {
     return Expense(
         date: date,
         accountId: map["accountId"],
-        category: map["category"],
+        categoryId: map["category"],
         amount: map["amount"].toDouble(),
         id: doc.id,
         description: map["description"],
         attachment: map["attachment"]);
   }
+  @override
+  final String categoryId;
 }
 
-class Income extends Transaction {
-  final String category;
+class Income extends Transaction implements CategoryId {
   Income(
       {required DateTime date,
-      required this.category,
+      required this.categoryId,
       required String accountId,
       required double amount,
       required String id,
@@ -109,12 +115,15 @@ class Income extends Transaction {
     return Income(
         date: date,
         accountId: map["accountId"],
-        category: map["category"],
+        categoryId: map["category"],
         amount: map["amount"].toDouble(),
         id: doc.id,
         description: map["description"],
         attachment: map["attachment"]);
   }
+
+  @override
+  final String categoryId;
 }
 
 class SentTransfer extends Transaction {
