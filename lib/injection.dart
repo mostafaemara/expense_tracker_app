@@ -17,7 +17,7 @@ Future<void> initializeDependencies() async {
   locator.registerSingleton<UserRepository>(FirestoreUserRepository());
   locator.registerSingleton<AuthService>(AuthServiceImpl());
   locator.registerSingleton<AccountsRepository>(FirestoreAccountsRepository());
-  locator.registerSingleton<TransactionRepository>(FSTransactionRepository());
   locator.registerSingleton<CategoriesRepository>(
       CategoriesProxy(FSCategoriesRepository()));
+  locator.registerSingleton<TransactionRepository>(FSTransactionRepository());
 }

@@ -1,6 +1,7 @@
 import 'package:expense_tracker_app/src/bloc/categories/categories_cubit.dart';
 import 'package:expense_tracker_app/src/models/category.dart';
-import 'package:expense_tracker_app/src/models/transaction.dart';
+import 'package:expense_tracker_app/src/models/transaction_form_type.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,8 +34,10 @@ class CategoryFormField extends StatelessWidget {
   List<Category> _readCategories(BuildContext context) {
     final transactionType = context.read<TransactionFormType>();
     final categoriesState = context.read<CategoriesCubit>().state;
-    return transactionType == TransactionFormType.income
-        ? categoriesState.incomeCategories
-        : categoriesState.expenseCategories;
+    return transactionType.when(
+      expense: () => categoriesState.expenseCategories,
+      income: () => categoriesState.incomeCategories,
+      transfer: () => [],
+    );
   }
 }

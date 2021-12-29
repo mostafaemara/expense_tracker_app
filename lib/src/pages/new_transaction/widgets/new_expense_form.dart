@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/submission_state.dart';
+import 'package:expense_tracker_app/src/models/transaction_form_type.dart';
 
-import 'package:expense_tracker_app/src/models/transaction.dart';
 import 'package:expense_tracker_app/src/models/transaction_input.dart';
 import 'package:expense_tracker_app/src/pages/new_transaction/widgets/description_form_field.dart';
 import 'package:expense_tracker_app/src/routes/app_router.dart';
@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../widgets/balance_text_field.dart';
+
 import 'account_form_field.dart';
 import 'attachment_bottom_sheet.dart';
 import 'category_form_field.dart';
@@ -172,21 +173,19 @@ class _NewExpenseFormState extends State<NewExpenseForm> {
 
   TransactionInput _createTransaction() {
     final transactionType = context.read<TransactionFormType>();
-    if (transactionType == TransactionFormType.expense) {
-      return ExpenseInput(
-          accountId: _selectedAccountId!,
-          category: _selectedCategoryId!,
-          amount: double.parse(_balanceController.text),
-          description: _descriptionController.text,
-          attachment: "");
-    } else {
-      return IncomeInput(
-          accountId: _selectedAccountId!,
-          category: _selectedCategoryId!,
-          amount: double.parse(_balanceController.text),
-          description: _descriptionController.text,
-          attachment: "");
-    }
+    final transactionInputData = TransactionInputData(
+        accountId: _selectedAccountId!,
+        amount: double.parse(_balanceController.text),
+        description: _descriptionController.text,
+        attachment: "");
+
+    return transactionType.maybeWhen(
+        expense: () => TransactionInput.expense(
+            transactionInputData: transactionInputData,
+            category: _selectedCategoryId!),
+        orElse: () => TransactionInput.income(
+            transactionInputData: transactionInputData,
+            category: _selectedCategoryId!));
   }
 
   void _showErrorDialog(BuildContext context, String failure) {
