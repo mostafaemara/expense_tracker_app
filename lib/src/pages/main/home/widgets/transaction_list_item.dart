@@ -14,9 +14,9 @@ class TransactionListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final type = transaction.getType();
-    final _transactionIconColor = context.transactionIconColor(type);
-    final _transactionBackgroundColor = context.transactionColor(type);
+    final _transactionIconColor = context.transactionIconColor(transaction);
+    final _transactionBackgroundColor =
+        context.transactionBackgroundColor(transaction);
     final hour = DateFormat('hh:mm a').format(DateTime.now());
 
     return Container(
@@ -36,7 +36,7 @@ class TransactionListItem extends StatelessWidget {
                   color: _transactionIconColor,
                   height: 40,
                   width: 40,
-                  imageUrl: context.transactionIconUrl(transaction),
+                  imageUrl: transaction.category.iconUrl,
                 ),
               )),
           const SizedBox(
@@ -49,17 +49,14 @@ class TransactionListItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  context
-                      .categoryTitle(transaction)
-                      .translate(context)
-                      .toUpperCase(),
+                  transaction.category.title.translate(context).toUpperCase(),
                   style: Theme.of(context)
                       .textTheme
                       .subtitle1!
                       .copyWith(fontWeight: FontWeight.w600),
                 ),
                 Text(
-                  transaction.description,
+                  transaction.transactionData.description,
                   style: Theme.of(context)
                       .textTheme
                       .caption!

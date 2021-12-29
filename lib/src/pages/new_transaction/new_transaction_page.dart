@@ -1,4 +1,4 @@
-import 'package:expense_tracker_app/src/models/transaction.dart';
+import 'package:expense_tracker_app/src/models/transaction_form_type.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:expense_tracker_app/src/widgets/my_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -31,42 +31,19 @@ class NewTransactionPage extends StatelessWidget {
     );
   }
 
-  Color _getBackgroundColor() {
-    switch (transactionType) {
-      case TransactionFormType.expense:
-        return AppColors.red;
+  Color _getBackgroundColor() => transactionType.when(
+        expense: () => AppColors.red,
+        income: () => AppColors.green,
+        transfer: () => AppColors.blue,
+      );
+  String _getPageTitle(BuildContext context) => transactionType.when(
+        expense: () => AppLocalizations.of(context)!.expense,
+        income: () => AppLocalizations.of(context)!.income,
+        transfer: () => AppLocalizations.of(context)!.transfer,
+      );
 
-      case TransactionFormType.income:
-        return AppColors.green;
-
-      case TransactionFormType.transfer:
-        return AppColors.blue;
-    }
-  }
-
-  String _getPageTitle(BuildContext context) {
-    switch (transactionType) {
-      case TransactionFormType.expense:
-        return AppLocalizations.of(context)!.expense;
-
-      case TransactionFormType.income:
-        return AppLocalizations.of(context)!.income;
-
-      case TransactionFormType.transfer:
-        return AppLocalizations.of(context)!.transfer;
-    }
-  }
-
-  Widget _getForm() {
-    switch (transactionType) {
-      case TransactionFormType.expense:
-        return const NewExpenseForm();
-
-      case TransactionFormType.income:
-        return const NewExpenseForm();
-
-      case TransactionFormType.transfer:
-        return const AddNewTransformForm();
-    }
-  }
+  Widget _getForm() => transactionType.maybeWhen(
+        transfer: () => const AddNewTransformForm(),
+        orElse: () => const NewExpenseForm(),
+      );
 }

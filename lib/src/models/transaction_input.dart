@@ -1,142 +1,84 @@
-abstract class TransactionInput {
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'transaction_input.freezed.dart';
+
+@freezed
+abstract class TransactionInput with _$TransactionInput {
+  const TransactionInput._();
+  const factory TransactionInput.expense(
+      {required TransactionInputData transactionInputData,
+      required String category}) = _ExpenseInput;
+  const factory TransactionInput.income(
+      {required TransactionInputData transactionInputData,
+      required String category}) = _IncomeInput;
+  const factory TransactionInput.sentTransfer(
+      {required TransactionInputData transactionInputData,
+      required String targetAccountId}) = _SentTransferInput;
+  const factory TransactionInput.recivedTransfer(
+      {required TransactionInputData transactionInputData,
+      required String targetAccountId}) = _RecivedTransferInput;
+
+  Map<String, dynamic> toMap() {
+    return when(
+        expense: _expenseToMap,
+        income: _incomeToMap,
+        sentTransfer: _sentTransferToMap,
+        recivedTransfer: _recivedTransferToMap);
+  }
+
+  Map<String, dynamic> _expenseToMap(
+      TransactionInputData transactionInputData, String category) {
+    return {
+      ...transactionInputData.toMap(),
+      'category': category,
+      "type": "expense"
+    };
+  }
+
+  Map<String, dynamic> _incomeToMap(
+      TransactionInputData transactionInputData, String category) {
+    return {
+      ...transactionInputData.toMap(),
+      'category': category,
+      "type": "income"
+    };
+  }
+
+  Map<String, dynamic> _sentTransferToMap(
+      TransactionInputData transactionInputData, String targetAccountId) {
+    return {
+      ...transactionInputData.toMap(),
+      'targetAccount': targetAccountId,
+      "type": "sent"
+    };
+  }
+
+  Map<String, dynamic> _recivedTransferToMap(
+      TransactionInputData transactionInputData, String targetAccountId) {
+    return {
+      ...transactionInputData.toMap(),
+      'targetAccount': targetAccountId,
+      "type": "recived"
+    };
+  }
+}
+
+class TransactionInputData {
   final double amount;
   final String description;
   final String attachment;
   final String accountId;
-  TransactionInput(
+  TransactionInputData(
       {required this.accountId,
       required this.amount,
       required this.description,
       required this.attachment});
 
-  Map<String, dynamic> toMap();
-}
-
-class ExpenseInput extends TransactionInput {
-  final String category;
-  ExpenseInput(
-      {required String accountId,
-      required this.category,
-      required double amount,
-      required String description,
-      required String attachment})
-      : super(
-          accountId: accountId,
-          amount: amount,
-          description: description,
-          attachment: attachment,
-        );
-
-  ExpenseInput.fromTransaction({
-    required TransactionInput transaction,
-    required this.category,
-  }) : super(
-          accountId: transaction.accountId,
-          amount: transaction.amount,
-          description: transaction.description,
-          attachment: transaction.attachment,
-        );
-
-  @override
   Map<String, dynamic> toMap() {
     return {
       "accountId": accountId,
       "amount": amount,
       "description": description,
       "attachment": attachment,
-      "category": category,
-      "type": "expense"
-    };
-  }
-}
-
-class IncomeInput extends TransactionInput {
-  final String category;
-  IncomeInput(
-      {required this.category,
-      required String accountId,
-      required double amount,
-      required String description,
-      required String attachment})
-      : super(
-          accountId: accountId,
-          amount: amount,
-          description: description,
-          attachment: attachment,
-        );
-  IncomeInput.fromTransaction({
-    required TransactionInput transaction,
-    required this.category,
-  }) : super(
-          accountId: transaction.accountId,
-          amount: transaction.amount,
-          description: transaction.description,
-          attachment: transaction.attachment,
-        );
-  @override
-  Map<String, dynamic> toMap() {
-    return {
-      "accountId": accountId,
-      "amount": amount,
-      "description": description,
-      "attachment": attachment,
-      "category": category,
-      "type": "income"
-    };
-  }
-}
-
-class SentTransferInput extends TransactionInput {
-  final String targetAccountId;
-  SentTransferInput(
-      {required this.targetAccountId,
-      required String accountId,
-      required double amount,
-      required String description,
-      required String attachment})
-      : super(
-          accountId: accountId,
-          amount: amount,
-          description: description,
-          attachment: attachment,
-        );
-
-  @override
-  Map<String, dynamic> toMap() {
-    return {
-      "accountId": accountId,
-      "amount": amount,
-      "description": description,
-      "attachment": attachment,
-      "targetAccountId": targetAccountId,
-      "type": "sent"
-    };
-  }
-}
-
-class RecivedTransferInput extends TransactionInput {
-  final String targetAccountId;
-  RecivedTransferInput(
-      {required this.targetAccountId,
-      required String accountId,
-      required double amount,
-      required String description,
-      required String attachment})
-      : super(
-          accountId: accountId,
-          amount: amount,
-          description: description,
-          attachment: attachment,
-        );
-  @override
-  Map<String, dynamic> toMap() {
-    return {
-      "accountId": accountId,
-      "amount": amount,
-      "description": description,
-      "attachment": attachment,
-      "targetAccountId": targetAccountId,
-      "type": "recived"
     };
   }
 }
