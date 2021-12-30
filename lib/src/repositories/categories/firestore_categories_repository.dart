@@ -65,4 +65,10 @@ class FSCategoriesRepository implements CategoriesRepository {
     // TODO: implement getTransferCategories
     throw UnimplementedError();
   }
+
+  @override
+  Future<Category> getCategoryById(String id) {
+    // TODO: implement getCategoryById
+    throw UnimplementedError();
+  }
 }

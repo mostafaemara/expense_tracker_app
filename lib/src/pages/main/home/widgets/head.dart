@@ -15,7 +15,6 @@ class Head extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       alignment: Alignment.topCenter,
-      height: 312,
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(50),

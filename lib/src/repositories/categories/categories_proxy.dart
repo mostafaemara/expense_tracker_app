@@ -32,4 +32,13 @@ class CategoriesProxy implements CategoriesRepository {
     // TODO: implement getTransferCategories
     throw UnimplementedError();
   }
+
+  @override
+  Future<Category> getCategoryById(String id) async {
+    _categories ??= await _categoriesRepository.getAllCategories();
+
+    return _categories!.firstWhere(
+      (element) => element.id == id,
+    );
+  }
 }

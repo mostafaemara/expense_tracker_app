@@ -1,14 +1,32 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import "../extenstions/account_type_mapper.dart";
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-enum AccountType { bankAccount, wallet }
+part "account.freezed.dart";
+
+@freezed
+abstract class AccountType with _$AccountType {
+  const AccountType._();
+  const factory AccountType.wallet() = _Wallet;
+  const factory AccountType.bankAccount() = _BanckAccount;
+
+  String toMap() => when(
+        wallet: () => "wallet",
+        bankAccount: () => "bankAccount",
+      );
+
+  factory AccountType.fromMap(String value) {
+    switch (value) {
+      case "wallet":
+        return const AccountType.wallet();
+      case "bankAccount":
+        return const AccountType.bankAccount();
+      default:
+        throw Exception("invalid Account Type");
+    }
+  }
+}
 
 class Account {
-  Account.input(
-      {required this.balance,
-      required this.title,
-      this.id = "",
-      required this.accountType});
   Account(
       {required this.balance,
       required this.title,
@@ -23,7 +41,7 @@ class Account {
         balance: map["balance"].toDouble(),
         title: map["title"],
         id: doc.id,
-        accountType: (map["type"] as String).toAccountType());
+        accountType: AccountType.fromMap(map["type"]));
   }
   final String title;
   final AccountType accountType;
@@ -33,31 +51,30 @@ class Account {
   Map<String, dynamic> toMap() {
     return {
       "title": title,
-      "type": accountType.toKey(),
+      "type": accountType.toMap(),
+      "balance": balance,
+    };
+  }
+}
+
+class AccountInput {
+  AccountInput(
+      {required this.balance, required this.title, required this.accountType});
+
+  final String title;
+  final AccountType accountType;
+  final double balance;
+
+  Map<String, dynamic> toMap() {
+    return {
+      "title": title,
+      "type": accountType.toMap(),
       "balance": balance,
     };
   }
 
-  Account copyWithId(String id) =>
-      Account(accountType: accountType, balance: balance, title: title, id: id);
-
-  // double get balance {
-  //   double _balance = 0;
-  //   for (final transaction in transactions) {
-  //     if (transaction is Expense) {
-  //       _balance -= transaction.amount;
-  //     }
-  //     if (transaction is Income) {
-  //       _balance += transaction.amount;
-  //     }
-  //     if (transactions is SentTransfer) {
-  //       _balance -= transaction.amount;
-  //     }
-
-  //     if (transaction is RecivedTransfer) {
-  //       _balance += transaction.amount;
-  //     }
-  //   }
-  //   return _balance;
-  // }
+  Account toAccount(String id) {
+    return Account(
+        balance: balance, title: title, id: id, accountType: accountType);
+  }
 }

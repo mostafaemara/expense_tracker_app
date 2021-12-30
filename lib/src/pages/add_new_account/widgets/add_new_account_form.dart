@@ -102,7 +102,7 @@ class _AddNewAccountFormState extends State<AddNewAccountForm> {
 
   void _handleSubmittion() {
     if (_formKey.currentState!.validate() && _selectedAccountType != null) {
-      final newAccount = Account.input(
+      final newAccount = AccountInput(
           balance: double.parse(_balanceController.text),
           title: _accountNameController.text,
           accountType: _selectedAccountType!);

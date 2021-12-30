@@ -14,98 +14,53 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$TransactionTearOff {
-  const _$TransactionTearOff();
+class _$TransactionTypeTearOff {
+  const _$TransactionTypeTearOff();
 
-  _Expense expense(
-      {required TransactionData transactionData, required Category category}) {
-    return _Expense(
-      transactionData: transactionData,
-      category: category,
-    );
+  _Expense expense() {
+    return const _Expense();
   }
 
-  _Income income(
-      {required TransactionData transactionData, required Category category}) {
-    return _Income(
-      transactionData: transactionData,
-      category: category,
-    );
+  _Income income() {
+    return const _Income();
   }
 
-  _SentTransfer sentTransfer(
-      {required TransactionData transactionData,
-      required Category category,
-      required String targetAccountId}) {
-    return _SentTransfer(
-      transactionData: transactionData,
-      category: category,
-      targetAccountId: targetAccountId,
-    );
+  _SentTransfer sentTransfer() {
+    return const _SentTransfer();
   }
 
-  _RecivedTransfer recivedTransfer(
-      {required TransactionData transactionData,
-      required Category category,
-      required String targetAccountId}) {
-    return _RecivedTransfer(
-      transactionData: transactionData,
-      category: category,
-      targetAccountId: targetAccountId,
-    );
+  _RecivedTransfer recivedTransfer() {
+    return const _RecivedTransfer();
   }
 }
 
 /// @nodoc
-const $Transaction = _$TransactionTearOff();
+const $TransactionType = _$TransactionTypeTearOff();
 
 /// @nodoc
-mixin _$Transaction {
-  TransactionData get transactionData => throw _privateConstructorUsedError;
-  Category get category => throw _privateConstructorUsedError;
-
+mixin _$TransactionType {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            TransactionData transactionData, Category category)
-        expense,
-    required TResult Function(
-            TransactionData transactionData, Category category)
-        income,
-    required TResult Function(TransactionData transactionData,
-            Category category, String targetAccountId)
-        sentTransfer,
-    required TResult Function(TransactionData transactionData,
-            Category category, String targetAccountId)
-        recivedTransfer,
+    required TResult Function() expense,
+    required TResult Function() income,
+    required TResult Function() sentTransfer,
+    required TResult Function() recivedTransfer,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(TransactionData transactionData, Category category)?
-        expense,
-    TResult Function(TransactionData transactionData, Category category)?
-        income,
-    TResult Function(TransactionData transactionData, Category category,
-            String targetAccountId)?
-        sentTransfer,
-    TResult Function(TransactionData transactionData, Category category,
-            String targetAccountId)?
-        recivedTransfer,
+    TResult Function()? expense,
+    TResult Function()? income,
+    TResult Function()? sentTransfer,
+    TResult Function()? recivedTransfer,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TransactionData transactionData, Category category)?
-        expense,
-    TResult Function(TransactionData transactionData, Category category)?
-        income,
-    TResult Function(TransactionData transactionData, Category category,
-            String targetAccountId)?
-        sentTransfer,
-    TResult Function(TransactionData transactionData, Category category,
-            String targetAccountId)?
-        recivedTransfer,
+    TResult Function()? expense,
+    TResult Function()? income,
+    TResult Function()? sentTransfer,
+    TResult Function()? recivedTransfer,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -134,170 +89,93 @@ mixin _$Transaction {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $TransactionCopyWith<Transaction> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TransactionCopyWith<$Res> {
-  factory $TransactionCopyWith(
-          Transaction value, $Res Function(Transaction) then) =
-      _$TransactionCopyWithImpl<$Res>;
-  $Res call({TransactionData transactionData, Category category});
+abstract class $TransactionTypeCopyWith<$Res> {
+  factory $TransactionTypeCopyWith(
+          TransactionType value, $Res Function(TransactionType) then) =
+      _$TransactionTypeCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$TransactionCopyWithImpl<$Res> implements $TransactionCopyWith<$Res> {
-  _$TransactionCopyWithImpl(this._value, this._then);
+class _$TransactionTypeCopyWithImpl<$Res>
+    implements $TransactionTypeCopyWith<$Res> {
+  _$TransactionTypeCopyWithImpl(this._value, this._then);
 
-  final Transaction _value;
+  final TransactionType _value;
   // ignore: unused_field
-  final $Res Function(Transaction) _then;
-
-  @override
-  $Res call({
-    Object? transactionData = freezed,
-    Object? category = freezed,
-  }) {
-    return _then(_value.copyWith(
-      transactionData: transactionData == freezed
-          ? _value.transactionData
-          : transactionData // ignore: cast_nullable_to_non_nullable
-              as TransactionData,
-      category: category == freezed
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as Category,
-    ));
-  }
+  final $Res Function(TransactionType) _then;
 }
 
 /// @nodoc
-abstract class _$ExpenseCopyWith<$Res> implements $TransactionCopyWith<$Res> {
+abstract class _$ExpenseCopyWith<$Res> {
   factory _$ExpenseCopyWith(_Expense value, $Res Function(_Expense) then) =
       __$ExpenseCopyWithImpl<$Res>;
-  @override
-  $Res call({TransactionData transactionData, Category category});
 }
 
 /// @nodoc
-class __$ExpenseCopyWithImpl<$Res> extends _$TransactionCopyWithImpl<$Res>
+class __$ExpenseCopyWithImpl<$Res> extends _$TransactionTypeCopyWithImpl<$Res>
     implements _$ExpenseCopyWith<$Res> {
   __$ExpenseCopyWithImpl(_Expense _value, $Res Function(_Expense) _then)
       : super(_value, (v) => _then(v as _Expense));
 
   @override
   _Expense get _value => super._value as _Expense;
-
-  @override
-  $Res call({
-    Object? transactionData = freezed,
-    Object? category = freezed,
-  }) {
-    return _then(_Expense(
-      transactionData: transactionData == freezed
-          ? _value.transactionData
-          : transactionData // ignore: cast_nullable_to_non_nullable
-              as TransactionData,
-      category: category == freezed
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as Category,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$_Expense implements _Expense {
-  const _$_Expense({required this.transactionData, required this.category});
-
-  @override
-  final TransactionData transactionData;
-  @override
-  final Category category;
+  const _$_Expense();
 
   @override
   String toString() {
-    return 'Transaction.expense(transactionData: $transactionData, category: $category)';
+    return 'TransactionType.expense()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _Expense &&
-            const DeepCollectionEquality()
-                .equals(other.transactionData, transactionData) &&
-            const DeepCollectionEquality().equals(other.category, category));
+        (other.runtimeType == runtimeType && other is _Expense);
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(transactionData),
-      const DeepCollectionEquality().hash(category));
-
-  @JsonKey(ignore: true)
-  @override
-  _$ExpenseCopyWith<_Expense> get copyWith =>
-      __$ExpenseCopyWithImpl<_Expense>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            TransactionData transactionData, Category category)
-        expense,
-    required TResult Function(
-            TransactionData transactionData, Category category)
-        income,
-    required TResult Function(TransactionData transactionData,
-            Category category, String targetAccountId)
-        sentTransfer,
-    required TResult Function(TransactionData transactionData,
-            Category category, String targetAccountId)
-        recivedTransfer,
+    required TResult Function() expense,
+    required TResult Function() income,
+    required TResult Function() sentTransfer,
+    required TResult Function() recivedTransfer,
   }) {
-    return expense(transactionData, category);
+    return expense();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(TransactionData transactionData, Category category)?
-        expense,
-    TResult Function(TransactionData transactionData, Category category)?
-        income,
-    TResult Function(TransactionData transactionData, Category category,
-            String targetAccountId)?
-        sentTransfer,
-    TResult Function(TransactionData transactionData, Category category,
-            String targetAccountId)?
-        recivedTransfer,
+    TResult Function()? expense,
+    TResult Function()? income,
+    TResult Function()? sentTransfer,
+    TResult Function()? recivedTransfer,
   }) {
-    return expense?.call(transactionData, category);
+    return expense?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TransactionData transactionData, Category category)?
-        expense,
-    TResult Function(TransactionData transactionData, Category category)?
-        income,
-    TResult Function(TransactionData transactionData, Category category,
-            String targetAccountId)?
-        sentTransfer,
-    TResult Function(TransactionData transactionData, Category category,
-            String targetAccountId)?
-        recivedTransfer,
+    TResult Function()? expense,
+    TResult Function()? income,
+    TResult Function()? sentTransfer,
+    TResult Function()? recivedTransfer,
     required TResult orElse(),
   }) {
     if (expense != null) {
-      return expense(transactionData, category);
+      return expense();
     }
     return orElse();
   }
@@ -340,145 +218,78 @@ class _$_Expense implements _Expense {
   }
 }
 
-abstract class _Expense implements Transaction {
-  const factory _Expense(
-      {required TransactionData transactionData,
-      required Category category}) = _$_Expense;
-
-  @override
-  TransactionData get transactionData;
-  @override
-  Category get category;
-  @override
-  @JsonKey(ignore: true)
-  _$ExpenseCopyWith<_Expense> get copyWith =>
-      throw _privateConstructorUsedError;
+abstract class _Expense implements TransactionType {
+  const factory _Expense() = _$_Expense;
 }
 
 /// @nodoc
-abstract class _$IncomeCopyWith<$Res> implements $TransactionCopyWith<$Res> {
+abstract class _$IncomeCopyWith<$Res> {
   factory _$IncomeCopyWith(_Income value, $Res Function(_Income) then) =
       __$IncomeCopyWithImpl<$Res>;
-  @override
-  $Res call({TransactionData transactionData, Category category});
 }
 
 /// @nodoc
-class __$IncomeCopyWithImpl<$Res> extends _$TransactionCopyWithImpl<$Res>
+class __$IncomeCopyWithImpl<$Res> extends _$TransactionTypeCopyWithImpl<$Res>
     implements _$IncomeCopyWith<$Res> {
   __$IncomeCopyWithImpl(_Income _value, $Res Function(_Income) _then)
       : super(_value, (v) => _then(v as _Income));
 
   @override
   _Income get _value => super._value as _Income;
-
-  @override
-  $Res call({
-    Object? transactionData = freezed,
-    Object? category = freezed,
-  }) {
-    return _then(_Income(
-      transactionData: transactionData == freezed
-          ? _value.transactionData
-          : transactionData // ignore: cast_nullable_to_non_nullable
-              as TransactionData,
-      category: category == freezed
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as Category,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$_Income implements _Income {
-  const _$_Income({required this.transactionData, required this.category});
-
-  @override
-  final TransactionData transactionData;
-  @override
-  final Category category;
+  const _$_Income();
 
   @override
   String toString() {
-    return 'Transaction.income(transactionData: $transactionData, category: $category)';
+    return 'TransactionType.income()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _Income &&
-            const DeepCollectionEquality()
-                .equals(other.transactionData, transactionData) &&
-            const DeepCollectionEquality().equals(other.category, category));
+        (other.runtimeType == runtimeType && other is _Income);
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(transactionData),
-      const DeepCollectionEquality().hash(category));
-
-  @JsonKey(ignore: true)
-  @override
-  _$IncomeCopyWith<_Income> get copyWith =>
-      __$IncomeCopyWithImpl<_Income>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            TransactionData transactionData, Category category)
-        expense,
-    required TResult Function(
-            TransactionData transactionData, Category category)
-        income,
-    required TResult Function(TransactionData transactionData,
-            Category category, String targetAccountId)
-        sentTransfer,
-    required TResult Function(TransactionData transactionData,
-            Category category, String targetAccountId)
-        recivedTransfer,
+    required TResult Function() expense,
+    required TResult Function() income,
+    required TResult Function() sentTransfer,
+    required TResult Function() recivedTransfer,
   }) {
-    return income(transactionData, category);
+    return income();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(TransactionData transactionData, Category category)?
-        expense,
-    TResult Function(TransactionData transactionData, Category category)?
-        income,
-    TResult Function(TransactionData transactionData, Category category,
-            String targetAccountId)?
-        sentTransfer,
-    TResult Function(TransactionData transactionData, Category category,
-            String targetAccountId)?
-        recivedTransfer,
+    TResult Function()? expense,
+    TResult Function()? income,
+    TResult Function()? sentTransfer,
+    TResult Function()? recivedTransfer,
   }) {
-    return income?.call(transactionData, category);
+    return income?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TransactionData transactionData, Category category)?
-        expense,
-    TResult Function(TransactionData transactionData, Category category)?
-        income,
-    TResult Function(TransactionData transactionData, Category category,
-            String targetAccountId)?
-        sentTransfer,
-    TResult Function(TransactionData transactionData, Category category,
-            String targetAccountId)?
-        recivedTransfer,
+    TResult Function()? expense,
+    TResult Function()? income,
+    TResult Function()? sentTransfer,
+    TResult Function()? recivedTransfer,
     required TResult orElse(),
   }) {
     if (income != null) {
-      return income(transactionData, category);
+      return income();
     }
     return orElse();
   }
@@ -521,35 +332,20 @@ class _$_Income implements _Income {
   }
 }
 
-abstract class _Income implements Transaction {
-  const factory _Income(
-      {required TransactionData transactionData,
-      required Category category}) = _$_Income;
-
-  @override
-  TransactionData get transactionData;
-  @override
-  Category get category;
-  @override
-  @JsonKey(ignore: true)
-  _$IncomeCopyWith<_Income> get copyWith => throw _privateConstructorUsedError;
+abstract class _Income implements TransactionType {
+  const factory _Income() = _$_Income;
 }
 
 /// @nodoc
-abstract class _$SentTransferCopyWith<$Res>
-    implements $TransactionCopyWith<$Res> {
+abstract class _$SentTransferCopyWith<$Res> {
   factory _$SentTransferCopyWith(
           _SentTransfer value, $Res Function(_SentTransfer) then) =
       __$SentTransferCopyWithImpl<$Res>;
-  @override
-  $Res call(
-      {TransactionData transactionData,
-      Category category,
-      String targetAccountId});
 }
 
 /// @nodoc
-class __$SentTransferCopyWithImpl<$Res> extends _$TransactionCopyWithImpl<$Res>
+class __$SentTransferCopyWithImpl<$Res>
+    extends _$TransactionTypeCopyWithImpl<$Res>
     implements _$SentTransferCopyWith<$Res> {
   __$SentTransferCopyWithImpl(
       _SentTransfer _value, $Res Function(_SentTransfer) _then)
@@ -557,127 +353,60 @@ class __$SentTransferCopyWithImpl<$Res> extends _$TransactionCopyWithImpl<$Res>
 
   @override
   _SentTransfer get _value => super._value as _SentTransfer;
-
-  @override
-  $Res call({
-    Object? transactionData = freezed,
-    Object? category = freezed,
-    Object? targetAccountId = freezed,
-  }) {
-    return _then(_SentTransfer(
-      transactionData: transactionData == freezed
-          ? _value.transactionData
-          : transactionData // ignore: cast_nullable_to_non_nullable
-              as TransactionData,
-      category: category == freezed
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as Category,
-      targetAccountId: targetAccountId == freezed
-          ? _value.targetAccountId
-          : targetAccountId // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$_SentTransfer implements _SentTransfer {
-  const _$_SentTransfer(
-      {required this.transactionData,
-      required this.category,
-      required this.targetAccountId});
-
-  @override
-  final TransactionData transactionData;
-  @override
-  final Category category;
-  @override
-  final String targetAccountId;
+  const _$_SentTransfer();
 
   @override
   String toString() {
-    return 'Transaction.sentTransfer(transactionData: $transactionData, category: $category, targetAccountId: $targetAccountId)';
+    return 'TransactionType.sentTransfer()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _SentTransfer &&
-            const DeepCollectionEquality()
-                .equals(other.transactionData, transactionData) &&
-            const DeepCollectionEquality().equals(other.category, category) &&
-            const DeepCollectionEquality()
-                .equals(other.targetAccountId, targetAccountId));
+        (other.runtimeType == runtimeType && other is _SentTransfer);
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(transactionData),
-      const DeepCollectionEquality().hash(category),
-      const DeepCollectionEquality().hash(targetAccountId));
-
-  @JsonKey(ignore: true)
-  @override
-  _$SentTransferCopyWith<_SentTransfer> get copyWith =>
-      __$SentTransferCopyWithImpl<_SentTransfer>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            TransactionData transactionData, Category category)
-        expense,
-    required TResult Function(
-            TransactionData transactionData, Category category)
-        income,
-    required TResult Function(TransactionData transactionData,
-            Category category, String targetAccountId)
-        sentTransfer,
-    required TResult Function(TransactionData transactionData,
-            Category category, String targetAccountId)
-        recivedTransfer,
+    required TResult Function() expense,
+    required TResult Function() income,
+    required TResult Function() sentTransfer,
+    required TResult Function() recivedTransfer,
   }) {
-    return sentTransfer(transactionData, category, targetAccountId);
+    return sentTransfer();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(TransactionData transactionData, Category category)?
-        expense,
-    TResult Function(TransactionData transactionData, Category category)?
-        income,
-    TResult Function(TransactionData transactionData, Category category,
-            String targetAccountId)?
-        sentTransfer,
-    TResult Function(TransactionData transactionData, Category category,
-            String targetAccountId)?
-        recivedTransfer,
+    TResult Function()? expense,
+    TResult Function()? income,
+    TResult Function()? sentTransfer,
+    TResult Function()? recivedTransfer,
   }) {
-    return sentTransfer?.call(transactionData, category, targetAccountId);
+    return sentTransfer?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TransactionData transactionData, Category category)?
-        expense,
-    TResult Function(TransactionData transactionData, Category category)?
-        income,
-    TResult Function(TransactionData transactionData, Category category,
-            String targetAccountId)?
-        sentTransfer,
-    TResult Function(TransactionData transactionData, Category category,
-            String targetAccountId)?
-        recivedTransfer,
+    TResult Function()? expense,
+    TResult Function()? income,
+    TResult Function()? sentTransfer,
+    TResult Function()? recivedTransfer,
     required TResult orElse(),
   }) {
     if (sentTransfer != null) {
-      return sentTransfer(transactionData, category, targetAccountId);
+      return sentTransfer();
     }
     return orElse();
   }
@@ -720,39 +449,20 @@ class _$_SentTransfer implements _SentTransfer {
   }
 }
 
-abstract class _SentTransfer implements Transaction {
-  const factory _SentTransfer(
-      {required TransactionData transactionData,
-      required Category category,
-      required String targetAccountId}) = _$_SentTransfer;
-
-  @override
-  TransactionData get transactionData;
-  @override
-  Category get category;
-  String get targetAccountId;
-  @override
-  @JsonKey(ignore: true)
-  _$SentTransferCopyWith<_SentTransfer> get copyWith =>
-      throw _privateConstructorUsedError;
+abstract class _SentTransfer implements TransactionType {
+  const factory _SentTransfer() = _$_SentTransfer;
 }
 
 /// @nodoc
-abstract class _$RecivedTransferCopyWith<$Res>
-    implements $TransactionCopyWith<$Res> {
+abstract class _$RecivedTransferCopyWith<$Res> {
   factory _$RecivedTransferCopyWith(
           _RecivedTransfer value, $Res Function(_RecivedTransfer) then) =
       __$RecivedTransferCopyWithImpl<$Res>;
-  @override
-  $Res call(
-      {TransactionData transactionData,
-      Category category,
-      String targetAccountId});
 }
 
 /// @nodoc
 class __$RecivedTransferCopyWithImpl<$Res>
-    extends _$TransactionCopyWithImpl<$Res>
+    extends _$TransactionTypeCopyWithImpl<$Res>
     implements _$RecivedTransferCopyWith<$Res> {
   __$RecivedTransferCopyWithImpl(
       _RecivedTransfer _value, $Res Function(_RecivedTransfer) _then)
@@ -760,127 +470,60 @@ class __$RecivedTransferCopyWithImpl<$Res>
 
   @override
   _RecivedTransfer get _value => super._value as _RecivedTransfer;
-
-  @override
-  $Res call({
-    Object? transactionData = freezed,
-    Object? category = freezed,
-    Object? targetAccountId = freezed,
-  }) {
-    return _then(_RecivedTransfer(
-      transactionData: transactionData == freezed
-          ? _value.transactionData
-          : transactionData // ignore: cast_nullable_to_non_nullable
-              as TransactionData,
-      category: category == freezed
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as Category,
-      targetAccountId: targetAccountId == freezed
-          ? _value.targetAccountId
-          : targetAccountId // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$_RecivedTransfer implements _RecivedTransfer {
-  const _$_RecivedTransfer(
-      {required this.transactionData,
-      required this.category,
-      required this.targetAccountId});
-
-  @override
-  final TransactionData transactionData;
-  @override
-  final Category category;
-  @override
-  final String targetAccountId;
+  const _$_RecivedTransfer();
 
   @override
   String toString() {
-    return 'Transaction.recivedTransfer(transactionData: $transactionData, category: $category, targetAccountId: $targetAccountId)';
+    return 'TransactionType.recivedTransfer()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _RecivedTransfer &&
-            const DeepCollectionEquality()
-                .equals(other.transactionData, transactionData) &&
-            const DeepCollectionEquality().equals(other.category, category) &&
-            const DeepCollectionEquality()
-                .equals(other.targetAccountId, targetAccountId));
+        (other.runtimeType == runtimeType && other is _RecivedTransfer);
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(transactionData),
-      const DeepCollectionEquality().hash(category),
-      const DeepCollectionEquality().hash(targetAccountId));
-
-  @JsonKey(ignore: true)
-  @override
-  _$RecivedTransferCopyWith<_RecivedTransfer> get copyWith =>
-      __$RecivedTransferCopyWithImpl<_RecivedTransfer>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            TransactionData transactionData, Category category)
-        expense,
-    required TResult Function(
-            TransactionData transactionData, Category category)
-        income,
-    required TResult Function(TransactionData transactionData,
-            Category category, String targetAccountId)
-        sentTransfer,
-    required TResult Function(TransactionData transactionData,
-            Category category, String targetAccountId)
-        recivedTransfer,
+    required TResult Function() expense,
+    required TResult Function() income,
+    required TResult Function() sentTransfer,
+    required TResult Function() recivedTransfer,
   }) {
-    return recivedTransfer(transactionData, category, targetAccountId);
+    return recivedTransfer();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(TransactionData transactionData, Category category)?
-        expense,
-    TResult Function(TransactionData transactionData, Category category)?
-        income,
-    TResult Function(TransactionData transactionData, Category category,
-            String targetAccountId)?
-        sentTransfer,
-    TResult Function(TransactionData transactionData, Category category,
-            String targetAccountId)?
-        recivedTransfer,
+    TResult Function()? expense,
+    TResult Function()? income,
+    TResult Function()? sentTransfer,
+    TResult Function()? recivedTransfer,
   }) {
-    return recivedTransfer?.call(transactionData, category, targetAccountId);
+    return recivedTransfer?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TransactionData transactionData, Category category)?
-        expense,
-    TResult Function(TransactionData transactionData, Category category)?
-        income,
-    TResult Function(TransactionData transactionData, Category category,
-            String targetAccountId)?
-        sentTransfer,
-    TResult Function(TransactionData transactionData, Category category,
-            String targetAccountId)?
-        recivedTransfer,
+    TResult Function()? expense,
+    TResult Function()? income,
+    TResult Function()? sentTransfer,
+    TResult Function()? recivedTransfer,
     required TResult orElse(),
   }) {
     if (recivedTransfer != null) {
-      return recivedTransfer(transactionData, category, targetAccountId);
+      return recivedTransfer();
     }
     return orElse();
   }
@@ -923,19 +566,6 @@ class _$_RecivedTransfer implements _RecivedTransfer {
   }
 }
 
-abstract class _RecivedTransfer implements Transaction {
-  const factory _RecivedTransfer(
-      {required TransactionData transactionData,
-      required Category category,
-      required String targetAccountId}) = _$_RecivedTransfer;
-
-  @override
-  TransactionData get transactionData;
-  @override
-  Category get category;
-  String get targetAccountId;
-  @override
-  @JsonKey(ignore: true)
-  _$RecivedTransferCopyWith<_RecivedTransfer> get copyWith =>
-      throw _privateConstructorUsedError;
+abstract class _RecivedTransfer implements TransactionType {
+  const factory _RecivedTransfer() = _$_RecivedTransfer;
 }

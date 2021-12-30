@@ -18,10 +18,10 @@ class SelectAccountTypeFormField extends StatelessWidget {
         hint: Text(AppLocalizations.of(context)!.accountType),
         items: [
           DropdownMenuItem(
-              value: AccountType.bankAccount,
+              value: const AccountType.bankAccount(),
               child: Text(AppLocalizations.of(context)!.bankAccount)),
           DropdownMenuItem(
-              value: AccountType.wallet,
+              value: const AccountType.wallet(),
               child: Text(AppLocalizations.of(context)!.wallet))
         ]);
   }

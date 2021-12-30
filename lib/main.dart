@@ -1,3 +1,4 @@
+import 'package:expense_tracker_app/src/bloc/Home/home_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/accounts/accounts_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/categories/categories_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_cubit.dart';
@@ -27,9 +28,9 @@ void main() async {
         create: (context) => AuthCubit(),
       ),
       BlocProvider(
-        lazy: false,
-        create: (context) => CategoriesCubit()..init(),
-      ),
+          lazy: false,
+          create: (context) =>
+              CategoriesCubit(BlocProvider.of<AuthCubit>(context))),
       BlocProvider(
         lazy: false,
         create: (context) => AccountsCubit(BlocProvider.of<AuthCubit>(context)),
@@ -51,6 +52,11 @@ void main() async {
         lazy: false,
         create: (context) =>
             TransactionsCubit(BlocProvider.of<AuthCubit>(context)),
+      ),
+      BlocProvider(
+        lazy: false,
+        create: (context) =>
+            HomeCubit(BlocProvider.of<TransactionsCubit>(context)),
       )
     ], child: MyApp()),
   );

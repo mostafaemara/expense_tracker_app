@@ -13,6 +13,12 @@ class Category extends Equatable {
         title: Multilingual.fromMap(doc.data()["title"]),
         id: doc.id);
   }
+  factory Category.fromMap(Map<String, dynamic> map) {
+    return Category(
+        iconUrl: map["icon"],
+        title: Multilingual.fromMap(map["title"]),
+        id: map["id"]);
+  }
   final Multilingual title;
   final String iconUrl;
   final String id;
