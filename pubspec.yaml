@@ -30,6 +30,7 @@ dependencies:
   validators: ^3.0.0
   equatable: ^2.0.3
   camera: ^0.9.4+5
+  arabic_numbers: ^1.0.0
   cached_network_image: ^3.2.0
   
 dev_dependencies:

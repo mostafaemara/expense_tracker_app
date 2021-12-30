@@ -15,6 +15,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.8.0"
+  arabic_numbers:
+    dependency: "direct main"
+    description:
+      name: arabic_numbers
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   args:
     dependency: transitive
     description:

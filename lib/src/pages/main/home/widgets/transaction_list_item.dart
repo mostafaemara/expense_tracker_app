@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:expense_tracker_app/src/models/transaction.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import "../../../../extenstions/transaction_helper.dart";
 import "../../../../extenstions/multilingual_helper.dart";
@@ -17,7 +16,6 @@ class TransactionListItem extends StatelessWidget {
     final _transactionIconColor = context.transactionIconColor(transaction);
     final _transactionBackgroundColor =
         context.transactionBackgroundColor(transaction);
-    final hour = DateFormat('hh:mm a').format(DateTime.now());
 
     return Container(
       padding: const EdgeInsets.all(14),
@@ -73,13 +71,13 @@ class TransactionListItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "-\$80",
+                  transaction.formatAmount(context),
                   style: Theme.of(context).textTheme.subtitle1!.copyWith(
                       color: _transactionIconColor,
                       fontWeight: FontWeight.w600),
                 ),
                 Text(
-                  hour,
+                  transaction.formatDate(),
                   style: Theme.of(context)
                       .textTheme
                       .caption!
