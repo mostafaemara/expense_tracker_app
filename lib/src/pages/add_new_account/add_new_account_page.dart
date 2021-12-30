@@ -1,3 +1,4 @@
+import 'package:expense_tracker_app/src/bloc/accounts/accounts_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/auth/auth_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/new_account/new_account_cubit.dart';
 import 'package:expense_tracker_app/src/widgets/my_app_bar.dart';
@@ -9,16 +10,18 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'widgets/add_new_account_form.dart';
 
 class AddNewAccountPage extends StatelessWidget {
-  final bool isSettingUpAccount;
-  const AddNewAccountPage({Key? key, required this.isSettingUpAccount})
-      : super(key: key);
+  const AddNewAccountPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return BlocProvider(
-      create: (context) => NewAccountCubit(BlocProvider.of<AuthCubit>(context),
-          isSettingUpAccount: isSettingUpAccount),
+      create: (context) => NewAccountCubit(
+        authCubit: BlocProvider.of<AuthCubit>(context),
+        accountsCubit: BlocProvider.of<AccountsCubit>(context),
+      ),
       child: Theme(
         data: Theme.of(context).copyWith(
             appBarTheme: AppBarTheme(

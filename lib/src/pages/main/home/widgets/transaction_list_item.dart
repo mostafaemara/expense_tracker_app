@@ -3,7 +3,7 @@ import 'package:expense_tracker_app/src/models/transaction.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:flutter/material.dart';
 
-import "../../../../extenstions/transaction_helper.dart";
+import '../../../../extenstions/transaction_helper.dart';
 import "../../../../extenstions/multilingual_helper.dart";
 
 class TransactionListItem extends StatelessWidget {
@@ -13,9 +13,10 @@ class TransactionListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _transactionIconColor = context.transactionIconColor(transaction);
+    final _transactionIconColor =
+        context.transactionIconColor(transaction.type);
     final _transactionBackgroundColor =
-        context.transactionBackgroundColor(transaction);
+        context.transactionBackgroundColor(transaction.type);
 
     return Container(
       padding: const EdgeInsets.all(14),
@@ -54,7 +55,7 @@ class TransactionListItem extends StatelessWidget {
                       .copyWith(fontWeight: FontWeight.w600),
                 ),
                 Text(
-                  transaction.transactionData.description,
+                  transaction.description,
                   style: Theme.of(context)
                       .textTheme
                       .caption!

@@ -1,12 +1,19 @@
+import 'package:expense_tracker_app/src/bloc/Home/home_cubit.dart';
+import 'package:expense_tracker_app/src/models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SpendFrequencyChart extends StatelessWidget {
   const SpendFrequencyChart({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final homeState = context.watch<HomeCubit>().state;
+    final spentTransactions = homeState.transactionsOfSelectedDuration;
+    final from = homeState.from;
+    final to = homeState.to;
     return SizedBox(
       height: 230,
       child: Column(
@@ -30,22 +37,20 @@ class SpendFrequencyChart extends StatelessWidget {
           Expanded(
             child: SfCartesianChart(
               series: [
-                SplineSeries<ExpenseData, DateTime>(
+                SplineSeries<Transaction, DateTime>(
                   color: Theme.of(context).colorScheme.primary,
                   width: 5,
-                  dataSource: getChartData(),
+                  dataSource: spentTransactions,
                   xValueMapper: (datum, index) => datum.date,
                   yValueMapper: (datum, index) => datum.amount,
                 )
               ],
               plotAreaBorderWidth: 0,
               primaryXAxis: DateTimeAxis(
-                  isVisible: false,
-                  maximum: DateTime(2021, 11, 8),
-                  minimum: DateTime(2021, 11, 1),
+                  //    isVisible: false,
                   majorGridLines: const MajorGridLines(width: 0)),
               primaryYAxis: NumericAxis(
-                  isVisible: false,
+                  // isVisible: false,
                   majorGridLines: const MajorGridLines(width: 0)),
             ),
           )
@@ -53,24 +58,4 @@ class SpendFrequencyChart extends StatelessWidget {
       ),
     );
   }
-}
-
-List<ExpenseData> getChartData() {
-  final List<ExpenseData> expenseData = [
-    ExpenseData(DateTime(2021, 11, 1), 500),
-    ExpenseData(DateTime(2021, 11, 2), 100),
-    ExpenseData(DateTime(2021, 11, 4), 1000),
-    ExpenseData(DateTime(2021, 11, 5), 300),
-    ExpenseData(DateTime(2021, 11, 6), 220),
-    ExpenseData(DateTime(2021, 11, 7), 600),
-    ExpenseData(DateTime(2021, 11, 8), 20),
-  ];
-  return expenseData;
-}
-
-class ExpenseData {
-  final DateTime date;
-  final double amount;
-
-  ExpenseData(this.date, this.amount);
 }

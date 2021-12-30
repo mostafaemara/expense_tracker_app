@@ -12,12 +12,13 @@ class FirestoreAccountsRepository implements AccountsRepository {
       firebase.FirebaseFirestore.instance.collection("users");
 
   @override
-  Future<void> addAccount(Account account, String uid) async {
+  Future<Account> addAccount(AccountInput account, String uid) async {
     try {
-      await _usersCollection
+      final snapshot = await _usersCollection
           .doc(uid)
           .collection("accounts")
           .add(account.toMap());
+      return account.toAccount(snapshot.id);
     } catch (e) {
       throw ServerException();
     }
@@ -44,5 +45,15 @@ class FirestoreAccountsRepository implements AccountsRepository {
       accounts.add(Account.fromDocument(doc));
     }
     return accounts;
+  }
+
+  @override
+  Future<bool> accountsIsEmpty(String uid) async {
+    final accounts = await getAccounts(uid);
+    if (accounts.isEmpty) {
+      return true;
+    }
+
+    return false;
   }
 }

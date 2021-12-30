@@ -31,13 +31,15 @@ class FSTransactionRepository implements TransactionRepository {
   @override
   Future<List<Transaction>> getAllTransactions(String uid) async {
     try {
-      final snapShots =
-          await _usersCollection.doc(uid).collection("transactions").get();
+      final snapShots = await _usersCollection
+          .doc(uid)
+          .collection("transactions")
+          .orderBy("date", descending: true)
+          .get();
 
       final transactions = await _documentsToTransactions(snapShots.docs);
       return transactions;
     } catch (e) {
-      log("get all transactionzz", error: e.toString());
       throw ServerException();
     }
   }
@@ -58,47 +60,12 @@ class FSTransactionRepository implements TransactionRepository {
   Future<Transaction> _documentToTransaction(
       firebase.QueryDocumentSnapshot<Map<String, dynamic>> doc) async {
     final map = doc.data();
-    final type = map["type"];
+
     final categoryId = map["category"];
-    final category = await categoryById(categoryId);
+    final category = await _categoriesRepo.getCategoryById(categoryId);
 
-    final transactionData = TransactionData.fromDocument(doc);
+    final transaction = Transaction.fromDocument(doc, category);
 
-    late Transaction transaction;
-
-    switch (type) {
-      case "expense":
-        transaction = Transaction.expense(
-            transactionData: transactionData, category: category);
-        break;
-      case "income":
-        transaction = Transaction.income(
-            transactionData: transactionData, category: category);
-        break;
-      case "sent":
-        transaction = Transaction.sentTransfer(
-            category: category,
-            transactionData: transactionData,
-            targetAccountId: map["targetAccount"]);
-        break;
-      case "recived":
-        transaction = Transaction.sentTransfer(
-            category: category,
-            transactionData: transactionData,
-            targetAccountId: map["targetAccount"]);
-        break;
-    }
     return transaction;
-  }
-
-  Future<Category> categoryById(String id) async {
-    final categories = await _categoriesRepo.getAllCategories();
-    log("get all categories ", error: categories.length.toString());
-    log(
-      "get category befor by id ",
-    );
-    final category = categories.firstWhere((element) => element.id == id);
-    log("get category after  by id ", error: category.id);
-    return category;
   }
 }

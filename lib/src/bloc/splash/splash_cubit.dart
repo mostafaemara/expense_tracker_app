@@ -3,8 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:expense_tracker_app/injection.dart';
 import 'package:expense_tracker_app/src/bloc/auth/auth_cubit.dart';
-
-import 'package:expense_tracker_app/src/repositories/user_repository.dart';
+import 'package:expense_tracker_app/src/repositories/accounts_repository.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -18,7 +17,7 @@ class SplashCubit extends Cubit<SplashState> {
   }
 
   final AuthCubit _authCubit;
-  final _userReposiotry = locator<UserRepository>();
+  final _accountsRepo = locator<AccountsRepository>();
   late StreamSubscription _authStreamSubscription;
 
   void _handleAuthState(AuthState authState) {
@@ -29,12 +28,12 @@ class SplashCubit extends Cubit<SplashState> {
   }
 
   void _handleAccountSetupCheck(String uid) async {
-    final isSetup = await _userReposiotry.getIsUserSetup(uid);
+    final accountsIsEmpty = await _accountsRepo.accountsIsEmpty(uid);
 
-    if (isSetup) {
-      emit(const SplashState.redirectToHome());
-    } else {
+    if (accountsIsEmpty) {
       emit(const SplashState.redirectToSetUpAccount());
+    } else {
+      emit(const SplashState.redirectToHome());
     }
   }
 

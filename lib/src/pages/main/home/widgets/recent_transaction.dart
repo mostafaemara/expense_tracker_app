@@ -1,5 +1,9 @@
+import 'dart:developer';
+
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
+import 'package:expense_tracker_app/src/bloc/Home/home_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/transactions/transactions_cubit.dart';
+import 'package:expense_tracker_app/src/models/duration_type.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 
 import 'package:flutter/material.dart';
@@ -40,6 +44,26 @@ class _RecentTransactionState extends State<RecentTransaction>
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           TabBar(
+            onTap: (value) {
+              late DurationType type;
+              switch (value) {
+                case 0:
+                  type = const DurationType.today();
+
+                  break;
+                case 1:
+                  type = const DurationType.week();
+                  break;
+                case 2:
+                  type = const DurationType.month();
+                  break;
+                case 3:
+                  type = const DurationType.year();
+                  break;
+              }
+
+              context.read<HomeCubit>().selectSpendDuration(type);
+            },
             labelStyle: labelStyle,
             unselectedLabelStyle: unselectedlabelStyle,
             isScrollable: false,
@@ -94,10 +118,10 @@ class _RecentTransactionState extends State<RecentTransaction>
           ),
           SizedBox(
             height: 290,
-            child: BlocBuilder<TransactionsCubit, TransactionsState>(
+            child: BlocBuilder<HomeCubit, HomeState>(
               builder: (context, state) {
                 return TransactionList(
-                  transactions: state.transactions,
+                  transactions: state.recentTransactions,
                 );
               },
             ),

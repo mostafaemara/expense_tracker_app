@@ -1,7 +1,9 @@
 import 'package:expense_tracker_app/src/repositories/categories/categories_proxy.dart';
 import 'package:expense_tracker_app/src/repositories/categories/categories_repository.dart';
 import 'package:expense_tracker_app/src/repositories/categories/firestore_categories_repository.dart';
+import 'package:expense_tracker_app/src/repositories/date_repository.dart';
 import 'package:expense_tracker_app/src/repositories/firestore_accounts_repository.dart';
+import 'package:expense_tracker_app/src/repositories/firestore_date_repository.dart';
 import 'package:expense_tracker_app/src/repositories/firestore_transaction_repository.dart';
 import 'package:expense_tracker_app/src/repositories/transaction_repository.dart';
 import 'package:expense_tracker_app/src/services/auth_service_impl.dart';
@@ -20,4 +22,5 @@ Future<void> initializeDependencies() async {
   locator.registerSingleton<CategoriesRepository>(
       CategoriesProxy(FSCategoriesRepository()));
   locator.registerSingleton<TransactionRepository>(FSTransactionRepository());
+  locator.registerSingleton<DateRepository>(FSDateRepository());
 }

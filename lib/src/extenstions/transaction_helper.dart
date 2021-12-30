@@ -5,40 +5,40 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 extension TransactionColorHelper on BuildContext {
-  Color transactionIconColor(Transaction transaction) => transaction.when(
-      expense: (__, _) => AppColors.red,
-      income: (__, _) => AppColors.green,
-      sentTransfer: (__, _, ___) => AppColors.red,
-      recivedTransfer: (__, ___, _) => AppColors.green);
+  Color transactionIconColor(TransactionType type) => type.when(
+      expense: () => AppColors.red,
+      income: () => AppColors.green,
+      sentTransfer: () => AppColors.red,
+      recivedTransfer: () => AppColors.green);
 
-  Color transactionBackgroundColor(Transaction transaction) => transaction.when(
-      expense: (__, _) => AppColors.red20,
-      income: (__, _) => AppColors.green20,
-      sentTransfer: (__, ___, _) => AppColors.red20,
-      recivedTransfer: (__, ___, _) => AppColors.green20);
+  Color transactionBackgroundColor(TransactionType type) => type.when(
+      expense: () => AppColors.red20,
+      income: () => AppColors.green20,
+      sentTransfer: () => AppColors.red20,
+      recivedTransfer: () => AppColors.green20);
 }
 
-extension TransactionHelper on Transaction {
+extension TransactionFormatter on Transaction {
   String formatAmount(BuildContext context) {
-    final amount = transactionData.amount.translate(context);
+    final convertedAmount = amount.translate(context);
     final locale = Localizations.localeOf(context);
-    final String sign = when(
-        expense: (_, __) => "-",
-        income: (_, __) => "+",
-        sentTransfer: (_, __, ___) => "-",
-        recivedTransfer: (_, __, ___) => "+");
+    final String sign = type.when(
+        expense: () => "-",
+        income: () => "+",
+        sentTransfer: () => "-",
+        recivedTransfer: () => "+");
 
     late String formattedAmount;
     if (locale.languageCode == "ar") {
-      formattedAmount = "$amount$sign";
+      formattedAmount = "$convertedAmount$sign";
     } else {
-      formattedAmount = "$sign$amount";
+      formattedAmount = "$sign$convertedAmount";
     }
     return formattedAmount;
   }
 
   String formatDate() {
-    final formattedDate = DateFormat('hh:mm a').format(transactionData.date);
+    final formattedDate = DateFormat('hh:mm a').format(date);
 
     return formattedDate;
   }
