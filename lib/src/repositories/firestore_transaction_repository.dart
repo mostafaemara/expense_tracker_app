@@ -1,5 +1,6 @@
 import 'package:expense_tracker_app/injection.dart';
-import 'package:expense_tracker_app/src/exceptions/server_exception.dart';
+
+import 'package:expense_tracker_app/src/exceptions/transaction_exception.dart';
 
 import 'package:expense_tracker_app/src/models/transaction_input.dart';
 import 'package:expense_tracker_app/src/models/transaction.dart';
@@ -27,7 +28,7 @@ class FSTransactionRepository implements TransactionRepository {
           .add({...transaction.toMap(), "date": _timeStamp});
       return transaction.toTransaction(snapshot.id, _dateNow);
     } catch (e) {
-      throw ServerException();
+      throw const TransactionException.serverError();
     }
   }
 
@@ -45,32 +46,40 @@ class FSTransactionRepository implements TransactionRepository {
       final transactions = await _documentsToTransactions(snapShots.docs);
       return transactions;
     } catch (e) {
-      throw ServerException();
+      throw const TransactionException.serverError();
     }
   }
 
   Future<List<Transaction>> _documentsToTransactions(
       List<firebase.QueryDocumentSnapshot<Map<String, dynamic>>>
           documents) async {
-    List<Transaction> transactions = [];
+    try {
+      List<Transaction> transactions = [];
 
-    for (final doc in documents) {
-      final transaction = await _documentToTransaction(doc);
+      for (final doc in documents) {
+        final transaction = await _documentToTransaction(doc);
 
-      transactions.add(transaction);
+        transactions.add(transaction);
+      }
+      return transactions;
+    } catch (e) {
+      throw const TransactionException.serverError();
     }
-    return transactions;
   }
 
   Future<Transaction> _documentToTransaction(
       firebase.QueryDocumentSnapshot<Map<String, dynamic>> doc) async {
-    final map = doc.data();
+    try {
+      final map = doc.data();
 
-    final categoryId = map["category"];
-    final category = await _categoriesRepo.getCategoryById(categoryId);
+      final categoryId = map["category"];
+      final category = await _categoriesRepo.getCategoryById(categoryId);
 
-    final transaction = Transaction.fromDocument(doc, category);
+      final transaction = Transaction.fromDocument(doc, category);
 
-    return transaction;
+      return transaction;
+    } catch (e) {
+      throw const TransactionException.serverError();
+    }
   }
 }

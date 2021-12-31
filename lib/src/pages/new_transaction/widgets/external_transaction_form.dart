@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../widgets/balance_text_field.dart';
 
-class AddNewTransformForm extends StatelessWidget {
-  const AddNewTransformForm({
+class ExternalTransactionForm extends StatelessWidget {
+  const ExternalTransactionForm({
     Key? key,
   }) : super(key: key);
 

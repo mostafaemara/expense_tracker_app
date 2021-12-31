@@ -85,7 +85,8 @@
     "invalidUserName":"Invalid user name",
     "userNameIsTooShort":"User name is too short",
     "enterField":"Enter field",
-    "userAgreementWarnningMessage":"check the box to indicate that you have read and agree to the terms presented in the Terms and Conditions agreement"
+    "userAgreementWarnningMessage":"check the box to indicate that you have read and agree to the terms presented in the Terms and Conditions agreement",
+    "accountBalanceNotEnough":"Not enough account balance, availible balance:"
      
 
 

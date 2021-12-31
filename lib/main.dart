@@ -51,6 +51,7 @@ void main() async {
       BlocProvider(
         lazy: false,
         create: (context) => NewTransactionCubit(
+            accountsCubit: BlocProvider.of<AccountsCubit>(context),
             authCubit: BlocProvider.of<AuthCubit>(context),
             transactionsCubit: BlocProvider.of<TransactionsCubit>(context)),
       ),

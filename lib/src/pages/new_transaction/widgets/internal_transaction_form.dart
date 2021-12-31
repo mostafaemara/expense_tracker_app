@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/submission_state.dart';
+import 'package:expense_tracker_app/src/exceptions/transaction_exception.dart';
 import 'package:expense_tracker_app/src/models/category.dart';
 import 'package:expense_tracker_app/src/models/transaction.dart';
-import 'package:expense_tracker_app/src/models/transaction_form_type.dart';
 
 import 'package:expense_tracker_app/src/models/transaction_input.dart';
 import 'package:expense_tracker_app/src/pages/new_transaction/widgets/description_form_field.dart';
@@ -11,6 +11,7 @@ import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/widgets/error_dialog.dart';
 import 'package:expense_tracker_app/src/widgets/loading_dialog.dart';
 import 'package:expense_tracker_app/src/widgets/submit_button.dart';
+import "../../../extenstions/number_helper.dart";
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,16 +22,17 @@ import 'account_form_field.dart';
 import 'attachment_bottom_sheet.dart';
 import 'category_form_field.dart';
 
-class NewExpenseForm extends StatefulWidget {
-  const NewExpenseForm({
+class InternalTransactionForm extends StatefulWidget {
+  const InternalTransactionForm({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<NewExpenseForm> createState() => _NewExpenseFormState();
+  State<InternalTransactionForm> createState() =>
+      _InternalTransactionFormState();
 }
 
-class _NewExpenseFormState extends State<NewExpenseForm> {
+class _InternalTransactionFormState extends State<InternalTransactionForm> {
   Category? _selectedCategory;
   String? _selectedAccountId;
   final _formKey = GlobalKey<FormState>();
@@ -38,7 +40,8 @@ class _NewExpenseFormState extends State<NewExpenseForm> {
   final _descriptionController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return BlocListener<NewTransactionCubit, SubmissionState>(
+    return BlocListener<NewTransactionCubit,
+        SubmissionState<TransactionException>>(
       child: Form(
         key: _formKey,
         child: Column(
@@ -124,11 +127,18 @@ class _NewExpenseFormState extends State<NewExpenseForm> {
             builder: (context) => const LoadingDialog(),
           ),
           success: () => context.replaceRoute(const MainRoute()),
-          failed: (failure) => _showErrorDialog(
-              context, AppLocalizations.of(context)!.serverError),
+          failed: _handleFailure,
         );
       },
     );
+  }
+
+  void _handleFailure(TransactionException failure) {
+    late String massege = failure.when(
+        serverError: () => AppLocalizations.of(context)!.serverError,
+        notEnoughBalance: (availbleBalance) =>
+            "${AppLocalizations.of(context)!.accountBalanceNotEnough} ${availbleBalance.translate(context)}");
+    _showErrorDialog(context, massege);
   }
 
   void _showChooseAttachmentModal(BuildContext context) {

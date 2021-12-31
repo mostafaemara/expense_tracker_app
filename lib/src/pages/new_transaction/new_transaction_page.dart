@@ -5,8 +5,8 @@ import 'package:expense_tracker_app/src/widgets/my_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'widgets/add_new_transfer_form.dart';
-import 'widgets/new_expense_form.dart';
+import 'widgets/external_transaction_form.dart';
+import 'widgets/internal_transaction_form.dart';
 
 class NewTransactionPage extends StatelessWidget {
   final TransactionType transactionType;
@@ -44,7 +44,7 @@ class NewTransactionPage extends StatelessWidget {
       );
 
   Widget _getForm() => transactionType.maybeWhen(
-      orElse: () => const AddNewTransformForm(),
-      expense: () => const NewExpenseForm(),
-      income: () => const NewExpenseForm());
+      orElse: () => const ExternalTransactionForm(),
+      expense: () => const InternalTransactionForm(),
+      income: () => const InternalTransactionForm());
 }
