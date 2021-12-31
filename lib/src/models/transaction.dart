@@ -5,10 +5,19 @@ part "transaction.freezed.dart";
 
 @freezed
 abstract class TransactionType with _$TransactionType {
+  const TransactionType._();
   const factory TransactionType.expense() = _Expense;
   const factory TransactionType.income() = _Income;
   const factory TransactionType.sentTransfer() = _SentTransfer;
   const factory TransactionType.recivedTransfer() = _RecivedTransfer;
+  String toMap() {
+    return when(
+      expense: () => "expense",
+      income: () => "income",
+      sentTransfer: () => "sent",
+      recivedTransfer: () => "recived",
+    );
+  }
 }
 
 class Transaction {

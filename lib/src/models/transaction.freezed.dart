@@ -126,8 +126,8 @@ class __$ExpenseCopyWithImpl<$Res> extends _$TransactionTypeCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Expense implements _Expense {
-  const _$_Expense();
+class _$_Expense extends _Expense {
+  const _$_Expense() : super._();
 
   @override
   String toString() {
@@ -218,8 +218,9 @@ class _$_Expense implements _Expense {
   }
 }
 
-abstract class _Expense implements TransactionType {
+abstract class _Expense extends TransactionType {
   const factory _Expense() = _$_Expense;
+  const _Expense._() : super._();
 }
 
 /// @nodoc
@@ -240,8 +241,8 @@ class __$IncomeCopyWithImpl<$Res> extends _$TransactionTypeCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Income implements _Income {
-  const _$_Income();
+class _$_Income extends _Income {
+  const _$_Income() : super._();
 
   @override
   String toString() {
@@ -332,8 +333,9 @@ class _$_Income implements _Income {
   }
 }
 
-abstract class _Income implements TransactionType {
+abstract class _Income extends TransactionType {
   const factory _Income() = _$_Income;
+  const _Income._() : super._();
 }
 
 /// @nodoc
@@ -357,8 +359,8 @@ class __$SentTransferCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SentTransfer implements _SentTransfer {
-  const _$_SentTransfer();
+class _$_SentTransfer extends _SentTransfer {
+  const _$_SentTransfer() : super._();
 
   @override
   String toString() {
@@ -449,8 +451,9 @@ class _$_SentTransfer implements _SentTransfer {
   }
 }
 
-abstract class _SentTransfer implements TransactionType {
+abstract class _SentTransfer extends TransactionType {
   const factory _SentTransfer() = _$_SentTransfer;
+  const _SentTransfer._() : super._();
 }
 
 /// @nodoc
@@ -474,8 +477,8 @@ class __$RecivedTransferCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_RecivedTransfer implements _RecivedTransfer {
-  const _$_RecivedTransfer();
+class _$_RecivedTransfer extends _RecivedTransfer {
+  const _$_RecivedTransfer() : super._();
 
   @override
   String toString() {
@@ -566,6 +569,7 @@ class _$_RecivedTransfer implements _RecivedTransfer {
   }
 }
 
-abstract class _RecivedTransfer implements TransactionType {
+abstract class _RecivedTransfer extends TransactionType {
   const factory _RecivedTransfer() = _$_RecivedTransfer;
+  const _RecivedTransfer._() : super._();
 }

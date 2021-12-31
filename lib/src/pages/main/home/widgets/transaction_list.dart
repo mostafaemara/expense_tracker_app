@@ -9,11 +9,12 @@ class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (context, index) => TransactionListItem(
-        transaction: transactions[index],
-      ),
-      itemCount: transactions.length,
+    return Column(
+      children: List.generate(
+          transactions.length,
+          (index) => TransactionListItem(
+                transaction: transactions[index],
+              )),
     );
   }
 }
