@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/submission_state.dart';
+import 'package:expense_tracker_app/src/models/category.dart';
+import 'package:expense_tracker_app/src/models/transaction.dart';
 import 'package:expense_tracker_app/src/models/transaction_form_type.dart';
 
 import 'package:expense_tracker_app/src/models/transaction_input.dart';
@@ -29,7 +31,7 @@ class NewExpenseForm extends StatefulWidget {
 }
 
 class _NewExpenseFormState extends State<NewExpenseForm> {
-  String? _selectedCategoryId;
+  Category? _selectedCategory;
   String? _selectedAccountId;
   final _formKey = GlobalKey<FormState>();
   final _balanceController = TextEditingController(text: "0.00");
@@ -58,7 +60,7 @@ class _NewExpenseFormState extends State<NewExpenseForm> {
                 children: [
                   CategoryFormField(
                     onChanged: _handleSelectCategory,
-                    selectedCategoryId: _selectedCategoryId,
+                    selectedCategory: _selectedCategory,
                   ),
                   const SizedBox(
                     height: 16,
@@ -142,12 +144,12 @@ class _NewExpenseFormState extends State<NewExpenseForm> {
     );
   }
 
-  void _handleSelectCategory(String? categoryId) {
-    if (categoryId == null) {
+  void _handleSelectCategory(Category? category) {
+    if (category == null) {
       return;
     }
     setState(() {
-      _selectedCategoryId = categoryId;
+      _selectedCategory = category;
     });
   }
 
@@ -163,7 +165,7 @@ class _NewExpenseFormState extends State<NewExpenseForm> {
   void _handleSubmittion() {
     if (_formKey.currentState!.validate() &&
         _selectedAccountId != null &&
-        _selectedCategoryId != null) {
+        _selectedCategory != null) {
       final transactionInput = _createTransaction();
 
       BlocProvider.of<NewTransactionCubit>(context)
@@ -172,20 +174,15 @@ class _NewExpenseFormState extends State<NewExpenseForm> {
   }
 
   TransactionInput _createTransaction() {
-    final transactionType = context.read<TransactionFormType>();
-    final transactionInputData = TransactionInputData(
-        accountId: _selectedAccountId!,
-        amount: double.parse(_balanceController.text),
-        description: _descriptionController.text,
-        attachment: "");
+    final transactionType = context.read<TransactionType>();
 
-    return transactionType.maybeWhen(
-        expense: () => TransactionInput.expense(
-            transactionInputData: transactionInputData,
-            category: _selectedCategoryId!),
-        orElse: () => TransactionInput.income(
-            transactionInputData: transactionInputData,
-            category: _selectedCategoryId!));
+    return TransactionInput(
+        accountId: _selectedAccountId!,
+        attachment: "",
+        amount: double.parse(_balanceController.text),
+        category: _selectedCategory!,
+        description: _descriptionController.text,
+        type: transactionType);
   }
 
   void _showErrorDialog(BuildContext context, String failure) {

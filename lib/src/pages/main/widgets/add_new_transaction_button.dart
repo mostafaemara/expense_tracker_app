@@ -1,4 +1,4 @@
-import 'package:expense_tracker_app/src/models/transaction_form_type.dart';
+import 'package:expense_tracker_app/src/models/transaction.dart';
 
 import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
@@ -20,7 +20,7 @@ class AddNewTransactionButton extends StatelessWidget {
       children: [
         ActionButton(
           onPressed: () => context.navigateTo(NewTransactionRoute(
-              transactionType: const TransactionFormType.income())),
+              transactionType: const TransactionType.income())),
           icon: Image.asset(
             "assets/images/income.png",
             color: Theme.of(context).colorScheme.onPrimary,
@@ -30,7 +30,7 @@ class AddNewTransactionButton extends StatelessWidget {
         ActionButton(
           color: AppColors.blue,
           onPressed: () => context.navigateTo(NewTransactionRoute(
-              transactionType: const TransactionFormType.transfer())),
+              transactionType: const TransactionType.sentTransfer())),
           icon: Image.asset(
             "assets/images/currency-exchange.png",
             color: Theme.of(context).colorScheme.onPrimary,
@@ -39,7 +39,7 @@ class AddNewTransactionButton extends StatelessWidget {
         ActionButton(
           color: AppColors.red,
           onPressed: () => context.navigateTo(NewTransactionRoute(
-              transactionType: const TransactionFormType.expense())),
+              transactionType: const TransactionType.expense())),
           icon: Image.asset(
             "assets/images/expense.png",
             color: Theme.of(context).colorScheme.onPrimary,

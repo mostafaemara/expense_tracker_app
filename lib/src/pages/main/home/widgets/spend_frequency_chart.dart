@@ -47,6 +47,7 @@ class SpendFrequencyChart extends StatelessWidget {
               ],
               plotAreaBorderWidth: 0,
               primaryXAxis: DateTimeAxis(
+
                   //    isVisible: false,
                   majorGridLines: const MajorGridLines(width: 0)),
               primaryYAxis: NumericAxis(

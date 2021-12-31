@@ -1,84 +1,41 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-part 'transaction_input.freezed.dart';
+import 'package:expense_tracker_app/src/models/category.dart';
+import 'package:expense_tracker_app/src/models/transaction.dart';
 
-@freezed
-abstract class TransactionInput with _$TransactionInput {
-  const TransactionInput._();
-  const factory TransactionInput.expense(
-      {required TransactionInputData transactionInputData,
-      required String category}) = _ExpenseInput;
-  const factory TransactionInput.income(
-      {required TransactionInputData transactionInputData,
-      required String category}) = _IncomeInput;
-  const factory TransactionInput.sentTransfer(
-      {required TransactionInputData transactionInputData,
-      required String targetAccountId}) = _SentTransferInput;
-  const factory TransactionInput.recivedTransfer(
-      {required TransactionInputData transactionInputData,
-      required String targetAccountId}) = _RecivedTransferInput;
-
-  Map<String, dynamic> toMap() {
-    return when(
-        expense: _expenseToMap,
-        income: _incomeToMap,
-        sentTransfer: _sentTransferToMap,
-        recivedTransfer: _recivedTransferToMap);
-  }
-
-  Map<String, dynamic> _expenseToMap(
-      TransactionInputData transactionInputData, String category) {
-    return {
-      ...transactionInputData.toMap(),
-      'category': category,
-      "type": "expense"
-    };
-  }
-
-  Map<String, dynamic> _incomeToMap(
-      TransactionInputData transactionInputData, String category) {
-    return {
-      ...transactionInputData.toMap(),
-      'category': category,
-      "type": "income"
-    };
-  }
-
-  Map<String, dynamic> _sentTransferToMap(
-      TransactionInputData transactionInputData, String targetAccountId) {
-    return {
-      ...transactionInputData.toMap(),
-      'targetAccount': targetAccountId,
-      "type": "sent"
-    };
-  }
-
-  Map<String, dynamic> _recivedTransferToMap(
-      TransactionInputData transactionInputData, String targetAccountId) {
-    return {
-      ...transactionInputData.toMap(),
-      'targetAccount': targetAccountId,
-      "type": "recived"
-    };
-  }
-}
-
-class TransactionInputData {
+class TransactionInput {
+  final TransactionType type;
+  final Category category;
   final double amount;
   final String description;
   final String attachment;
   final String accountId;
-  TransactionInputData(
+  TransactionInput(
       {required this.accountId,
+      required this.type,
+      required this.category,
       required this.amount,
       required this.description,
       required this.attachment});
 
   Map<String, dynamic> toMap() {
     return {
+      "type": type.toMap(),
+      "category": category.id,
       "accountId": accountId,
       "amount": amount,
       "description": description,
       "attachment": attachment,
     };
+  }
+
+  Transaction toTransaction(String id, DateTime date) {
+    return Transaction(
+        date: date,
+        type: type,
+        category: category,
+        id: id,
+        accountId: accountId,
+        amount: amount,
+        description: description,
+        attachment: attachment);
   }
 }

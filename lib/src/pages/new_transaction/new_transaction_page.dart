@@ -1,4 +1,5 @@
-import 'package:expense_tracker_app/src/models/transaction_form_type.dart';
+import 'package:expense_tracker_app/src/models/transaction.dart';
+
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:expense_tracker_app/src/widgets/my_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import 'widgets/add_new_transfer_form.dart';
 import 'widgets/new_expense_form.dart';
 
 class NewTransactionPage extends StatelessWidget {
-  final TransactionFormType transactionType;
+  final TransactionType transactionType;
   const NewTransactionPage({Key? key, required this.transactionType})
       : super(key: key);
 
@@ -31,19 +32,19 @@ class NewTransactionPage extends StatelessWidget {
     );
   }
 
-  Color _getBackgroundColor() => transactionType.when(
+  Color _getBackgroundColor() => transactionType.maybeWhen(
         expense: () => AppColors.red,
         income: () => AppColors.green,
-        transfer: () => AppColors.blue,
+        orElse: () => AppColors.blue,
       );
-  String _getPageTitle(BuildContext context) => transactionType.when(
+  String _getPageTitle(BuildContext context) => transactionType.maybeWhen(
         expense: () => AppLocalizations.of(context)!.expense,
         income: () => AppLocalizations.of(context)!.income,
-        transfer: () => AppLocalizations.of(context)!.transfer,
+        orElse: () => AppLocalizations.of(context)!.transfer,
       );
 
   Widget _getForm() => transactionType.maybeWhen(
-        transfer: () => const AddNewTransformForm(),
-        orElse: () => const NewExpenseForm(),
-      );
+      orElse: () => const AddNewTransformForm(),
+      expense: () => const NewExpenseForm(),
+      income: () => const NewExpenseForm());
 }

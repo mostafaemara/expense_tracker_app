@@ -37,6 +37,11 @@ void main() async {
       ),
       BlocProvider(
         lazy: false,
+        create: (context) =>
+            TransactionsCubit(BlocProvider.of<AuthCubit>(context)),
+      ),
+      BlocProvider(
+        lazy: false,
         create: (context) => SignupCubit(BlocProvider.of<AuthCubit>(context)),
       ),
       BlocProvider(
@@ -45,18 +50,15 @@ void main() async {
       ),
       BlocProvider(
         lazy: false,
-        create: (context) =>
-            NewTransactionCubit(BlocProvider.of<AuthCubit>(context)),
+        create: (context) => NewTransactionCubit(
+            authCubit: BlocProvider.of<AuthCubit>(context),
+            transactionsCubit: BlocProvider.of<TransactionsCubit>(context)),
       ),
       BlocProvider(
         lazy: false,
-        create: (context) =>
-            TransactionsCubit(BlocProvider.of<AuthCubit>(context)),
-      ),
-      BlocProvider(
-        lazy: false,
-        create: (context) =>
-            HomeCubit(BlocProvider.of<TransactionsCubit>(context)),
+        create: (context) => HomeCubit(
+            transactionsCubit: BlocProvider.of<TransactionsCubit>(context),
+            accountsCubit: BlocProvider.of<AccountsCubit>(context)),
       )
     ], child: MyApp()),
   );

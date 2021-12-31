@@ -25,4 +25,9 @@ class TransactionsCubit extends Cubit<TransactionsState> {
       emit(TransactionsState([]));
     }
   }
+
+  void addTransaction(Transaction transaction) {
+    final transactions = [...state.transactions, transaction];
+    emit(TransactionsState(transactions));
+  }
 }
