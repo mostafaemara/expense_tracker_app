@@ -83,7 +83,8 @@
     "invalidUserName":"اسم المستخدم غير صالح",
     "userNameIsTooShort":"اسم المستخدم قصير جدا",
     "enterField":"ادخل قيمة",
-      "userAgreementWarnningMessage":"حدد المربع للإشارة إلى أنك قد قرأت ووافقت على البنود الواردة في اتفاقية الشروط والأحكام"
+      "userAgreementWarnningMessage":"حدد المربع للإشارة إلى أنك قد قرأت ووافقت على البنود الواردة في اتفاقية الشروط والأحكام",
+      "accountBalanceNotEnough":":رصيد الحساب غير كاف ، الرصيد المتاح"
 
 
 }

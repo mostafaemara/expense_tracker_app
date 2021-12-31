@@ -8,4 +8,6 @@ extension AccountListHelper on List<Account> {
     }
     return totalBalance;
   }
+
+  Account findById(String id) => firstWhere((element) => element.id == id);
 }
