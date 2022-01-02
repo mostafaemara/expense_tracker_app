@@ -1,6 +1,7 @@
 import 'package:expense_tracker_app/injection.dart';
 
 import 'package:expense_tracker_app/src/exceptions/transaction_exception.dart';
+import 'package:expense_tracker_app/src/models/frequent_transaction.dart';
 
 import 'package:expense_tracker_app/src/models/transaction_input.dart';
 import 'package:expense_tracker_app/src/models/transaction.dart';
@@ -25,7 +26,17 @@ class FSTransactionRepository implements TransactionRepository {
       final snapshot = await _usersCollection
           .doc(uid)
           .collection("transactions")
-          .add({...transaction.toMap(), "date": _timeStamp});
+          .add({...transaction.toTransactionMap(), "date": _timeStamp});
+
+      if (transaction.repeat) {
+        final snapshot = await _usersCollection
+            .doc(uid)
+            .collection("frequentTransactions")
+            .add({
+          ...transaction.toFrequentTransactionMap(),
+          "date": _timeStamp
+        });
+      }
       return transaction.toTransaction(snapshot.id, _dateNow);
     } catch (e) {
       throw const TransactionException.serverError();
@@ -81,5 +92,11 @@ class FSTransactionRepository implements TransactionRepository {
     } catch (e) {
       throw const TransactionException.serverError();
     }
+  }
+
+  @override
+  Future<FrequentTransaction> readFrequentTransactions(String uid) {
+    // TODO: implement readFrequentTransactions
+    throw UnimplementedError();
   }
 }

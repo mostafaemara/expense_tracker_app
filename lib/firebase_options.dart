@@ -57,11 +57,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCTPRDT2NdbV2xBImFfgyrtC3qPHBo6rMg',
-    appId: '1:120836110458:ios:d89d06129cd68a657263c3',
+    appId: '1:120836110458:ios:83cdeaa07b9261e47263c3',
     messagingSenderId: '120836110458',
     projectId: 'expense-tracker-app-8803a',
     storageBucket: 'expense-tracker-app-8803a.appspot.com',
-    iosClientId: '120836110458-qugj3vkbmg3hdsofdald3hmtsnma8ivt.apps.googleusercontent.com',
-    iosBundleId: 'com.mse.expenseTrackerApp',
+    iosClientId: '120836110458-30ut87mgjmd2h3b4iccmj5973kd2o2vu.apps.googleusercontent.com',
+    iosBundleId: 'come.mse.expenseTrackerApp',
   );
 }
