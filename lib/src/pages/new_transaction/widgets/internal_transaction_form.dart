@@ -93,19 +93,8 @@ class _InternalTransactionFormState extends State<InternalTransactionForm> {
                       label: Text(AppLocalizations.of(context)!.addAttachment),
                     ),
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  SwitchListTile(
-                    inactiveTrackColor: Theme.of(context).colorScheme.secondary,
-                    activeColor: Theme.of(context).colorScheme.onPrimary,
-                    activeTrackColor: Theme.of(context).colorScheme.primary,
-                    value: false,
-                    onChanged: (_) {},
-                    title: Text(AppLocalizations.of(context)!.repeat),
-                    subtitle:
-                        Text(AppLocalizations.of(context)!.repeatTransaction),
-                  ),
+
+                  //  RepeatSwitchButton(),
                   const SizedBox(
                     height: 24,
                   ),

@@ -1,5 +1,10 @@
+import 'dart:developer';
+import 'dart:io';
+
+import 'package:expense_tracker_app/src/repositories/categories/attachment_repository_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'attachment_source_button.dart';
 
@@ -24,17 +29,34 @@ class AttachmentBottomSheet extends StatelessWidget {
           AttachmentSourceButton(
             title: AppLocalizations.of(context)!.camera,
             imagePath: "assets/images/camera.png",
-            onPressed: () {},
+            onPressed: () async {
+              final repo = AttachmentReposiotryImpl();
+              final file =
+                  await ImagePicker().pickImage(source: ImageSource.camera);
+              await repo.writeAttachment("uid", "id", File(file!.path));
+            },
           ),
           AttachmentSourceButton(
             title: AppLocalizations.of(context)!.image,
             imagePath: "assets/images/gallery.png",
-            onPressed: () {},
+            onPressed: () async {
+              final file =
+                  await ImagePicker().pickImage(source: ImageSource.gallery);
+              print(file!.path.toString());
+            },
           ),
           AttachmentSourceButton(
             title: AppLocalizations.of(context)!.document,
             imagePath: "assets/images/file.png",
-            onPressed: () {},
+            onPressed: () async {
+              final repo = AttachmentReposiotryImpl();
+
+              final file = await repo.readAttachment(
+                "uid",
+                "id",
+              );
+              log("read file path :" + file.path);
+            },
           ),
         ],
       ),

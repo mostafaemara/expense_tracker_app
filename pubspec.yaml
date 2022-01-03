@@ -30,10 +30,14 @@ dependencies:
   validators: ^3.0.0
   equatable: ^2.0.3
   workmanager: ^0.4.1
+  image_picker: ^0.8.4+4
   
   arabic_numbers: ^1.0.0
   cached_network_image: ^3.2.0
   ntp: ^2.0.0
+  path_provider: ^2.0.8
+  hive: ^2.0.5
+  hive_flutter: ^1.1.0
   
   
 dev_dependencies:

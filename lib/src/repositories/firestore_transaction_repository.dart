@@ -26,17 +26,8 @@ class FSTransactionRepository implements TransactionRepository {
       final snapshot = await _usersCollection
           .doc(uid)
           .collection("transactions")
-          .add({...transaction.toTransactionMap(), "date": _timeStamp});
+          .add({...transaction.toMap(), "date": _timeStamp});
 
-      if (transaction.repeat) {
-        final snapshot = await _usersCollection
-            .doc(uid)
-            .collection("frequentTransactions")
-            .add({
-          ...transaction.toFrequentTransactionMap(),
-          "date": _timeStamp
-        });
-      }
       return transaction.toTransaction(snapshot.id, _dateNow);
     } catch (e) {
       throw const TransactionException.serverError();
