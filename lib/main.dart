@@ -1,8 +1,5 @@
 import 'package:expense_tracker_app/src/bloc/Home/home_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/accounts/accounts_cubit.dart';
-import 'package:expense_tracker_app/src/bloc/categories/categories_cubit.dart';
-import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_cubit.dart';
-import 'package:expense_tracker_app/src/bloc/transactions/transactions_cubit.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -43,17 +40,8 @@ void main() async {
         create: (context) => AuthCubit(),
       ),
       BlocProvider(
-          lazy: false,
-          create: (context) =>
-              CategoriesCubit(BlocProvider.of<AuthCubit>(context))),
-      BlocProvider(
         lazy: false,
-        create: (context) => AccountsCubit(BlocProvider.of<AuthCubit>(context)),
-      ),
-      BlocProvider(
-        lazy: false,
-        create: (context) =>
-            TransactionsCubit(BlocProvider.of<AuthCubit>(context)),
+        create: (context) => AccountsCubit(),
       ),
       BlocProvider(
         lazy: false,
@@ -65,16 +53,8 @@ void main() async {
       ),
       BlocProvider(
         lazy: false,
-        create: (context) => NewTransactionCubit(
-            accountsCubit: BlocProvider.of<AccountsCubit>(context),
-            authCubit: BlocProvider.of<AuthCubit>(context),
-            transactionsCubit: BlocProvider.of<TransactionsCubit>(context)),
-      ),
-      BlocProvider(
-        lazy: false,
-        create: (context) => HomeCubit(
-            transactionsCubit: BlocProvider.of<TransactionsCubit>(context),
-            accountsCubit: BlocProvider.of<AccountsCubit>(context)),
+        create: (context) =>
+            HomeCubit(accountsCubit: BlocProvider.of<AccountsCubit>(context)),
       )
     ], child: MyApp()),
   );

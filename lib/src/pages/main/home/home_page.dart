@@ -1,4 +1,5 @@
 import 'package:expense_tracker_app/src/bloc/Home/home_cubit.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -6,8 +7,19 @@ import 'widgets/head.dart';
 import 'widgets/recent_transaction.dart';
 import 'widgets/spend_frequency_chart.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void didChangeDependencies() {
+    context.read<HomeCubit>().init();
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {

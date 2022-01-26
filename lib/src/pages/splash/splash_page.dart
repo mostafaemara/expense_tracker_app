@@ -1,4 +1,3 @@
-import 'package:expense_tracker_app/src/bloc/auth/auth_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/splash/splash_cubit.dart';
 
 import 'package:expense_tracker_app/src/routes/app_router.dart';
@@ -18,8 +17,8 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   void didChangeDependencies() {
-    _splashBloc = SplashCubit(BlocProvider.of<AuthCubit>(context));
-    context.read<AuthCubit>().checkAuthState();
+    _splashBloc = SplashCubit();
+    _splashBloc.init();
 
     super.didChangeDependencies();
   }

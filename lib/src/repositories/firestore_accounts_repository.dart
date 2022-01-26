@@ -1,9 +1,11 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart' as firebase;
+import 'package:expense_tracker_app/injection.dart';
 import 'package:expense_tracker_app/src/exceptions/server_exception.dart';
 
 import 'package:expense_tracker_app/src/models/account.dart';
+import 'package:expense_tracker_app/src/models/uid.dart';
 
 import 'package:expense_tracker_app/src/repositories/accounts_repository.dart';
 
@@ -12,8 +14,11 @@ class FirestoreAccountsRepository implements AccountsRepository {
       firebase.FirebaseFirestore.instance.collection("users");
 
   @override
-  Future<Account> addAccount(AccountInput account, String uid) async {
+  Future<Account> addAccount(
+    AccountInput account,
+  ) async {
     try {
+      final uid = locator<UID>().value;
       final snapshot = await _usersCollection
           .doc(uid)
           .collection("accounts")
@@ -25,8 +30,9 @@ class FirestoreAccountsRepository implements AccountsRepository {
   }
 
   @override
-  Future<List<Account>> getAccounts(String uid) async {
+  Future<List<Account>> getAccounts() async {
     try {
+      final uid = locator<UID>().value;
       final snapshots =
           await _usersCollection.doc(uid).collection("accounts").get();
 
@@ -48,12 +54,18 @@ class FirestoreAccountsRepository implements AccountsRepository {
   }
 
   @override
-  Future<bool> accountsIsEmpty(String uid) async {
-    final accounts = await getAccounts(uid);
+  Future<bool> accountsIsEmpty() async {
+    final accounts = await getAccounts();
     if (accounts.isEmpty) {
       return true;
     }
 
     return false;
+  }
+
+  @override
+  Stream<List<Account>> onAccountsChange() {
+    // TODO: implement onAccountsChange
+    throw UnimplementedError();
   }
 }

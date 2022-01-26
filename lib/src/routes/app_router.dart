@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expense_tracker_app/src/models/transaction.dart';
 import 'package:expense_tracker_app/src/models/transaction_form_type.dart';
+import 'package:expense_tracker_app/src/models/transaction_type.dart';
 import 'package:expense_tracker_app/src/pages/account_all_set/account_all_set_page.dart';
 import 'package:expense_tracker_app/src/pages/add_new_account/add_new_account_page.dart';
 import 'package:expense_tracker_app/src/pages/login/login_page.dart';

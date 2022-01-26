@@ -1,5 +1,6 @@
 import 'package:expense_tracker_app/src/extenstions/date_time_helper.dart';
 import 'package:expense_tracker_app/src/models/transaction.dart';
+import 'package:expense_tracker_app/src/models/transaction_type.dart';
 
 extension TransactionListFilter on List<Transaction> {
   List<Transaction> filterByDate(DateTime from, DateTime to) {
@@ -31,11 +32,9 @@ extension TransactionListFilter on List<Transaction> {
     final List<Transaction> filteredTransaction = [];
 
     for (final transaction in this) {
-      transaction.type.whenOrNull(
-        expense: () {
-          filteredTransaction.add(transaction);
-        },
-      );
+      if (transaction.type == TransactionType.expense) {
+        filteredTransaction.add(transaction);
+      }
     }
     return filteredTransaction;
   }
@@ -56,20 +55,23 @@ extension TransactionListFilter on List<Transaction> {
 
     for (final transaction in this) {
       final amount = transaction.amount;
-      transaction.type.when(
-        expense: () {
+
+      switch (transaction.type) {
+        case TransactionType.expense:
           totalAmount -= amount;
-        },
-        income: () {
+          break;
+        case TransactionType.income:
           totalAmount += amount;
-        },
-        sentTransfer: () {
+          break;
+        case TransactionType.sent:
           totalAmount -= amount;
-        },
-        recivedTransfer: () {
+          break;
+        case TransactionType.received:
           totalAmount += amount;
-        },
-      );
+          break;
+        case TransactionType.transfer:
+          throw const FormatException("invalid type");
+      }
     }
     return totalAmount;
   }
@@ -79,14 +81,11 @@ extension TransactionListFilter on List<Transaction> {
 
     for (final transaction in this) {
       final amount = transaction.amount;
-      transaction.type.whenOrNull(
-        expense: () {
-          totalAmount += amount;
-        },
-        sentTransfer: () {
-          totalAmount += amount;
-        },
-      );
+
+      if (transaction.type == TransactionType.sent ||
+          transaction.type == TransactionType.expense) {
+        totalAmount += amount;
+      }
     }
     return totalAmount;
   }
@@ -96,14 +95,10 @@ extension TransactionListFilter on List<Transaction> {
 
     for (final transaction in this) {
       final amount = transaction.amount;
-      transaction.type.whenOrNull(
-        income: () {
-          totalAmount += amount;
-        },
-        recivedTransfer: () {
-          totalAmount += amount;
-        },
-      );
+      if (transaction.type == TransactionType.received ||
+          transaction.type == TransactionType.income) {
+        totalAmount += amount;
+      }
     }
     return totalAmount;
   }
