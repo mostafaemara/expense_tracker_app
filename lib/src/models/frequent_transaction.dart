@@ -1,4 +1,4 @@
-import 'package:expense_tracker_app/src/models/transaction.dart';
+import 'transaction_type.dart';
 
 class FrequentTransaction {
   final String id;

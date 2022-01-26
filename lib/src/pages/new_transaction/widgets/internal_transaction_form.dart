@@ -1,11 +1,14 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_cubit.dart';
+import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_state.dart';
 import 'package:expense_tracker_app/src/bloc/submission_state.dart';
 import 'package:expense_tracker_app/src/exceptions/transaction_exception.dart';
 import 'package:expense_tracker_app/src/models/category.dart';
-import 'package:expense_tracker_app/src/models/transaction.dart';
 
 import 'package:expense_tracker_app/src/models/transaction_input.dart';
+import 'package:expense_tracker_app/src/models/transaction_type.dart';
 import 'package:expense_tracker_app/src/pages/new_transaction/widgets/description_form_field.dart';
 import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/widgets/error_dialog.dart';
@@ -40,76 +43,83 @@ class _InternalTransactionFormState extends State<InternalTransactionForm> {
   final _descriptionController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return BlocListener<NewTransactionCubit,
-        SubmissionState<TransactionException>>(
-      child: Form(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Spacer(),
-            BalanceFormField(
-              controller: _balanceController,
-              title: AppLocalizations.of(context)!.howMuch,
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-              decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface,
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(32),
-                      topRight: Radius.circular(32))),
+    return BlocConsumer<NewTransactionCubit, NewTransactionState>(
+      buildWhen: (previous, current) => previous.isInit != current.isInit,
+      builder: (context, state) => !state.isInit
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Form(
+              key: _formKey,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CategoryFormField(
-                    onChanged: _handleSelectCategory,
-                    selectedCategory: _selectedCategory,
+                  const Spacer(),
+                  BalanceFormField(
+                    controller: _balanceController,
+                    title: AppLocalizations.of(context)!.howMuch,
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  DescriptionFormField(controller: _descriptionController),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  AccountFormField(
-                    selectedAccountId: _selectedAccountId,
-                    onChanged: _handleSelectAccount,
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  SizedBox(
-                    height: 56,
-                    width: double.infinity,
-                    child: TextButton.icon(
-                      onPressed: () {
-                        _showChooseAttachmentModal(context);
-                      },
-                      icon: Transform.rotate(
-                        angle: 180,
-                        child: const Icon(Icons.attach_file),
-                      ),
-                      label: Text(AppLocalizations.of(context)!.addAttachment),
-                    ),
-                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 24, horizontal: 16),
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.surface,
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(32),
+                            topRight: Radius.circular(32))),
+                    child: Column(
+                      children: [
+                        CategoryFormField(
+                          onChanged: _handleSelectCategory,
+                          selectedCategory: _selectedCategory,
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        DescriptionFormField(
+                            controller: _descriptionController),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        AccountFormField(
+                          selectedAccountId: _selectedAccountId,
+                          onChanged: _handleSelectAccount,
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        SizedBox(
+                          height: 56,
+                          width: double.infinity,
+                          child: TextButton.icon(
+                            onPressed: () {
+                              _showChooseAttachmentModal(context);
+                            },
+                            icon: Transform.rotate(
+                              angle: 180,
+                              child: const Icon(Icons.attach_file),
+                            ),
+                            label: Text(
+                                AppLocalizations.of(context)!.addAttachment),
+                          ),
+                        ),
 
-                  //  RepeatSwitchButton(),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  SubmitButton(onPressed: _handleSubmittion),
-                  const SizedBox(
-                    height: 16,
-                  ),
+                        //  RepeatSwitchButton(),
+                        const SizedBox(
+                          height: 24,
+                        ),
+                        SubmitButton(onPressed: _handleSubmittion),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
-            )
-          ],
-        ),
-      ),
+            ),
       listener: (context, state) {
-        state.whenOrNull(
+        state.submissionState.whenOrNull(
           submitting: () => showDialog(
             barrierDismissible: false,
             context: context,

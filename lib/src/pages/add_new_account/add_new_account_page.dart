@@ -19,7 +19,6 @@ class AddNewAccountPage extends StatelessWidget {
     final theme = Theme.of(context);
     return BlocProvider(
       create: (context) => NewAccountCubit(
-        authCubit: BlocProvider.of<AuthCubit>(context),
         accountsCubit: BlocProvider.of<AccountsCubit>(context),
       ),
       child: Theme(

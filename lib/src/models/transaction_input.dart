@@ -2,6 +2,8 @@ import 'package:expense_tracker_app/src/models/category.dart';
 
 import 'package:expense_tracker_app/src/models/transaction.dart';
 
+import 'transaction_type.dart';
+
 class TransactionInput {
   final TransactionType type;
   final Category category;

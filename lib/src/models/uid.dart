@@ -1,0 +1,3 @@
+class UID {
+  String value = "";
+}

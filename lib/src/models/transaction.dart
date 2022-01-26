@@ -1,24 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expense_tracker_app/src/models/category.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-part "transaction.freezed.dart";
 
-@freezed
-abstract class TransactionType with _$TransactionType {
-  const TransactionType._();
-  const factory TransactionType.expense() = _Expense;
-  const factory TransactionType.income() = _Income;
-  const factory TransactionType.sentTransfer() = _SentTransfer;
-  const factory TransactionType.recivedTransfer() = _RecivedTransfer;
-  String toMap() {
-    return when(
-      expense: () => "expense",
-      income: () => "income",
-      sentTransfer: () => "sent",
-      recivedTransfer: () => "recived",
-    );
-  }
-}
+import 'transaction_type.dart';
 
 class Transaction {
   final String id;
@@ -47,7 +30,7 @@ class Transaction {
     final map = doc.data();
     final Timestamp timestamp = map["date"];
     final DateTime date = timestamp.toDate();
-
+    final type = map["type"] as String;
     return Transaction(
         targetAccountId: map["targetAccount"] ?? "",
         date: date,
@@ -56,22 +39,7 @@ class Transaction {
         amount: map["amount"].toDouble(),
         description: map["description"],
         attachment: map["attachment"],
-        type: _mapType(map["type"]),
+        type: type.fromMap(),
         category: category);
-  }
-}
-
-TransactionType _mapType(String type) {
-  switch (type) {
-    case "expense":
-      return const TransactionType.expense();
-    case "income":
-      return const TransactionType.income();
-    case "sent":
-      return const TransactionType.sentTransfer();
-    case "recived":
-      return const TransactionType.recivedTransfer();
-    default:
-      throw Exception("invalid Transaction Type");
   }
 }

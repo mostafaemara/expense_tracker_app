@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:expense_tracker_app/injection.dart';
 import 'package:expense_tracker_app/src/exceptions/auth_exception.dart';
+import 'package:expense_tracker_app/src/models/uid.dart';
 import 'package:expense_tracker_app/src/models/user.dart';
 import 'package:expense_tracker_app/src/repositories/user_repository.dart';
 
@@ -19,6 +20,8 @@ class AuthServiceImpl implements AuthService {
       final userCredential = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
 
+      final user = userCredential.toDomain();
+      locator<UID>().value = user.uid;
       return userCredential.toDomain();
     } on firebase.FirebaseAuthException catch (e) {
       if (e.code == "user-not-found" || e.code == "wrong-password") {
@@ -55,6 +58,8 @@ class AuthServiceImpl implements AuthService {
           email: email, password: password);
       await _userRepo.setUserName(userCredential.user!.uid, userName);
 
+      final user = userCredential.toDomain();
+      locator<UID>().value = user.uid;
       return userCredential.toDomain();
     } on firebase.FirebaseAuthException catch (e) {
       log(e.code, name: "sasa");
@@ -84,7 +89,19 @@ class AuthServiceImpl implements AuthService {
   @override
   Future<User?> getUser() async {
     if (_auth.currentUser != null) {
-      return _auth.currentUser!.toDomain();
+      final user = _auth.currentUser!.toDomain();
+      locator<UID>().value = user.uid;
+      return user;
     }
+  }
+
+  @override
+  Stream<User?> onAuthChange() {
+    return _auth.authStateChanges().map((firebaseUser) {
+      if (firebaseUser != null) {
+        return User(firebaseUser.uid, firebaseUser.email!);
+      }
+      return null;
+    });
   }
 }
