@@ -1,4 +1,3 @@
-import 'package:expense_tracker_app/src/bloc/accounts/accounts_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_cubit.dart';
 
 import 'package:expense_tracker_app/src/models/transaction_type.dart';
@@ -27,7 +26,6 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
   void didChangeDependencies() {
     _newTransactionCubit = NewTransactionCubit(
       transactionType: widget.transactionType,
-      accountsCubit: BlocProvider.of<AccountsCubit>(context),
     );
     _newTransactionCubit.init();
     super.didChangeDependencies();

@@ -1,5 +1,3 @@
-import 'package:expense_tracker_app/src/bloc/accounts/accounts_cubit.dart';
-import 'package:expense_tracker_app/src/bloc/auth/auth_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/new_account/new_account_cubit.dart';
 import 'package:expense_tracker_app/src/widgets/my_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +16,7 @@ class AddNewAccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return BlocProvider(
-      create: (context) => NewAccountCubit(
-        accountsCubit: BlocProvider.of<AccountsCubit>(context),
-      ),
+      create: (context) => NewAccountCubit(),
       child: Theme(
         data: Theme.of(context).copyWith(
             appBarTheme: AppBarTheme(

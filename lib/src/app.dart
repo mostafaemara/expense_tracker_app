@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      restorationScopeId: 'Expense_Tracker:SgVkYp3s6v8y/B?E(H+MbQeThWmZq4t7',
+      // restorationScopeId: 'Expense_Tracker:SgVkYp3s6v8y/B?E(H+MbQeThWmZq4t7',
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

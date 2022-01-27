@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:expense_tracker_app/injection.dart';
+import 'package:expense_tracker_app/src/repositories/accounts/accounts_repository.dart';
 
-import 'package:expense_tracker_app/src/repositories/accounts_repository.dart';
 import 'package:expense_tracker_app/src/services/auth_service.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';

@@ -1,4 +1,5 @@
 import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_cubit.dart';
+import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_state.dart';
 import 'package:expense_tracker_app/src/models/category.dart';
 
 import 'package:flutter/material.dart';
@@ -8,26 +9,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CategoryFormField extends StatelessWidget {
   const CategoryFormField({
     Key? key,
-    required this.selectedCategory,
-    required this.onChanged,
   }) : super(key: key);
-
-  final Category? selectedCategory;
-  final void Function(Category?) onChanged;
 
   @override
   Widget build(BuildContext context) {
-    final categories = context.read<NewTransactionCubit>().state.categories;
+    final newTransactionCubit = context.read<NewTransactionCubit>();
 
-    return DropdownButtonFormField<Category>(
-        onChanged: onChanged,
-        hint: Text(AppLocalizations.of(context)!.category),
-        value: selectedCategory,
-        items: List.generate(
-            categories.length,
-            (index) => DropdownMenuItem(
-                  child: Text(categories[index].title.english),
-                  value: categories[index],
-                )));
+    return BlocBuilder<NewTransactionCubit, NewTransactionState>(
+      buildWhen: (previous, current) =>
+          current.selectedCategory != previous.selectedCategory,
+      builder: (context, state) => DropdownButtonFormField<Category>(
+          onChanged: newTransactionCubit.selectCategory,
+          hint: Text(AppLocalizations.of(context)!.category),
+          value: state.selectedCategory,
+          items: List.generate(
+              state.categories.length,
+              (index) => DropdownMenuItem(
+                    child: Text(state.categories[index].title.english),
+                    value: state.categories[index],
+                  ))),
+    );
   }
 }
