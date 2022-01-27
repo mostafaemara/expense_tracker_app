@@ -2,54 +2,76 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:expense_tracker_app/injection.dart';
-import 'package:expense_tracker_app/src/bloc/accounts/accounts_cubit.dart';
+
 import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_state.dart';
 
 import 'package:expense_tracker_app/src/bloc/submission_state.dart';
 
 import 'package:expense_tracker_app/src/exceptions/transaction_exception.dart';
+import 'package:expense_tracker_app/src/extenstions/acount_list_helpers.dart';
 import 'package:expense_tracker_app/src/extenstions/transaction_list_helper.dart';
-import 'package:expense_tracker_app/src/models/transaction.dart';
+import 'package:expense_tracker_app/src/helpers/image_helper.dart';
+import 'package:expense_tracker_app/src/models/category.dart';
+
 import 'package:expense_tracker_app/src/models/transaction_input.dart';
 import 'package:expense_tracker_app/src/models/transaction_type.dart';
+import 'package:expense_tracker_app/src/repositories/accounts/accounts_repository.dart';
 import 'package:expense_tracker_app/src/repositories/categories/categories_repository.dart';
 import 'package:expense_tracker_app/src/repositories/transactions/transaction_repository.dart';
+import 'package:image_picker/image_picker.dart';
 import "../../extenstions/categories_helper.dart";
-import "../../extenstions/acount_list_helpers.dart";
 
 class NewTransactionCubit extends Cubit<NewTransactionState> {
   NewTransactionCubit({
-    required this.accountsCubit,
     required this.transactionType,
   }) : super(const NewTransactionState.init());
 
-  final AccountsCubit accountsCubit;
   final _transactionRepository = locator<TransactionRepository>();
   final _categoriesRepository = locator<CategoriesRepository>();
+  final _accountsRepository = locator<AccountsRepository>();
   final TransactionType transactionType;
+
   void init() async {
-    final categories = await _categoriesRepository.getAllCategories();
-    log("hello");
-    final categoriesOfSelectedType =
-        categories.filterByTransactionType(transactionType);
-    log(categoriesOfSelectedType.length.toString());
-    log(categories.length.toString());
-    emit(state.copyWith(categories: categoriesOfSelectedType, isInit: true));
+    try {
+      final accounts = await _accountsRepository.getAccounts();
+      final categories = await _categoriesRepository.getAllCategories();
+
+      final categoriesOfSelectedType =
+          categories.filterByTransactionType(transactionType);
+
+      emit(state.copyWith(
+          categories: categoriesOfSelectedType,
+          isInit: true,
+          accounts: accounts));
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
-  void addTransaction(TransactionInput transactionInput) async {
-    final accountId = transactionInput.accountId;
-    final amount = transactionInput.amount;
-
+  void addTransaction(String balance, String description) async {
     try {
+      if (state.selectedCategory == null || state.selectedAccount == null) {
+        emit(state.copyWith(
+            submissionState: const SubmissionState.failed(
+                failure: TransactionException.serverError())));
+        return;
+      }
+      final String accountId = state.selectedAccount!;
+      final double amount = double.tryParse(balance)!;
       emit(state.copyWith(submissionState: const SubmissionState.submitting()));
 
-      if (transactionInput.type == TransactionType.expense ||
-          transactionInput.type == TransactionType.sent) {
-        _checkIfAccountBalanceIsEnough(accountId, amount);
+      if (transactionType == TransactionType.expense ||
+          transactionType == TransactionType.sent) {
+        await _checkIfAccountBalanceIsEnough(accountId, amount);
       }
 
-      await _transactionRepository.addTransaction(transactionInput);
+      await _transactionRepository.addTransaction(TransactionInput(
+          accountId: accountId,
+          amount: amount,
+          category: state.selectedCategory!,
+          description: description,
+          type: transactionType,
+          attachment: state.selectedAttachment ?? ""));
 
       emit(state.copyWith(submissionState: const SubmissionState.success()));
     } on TransactionException catch (e) {
@@ -57,7 +79,7 @@ class NewTransactionCubit extends Cubit<NewTransactionState> {
     }
   }
 
-  void _checkIfAccountBalanceIsEnough(String accountId, double amount) async {
+  Future _checkIfAccountBalanceIsEnough(String accountId, double amount) async {
     final accountBalance = await _accountBalance(accountId);
     if (amount > accountBalance) {
       throw TransactionException.notEnoughBalance(
@@ -67,10 +89,39 @@ class NewTransactionCubit extends Cubit<NewTransactionState> {
 
   Future<double> _accountBalance(String id) async {
     final transactions = await _transactionRepository.getAllTransactions();
-    final selectedAccount = accountsCubit.state.accounts.findById(id);
+    final selectedAccount = state.accounts.findById(id);
     final accountBalance = selectedAccount.balance;
     final accountTransactions = transactions.filterByAccountId(id);
     final totalAmount = accountTransactions.totalAmount();
     return accountBalance + totalAmount;
+  }
+
+  void selectAttachment(ImageSource imageSource) async {
+    final file = await ImagePicker()
+        .pickImage(source: imageSource, maxHeight: 800, maxWidth: 600);
+    if (file != null) {
+      final selectedAttachment = await file.convertToBase64Image();
+      emit(state.copyWith(selectedAttachment: selectedAttachment));
+    }
+  }
+
+  void selectCategory(Category? category) {
+    if (category == null) {
+      return;
+    }
+    log("categ changed");
+    emit(state.copyWith(selectedCategory: category));
+  }
+
+  void selectAccount(String? accountId) {
+    if (accountId == null) {
+      return;
+    }
+    log("account changed");
+    emit(state.copyWith(selectedAccount: accountId));
+  }
+
+  void cancelAttachment() {
+    emit(state.copyWith(selectedAttachment: null));
   }
 }

@@ -1,14 +1,10 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_state.dart';
-import 'package:expense_tracker_app/src/bloc/submission_state.dart';
-import 'package:expense_tracker_app/src/exceptions/transaction_exception.dart';
-import 'package:expense_tracker_app/src/models/category.dart';
 
-import 'package:expense_tracker_app/src/models/transaction_input.dart';
-import 'package:expense_tracker_app/src/models/transaction_type.dart';
+import 'package:expense_tracker_app/src/exceptions/transaction_exception.dart';
+import 'package:expense_tracker_app/src/pages/new_transaction/widgets/add_attachment_button.dart';
+
 import 'package:expense_tracker_app/src/pages/new_transaction/widgets/description_form_field.dart';
 import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/widgets/error_dialog.dart';
@@ -36,8 +32,6 @@ class InternalTransactionForm extends StatefulWidget {
 }
 
 class _InternalTransactionFormState extends State<InternalTransactionForm> {
-  Category? _selectedCategory;
-  String? _selectedAccountId;
   final _formKey = GlobalKey<FormState>();
   final _balanceController = TextEditingController(text: "0.00");
   final _descriptionController = TextEditingController();
@@ -68,11 +62,9 @@ class _InternalTransactionFormState extends State<InternalTransactionForm> {
                             topLeft: Radius.circular(32),
                             topRight: Radius.circular(32))),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        CategoryFormField(
-                          onChanged: _handleSelectCategory,
-                          selectedCategory: _selectedCategory,
-                        ),
+                        const CategoryFormField(),
                         const SizedBox(
                           height: 16,
                         ),
@@ -81,28 +73,13 @@ class _InternalTransactionFormState extends State<InternalTransactionForm> {
                         const SizedBox(
                           height: 16,
                         ),
-                        AccountFormField(
-                          selectedAccountId: _selectedAccountId,
-                          onChanged: _handleSelectAccount,
-                        ),
+                        const AccountFormField(),
                         const SizedBox(
                           height: 16,
                         ),
-                        SizedBox(
-                          height: 56,
-                          width: double.infinity,
-                          child: TextButton.icon(
-                            onPressed: () {
-                              _showChooseAttachmentModal(context);
-                            },
-                            icon: Transform.rotate(
-                              angle: 180,
-                              child: const Icon(Icons.attach_file),
-                            ),
-                            label: Text(
-                                AppLocalizations.of(context)!.addAttachment),
-                          ),
-                        ),
+                        AddAttachmentButton(
+                            onPressed: () =>
+                                _showChooseAttachmentModal(context)),
 
                         //  RepeatSwitchButton(),
                         const SizedBox(
@@ -141,6 +118,7 @@ class _InternalTransactionFormState extends State<InternalTransactionForm> {
   }
 
   void _showChooseAttachmentModal(BuildContext context) {
+    final newTransactionCubit = context.read<NewTransactionCubit>();
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -149,49 +127,18 @@ class _InternalTransactionFormState extends State<InternalTransactionForm> {
           topRight: Radius.circular(24),
         ),
       ),
-      builder: (context) => const AttachmentBottomSheet(),
+      builder: (context) => BlocProvider.value(
+        value: newTransactionCubit,
+        child: const AttachmentBottomSheet(),
+      ),
     );
   }
 
-  void _handleSelectCategory(Category? category) {
-    if (category == null) {
-      return;
-    }
-    setState(() {
-      _selectedCategory = category;
-    });
-  }
-
-  void _handleSelectAccount(String? accountId) {
-    if (accountId == null) {
-      return;
-    }
-    setState(() {
-      _selectedAccountId = accountId;
-    });
-  }
-
   void _handleSubmittion() {
-    if (_formKey.currentState!.validate() &&
-        _selectedAccountId != null &&
-        _selectedCategory != null) {
-      final transactionInput = _createTransaction();
-
+    if (_formKey.currentState!.validate()) {
       BlocProvider.of<NewTransactionCubit>(context)
-          .addTransaction(transactionInput);
+          .addTransaction(_balanceController.text, _descriptionController.text);
     }
-  }
-
-  TransactionInput _createTransaction() {
-    final transactionType = context.read<TransactionType>();
-
-    return TransactionInput(
-        accountId: _selectedAccountId!,
-        attachment: "",
-        amount: double.parse(_balanceController.text),
-        category: _selectedCategory!,
-        description: _descriptionController.text,
-        type: transactionType);
   }
 
   void _showErrorDialog(BuildContext context, String failure) {

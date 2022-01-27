@@ -2,9 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expense_tracker_app/src/exceptions/server_exception.dart';
-import 'package:expense_tracker_app/src/repositories/accounts_repository.dart';
 
-import '../../injection.dart';
 import 'user_repository.dart';
 
 class FirestoreUserRepository implements UserRepository {

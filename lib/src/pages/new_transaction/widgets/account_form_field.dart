@@ -1,5 +1,5 @@
-import 'package:expense_tracker_app/src/bloc/accounts/accounts_cubit.dart';
-
+import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_cubit.dart';
+import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,25 +7,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AccountFormField extends StatelessWidget {
   const AccountFormField({
     Key? key,
-    required this.selectedAccountId,
-    required this.onChanged,
   }) : super(key: key);
-
-  final String? selectedAccountId;
-  final void Function(String?) onChanged;
 
   @override
   Widget build(BuildContext context) {
-    final accounts = context.read<AccountsCubit>().state.accounts;
-    return DropdownButtonFormField<String>(
-        onChanged: onChanged,
-        hint: Text(AppLocalizations.of(context)!.accountName),
-        value: selectedAccountId,
-        items: List.generate(
-            accounts.length,
-            (index) => DropdownMenuItem(
-                  child: Text(accounts[index].title),
-                  value: accounts[index].id,
-                )));
+    final newTransactionCubit = context.read<NewTransactionCubit>();
+    return BlocBuilder<NewTransactionCubit, NewTransactionState>(
+      buildWhen: (previous, current) => current != previous,
+      builder: (context, state) => DropdownButtonFormField<String>(
+          onChanged: newTransactionCubit.selectAccount,
+          hint: Text(AppLocalizations.of(context)!.accountName),
+          value: state.selectedAccount,
+          items: List.generate(
+              state.accounts.length,
+              (index) => DropdownMenuItem(
+                    child: Text(state.accounts[index].title),
+                    value: state.accounts[index].id,
+                  ))),
+    );
   }
 }

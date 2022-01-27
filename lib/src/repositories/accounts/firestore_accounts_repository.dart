@@ -7,7 +7,7 @@ import 'package:expense_tracker_app/src/exceptions/server_exception.dart';
 import 'package:expense_tracker_app/src/models/account.dart';
 import 'package:expense_tracker_app/src/models/uid.dart';
 
-import 'package:expense_tracker_app/src/repositories/accounts_repository.dart';
+import 'accounts_repository.dart';
 
 class FirestoreAccountsRepository implements AccountsRepository {
   final _usersCollection =
