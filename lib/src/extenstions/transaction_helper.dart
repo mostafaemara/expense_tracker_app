@@ -68,16 +68,4 @@ extension TransactionFormatter on Transaction {
     }
     return formattedAmount;
   }
-
-  String formatTimeHHMMAMPM() {
-    final formattedDate = DateFormat('hh:mm a').format(date);
-
-    return formattedDate;
-  }
-
-  String formatDate() {
-    final formattedDate = DateFormat('EEEE d MMM y hh:mm').format(date);
-
-    return formattedDate;
-  }
 }
