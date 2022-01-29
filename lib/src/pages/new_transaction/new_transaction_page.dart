@@ -48,6 +48,7 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
       child: Provider.value(
         value: widget.transactionType,
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           backgroundColor: _getBackgroundColor(),
           appBar: MyAppBar(title: _getPageTitle(context)),
           body: BlocProvider.value(

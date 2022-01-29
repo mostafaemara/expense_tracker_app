@@ -32,7 +32,7 @@ class InternalTransactionForm extends StatefulWidget {
 }
 
 class _InternalTransactionFormState extends State<InternalTransactionForm> {
-  final _formKey = GlobalKey<FormState>();
+  static final _formKey = GlobalKey<FormState>();
   final _balanceController = TextEditingController(text: "0.00");
   final _descriptionController = TextEditingController();
   @override

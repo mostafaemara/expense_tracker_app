@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expense_tracker_app/src/models/transaction.dart';
-import 'package:expense_tracker_app/src/models/transaction_form_type.dart';
+
 import 'package:expense_tracker_app/src/models/transaction_type.dart';
 import 'package:expense_tracker_app/src/pages/account_all_set/account_all_set_page.dart';
 import 'package:expense_tracker_app/src/pages/add_new_account/add_new_account_page.dart';
@@ -17,6 +17,7 @@ import 'package:expense_tracker_app/src/pages/rest_password/rest_password_page.d
 import 'package:expense_tracker_app/src/pages/setup_account/setup_account_page.dart';
 import 'package:expense_tracker_app/src/pages/signup/signup_page.dart';
 import 'package:expense_tracker_app/src/pages/splash/splash_page.dart';
+import 'package:expense_tracker_app/src/pages/transaction_details/transaction_details.dart';
 
 import 'package:flutter/material.dart';
 part 'app_router.gr.dart';
@@ -32,6 +33,7 @@ part 'app_router.gr.dart';
       page: OnBoardingPage,
     ),
     AutoRoute(page: SignupPage),
+    AutoRoute(page: TransactionDetailsPage),
     AutoRoute(page: LoginPage),
     AutoRoute(page: RestPasswordPage),
     AutoRoute(
