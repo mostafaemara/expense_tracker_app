@@ -29,6 +29,13 @@ class _$AppRouter extends RootStackRouter {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const SignupPage());
     },
+    TransactionDetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<TransactionDetailsRouteArgs>();
+      return MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: TransactionDetailsPage(
+              key: args.key, transaction: args.transaction));
+    },
     LoginRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const LoginPage());
@@ -87,6 +94,8 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(SplashRoute.name, path: '/'),
         RouteConfig(OnBoardingRoute.name, path: '/on-boarding-page'),
         RouteConfig(SignupRoute.name, path: '/signup-page'),
+        RouteConfig(TransactionDetailsRoute.name,
+            path: '/transaction-details-page'),
         RouteConfig(LoginRoute.name, path: '/login-page'),
         RouteConfig(RestPasswordRoute.name, path: '/rest-password-page'),
         RouteConfig(SetupAccountRoute.name, path: '/setup-account-page'),
@@ -133,6 +142,32 @@ class SignupRoute extends PageRouteInfo<void> {
   const SignupRoute() : super(SignupRoute.name, path: '/signup-page');
 
   static const String name = 'SignupRoute';
+}
+
+/// generated route for
+/// [TransactionDetailsPage]
+class TransactionDetailsRoute
+    extends PageRouteInfo<TransactionDetailsRouteArgs> {
+  TransactionDetailsRoute({Key? key, required Transaction transaction})
+      : super(TransactionDetailsRoute.name,
+            path: '/transaction-details-page',
+            args: TransactionDetailsRouteArgs(
+                key: key, transaction: transaction));
+
+  static const String name = 'TransactionDetailsRoute';
+}
+
+class TransactionDetailsRouteArgs {
+  const TransactionDetailsRouteArgs({this.key, required this.transaction});
+
+  final Key? key;
+
+  final Transaction transaction;
+
+  @override
+  String toString() {
+    return 'TransactionDetailsRouteArgs{key: $key, transaction: $transaction}';
+  }
 }
 
 /// generated route for
