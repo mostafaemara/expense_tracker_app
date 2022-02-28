@@ -1,10 +1,12 @@
+import 'package:expense_tracker_app/src/models/inputs/login_input.dart';
+import 'package:expense_tracker_app/src/models/inputs/signup_input.dart';
 import 'package:expense_tracker_app/src/models/user.dart';
 
 abstract class AuthService {
-  Future<User> login(String email, String password);
-  Future<User> signup(String email, String password, String userName);
+  Future<User> login(LoginInput input);
+  Future<User> signup(SignupInput input);
   Future<void> sendPasswordResetEmail(String email);
   Future<void> setNewPassword(String code, String newPassword);
-  Future<User?> getUser();
+
   Stream<User?> onAuthChange();
 }

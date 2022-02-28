@@ -1,107 +1,49 @@
 import 'dart:developer';
 
+import 'package:dio/dio.dart';
 import 'package:expense_tracker_app/injection.dart';
-import 'package:expense_tracker_app/src/exceptions/auth_exception.dart';
-import 'package:expense_tracker_app/src/models/uid.dart';
+import 'package:expense_tracker_app/src/models/inputs/login_input.dart';
+import 'package:expense_tracker_app/src/models/inputs/signup_input.dart';
+
 import 'package:expense_tracker_app/src/models/user.dart';
-import 'package:expense_tracker_app/src/repositories/user_repository.dart';
+import 'package:expense_tracker_app/src/repositories/interfaces/user_repository.dart';
+import 'package:expense_tracker_app/src/services/api/api.dart';
 
-import 'package:firebase_auth/firebase_auth.dart' as firebase;
-
-import "./firebase_user_mapper.dart";
 import 'auth_service.dart';
 
 class AuthServiceImpl implements AuthService {
-  final _auth = firebase.FirebaseAuth.instance;
-  final _userRepo = locator<UserRepository>();
-  @override
-  Future<User> login(String email, String password) async {
-    try {
-      final userCredential = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
+  final _userRepo = locator.get<UserRepository>();
+  final _api = locator.get<Api>();
 
-      final user = userCredential.toDomain();
-      locator<UID>().value = user.uid;
-      return userCredential.toDomain();
-    } on firebase.FirebaseAuthException catch (e) {
-      if (e.code == "user-not-found" || e.code == "wrong-password") {
-        throw AuthException(AuthError.invalidEmailOrPassword);
-      } else {
-        throw AuthException(AuthError.serverError);
-      }
-    } catch (e) {
-      throw AuthException(AuthError.serverError);
+  @override
+  Future<User> login(LoginInput input) async {
+    try {
+      log("request started");
+      final response = await _api.dio.post("/auth/login", data: input.toMap());
+      final user = User.fromMap(response.data);
+      await _userRepo.writeUser(user);
+      return user;
+    } on DioError catch (e) {
+      log("Error" + e.type.name);
+      throw e;
     }
   }
 
   @override
-  Future<void> sendPasswordResetEmail(String email) async {
-    try {
-      await _auth.sendPasswordResetEmail(
-        email: email,
-      );
-    } on firebase.FirebaseAuthException catch (e) {
-      if (e.code == "auth/user-not-found") {
-        throw AuthException(AuthError.emailNotFound);
-      } else {
-        throw AuthException(AuthError.serverError);
-      }
-    } catch (e) {
-      throw AuthException(AuthError.serverError);
-    }
-  }
+  Future<void> sendPasswordResetEmail(String email) async {}
 
   @override
-  Future<User> signup(String email, String password, String userName) async {
-    try {
-      final userCredential = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      await _userRepo.setUserName(userCredential.user!.uid, userName);
-
-      final user = userCredential.toDomain();
-      locator<UID>().value = user.uid;
-      return userCredential.toDomain();
-    } on firebase.FirebaseAuthException catch (e) {
-      log(e.code, name: "sasa");
-      if (e.code == "email-already-in-use") {
-        throw AuthException(AuthError.emailAlreadyInUse);
-      }
-      throw AuthException(AuthError.serverError);
-    } catch (e) {
-      throw AuthException(AuthError.serverError);
-    }
+  Future<User> signup(SignupInput input) async {
+    throw UnimplementedError();
   }
 
   @override
   Future<void> setNewPassword(String code, String newPassword) async {
-    try {
-      await _auth.confirmPasswordReset(code: code, newPassword: newPassword);
-    } on firebase.FirebaseAuthException catch (e) {
-      if (e.code == "expired-action-code" || e.code == "invalid-action-code") {
-        throw AuthException(AuthError.invalidCode);
-      }
-      throw AuthException(AuthError.serverError);
-    } catch (e) {
-      throw AuthException(AuthError.serverError);
-    }
-  }
-
-  @override
-  Future<User?> getUser() async {
-    if (_auth.currentUser != null) {
-      final user = _auth.currentUser!.toDomain();
-      locator<UID>().value = user.uid;
-      return user;
-    }
+    throw UnimplementedError();
   }
 
   @override
   Stream<User?> onAuthChange() {
-    return _auth.authStateChanges().map((firebaseUser) {
-      if (firebaseUser != null) {
-        return User(firebaseUser.uid, firebaseUser.email!);
-      }
-      return null;
-    });
+    throw UnimplementedError();
   }
 }
