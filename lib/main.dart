@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:hive_flutter/hive_flutter.dart';
 import 'firebase_options.dart';
 import 'injection.dart';
 import 'src/app.dart';
@@ -19,8 +18,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  initializeDependencies();
-  await Hive.initFlutter();
+  await initializeDependencies();
   // Workmanager().initialize(
   //     callbackDispatcher, // The top level function, aka callbackDispatcher
   //     isInDebugMode:

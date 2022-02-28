@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:expense_tracker_app/src/bloc/auth/auth_cubit.dart';
 import 'package:expense_tracker_app/src/exceptions/auth_exception.dart';
+import 'package:expense_tracker_app/src/models/inputs/login_input.dart';
 import 'package:expense_tracker_app/src/services/auth_service.dart';
 
 import '../../../../injection.dart';
@@ -17,7 +18,8 @@ class LoginCubit extends Cubit<SubmissionState> {
   }) async {
     try {
       emit(const SubmissionState.submitting());
-      final user = await _authService.login(email, password);
+      final user = await _authService
+          .login(LoginInput(email: email, password: password));
       emit(const SubmissionState.success());
 
       _authCubit.setAuthenticated(user);

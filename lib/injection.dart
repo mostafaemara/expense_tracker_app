@@ -1,4 +1,3 @@
-import 'package:expense_tracker_app/src/models/uid.dart';
 import 'package:expense_tracker_app/src/repositories/accounts/accounts_proxy.dart';
 import 'package:expense_tracker_app/src/repositories/accounts/accounts_repository.dart';
 import 'package:expense_tracker_app/src/repositories/categories/categories_proxy.dart';
@@ -10,21 +9,33 @@ import 'package:expense_tracker_app/src/repositories/firestore_date_repository.d
 import 'package:expense_tracker_app/src/repositories/transactions/firestore_transaction_repository.dart';
 import 'package:expense_tracker_app/src/repositories/transactions/transaction_repository.dart';
 import 'package:expense_tracker_app/src/repositories/transactions/transactions_proxy.dart';
+import 'package:expense_tracker_app/src/repositories/user_repository_impl.dart';
+import 'package:expense_tracker_app/src/services/api/api.dart';
 
 import 'package:expense_tracker_app/src/services/auth_service_impl.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'src/repositories/accounts/firestore_accounts_repository.dart';
 
-import 'src/repositories/firestore_user_repository.dart';
-import 'src/repositories/user_repository.dart';
+import 'src/repositories/interfaces/user_repository.dart';
 import 'src/services/auth_service.dart';
 
 final locator = GetIt.instance;
 Future<void> initializeDependencies() async {
-  locator.registerSingleton<UID>(UID());
-  locator.registerSingleton<UserRepository>(FirestoreUserRepository());
-  locator.registerSingleton<AuthService>(AuthServiceImpl());
+  locator.registerSingletonAsync<SharedPreferences>(() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs;
+  });
+  locator.registerSingletonWithDependencies<UserRepository>(
+      () => UserRepositoryImpl(),
+      dependsOn: [SharedPreferences]);
+  locator.registerSingletonWithDependencies<Api>(() => Api()..init(),
+      dependsOn: [UserRepository]);
+
+  locator.registerSingletonWithDependencies<AuthService>(
+      () => AuthServiceImpl(),
+      dependsOn: [UserRepository, Api]);
   locator.registerSingleton<DateRepository>(FSDateRepository());
   locator.registerSingleton<AccountsRepository>(
       AccountsProxy(FirestoreAccountsRepository()));
@@ -32,4 +43,5 @@ Future<void> initializeDependencies() async {
       CategoriesProxy(FSCategoriesRepository()));
   locator.registerSingleton<TransactionRepository>(
       TransactionsProxy(FSTransactionRepository()));
+  return await locator.allReady();
 }
