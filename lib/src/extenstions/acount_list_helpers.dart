@@ -1,4 +1,4 @@
-import 'package:expense_tracker_app/src/models/account.dart';
+import 'package:expense_tracker_app/src/data/models/account.dart';
 
 extension AccountListHelper on List<Account> {
   double totalBalance() {

@@ -1,25 +1,25 @@
-import 'package:expense_tracker_app/src/repositories/accounts/accounts_proxy.dart';
-import 'package:expense_tracker_app/src/repositories/accounts/accounts_repository.dart';
-import 'package:expense_tracker_app/src/repositories/categories/categories_proxy.dart';
-import 'package:expense_tracker_app/src/repositories/categories/categories_repository.dart';
-import 'package:expense_tracker_app/src/repositories/categories/firestore_categories_repository.dart';
-import 'package:expense_tracker_app/src/repositories/date_repository.dart';
+import 'package:expense_tracker_app/src/data/repositories/date_repository.dart';
+import 'package:expense_tracker_app/src/data/repositories/proxies/accounts_proxy.dart';
+import 'package:expense_tracker_app/src/data/repositories/interfaces/accounts_repository.dart';
+import 'package:expense_tracker_app/src/data/repositories/proxies/categories_proxy.dart';
+import 'package:expense_tracker_app/src/data/repositories/interfaces/categories_repository.dart';
+import 'package:expense_tracker_app/src/data/repositories/firestore_categories_repository.dart';
 
-import 'package:expense_tracker_app/src/repositories/firestore_date_repository.dart';
-import 'package:expense_tracker_app/src/repositories/transactions/firestore_transaction_repository.dart';
-import 'package:expense_tracker_app/src/repositories/transactions/transaction_repository.dart';
-import 'package:expense_tracker_app/src/repositories/transactions/transactions_proxy.dart';
-import 'package:expense_tracker_app/src/repositories/user_repository_impl.dart';
-import 'package:expense_tracker_app/src/services/api/api.dart';
+import 'package:expense_tracker_app/src/data/repositories/firestore_date_repository.dart';
+import 'package:expense_tracker_app/src/data/repositories/firestore_transaction_repository.dart';
+import 'package:expense_tracker_app/src/data/repositories/interfaces/transaction_repository.dart';
+import 'package:expense_tracker_app/src/data/repositories/proxies/transactions_proxy.dart';
+import 'package:expense_tracker_app/src/data/repositories/user_repository_impl.dart';
+import 'package:expense_tracker_app/src/data/api/api.dart';
 
-import 'package:expense_tracker_app/src/services/auth_service_impl.dart';
+import 'package:expense_tracker_app/src/data/repositories/auth_repository_impl.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'src/repositories/accounts/firestore_accounts_repository.dart';
+import 'src/data/repositories/firestore_accounts_repository.dart';
 
-import 'src/repositories/interfaces/user_repository.dart';
-import 'src/services/auth_service.dart';
+import 'src/data/repositories/interfaces/user_repository.dart';
+import 'src/data/repositories/interfaces/auth_repository.dart';
 
 final locator = GetIt.instance;
 Future<void> initializeDependencies() async {
@@ -34,7 +34,7 @@ Future<void> initializeDependencies() async {
       dependsOn: [UserRepository]);
 
   locator.registerSingletonWithDependencies<AuthService>(
-      () => AuthServiceImpl(),
+      () => AuthRepositoryImpl(),
       dependsOn: [UserRepository, Api]);
   locator.registerSingleton<DateRepository>(FSDateRepository());
   locator.registerSingleton<AccountsRepository>(

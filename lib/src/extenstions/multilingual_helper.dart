@@ -1,4 +1,4 @@
-import 'package:expense_tracker_app/src/models/multilingual.dart';
+import 'package:expense_tracker_app/src/data/models/multilingual.dart';
 import 'package:flutter/material.dart';
 
 extension MultilingualHelper on Multilingual {

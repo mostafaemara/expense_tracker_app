@@ -1,4 +1,4 @@
-import 'package:expense_tracker_app/src/models/duration_type.dart';
+import 'package:expense_tracker_app/src/data/models/duration_type.dart';
 
 extension DurationTypeConverter on DurationType {
   DateTime toDateTime(DateTime todayDate) => when(

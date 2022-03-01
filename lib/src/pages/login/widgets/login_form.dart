@@ -1,6 +1,6 @@
-import 'package:expense_tracker_app/src/bloc/login/login_cubit.dart';
-import 'package:expense_tracker_app/src/bloc/submission_state.dart';
-import 'package:expense_tracker_app/src/exceptions/auth_exception.dart';
+import 'package:expense_tracker_app/src/application/login/login_cubit.dart';
+import 'package:expense_tracker_app/src/application/submission_state.dart';
+import 'package:expense_tracker_app/src/data/exceptions/auth_exception.dart';
 import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/widgets/email_form_field.dart';
 import 'package:expense_tracker_app/src/widgets/error_dialog.dart';

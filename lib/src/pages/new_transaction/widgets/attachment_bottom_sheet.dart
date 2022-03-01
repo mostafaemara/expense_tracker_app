@@ -1,9 +1,9 @@
 import 'dart:developer';
 
-import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_cubit.dart';
+import 'package:expense_tracker_app/src/application/new_transaction/newtransaction_cubit.dart';
 import 'package:provider/provider.dart';
 
-import 'package:expense_tracker_app/src/repositories/categories/attachment_repository_impl.dart';
+import 'package:expense_tracker_app/src/data/repositories/attachment_repository_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';

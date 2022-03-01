@@ -1,4 +1,5 @@
-import 'package:expense_tracker_app/src/models/transaction.dart';
+import 'package:expense_tracker_app/src/data/models/transaction.dart';
+
 import 'package:flutter/material.dart';
 
 import 'transaction_list_item.dart';

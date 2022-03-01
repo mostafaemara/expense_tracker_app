@@ -1,4 +1,5 @@
-import 'package:expense_tracker_app/src/bloc/new_account/new_account_cubit.dart';
+import 'package:expense_tracker_app/src/application/new_account/new_account_cubit.dart';
+
 import 'package:expense_tracker_app/src/widgets/my_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

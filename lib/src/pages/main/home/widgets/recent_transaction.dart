@@ -1,7 +1,8 @@
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
-import 'package:expense_tracker_app/src/bloc/Home/home_cubit.dart';
+import 'package:expense_tracker_app/src/application/home/home_cubit.dart';
 
-import 'package:expense_tracker_app/src/models/duration_type.dart';
+import 'package:expense_tracker_app/src/data/models/duration_type.dart';
+
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 
 import 'package:flutter/material.dart';
@@ -67,7 +68,7 @@ class _RecentTransactionState extends State<RecentTransaction>
             isScrollable: false,
             labelColor: AppColors.yellow,
             unselectedLabelColor: AppColors.light20,
-            indicator: BubbleTabIndicator(
+            indicator: const BubbleTabIndicator(
               indicatorRadius: 16,
               indicatorHeight: 34.0,
               indicatorColor: AppColors.yellow20,

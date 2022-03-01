@@ -1,5 +1,6 @@
-import 'package:expense_tracker_app/src/bloc/Home/home_cubit.dart';
-import 'package:expense_tracker_app/src/models/transaction.dart';
+import 'package:expense_tracker_app/src/application/home/home_cubit.dart';
+import 'package:expense_tracker_app/src/data/models/transaction.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
