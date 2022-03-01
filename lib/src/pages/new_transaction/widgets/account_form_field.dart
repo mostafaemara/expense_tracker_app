@@ -1,5 +1,5 @@
-import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_cubit.dart';
-import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_state.dart';
+import 'package:expense_tracker_app/src/application/new_transaction/newtransaction_cubit.dart';
+import 'package:expense_tracker_app/src/application/new_transaction/newtransaction_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

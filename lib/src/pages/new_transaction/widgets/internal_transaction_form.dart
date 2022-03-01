@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_cubit.dart';
-import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_state.dart';
+import 'package:expense_tracker_app/src/application/new_transaction/newtransaction_cubit.dart';
+import 'package:expense_tracker_app/src/application/new_transaction/newtransaction_state.dart';
 
-import 'package:expense_tracker_app/src/exceptions/transaction_exception.dart';
+import 'package:expense_tracker_app/src/data/exceptions/transaction_exception.dart';
 import 'package:expense_tracker_app/src/pages/new_transaction/widgets/add_attachment_button.dart';
 
 import 'package:expense_tracker_app/src/pages/new_transaction/widgets/description_form_field.dart';

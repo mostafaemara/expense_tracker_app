@@ -1,5 +1,6 @@
+import 'package:expense_tracker_app/src/data/models/transaction.dart';
 import 'package:expense_tracker_app/src/extenstions/transaction_helper.dart';
-import 'package:expense_tracker_app/src/models/transaction.dart';
+
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:flutter/material.dart';
 import "../../extenstions/transaction_helper.dart";

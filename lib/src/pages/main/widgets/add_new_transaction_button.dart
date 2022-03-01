@@ -1,5 +1,4 @@
-import 'package:expense_tracker_app/src/models/transaction.dart';
-import 'package:expense_tracker_app/src/models/transaction_type.dart';
+import 'package:expense_tracker_app/src/data/models/transaction_type.dart';
 
 import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';

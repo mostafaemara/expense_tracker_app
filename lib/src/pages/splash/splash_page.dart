@@ -1,4 +1,4 @@
-import 'package:expense_tracker_app/src/bloc/splash/splash_cubit.dart';
+import 'package:expense_tracker_app/src/application/splash/splash_cubit.dart';
 
 import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:flutter/material.dart';

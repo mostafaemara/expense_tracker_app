@@ -1,4 +1,5 @@
-import 'package:expense_tracker_app/src/bloc/Home/home_cubit.dart';
+import 'package:expense_tracker_app/src/application/auth/auth_cubit.dart';
+import 'package:expense_tracker_app/src/application/home/home_cubit.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'firebase_options.dart';
 import 'injection.dart';
 import 'src/app.dart';
-import 'src/bloc/auth/auth_cubit.dart';
-import 'src/bloc/login/login_cubit.dart';
-import 'src/bloc/signup/signup_cubit.dart';
+import 'src/application/login/login_cubit.dart';
+import 'src/application/signup/signup_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
