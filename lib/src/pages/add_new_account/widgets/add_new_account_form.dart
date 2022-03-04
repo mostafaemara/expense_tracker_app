@@ -3,6 +3,8 @@ import 'package:expense_tracker_app/src/application/new_account/new_account_cubi
 import 'package:expense_tracker_app/src/application/submission_state.dart';
 
 import 'package:expense_tracker_app/src/data/models/account.dart';
+import 'package:expense_tracker_app/src/data/models/account_type.dart';
+import 'package:expense_tracker_app/src/data/models/inputs/account_input.dart';
 import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/widgets/error_dialog.dart';
 import 'package:expense_tracker_app/src/widgets/loading_dialog.dart';

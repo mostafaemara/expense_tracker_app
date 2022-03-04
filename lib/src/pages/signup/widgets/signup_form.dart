@@ -173,9 +173,6 @@ class _SignupFormState extends State<SignupForm> {
         errorMessage = AppLocalizations.of(context)!.emailAlreadyInUse;
         break;
 
-      case AuthError.serverError:
-        errorMessage = AppLocalizations.of(context)!.serverError;
-        break;
       default:
         errorMessage = AppLocalizations.of(context)!.serverError;
         break;

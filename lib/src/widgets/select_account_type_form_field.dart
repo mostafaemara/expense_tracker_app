@@ -1,4 +1,4 @@
-import 'package:expense_tracker_app/src/data/models/account.dart';
+import 'package:expense_tracker_app/src/data/models/account_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -18,10 +18,10 @@ class SelectAccountTypeFormField extends StatelessWidget {
         hint: Text(AppLocalizations.of(context)!.accountType),
         items: [
           DropdownMenuItem(
-              value: const AccountType.bankAccount(),
+              value: AccountType.bankAccount,
               child: Text(AppLocalizations.of(context)!.bankAccount)),
           DropdownMenuItem(
-              value: const AccountType.wallet(),
+              value: AccountType.wallet,
               child: Text(AppLocalizations.of(context)!.wallet))
         ]);
   }

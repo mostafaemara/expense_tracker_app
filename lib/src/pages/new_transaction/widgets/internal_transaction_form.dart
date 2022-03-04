@@ -6,6 +6,7 @@ import 'package:expense_tracker_app/src/data/exceptions/transaction_exception.da
 import 'package:expense_tracker_app/src/pages/new_transaction/widgets/add_attachment_button.dart';
 
 import 'package:expense_tracker_app/src/pages/new_transaction/widgets/description_form_field.dart';
+import 'package:expense_tracker_app/src/pages/new_transaction/widgets/title_form_field.dart';
 import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/widgets/error_dialog.dart';
 import 'package:expense_tracker_app/src/widgets/loading_dialog.dart';
@@ -35,6 +36,7 @@ class _InternalTransactionFormState extends State<InternalTransactionForm> {
   static final _formKey = GlobalKey<FormState>();
   final _balanceController = TextEditingController(text: "0.00");
   final _descriptionController = TextEditingController();
+  final _titleController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<NewTransactionCubit, NewTransactionState>(
@@ -64,6 +66,10 @@ class _InternalTransactionFormState extends State<InternalTransactionForm> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
+                        TitleFormField(controller: _titleController),
+                        const SizedBox(
+                          height: 16,
+                        ),
                         const CategoryFormField(),
                         const SizedBox(
                           height: 16,
@@ -136,8 +142,10 @@ class _InternalTransactionFormState extends State<InternalTransactionForm> {
 
   void _handleSubmittion() {
     if (_formKey.currentState!.validate()) {
-      BlocProvider.of<NewTransactionCubit>(context)
-          .addTransaction(_balanceController.text, _descriptionController.text);
+      BlocProvider.of<NewTransactionCubit>(context).addTransaction(
+          _balanceController.text,
+          _descriptionController.text,
+          _titleController.text);
     }
   }
 

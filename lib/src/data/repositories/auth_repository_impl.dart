@@ -2,6 +2,9 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:expense_tracker_app/injection.dart';
+import 'package:expense_tracker_app/src/data/api/api_config.dart';
+import 'package:expense_tracker_app/src/data/exceptions/auth_exception.dart';
+import 'package:expense_tracker_app/src/data/exceptions/server_exception.dart';
 import 'package:expense_tracker_app/src/data/models/inputs/login_input.dart';
 import 'package:expense_tracker_app/src/data/models/inputs/signup_input.dart';
 
@@ -18,14 +21,13 @@ class AuthRepositoryImpl implements AuthService {
   @override
   Future<User> login(LoginInput input) async {
     try {
-      log("request started");
-      final response = await _api.dio.post("/auth/login", data: input.toMap());
+      final response =
+          await _api.dio.post(ApiConfig.loginPath, data: input.toMap());
       final user = User.fromMap(response.data);
       await _userRepo.writeUser(user);
       return user;
     } on DioError catch (e) {
-      log("Error" + e.type.name);
-      throw e;
+      throw _handleError(e);
     }
   }
 
@@ -34,7 +36,15 @@ class AuthRepositoryImpl implements AuthService {
 
   @override
   Future<User> signup(SignupInput input) async {
-    throw UnimplementedError();
+    try {
+      final response =
+          await _api.dio.post(ApiConfig.signupPath, data: input.toMap());
+      final user = User.fromMap(response.data);
+      await _userRepo.writeUser(user);
+      return user;
+    } on DioError catch (e) {
+      throw _handleError(e);
+    }
   }
 
   @override
@@ -45,5 +55,18 @@ class AuthRepositoryImpl implements AuthService {
   @override
   Stream<User?> onAuthChange() {
     throw UnimplementedError();
+  }
+
+  Exception _handleError(DioError error) {
+    log("Error" + error.error.toString());
+    if (error.response != null) {
+      if (error.response?.statusCode == 403) {
+        return AuthException(AuthError.invalidEmailOrPassword);
+      }
+      if (error.response?.statusCode == 400) {
+        return AuthException(AuthError.emailAlreadyInUse);
+      }
+    }
+    return ServerException();
   }
 }

@@ -32,6 +32,12 @@ class HomeCubit extends Cubit<HomeState> {
   void init() async {
     try {
       await _transactionRepository.getAllTransactions();
+      final finance = await _transactionRepository.readFinance();
+
+      emit(state.copyWith(
+          balance: finance.balance,
+          expeses: finance.expense,
+          income: finance.income));
       //  _handleTransactionsChanges(transactions);
     } catch (e) {
       log(
@@ -42,23 +48,20 @@ class HomeCubit extends Cubit<HomeState> {
 
   void _handleTransactionsChanges(List<Transaction> transactions) async {
     try {
-      final accounts = await _accountsRepository.getAccounts();
-
       final todayDate = await _dateRepository.readCurrentTime();
 
       final spentTransactions =
           transactions.filterByDate(todayDate, todayDate).filterToExpense();
-      final totalIncome = transactions.totalIncomeAmount();
-      final totalExpense = transactions.totalExpenseAmount();
-      final totalAccountsBalance = accounts.totalBalance();
-      final totalAmount = totalAccountsBalance + totalIncome - totalExpense;
+
+      final finance = await _transactionRepository.readFinance();
+
       final recentTransactions = transactions.lastThree();
 
       emit(state.copyWith(
           recentTransactions: recentTransactions,
-          income: totalIncome,
-          expeses: totalExpense,
-          balance: totalAmount,
+          income: finance.income,
+          expeses: finance.expense,
+          balance: finance.balance,
           isLoading: false,
           transactionsOfSelectedDuration: spentTransactions,
           from: todayDate,

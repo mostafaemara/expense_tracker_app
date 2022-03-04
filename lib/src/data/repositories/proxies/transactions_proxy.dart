@@ -1,12 +1,16 @@
 import 'dart:async';
 
+import 'package:expense_tracker_app/src/data/models/category.dart';
+import 'package:expense_tracker_app/src/data/models/finance.dart';
 import 'package:expense_tracker_app/src/data/models/frequent_transaction.dart';
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
-import 'package:expense_tracker_app/src/data/models/transaction_input.dart';
+import 'package:expense_tracker_app/src/data/models/inputs/transaction_input.dart';
 import 'package:expense_tracker_app/src/data/repositories/interfaces/transaction_repository.dart';
 
 class TransactionsProxy implements TransactionRepository {
   final TransactionRepository _transactionRepository;
+
+  List<Category>? _categories;
   List<Transaction>? _transactions;
   final StreamController<List<Transaction>> _transactionsController =
       StreamController<List<Transaction>>();
@@ -48,5 +52,15 @@ class TransactionsProxy implements TransactionRepository {
   Future<FrequentTransaction> readFrequentTransactions() {
     // TODO: implement readFrequentTransactions
     throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Category>> getAllCategories() async {
+    return _categories ??= await _transactionRepository.getAllCategories();
+  }
+
+  @override
+  Future<Finance> readFinance() {
+    return _transactionRepository.readFinance();
   }
 }

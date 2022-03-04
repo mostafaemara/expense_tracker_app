@@ -1,7 +1,7 @@
 enum TransactionType { expense, income, sent, received, transfer }
 
 extension TransactionTypeMapper on TransactionType {
-  String toMap() {
+  String name() {
     switch (this) {
       case TransactionType.expense:
         return "expense";
@@ -17,21 +17,19 @@ extension TransactionTypeMapper on TransactionType {
   }
 }
 
-extension StringMapper on String {
-  TransactionType fromMap() {
-    switch (this) {
-      case "expense":
-        return TransactionType.expense;
-      case "income":
-        return TransactionType.income;
-      case "sent":
-        return TransactionType.sent;
-      case "received":
-        return TransactionType.received;
-      case "transfer":
-        return TransactionType.transfer;
-      default:
-        throw const FormatException("invalid Transaction type");
-    }
+TransactionType parse(String value) {
+  switch (value) {
+    case "expense":
+      return TransactionType.expense;
+    case "income":
+      return TransactionType.income;
+    case "sent":
+      return TransactionType.sent;
+    case "received":
+      return TransactionType.received;
+    case "transfer":
+      return TransactionType.transfer;
+    default:
+      throw const FormatException("invalid Transaction type");
   }
 }
