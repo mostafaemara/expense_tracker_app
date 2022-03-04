@@ -9,11 +9,7 @@ class SignupInput {
       {required this.email, required this.password, required this.name});
 
   Map<String, dynamic> toMap() {
-    return {
-      'email': email,
-      'password': password,
-      'name': name,
-    };
+    return {'email': email, 'password': password, 'name': name, "image": ""};
   }
 
   factory SignupInput.fromMap(Map<String, dynamic> map) {

@@ -11,10 +11,10 @@ import 'package:expense_tracker_app/src/extenstions/transaction_list_helper.dart
 import 'package:expense_tracker_app/src/helpers/image_helper.dart';
 import 'package:expense_tracker_app/src/data/models/category.dart';
 
-import 'package:expense_tracker_app/src/data/models/transaction_input.dart';
+import 'package:expense_tracker_app/src/data/models/inputs/transaction_input.dart';
 import 'package:expense_tracker_app/src/data/models/transaction_type.dart';
 import 'package:expense_tracker_app/src/data/repositories/interfaces/accounts_repository.dart';
-import 'package:expense_tracker_app/src/data/repositories/interfaces/categories_repository.dart';
+
 import 'package:expense_tracker_app/src/data/repositories/interfaces/transaction_repository.dart';
 import 'package:image_picker/image_picker.dart';
 import "../../extenstions/categories_helper.dart";
@@ -25,14 +25,14 @@ class NewTransactionCubit extends Cubit<NewTransactionState> {
   }) : super(const NewTransactionState.init());
 
   final _transactionRepository = locator<TransactionRepository>();
-  final _categoriesRepository = locator<CategoriesRepository>();
+
   final _accountsRepository = locator<AccountsRepository>();
   final TransactionType transactionType;
 
   void init() async {
     try {
       final accounts = await _accountsRepository.getAccounts();
-      final categories = await _categoriesRepository.getAllCategories();
+      final categories = await _transactionRepository.getAllCategories();
 
       final categoriesOfSelectedType =
           categories.filterByTransactionType(transactionType);
@@ -46,7 +46,7 @@ class NewTransactionCubit extends Cubit<NewTransactionState> {
     }
   }
 
-  void addTransaction(String balance, String description) async {
+  void addTransaction(String balance, String description, String title) async {
     try {
       if (state.selectedCategory == null || state.selectedAccount == null) {
         emit(state.copyWith(
@@ -64,6 +64,7 @@ class NewTransactionCubit extends Cubit<NewTransactionState> {
       }
 
       await _transactionRepository.addTransaction(TransactionInput(
+          title: title,
           accountId: accountId,
           amount: amount,
           category: state.selectedCategory!,

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:expense_tracker_app/src/data/models/account.dart';
+import 'package:expense_tracker_app/src/data/models/inputs/account_input.dart';
 import 'package:expense_tracker_app/src/data/repositories/interfaces/accounts_repository.dart';
 
 class AccountsProxy implements AccountsRepository {

@@ -1,7 +1,7 @@
 enum AuthError {
   emailAlreadyInUse,
   invalidEmailOrPassword,
-  serverError,
+
   emailNotFound,
 
   invalidCode

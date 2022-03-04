@@ -22,7 +22,7 @@ extension TransactionListFilter on List<Transaction> {
     final List<Transaction> filteredTransaction = [];
 
     for (final transaction in this) {
-      if (transaction.accountId == id) {
+      if (transaction.account == id) {
         filteredTransaction.add(transaction);
       }
     }

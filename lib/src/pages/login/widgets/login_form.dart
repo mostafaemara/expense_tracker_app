@@ -110,10 +110,6 @@ class _LoginFormState extends State<LoginForm> {
     String errorMessage = "";
 
     switch (error) {
-      case AuthError.serverError:
-        errorMessage = AppLocalizations.of(context)!.serverError;
-        break;
-
       case AuthError.invalidEmailOrPassword:
         errorMessage = AppLocalizations.of(context)!.emailOrPasswordIncorrect;
         break;

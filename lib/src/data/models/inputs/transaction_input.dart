@@ -1,11 +1,12 @@
 import 'package:expense_tracker_app/src/data/models/category.dart';
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
 
-import 'transaction_type.dart';
+import '../transaction_type.dart';
 
 class TransactionInput {
   final TransactionType type;
   final Category category;
+  final String title;
   final double amount;
   final String description;
   final String attachment;
@@ -13,32 +14,22 @@ class TransactionInput {
 
   TransactionInput(
       {required this.accountId,
+      required this.title,
       required this.type,
       required this.category,
       required this.amount,
       required this.description,
-      required this.attachment});
+      this.attachment = ""});
 
   Map<String, dynamic> toMap() {
     return {
-      "type": type.toMap(),
+      "title": title,
+      "type": type.name(),
       "category": category.id,
-      "accountId": accountId,
+      "account": accountId,
       "amount": amount,
       "description": description,
       "attachment": attachment,
     };
-  }
-
-  Transaction toTransaction(String id, DateTime date) {
-    return Transaction(
-        date: date,
-        type: type,
-        category: category,
-        id: id,
-        accountId: accountId,
-        amount: amount,
-        description: description,
-        attachment: attachment);
   }
 }
