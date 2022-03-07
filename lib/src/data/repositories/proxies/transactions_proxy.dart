@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:expense_tracker_app/src/data/models/category.dart';
 import 'package:expense_tracker_app/src/data/models/finance.dart';
 import 'package:expense_tracker_app/src/data/models/frequent_transaction.dart';
+import 'package:expense_tracker_app/src/data/models/inputs/transfer_input.dart';
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
 import 'package:expense_tracker_app/src/data/models/inputs/transaction_input.dart';
 import 'package:expense_tracker_app/src/data/repositories/interfaces/transaction_repository.dart';
@@ -62,5 +63,20 @@ class TransactionsProxy implements TransactionRepository {
   @override
   Future<Finance> readFinance() {
     return _transactionRepository.readFinance();
+  }
+
+  @override
+  Future<List<Transaction>> addTransfer(TransferInput input) async {
+    try {
+      final transactions = await _transactionRepository.addTransfer(input);
+
+      _transactions ??= [];
+
+      _transactions?.addAll(transactions);
+      _transactionsController.add(_transactions!);
+      return transactions;
+    } catch (e) {
+      rethrow;
+    }
   }
 }

@@ -20,6 +20,8 @@ import 'package:expense_tracker_app/src/pages/splash/splash_page.dart';
 import 'package:expense_tracker_app/src/pages/transaction_details/transaction_details.dart';
 
 import 'package:flutter/material.dart';
+
+import '../pages/new_transfer/new_transfer_page.dart';
 part 'app_router.gr.dart';
 
 @MaterialAutoRouter(
@@ -47,6 +49,9 @@ part 'app_router.gr.dart';
     ),
     AutoRoute(
       page: NewTransactionPage,
+    ),
+    AutoRoute(
+      page: NewTransferPage,
     ),
     AutoRoute(
       page: NotificationPage,
