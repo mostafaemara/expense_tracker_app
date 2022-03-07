@@ -29,8 +29,7 @@ class AddNewTransactionButton extends StatelessWidget {
         ),
         ActionButton(
           color: AppColors.blue,
-          onPressed: () => context.navigateTo(
-              NewTransactionRoute(transactionType: TransactionType.transfer)),
+          onPressed: () => context.navigateTo(const NewTransferRoute()),
           icon: Image.asset(
             "assets/images/currency-exchange.png",
             color: Theme.of(context).colorScheme.onPrimary,

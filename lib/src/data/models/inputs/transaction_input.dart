@@ -11,7 +11,7 @@ class TransactionInput {
   final String description;
   final String attachment;
   final String accountId;
-
+  final String targetAccount;
   TransactionInput(
       {required this.accountId,
       required this.title,
@@ -19,6 +19,7 @@ class TransactionInput {
       required this.category,
       required this.amount,
       required this.description,
+      this.targetAccount = "",
       this.attachment = ""});
 
   Map<String, dynamic> toMap() {
@@ -30,6 +31,7 @@ class TransactionInput {
       "amount": amount,
       "description": description,
       "attachment": attachment,
+      "target": targetAccount
     };
   }
 }

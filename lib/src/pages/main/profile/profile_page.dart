@@ -1,3 +1,4 @@
+import 'package:expense_tracker_app/src/pages/add_new_account/add_new_account_page.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -5,10 +6,6 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text("Profile"),
-      ),
-    );
+    return const AddNewAccountPage();
   }
 }

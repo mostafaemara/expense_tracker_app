@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:dio/dio.dart';
 import 'package:expense_tracker_app/injection.dart';
 import 'package:expense_tracker_app/src/data/api/api.dart';
 import 'package:expense_tracker_app/src/data/api/api_config.dart';
 import 'package:expense_tracker_app/src/data/exceptions/server_exception.dart';
 import 'package:expense_tracker_app/src/data/models/category.dart';
 import 'package:expense_tracker_app/src/data/models/finance.dart';
+import 'package:expense_tracker_app/src/data/models/inputs/transfer_input.dart';
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
 
 import 'package:expense_tracker_app/src/data/exceptions/transaction_exception.dart';
@@ -43,16 +45,6 @@ class TransactionRepositoryImpl implements TransactionRepository {
       log("read Transaction" + e.toString());
       throw const TransactionException.serverError();
     }
-  }
-
-  List<Transaction> _mapArrayToTransactions(dynamic array) {
-    List<Transaction> transactions = [];
-    for (final map in array) {
-      log("iam in" + map.runtimeType.toString());
-      transactions.add(Transaction.fromMap(map));
-      log("iam in");
-    }
-    return transactions;
   }
 
   @override
@@ -95,5 +87,32 @@ class TransactionRepositoryImpl implements TransactionRepository {
     } catch (e) {
       throw ServerException();
     }
+  }
+
+  @override
+  Future<List<Transaction>> addTransfer(TransferInput input) async {
+    try {
+      final response =
+          await _api.post(ApiConfig.transferPath, data: input.toMap());
+
+      return _mapArrayToTransactions(response.data);
+    } on DioError catch (e) {
+      if (e.response?.statusCode == 422) {
+        throw const TransactionException.notEnoughBalance(availbleBalance: 0);
+      }
+      throw ServerException();
+    } catch (e) {
+      throw ServerException();
+    }
+  }
+
+  List<Transaction> _mapArrayToTransactions(dynamic array) {
+    List<Transaction> transactions = [];
+    for (final map in array) {
+      log("iam in" + map.runtimeType.toString());
+      transactions.add(Transaction.fromMap(map));
+      log("iam in");
+    }
+    return transactions;
   }
 }

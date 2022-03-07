@@ -3,14 +3,15 @@ import 'package:expense_tracker_app/src/application/new_transaction/newtransacti
 import 'package:expense_tracker_app/src/application/new_transaction/newtransaction_state.dart';
 
 import 'package:expense_tracker_app/src/data/exceptions/transaction_exception.dart';
-import 'package:expense_tracker_app/src/pages/new_transaction/widgets/add_attachment_button.dart';
+import 'package:expense_tracker_app/src/widgets/add_attachment_button.dart';
 
-import 'package:expense_tracker_app/src/pages/new_transaction/widgets/description_form_field.dart';
-import 'package:expense_tracker_app/src/pages/new_transaction/widgets/title_form_field.dart';
+import 'package:expense_tracker_app/src/widgets/description_form_field.dart';
+import 'package:expense_tracker_app/src/widgets/title_form_field.dart';
 import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/widgets/error_dialog.dart';
 import 'package:expense_tracker_app/src/widgets/loading_dialog.dart';
 import 'package:expense_tracker_app/src/widgets/submit_button.dart';
+import 'package:image_picker/image_picker.dart';
 import "../../../extenstions/number_helper.dart";
 
 import 'package:flutter/material.dart';
@@ -18,27 +19,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../widgets/balance_text_field.dart';
 
-import 'account_form_field.dart';
-import 'attachment_bottom_sheet.dart';
+import '../../../widgets/account_form_field.dart';
+import '../../../widgets/attachment_bottom_sheet.dart';
 import 'category_form_field.dart';
 
-class InternalTransactionForm extends StatefulWidget {
-  const InternalTransactionForm({
+class TransactionForm extends StatefulWidget {
+  const TransactionForm({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<InternalTransactionForm> createState() =>
-      _InternalTransactionFormState();
+  State<TransactionForm> createState() => _TransactionFormState();
 }
 
-class _InternalTransactionFormState extends State<InternalTransactionForm> {
+class _TransactionFormState extends State<TransactionForm> {
   static final _formKey = GlobalKey<FormState>();
   final _balanceController = TextEditingController(text: "0.00");
   final _descriptionController = TextEditingController();
   final _titleController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<NewTransactionCubit>();
     return BlocConsumer<NewTransactionCubit, NewTransactionState>(
       buildWhen: (previous, current) => previous.isInit != current.isInit,
       builder: (context, state) => !state.isInit
@@ -79,13 +80,16 @@ class _InternalTransactionFormState extends State<InternalTransactionForm> {
                         const SizedBox(
                           height: 16,
                         ),
-                        const AccountFormField(),
+                        AccountFormField(
+                            accounts: state.accounts,
+                            onChanged: bloc.selectAccount,
+                            selectedAccount: state.selectedAccount),
                         const SizedBox(
                           height: 16,
                         ),
                         AddAttachmentButton(
-                            onPressed: () =>
-                                _showChooseAttachmentModal(context)),
+                            onPressed: () => _showChooseAttachmentModal(
+                                context, bloc.selectAttachment)),
 
                         //  RepeatSwitchButton(),
                         const SizedBox(
@@ -123,8 +127,8 @@ class _InternalTransactionFormState extends State<InternalTransactionForm> {
     _showErrorDialog(context, massege);
   }
 
-  void _showChooseAttachmentModal(BuildContext context) {
-    final newTransactionCubit = context.read<NewTransactionCubit>();
+  void _showChooseAttachmentModal(
+      BuildContext context, Function(ImageSource) selectAttachment) {
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -133,10 +137,8 @@ class _InternalTransactionFormState extends State<InternalTransactionForm> {
           topRight: Radius.circular(24),
         ),
       ),
-      builder: (context) => BlocProvider.value(
-        value: newTransactionCubit,
-        child: const AttachmentBottomSheet(),
-      ),
+      builder: (context) =>
+          AttachmentBottomSheet(selectAttachment: selectAttachment),
     );
   }
 

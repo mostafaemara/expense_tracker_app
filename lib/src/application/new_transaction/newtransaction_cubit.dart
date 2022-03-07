@@ -32,6 +32,7 @@ class NewTransactionCubit extends Cubit<NewTransactionState> {
   void init() async {
     try {
       final accounts = await _accountsRepository.getAccounts();
+
       final categories = await _transactionRepository.getAllCategories();
 
       final categoriesOfSelectedType =
@@ -40,6 +41,7 @@ class NewTransactionCubit extends Cubit<NewTransactionState> {
       emit(state.copyWith(
           categories: categoriesOfSelectedType,
           isInit: true,
+          targetAccounts: accounts,
           accounts: accounts));
     } catch (e) {
       log(e.toString());
@@ -116,8 +118,23 @@ class NewTransactionCubit extends Cubit<NewTransactionState> {
     if (accountId == null) {
       return;
     }
+
+    final targetAccounts = [...state.accounts];
+
+    targetAccounts.removeWhere(
+      (element) => element.id == accountId,
+    );
     log("account changed");
-    emit(state.copyWith(selectedAccount: accountId));
+    emit(state.copyWith(
+        selectedAccount: accountId, targetAccounts: targetAccounts));
+  }
+
+  void selectTargetAccount(String? accountId) {
+    if (accountId == null) {
+      return;
+    }
+
+    emit(state.copyWith(selectedTargetAccount: accountId));
   }
 
   void cancelAttachment() {

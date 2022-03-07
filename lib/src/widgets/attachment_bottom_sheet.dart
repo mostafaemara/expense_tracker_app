@@ -1,8 +1,5 @@
 import 'dart:developer';
 
-import 'package:expense_tracker_app/src/application/new_transaction/newtransaction_cubit.dart';
-import 'package:provider/provider.dart';
-
 import 'package:expense_tracker_app/src/data/repositories/attachment_repository_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -13,11 +10,11 @@ import 'attachment_source_button.dart';
 class AttachmentBottomSheet extends StatelessWidget {
   const AttachmentBottomSheet({
     Key? key,
+    required this.selectAttachment,
   }) : super(key: key);
-
+  final Function(ImageSource) selectAttachment;
   @override
   Widget build(BuildContext context) {
-    final newTransactionCubit = context.read<NewTransactionCubit>();
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -32,14 +29,12 @@ class AttachmentBottomSheet extends StatelessWidget {
           AttachmentSourceButton(
             title: AppLocalizations.of(context)!.camera,
             imagePath: "assets/images/camera.png",
-            onPressed: () =>
-                newTransactionCubit.selectAttachment(ImageSource.camera),
+            onPressed: () => selectAttachment(ImageSource.camera),
           ),
           AttachmentSourceButton(
             title: AppLocalizations.of(context)!.image,
             imagePath: "assets/images/gallery.png",
-            onPressed: () =>
-                newTransactionCubit.selectAttachment(ImageSource.gallery),
+            onPressed: () => selectAttachment(ImageSource.gallery),
           ),
           AttachmentSourceButton(
             title: AppLocalizations.of(context)!.document,

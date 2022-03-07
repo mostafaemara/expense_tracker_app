@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'widgets/external_transaction_form.dart';
-import 'widgets/internal_transaction_form.dart';
+
+import 'widgets/transaction_form.dart';
 
 class NewTransactionPage extends StatefulWidget {
   final TransactionType transactionType;
@@ -53,9 +53,7 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
           appBar: MyAppBar(title: _getPageTitle(context)),
           body: BlocProvider.value(
             value: _newTransactionCubit,
-            child: widget.transactionType == TransactionType.transfer
-                ? const ExternalTransactionForm()
-                : const InternalTransactionForm(),
+            child: const TransactionForm(),
           ),
         ),
       ),
@@ -69,7 +67,7 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
       case TransactionType.income:
         return AppColors.green;
       default:
-        return AppColors.blue;
+        throw const FormatException("Invalid Value");
     }
   }
 
@@ -80,7 +78,7 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
       case TransactionType.income:
         return AppLocalizations.of(context)!.income;
       default:
-        return AppLocalizations.of(context)!.transfer;
+        throw const FormatException("Invalid Value");
     }
   }
 }
