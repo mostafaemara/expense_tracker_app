@@ -1,20 +1,54 @@
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
+import 'package:intl/locale.dart';
+import 'package:multi_select_flutter/dialog/mult_select_dialog.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
+import "dart:ui";
 
-class FilterCard extends StatelessWidget {
+class FilterCard extends StatefulWidget {
   const FilterCard({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<FilterCard> createState() => _FilterCardState();
+}
+
+class _FilterCardState extends State<FilterCard> with TickerProviderStateMixin {
+  final double height = 32;
+  TabController? _transactionTypeTabController;
+  TabController? _sortTypeTabController;
+  @override
+  void initState() {
+    super.initState();
+    _transactionTypeTabController = TabController(
+      vsync: this,
+      length: 4,
+    );
+    _sortTypeTabController = TabController(
+      vsync: this,
+      length: 4,
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final labelStyle = TextStyle(
+        color: AppColors.yellow,
+        fontSize: Theme.of(context).textTheme.subtitle2!.fontSize,
+        fontFamily: Theme.of(context).textTheme.subtitle2!.fontFamily);
+    final unselectedlabelStyle = TextStyle(
+        color: AppColors.light20,
+        fontSize: Theme.of(context).textTheme.subtitle2!.fontSize,
+        fontFamily: Theme.of(context).textTheme.subtitle2!.fontFamily);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SizedBox(
         height: 495,
         width: double.infinity,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const SizedBox(
               height: 32,
@@ -37,22 +71,35 @@ class FilterCard extends StatelessWidget {
             const SizedBox(
               height: 16,
             ),
-            Wrap(
-              spacing: 8,
-              children: [
-                _FilterButton(
-                  onPressed: () {},
-                  title: "Icome",
+            TabBar(
+              labelPadding: EdgeInsets.zero,
+              indicatorSize: TabBarIndicatorSize.tab,
+              tabs: const [
+                Tab(
+                  text: "All",
                 ),
-                _FilterButton(
-                  onPressed: () {},
-                  title: "Expense",
+                Tab(
+                  text: "Expense",
                 ),
-                _FilterButton(
-                  onPressed: () {},
-                  title: "Transfer",
+                Tab(
+                  text: "Income",
+                ),
+                Tab(
+                  text: "Transfer",
                 ),
               ],
+              isScrollable: false,
+              indicatorColor: Theme.of(context).colorScheme.secondary,
+              labelStyle: labelStyle,
+              unselectedLabelStyle: unselectedlabelStyle,
+              labelColor: Theme.of(context).colorScheme.onSecondary,
+              unselectedLabelColor: Theme.of(context).colorScheme.onBackground,
+              indicator: BubbleTabIndicator(
+                indicatorRadius: 16,
+                indicatorHeight: 34.0,
+                indicatorColor: Theme.of(context).colorScheme.secondary,
+              ),
+              controller: _transactionTypeTabController,
             ),
             const SizedBox(
               height: 16,
@@ -63,28 +110,56 @@ class FilterCard extends StatelessWidget {
             const SizedBox(
               height: 16,
             ),
-            Wrap(
-              runSpacing: 8,
-              spacing: 8,
-              children: [
-                _FilterButton(
-                  onPressed: () {},
-                  title: "Highest",
+            TabBar(
+              labelPadding: EdgeInsets.zero,
+              indicatorSize: TabBarIndicatorSize.tab,
+              tabs: const [
+                Tab(
+                  text: "Newest",
                 ),
-                _FilterButton(
-                  onPressed: () {},
-                  title: "Lowest",
+                Tab(
+                  text: "Oldest",
                 ),
-                _FilterButton(
-                  onPressed: () {},
-                  title: "Newest",
+                Tab(
+                  text: "Highest",
                 ),
-                _FilterButton(
-                  onPressed: () {},
-                  title: "Oldest",
+                Tab(
+                  text: "Lowest",
                 ),
               ],
+              isScrollable: false,
+              indicatorColor: Theme.of(context).colorScheme.secondary,
+              labelStyle: labelStyle,
+              unselectedLabelStyle: unselectedlabelStyle,
+              labelColor: Theme.of(context).colorScheme.onSecondary,
+              unselectedLabelColor: Theme.of(context).colorScheme.onBackground,
+              indicator: BubbleTabIndicator(
+                indicatorRadius: 16,
+                indicatorHeight: 34.0,
+                indicatorColor: Theme.of(context).colorScheme.secondary,
+              ),
+              controller: _sortTypeTabController,
             ),
+            const SizedBox(
+              height: 16,
+            ),
+            const _Title(
+              title: "Category",
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Row(
+              children: [
+                const Text("Choose Category"),
+                const Spacer(),
+                const Text("0 Selected"),
+                RotatedBox(
+                    quarterTurns:
+                        Directionality.of(context) == TextDirection.rtl ? 0 : 2,
+                    child: const Icon(Icons.arrow_back_ios))
+              ],
+            )
           ],
         ),
       ),
