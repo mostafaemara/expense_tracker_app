@@ -1,23 +1,18 @@
-import 'package:expense_tracker_app/src/application/auth/auth_cubit.dart';
-import 'package:expense_tracker_app/src/application/home/home_cubit.dart';
+import 'package:expense_tracker_app/src/bloc/auth/auth_cubit.dart';
+import 'package:expense_tracker_app/src/bloc/home/home_cubit.dart';
+import 'package:expense_tracker_app/src/bloc/login/login_cubit.dart';
+import 'package:expense_tracker_app/src/bloc/signup/signup_cubit.dart';
 
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'firebase_options.dart';
 import 'injection.dart';
 import 'src/app.dart';
-import 'src/application/login/login_cubit.dart';
-import 'src/application/signup/signup_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
   await initializeDependencies();
   // Workmanager().initialize(
   //     callbackDispatcher, // The top level function, aka callbackDispatcher
@@ -38,11 +33,11 @@ void main() async {
       ),
       BlocProvider(
         lazy: false,
-        create: (context) => SignupCubit(BlocProvider.of<AuthCubit>(context)),
+        create: (context) => SignupCubit(),
       ),
       BlocProvider(
         lazy: false,
-        create: (context) => LoginCubit(BlocProvider.of<AuthCubit>(context)),
+        create: (context) => LoginCubit(),
       ),
       BlocProvider(
         lazy: false,
