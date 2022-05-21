@@ -1,4 +1,4 @@
-import 'package:expense_tracker_app/src/data/models/account_type.dart';
+import 'package:expense_tracker_app/src/data/models/account.dart';
 
 class AccountInput {
   AccountInput(
@@ -11,7 +11,7 @@ class AccountInput {
   Map<String, dynamic> toMap() {
     return {
       'title': title,
-      'type': accountType.name(),
+      'type': accountType.value,
       'balance': balance,
     };
   }

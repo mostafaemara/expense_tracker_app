@@ -1,5 +1,4 @@
-import 'package:expense_tracker_app/src/data/exceptions/auth_exception.dart';
-
+import 'package:expense_tracker_app/src/bloc/submission_state.dart';
 import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 
@@ -9,7 +8,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../../bloc/signup/signup_cubit.dart';
-import '../../../bloc/submission_state.dart';
+
 import '../../common/email_form_field.dart';
 import '../../common/error_dialog.dart';
 import '../../common/loading_dialog.dart';
@@ -98,20 +97,29 @@ class _SignupFormState extends State<SignupForm> {
           ],
         ),
       ),
-      listener: (context, state) {
-        state.whenOrNull(
-          submitting: () => showDialog(
-            barrierDismissible: false,
-            context: context,
-            builder: (context) => const LoadingDialog(),
-          ),
-          success: () {
-            context.replaceRoute(const SetupAccountRoute());
-          },
-          failed: (failure) => _handleSubmissionFailure(failure),
-        );
-      },
+      listener: (context, state) => _handleState(state),
     );
+  }
+
+  void _handleState(SubmissionState state) {
+    switch (state.submissionStatus) {
+      case SubmissionStatus.success:
+        context.replaceRoute(const MainRoute());
+        break;
+      case SubmissionStatus.error:
+        _showErrorDialog(context, state.error);
+        break;
+      case SubmissionStatus.submitting:
+        showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) => const LoadingDialog(),
+        );
+        break;
+
+      default:
+        break;
+    }
   }
 
   void _signUp() {
@@ -164,20 +172,5 @@ class _SignupFormState extends State<SignupForm> {
         body: failure,
       ),
     );
-  }
-
-  void _handleSubmissionFailure(AuthError error) {
-    String errorMessage = "";
-
-    switch (error) {
-      case AuthError.emailAlreadyInUse:
-        errorMessage = AppLocalizations.of(context)!.emailAlreadyInUse;
-        break;
-
-      default:
-        errorMessage = AppLocalizations.of(context)!.serverError;
-        break;
-    }
-    _showErrorDialog(context, errorMessage);
   }
 }

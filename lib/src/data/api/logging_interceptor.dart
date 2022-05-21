@@ -12,7 +12,8 @@ class LoggingInterceptor extends Interceptor {
   }
 
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+  void onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
     log('REQUEST[${options.method}] => PATH: ${options.path}');
     super.onRequest(options, handler);
   }

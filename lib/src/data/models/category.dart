@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:equatable/equatable.dart';
 
 import 'package:expense_tracker_app/src/data/models/multilingual.dart';
-
-import 'transaction_type.dart';
+import 'package:expense_tracker_app/src/data/models/transaction.dart';
 
 class Category extends Equatable {
   const Category(
@@ -26,6 +23,6 @@ class Category extends Equatable {
         title: Multilingual.fromMap(map['title']),
         iconUrl: map['icon'],
         id: map['id'],
-        transactionType: parse(map["type"]));
+        transactionType: TransactionType.parse(map["type"]));
   }
 }

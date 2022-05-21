@@ -1,6 +1,6 @@
 import 'package:expense_tracker_app/src/bloc/login/login_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/submission_state.dart';
-import 'package:expense_tracker_app/src/data/exceptions/auth_exception.dart';
+
 import 'package:expense_tracker_app/src/routes/app_router.dart';
 
 import 'package:flutter/material.dart';
@@ -67,18 +67,29 @@ class _LoginFormState extends State<LoginForm> {
           ],
         ),
       ),
-      listener: (context, state) {
-        state.whenOrNull(
-          submitting: () => showDialog(
-            barrierDismissible: false,
-            context: context,
-            builder: (context) => const LoadingDialog(),
-          ),
-          success: () => context.replaceRoute(const MainRoute()),
-          failed: (failure) => _handleSubmissionFailure(failure),
-        );
-      },
+      listener: (context, state) => _handleState(state),
     );
+  }
+
+  void _handleState(SubmissionState state) {
+    switch (state.submissionStatus) {
+      case SubmissionStatus.success:
+        context.replaceRoute(const MainRoute());
+        break;
+      case SubmissionStatus.error:
+        _showErrorDialog(context, state.error);
+        break;
+      case SubmissionStatus.submitting:
+        showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) => const LoadingDialog(),
+        );
+        break;
+
+      default:
+        break;
+    }
   }
 
   void _login() {
@@ -105,23 +116,5 @@ class _LoginFormState extends State<LoginForm> {
         body: failure,
       ),
     );
-  }
-
-  void _handleSubmissionFailure(AuthError error) {
-    String errorMessage = "";
-
-    switch (error) {
-      case AuthError.invalidEmailOrPassword:
-        errorMessage = AppLocalizations.of(context)!.emailOrPasswordIncorrect;
-        break;
-      case AuthError.emailNotFound:
-        errorMessage = AppLocalizations.of(context)!.emailOrPasswordIncorrect;
-        break;
-
-      default:
-        errorMessage = AppLocalizations.of(context)!.serverError;
-        break;
-    }
-    _showErrorDialog(context, errorMessage);
   }
 }

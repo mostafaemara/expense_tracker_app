@@ -3,7 +3,7 @@ import 'package:expense_tracker_app/injection.dart';
 import 'package:expense_tracker_app/src/data/models/inputs/account_input.dart';
 import 'package:expense_tracker_app/src/data/repositories/transaction_repository.dart';
 
-import '../submission_state.dart';
+import '../old_sub_state/submission_state.dart';
 
 class NewAccountCubit extends Cubit<SubmissionState> {
   final _accountsRepository = locator<TransactionRepositoryImpl>();

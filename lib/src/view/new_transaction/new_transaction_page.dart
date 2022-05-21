@@ -1,6 +1,5 @@
 import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_cubit.dart';
-
-import 'package:expense_tracker_app/src/data/models/transaction_type.dart';
+import 'package:expense_tracker_app/src/data/models/transaction.dart';
 
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 

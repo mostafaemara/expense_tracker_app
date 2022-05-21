@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'account_type.dart';
-
 class Account {
   Account(
       {required this.balance,
@@ -17,7 +15,7 @@ class Account {
   Map<String, dynamic> toMap() {
     return {
       'title': title,
-      'type': type.name(),
+      'type': type.value,
       'balance': balance,
       'id': id,
     };
@@ -26,7 +24,7 @@ class Account {
   factory Account.fromMap(Map<String, dynamic> map) {
     return Account(
       title: map['title'],
-      type: parse(map['type']),
+      type: AccountType.parse(map['type']),
       balance: map['balance']?.toDouble(),
       id: map['id'],
     );
@@ -36,4 +34,22 @@ class Account {
 
   factory Account.fromJson(String source) =>
       Account.fromMap(json.decode(source));
+}
+
+enum AccountType {
+  bankAccount("bankAccount"),
+  wallet("wallet");
+
+  final String value;
+  const AccountType(this.value);
+
+  factory AccountType.parse(String value) {
+    if (value == "bankAccount") {
+      return AccountType.bankAccount;
+    } else if (value == "wallet") {
+      return AccountType.wallet;
+    } else {
+      throw const FormatException("invalid Account Type!");
+    }
+  }
 }

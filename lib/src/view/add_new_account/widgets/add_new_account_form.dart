@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expense_tracker_app/src/bloc/new_account/new_account_cubit.dart';
-import 'package:expense_tracker_app/src/bloc/submission_state.dart';
+import 'package:expense_tracker_app/src/bloc/old_sub_state/submission_state.dart';
+import 'package:expense_tracker_app/src/data/models/account.dart';
 
-import 'package:expense_tracker_app/src/data/models/account_type.dart';
 import 'package:expense_tracker_app/src/data/models/inputs/account_input.dart';
 import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/view/common/balance_text_field.dart';
