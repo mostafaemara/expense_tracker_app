@@ -1,10 +1,8 @@
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
 import 'package:expense_tracker_app/src/helpers/number_helper.dart';
 
-import 'package:expense_tracker_app/src/data/models/transaction_type.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 extension TransactionColorHelper on BuildContext {
   Color transactionIconColor(TransactionType type) {
@@ -17,8 +15,6 @@ extension TransactionColorHelper on BuildContext {
         return AppColors.red;
       case TransactionType.received:
         return AppColors.green;
-      case TransactionType.transfer:
-        throw const FormatException("invalid type");
     }
   }
 
@@ -32,8 +28,6 @@ extension TransactionColorHelper on BuildContext {
         return AppColors.red20;
       case TransactionType.received:
         return AppColors.green20;
-      case TransactionType.transfer:
-        throw const FormatException("invalid type");
     }
   }
 }
@@ -57,8 +51,6 @@ extension TransactionFormatter on Transaction {
       case TransactionType.received:
         sign = "+";
         break;
-      case TransactionType.transfer:
-        throw const FormatException("invalid type");
     }
 
     late String formattedAmount;

@@ -1,12 +1,21 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class SubmissionState {
+  const SubmissionState.init()
+      : submissionStatus = SubmissionStatus.idle,
+        error = "";
+  SubmissionState(this.error, this.submissionStatus);
 
-part "submission_state.freezed.dart";
+  final String error;
+  final SubmissionStatus submissionStatus;
 
-@freezed
-abstract class SubmissionState<T> with _$SubmissionState<T> {
-  const factory SubmissionState.submitting() = Submitting<T>;
-  const factory SubmissionState.success() = SubmissionSuccess<T>;
-  const factory SubmissionState.idle() = SubmissionIdle<T>;
-  const factory SubmissionState.failed({required T failure}) =
-      SubmissionFailed<T>;
+  SubmissionState copyWith({
+    String? error,
+    SubmissionStatus? submissionStatus,
+  }) {
+    return SubmissionState(
+      error ?? this.error,
+      submissionStatus ?? this.submissionStatus,
+    );
+  }
 }
+
+enum SubmissionStatus { idle, success, error, submitting }

@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 
 import 'package:expense_tracker_app/src/data/api/api_config.dart';
 import 'package:expense_tracker_app/src/data/api/auth_interceptor.dart';
-import 'package:expense_tracker_app/src/data/api/logging_interceptor.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class Api {

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:expense_tracker_app/injection.dart';
-import 'package:expense_tracker_app/src/data/repositories/interfaces/user_repository.dart';
+import 'package:expense_tracker_app/src/data/repositories/user_repository.dart';
+
 
 class AuthInterceptor extends Interceptor {
   final _userRepository = locator<UserRepository>();

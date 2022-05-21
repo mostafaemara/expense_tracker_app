@@ -1,8 +1,6 @@
 import 'package:expense_tracker_app/src/data/models/account.dart';
 import 'package:expense_tracker_app/src/data/models/category.dart';
 
-import 'transaction_type.dart';
-
 class Transaction {
   final String id;
   final String title;
@@ -38,7 +36,36 @@ class Transaction {
       account: Account.fromMap(map['account']),
       category: Category.fromMap(map['category']),
       targetAccountId: map['targetAccount'] ?? '',
-      type: parse(map['type']),
+      type: TransactionType.parse(map['type']),
     );
+  }
+}
+
+enum TransactionType {
+  expense("expense"),
+  income("income"),
+  sent("sent"),
+  received("received");
+
+  final String value;
+
+  const TransactionType(
+    this.value,
+  );
+
+  factory TransactionType.parse(String value) {
+    switch (value) {
+      case "expense":
+        return TransactionType.expense;
+      case "income":
+        return TransactionType.income;
+      case "sent":
+        return TransactionType.sent;
+      case "received":
+        return TransactionType.received;
+
+      default:
+        throw const FormatException("invalid transaction type");
+    }
   }
 }

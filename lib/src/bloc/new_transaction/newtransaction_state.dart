@@ -2,7 +2,7 @@ import 'package:expense_tracker_app/src/data/exceptions/transaction_exception.da
 import 'package:expense_tracker_app/src/data/models/account.dart';
 import 'package:expense_tracker_app/src/data/models/category.dart';
 
-import '../submission_state.dart';
+import '../old_sub_state/submission_state.dart';
 
 class NewTransactionState {
   final List<Category> categories;

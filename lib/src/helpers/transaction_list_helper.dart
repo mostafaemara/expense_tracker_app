@@ -1,8 +1,6 @@
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
 import 'package:expense_tracker_app/src/helpers/date_time_helper.dart';
 
-import 'package:expense_tracker_app/src/data/models/transaction_type.dart';
-
 extension TransactionListFilter on List<Transaction> {
   List<Transaction> filterByDate(DateTime from, DateTime to) {
     final List<Transaction> filteredTransaction = [];
@@ -22,7 +20,7 @@ extension TransactionListFilter on List<Transaction> {
     final List<Transaction> filteredTransaction = [];
 
     for (final transaction in this) {
-      if (transaction.account == id) {
+      if (transaction.account.id == id) {
         filteredTransaction.add(transaction);
       }
     }
@@ -70,8 +68,6 @@ extension TransactionListFilter on List<Transaction> {
         case TransactionType.received:
           totalAmount += amount;
           break;
-        case TransactionType.transfer:
-          throw const FormatException("invalid type");
       }
     }
     return totalAmount;

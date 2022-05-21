@@ -20,9 +20,9 @@ class HomeCubit extends Cubit<HomeState> {
   final _transactionRepository = locator<TransactionRepositoryImpl>();
 
   HomeCubit() : super(HomeState.init()) {
-    _transactionRepository.onTransactionsChange().listen((transactions) async {
-      _handleTransactionsChanges(transactions);
-    });
+    // _transactionRepository.onTransactionsChange().listen((transactions) async {
+    //   _handleTransactionsChanges(transactions);
+    // });
   }
 
   void init() async {

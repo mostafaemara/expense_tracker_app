@@ -1,14 +1,7 @@
-enum AuthError {
-  emailAlreadyInUse,
-  invalidEmailOrPassword,
-
-  emailNotFound,
-
-  invalidCode
-}
-
 class AuthException implements Exception {
-  final AuthError error;
+  final String message;
 
-  AuthException(this.error);
+  AuthException(
+    this.message,
+  );
 }

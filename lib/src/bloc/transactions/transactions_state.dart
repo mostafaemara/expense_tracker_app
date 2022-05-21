@@ -1,6 +1,5 @@
 import 'package:expense_tracker_app/src/data/models/sort_type.dart';
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
-import 'package:expense_tracker_app/src/data/models/transaction_type.dart';
 
 class TransactionsState {
   final List<Transaction> todayTransactions;

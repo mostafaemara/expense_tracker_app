@@ -1,4 +1,4 @@
-import 'package:expense_tracker_app/src/failures/validation_failures.dart';
+import 'package:expense_tracker_app/src/validators/validation_failures.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

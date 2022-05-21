@@ -1,4 +1,5 @@
-import 'package:expense_tracker_app/src/data/models/account_type.dart';
+import 'package:expense_tracker_app/src/data/models/account.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

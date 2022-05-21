@@ -1,8 +1,6 @@
 import 'package:expense_tracker_app/src/data/models/category.dart';
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
 
-import '../transaction_type.dart';
-
 class TransactionInput {
   final TransactionType type;
   final Category category;
@@ -25,7 +23,7 @@ class TransactionInput {
   Map<String, dynamic> toMap() {
     return {
       "title": title,
-      "type": type.name(),
+      "type": type.value,
       "category": category.id,
       "account": accountId,
       "amount": amount,

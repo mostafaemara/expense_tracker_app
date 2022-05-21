@@ -5,18 +5,21 @@ class User {
   final String email;
   final String image;
   final String token;
+  final String name;
 
   User(
       {required this.id,
       required this.email,
+      required this.name,
       required this.image,
       required this.token});
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
+        name: map["name"],
         id: map["id"],
         email: map["email"],
-        image: map["image"],
+        image: map["image"] ?? "",
         token: map["token"]);
   }
 
@@ -26,7 +29,13 @@ class User {
   }
 
   Map<String, dynamic> toMap() {
-    return {"id": id, "email": email, "image": image, "token": token};
+    return {
+      "id": id,
+      "email": email,
+      "image": image,
+      "token": token,
+      "name": name
+    };
   }
 
   String toJson() {

@@ -11,7 +11,7 @@ import 'package:expense_tracker_app/src/helpers/image_helper.dart';
 
 import 'package:image_picker/image_picker.dart';
 
-import '../submission_state.dart';
+import '../old_sub_state/submission_state.dart';
 import 'new_tranfer_state.dart';
 
 class NewTransferCubit extends Cubit<NewTransferState> {

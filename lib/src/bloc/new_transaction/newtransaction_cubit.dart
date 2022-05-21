@@ -2,9 +2,10 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:expense_tracker_app/injection.dart';
-import 'package:expense_tracker_app/src/bloc/submission_state.dart';
+import 'package:expense_tracker_app/src/bloc/old_sub_state/submission_state.dart';
 
 import 'package:expense_tracker_app/src/data/exceptions/transaction_exception.dart';
+import 'package:expense_tracker_app/src/data/models/transaction.dart';
 import 'package:expense_tracker_app/src/data/repositories/transaction_repository.dart';
 import 'package:expense_tracker_app/src/helpers/acount_list_helpers.dart';
 import 'package:expense_tracker_app/src/helpers/categories_helper.dart';
@@ -12,7 +13,7 @@ import 'package:expense_tracker_app/src/helpers/image_helper.dart';
 import 'package:expense_tracker_app/src/data/models/category.dart';
 
 import 'package:expense_tracker_app/src/data/models/inputs/transaction_input.dart';
-import 'package:expense_tracker_app/src/data/models/transaction_type.dart';
+
 import 'package:expense_tracker_app/src/helpers/transaction_list_helper.dart';
 
 import 'package:image_picker/image_picker.dart';

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:expense_tracker_app/injection.dart';
 import 'package:expense_tracker_app/src/data/api/api_config.dart';
@@ -12,18 +10,16 @@ import 'package:expense_tracker_app/src/data/models/user.dart';
 
 import 'package:expense_tracker_app/src/data/api/api.dart';
 
-import 'user_repository.dart';
-
 class AuthRepository {
-  final _userRepo = locator.get<UserRepository>();
   final _api = locator.get<Api>();
 
   Future<User> login(LoginInput input) async {
     try {
       final response =
           await _api.dio.post(ApiConfig.loginPath, data: input.toMap());
-      final user = User.fromMap(response.data);
-      await _userRepo.writeUser(user);
+
+      final user = User.fromMap(response.data["data"]["user"]);
+
       return user;
     } on DioError catch (e) {
       throw _handleError(e);
@@ -36,8 +32,8 @@ class AuthRepository {
     try {
       final response =
           await _api.dio.post(ApiConfig.signupPath, data: input.toMap());
-      final user = User.fromMap(response.data);
-      await _userRepo.writeUser(user);
+      final user = User.fromMap(response.data["data"]["user"]);
+
       return user;
     } on DioError catch (e) {
       throw _handleError(e);
@@ -53,15 +49,10 @@ class AuthRepository {
   }
 
   Exception _handleError(DioError error) {
-    log("Error" + error.error.toString());
-    if (error.response != null) {
-      if (error.response?.statusCode == 403) {
-        return AuthException(AuthError.invalidEmailOrPassword);
-      }
-      if (error.response?.statusCode == 400) {
-        return AuthException(AuthError.emailAlreadyInUse);
-      }
+    if (error.response?.statusCode == 401) {
+      return AuthException(error.response?.data["message"]);
     }
+
     return ServerException();
   }
 }
