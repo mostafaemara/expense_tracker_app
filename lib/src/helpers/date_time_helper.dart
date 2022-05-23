@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 extension DateTimeFilter on DateTime {
@@ -19,6 +20,14 @@ extension DateTimeFilter on DateTime {
 
   String formatDateDDDDdMMyhm() {
     final formattedDate = DateFormat('EEEE d MMM y hh:mm').format(this);
+
+    return formattedDate;
+  }
+
+  String formatDateDDDDdMMy(BuildContext context) {
+    final formattedDate =
+        DateFormat('EEEE d MMM y', Localizations.localeOf(context).languageCode)
+            .format(this);
 
     return formattedDate;
   }

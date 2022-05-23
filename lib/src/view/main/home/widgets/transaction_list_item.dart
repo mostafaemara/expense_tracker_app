@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
 import 'package:expense_tracker_app/src/helpers/date_time_helper.dart';
-import 'package:expense_tracker_app/src/helpers/multilingual_helper.dart';
 
 import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
@@ -49,30 +48,37 @@ class TransactionListItem extends StatelessWidget {
             const SizedBox(
               width: 9,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 6),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    transaction.category.title.translate(context).toUpperCase(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(fontWeight: FontWeight.w600),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6),
+                child: Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        transaction.category.title.toUpperCase(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle1!
+                            .copyWith(fontWeight: FontWeight.w600),
+                      ),
+                      Text(
+                        transaction.description,
+                        style: Theme.of(context)
+                            .textTheme
+                            .caption!
+                            .copyWith(color: AppColors.light20),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
                   ),
-                  Text(
-                    transaction.description,
-                    style: Theme.of(context)
-                        .textTheme
-                        .caption!
-                        .copyWith(color: AppColors.light20),
-                  ),
-                ],
+                ),
               ),
             ),
-            const Spacer(),
+            const SizedBox(
+              width: 9,
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 6),
               child: Column(

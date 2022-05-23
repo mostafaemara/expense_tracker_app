@@ -47,17 +47,17 @@ class _RecentTransactionState extends State<RecentTransaction>
               late DurationType type;
               switch (value) {
                 case 0:
-                  type = const DurationType.today();
+                  type = DurationType.today;
 
                   break;
                 case 1:
-                  type = const DurationType.week();
+                  type = DurationType.week;
                   break;
                 case 2:
-                  type = const DurationType.month();
+                  type = DurationType.month;
                   break;
                 case 3:
-                  type = const DurationType.year();
+                  type = DurationType.year;
                   break;
               }
 

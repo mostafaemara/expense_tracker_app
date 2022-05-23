@@ -12,7 +12,7 @@ part 'splash_cubit.freezed.dart';
 class SplashCubit extends Cubit<SplashState> {
   SplashCubit() : super(const SplashState.initialize());
 
-  final _accountsRepo = locator<TransactionRepositoryImpl>();
+  final _accountsRepo = locator<TransactionRepository>();
   final _authService = locator<UserRepository>();
 
   void init() async {

@@ -2,6 +2,7 @@ import 'package:expense_tracker_app/src/bloc/auth/auth_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/home/home_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/login/login_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/signup/signup_cubit.dart';
+import 'package:expense_tracker_app/src/bloc/transactions/transactions_cubit.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,6 +28,10 @@ void main() async {
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(
     MultiBlocProvider(providers: [
+      BlocProvider(
+        lazy: false,
+        create: (context) => TransactionCubit()..init(),
+      ),
       BlocProvider(
         lazy: false,
         create: (context) => AuthCubit(),

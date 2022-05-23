@@ -29,7 +29,7 @@ class Transaction {
     return Transaction(
       title: map["title"],
       id: map['id'],
-      date: DateTime.parse(map['createdAt']),
+      date: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
       amount: map['amount']?.toDouble() ?? 0.0,
       description: map['description'] ?? '',
       attachment: map['attachment'] ?? '',
@@ -39,6 +39,14 @@ class Transaction {
       type: TransactionType.parse(map['type']),
     );
   }
+}
+
+List<Transaction> mapArrayToTransactions(dynamic array) {
+  List<Transaction> transactions = [];
+  for (final map in array) {
+    transactions.add(Transaction.fromMap(map));
+  }
+  return transactions;
 }
 
 enum TransactionType {

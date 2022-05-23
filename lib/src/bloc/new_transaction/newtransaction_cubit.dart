@@ -25,7 +25,7 @@ class NewTransactionCubit extends Cubit<NewTransactionState> {
     required this.transactionType,
   }) : super(const NewTransactionState.init());
 
-  final _transactionRepository = locator<TransactionRepositoryImpl>();
+  final _transactionRepository = locator<TransactionRepository>();
 
   final TransactionType transactionType;
 

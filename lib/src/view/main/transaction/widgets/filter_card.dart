@@ -1,10 +1,10 @@
+import 'package:expense_tracker_app/src/bloc/transactions/transactions_cubit.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
+import 'package:expense_tracker_app/src/view/main/transaction/widgets/category_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
-import 'package:intl/locale.dart';
-import 'package:multi_select_flutter/dialog/mult_select_dialog.dart';
-import 'package:multi_select_flutter/multi_select_flutter.dart';
-import "dart:ui";
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FilterCard extends StatefulWidget {
   const FilterCard({
@@ -17,15 +17,17 @@ class FilterCard extends StatefulWidget {
 
 class _FilterCardState extends State<FilterCard> with TickerProviderStateMixin {
   final double height = 32;
-  TabController? _transactionTypeTabController;
-  TabController? _sortTypeTabController;
+  late TabController _transactionTypeTabController;
+  late TabController _sortTypeTabController;
   @override
   void initState() {
     super.initState();
+
     _transactionTypeTabController = TabController(
       vsync: this,
       length: 4,
     );
+
     _sortTypeTabController = TabController(
       vsync: this,
       length: 4,
@@ -72,6 +74,16 @@ class _FilterCardState extends State<FilterCard> with TickerProviderStateMixin {
               height: 16,
             ),
             TabBar(
+              onTap: (value) {
+                final transCubit =
+                    context.read<TransactionCubit>().restFilter();
+
+                switch (value) {
+                  case 0:
+                    break;
+                  default:
+                }
+              },
               labelPadding: EdgeInsets.zero,
               indicatorSize: TabBarIndicatorSize.tab,
               tabs: const [
@@ -149,39 +161,20 @@ class _FilterCardState extends State<FilterCard> with TickerProviderStateMixin {
             const SizedBox(
               height: 16,
             ),
-            Row(
-              children: [
-                const Text("Choose Category"),
-                const Spacer(),
-                const Text("0 Selected"),
-                RotatedBox(
-                    quarterTurns:
-                        Directionality.of(context) == TextDirection.rtl ? 0 : 2,
-                    child: const Icon(Icons.arrow_back_ios))
-              ],
-            )
+            const CategoryFilter(),
+            const Spacer(),
+            SizedBox(
+                height: 56,
+                child: ElevatedButton(
+                    onPressed: () {
+                      context.read<TransactionCubit>().applyFilter();
+                    },
+                    child: Text(AppLocalizations.of(context)!.apply))),
+            const Spacer(),
           ],
         ),
       ),
     );
-  }
-}
-
-class _FilterButton extends StatelessWidget {
-  final String title;
-  final VoidCallback onPressed;
-  const _FilterButton({
-    Key? key,
-    required this.title,
-    required this.onPressed,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-        height: 42,
-        width: 98,
-        child: ElevatedButton(onPressed: onPressed, child: Text(title)));
   }
 }
 
@@ -196,7 +189,9 @@ class _RestButton extends StatelessWidget {
       width: 71,
       height: 32,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          context.read<TransactionCubit>().restFilter();
+        },
         child: const Text(
           "Rest",
         ),

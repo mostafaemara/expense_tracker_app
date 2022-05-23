@@ -25,7 +25,7 @@ class CategoryFormField extends StatelessWidget {
           items: List.generate(
               state.categories.length,
               (index) => DropdownMenuItem(
-                    child: Text(state.categories[index].title.english),
+                    child: Text(state.categories[index].title),
                     value: state.categories[index],
                   ))),
     );

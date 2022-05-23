@@ -17,7 +17,7 @@ import 'new_tranfer_state.dart';
 class NewTransferCubit extends Cubit<NewTransferState> {
   NewTransferCubit() : super(const NewTransferState.init());
 
-  final _transactionRepository = locator<TransactionRepositoryImpl>();
+  final _transactionRepository = locator<TransactionRepository>();
 
   void init() async {
     try {

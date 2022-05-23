@@ -1,17 +1,66 @@
+import 'dart:developer';
+
+import 'package:expense_tracker_app/injection.dart';
 import 'package:expense_tracker_app/src/data/models/sort_type.dart';
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
+import 'package:expense_tracker_app/src/data/repositories/transaction_repository.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'transactions_state.dart';
 
 class TransactionCubit extends Cubit<TransactionsState> {
-  TransactionCubit() : super(TransactionsState.init());
+  final _transactionsRepo = locator<TransactionRepository>();
+  TransactionCubit() : super(const TransactionsState.init());
 
-  void init() async {}
+  void init() async {
+    try {
+      final transactionsOfDates =
+          await _transactionsRepo.getTransactionsOfDates();
+      final categories = await _transactionsRepo.getAllCategories();
+      emit(state.copyWith(
+          categories: categories,
+          isLoading: false,
+          transactionsOfDates: transactionsOfDates));
+    } catch (e) {
+      log(e.toString());
+    }
+  }
 
-  void selectTransactionType(TransactionType type) {}
-  void selectSortType(SortType sortType) {}
-  void selectCategory(String category) {}
-  void restFilter() {}
+  void applyFilter() async {
+    try {
+      emit(state.copyWith(
+        isLoading: true,
+      ));
+      final transactionsOfDates =
+          await _transactionsRepo.getTransactionsOfDates(
+              categories: state.selectedCategories,
+              sortType: state.sortType,
+              type: state.transactionType);
+      emit(state.copyWith(
+          isLoading: false, transactionsOfDates: transactionsOfDates));
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  void selectTransactionType(TransactionType type) {
+    emit(state.copyWith(transactionType: type));
+  }
+
+  void selectSortType(SortType sortType) {
+    emit(state.copyWith(sortType: sortType));
+  }
+
+  void selectCategories(List<String> categories) {
+    emit(state.copyWith(selectedCategories: categories));
+  }
+
+  void restFilter() {
+    emit(state.copyWith(
+        transactionType: null,
+        sortType: SortType.newest,
+        selectedCategories: []));
+    applyFilter();
+  }
 }

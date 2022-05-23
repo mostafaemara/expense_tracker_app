@@ -6,6 +6,6 @@ class ApiConfig {
   static const accountPath = "/account";
   static const transactionPath = "/transaction";
   static const categoryPath = "/category";
-  static const financesPath = "/transaction/finances";
+  static const financesPath = "/finance";
   static const transferPath = "/transaction/transfer";
 }
