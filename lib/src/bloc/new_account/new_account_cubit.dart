@@ -6,7 +6,7 @@ import 'package:expense_tracker_app/src/data/repositories/transaction_repository
 import '../old_sub_state/submission_state.dart';
 
 class NewAccountCubit extends Cubit<SubmissionState> {
-  final _accountsRepository = locator<TransactionRepositoryImpl>();
+  final _accountsRepository = locator<TransactionRepository>();
 
   NewAccountCubit() : super(const SubmissionState.idle());
 

@@ -13,8 +13,8 @@ class SpendFrequencyChart extends StatelessWidget {
   Widget build(BuildContext context) {
     final homeState = context.watch<HomeCubit>().state;
     final spentTransactions = homeState.transactionsOfSelectedDuration;
-    final from = homeState.from;
-    final to = homeState.to;
+    final dateRange = homeState.selectedDuration.toDateRange();
+
     return SizedBox(
       height: 230,
       child: Column(

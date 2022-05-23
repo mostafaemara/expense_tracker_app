@@ -11,16 +11,19 @@ import 'package:expense_tracker_app/src/data/models/category.dart';
 import 'package:expense_tracker_app/src/data/models/finance.dart';
 import 'package:expense_tracker_app/src/data/models/inputs/account_input.dart';
 import 'package:expense_tracker_app/src/data/models/inputs/transfer_input.dart';
+import 'package:expense_tracker_app/src/data/models/sort_type.dart';
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
 
 import 'package:expense_tracker_app/src/data/exceptions/transaction_exception.dart';
 import 'package:expense_tracker_app/src/data/models/frequent_transaction.dart';
 
 import 'package:expense_tracker_app/src/data/models/inputs/transaction_input.dart';
+import 'package:expense_tracker_app/src/data/models/transactions_of_date.dart';
 
 import 'package:expense_tracker_app/src/data/models/uid.dart';
+import 'package:flutter/material.dart';
 
-class TransactionRepositoryImpl {
+class TransactionRepository {
   final _api = locator<Api>().dio;
 
   Future<Transaction> addTransaction(
@@ -38,7 +41,42 @@ class TransactionRepositoryImpl {
   Future<List<Transaction>> getAllTransactions() async {
     try {
       final response = await _api.get(ApiConfig.transactionPath);
-      return _mapArrayToTransactions(response.data);
+      return mapArrayToTransactions(response.data["data"]);
+    } catch (e) {
+      log("read Transaction" + e.toString());
+      throw const TransactionException.serverError();
+    }
+  }
+
+  Future<List<TransactionsOfDate>> getTransactionsOfDates(
+      {List<String>? categories,
+      SortType? sortType,
+      TransactionType? type}) async {
+    try {
+      final response = await _api.get("/transactionOfDates");
+      return mapArrayToTransactionsOfDates(response.data["data"]);
+    } catch (e) {
+      log("read Transaction" + e.toString());
+      throw const TransactionException.serverError();
+    }
+  }
+
+  Future<List<Transaction>> getTransactionsByDate(
+      DateTimeRange dateTimeRange) async {
+    try {
+      final response = await _api.get(ApiConfig.transactionPath);
+      return mapArrayToTransactions(response.data["data"]);
+    } catch (e) {
+      log("read Transaction" + e.toString());
+      throw const TransactionException.serverError();
+    }
+  }
+
+  Future<List<Transaction>> getRecentTransactions() async {
+    try {
+      final response = await _api
+          .get(ApiConfig.transactionPath, queryParameters: {"recent": 3});
+      return mapArrayToTransactions(response.data["data"]);
     } catch (e) {
       log("read Transaction" + e.toString());
       throw const TransactionException.serverError();
@@ -58,7 +96,7 @@ class TransactionRepositoryImpl {
   Future<List<Category>> getAllCategories() async {
     try {
       final response = await _api.get(ApiConfig.categoryPath);
-      return _mapArrayToCategories(response.data);
+      return _mapArrayToCategories(response.data["data"]);
     } catch (e) {
       throw ServerException();
     }
@@ -77,7 +115,7 @@ class TransactionRepositoryImpl {
     try {
       final response = await _api.get(ApiConfig.financesPath);
 
-      return Finance.fromMap(response.data);
+      return Finance.fromMap(response.data["data"]);
     } catch (e) {
       throw ServerException();
     }
@@ -88,7 +126,7 @@ class TransactionRepositoryImpl {
       final response =
           await _api.post(ApiConfig.transferPath, data: input.toMap());
 
-      return _mapArrayToTransactions(response.data);
+      return mapArrayToTransactions(response.data);
     } on DioError catch (e) {
       if (e.response?.statusCode == 422) {
         throw const TransactionException.notEnoughBalance(availbleBalance: 0);
@@ -97,16 +135,6 @@ class TransactionRepositoryImpl {
     } catch (e) {
       throw ServerException();
     }
-  }
-
-  List<Transaction> _mapArrayToTransactions(dynamic array) {
-    List<Transaction> transactions = [];
-    for (final map in array) {
-      log("iam in" + map.runtimeType.toString());
-      transactions.add(Transaction.fromMap(map));
-      log("iam in");
-    }
-    return transactions;
   }
 
   Future<Account> addAccount(
@@ -133,7 +161,7 @@ class TransactionRepositoryImpl {
       );
       log(response.data.toString());
 
-      return _accountsFromArray(response.data!);
+      return _accountsFromArray(response.data["data"]!);
     } catch (e) {
       log("Errror", error: e.toString());
       throw ServerException();

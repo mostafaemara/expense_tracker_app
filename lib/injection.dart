@@ -27,8 +27,8 @@ Future<void> initializeDependencies() async {
       () => AuthRepository(),
       dependsOn: [UserRepository, Api]);
   locator.registerSingleton<DateRepository>(DateRepository());
-  locator.registerSingletonWithDependencies<TransactionRepositoryImpl>(
-      () => TransactionRepositoryImpl(),
+  locator.registerSingletonWithDependencies<TransactionRepository>(
+      () => TransactionRepository(),
       dependsOn: [Api]);
 
   return await locator.allReady();

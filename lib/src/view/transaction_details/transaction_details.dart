@@ -29,7 +29,7 @@ class TransactionDetailsPage extends StatelessWidget {
               .titleTextStyle!
               .copyWith(color: Theme.of(context).colorScheme.onPrimary),
         ),
-        actions: [DeleteButton()],
+        actions: const [DeleteButton()],
       ),
       body: SingleChildScrollView(
         child: Stack(
@@ -56,7 +56,7 @@ class TransactionDetailsPage extends StatelessWidget {
                   ContentFieldsCard(
                     account: "wallet",
                     type: transaction.type.name,
-                    category: transaction.category.title.english,
+                    category: transaction.category.title,
                   ),
                   const SizedBox(
                     height: 17,
