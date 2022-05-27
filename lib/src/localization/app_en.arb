@@ -12,7 +12,9 @@
   "backToLgin": "Back to login",
   "balance": "Balance",
   "bankAccount": "Bank Account",
+  "biggestSpend": "and your biggest spending is from",
   "budget": "Budget",
+  "budgetExceed": "Budget is exceeds the limit",
   "cal": "calories",
   "camera": "Camera",
   "category": "Category",
@@ -55,6 +57,7 @@
   "min": "minutes",
   "month": "Month",
   "notifications": "Notifications",
+  "ofOf": "of",
   "ok": "Ok",
   "onBoardingBody1": "Become your own money manager and make every cent count",
   "onBoardingBody2": "Track your transaction easily,with categories and financial report",
@@ -77,6 +80,7 @@
   "setupAccountTitle": "Let’s setup your account!",
   "signUp": "Sign Up",
   "spendFrequency": "Spend Frequency",
+  "thisMonth": "This Month",
   "to": "To",
   "today": "Today",
   "transaction": "Transaction",
@@ -88,5 +92,7 @@
   "week": "Week",
   "year": "Year",
   "yesterday": "Yesterday",
-  "youAreAllSet": "You're all set to go"
+  "youAreAllSet": "You're all set to go",
+  "youEarned": "You Earned",
+  "youSpend": "You Spend"
 }

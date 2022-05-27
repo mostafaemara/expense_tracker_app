@@ -9,6 +9,7 @@ import 'package:expense_tracker_app/src/data/exceptions/server_exception.dart';
 import 'package:expense_tracker_app/src/data/models/account.dart';
 import 'package:expense_tracker_app/src/data/models/category.dart';
 import 'package:expense_tracker_app/src/data/models/finance.dart';
+import 'package:expense_tracker_app/src/data/models/financial_report.dart';
 import 'package:expense_tracker_app/src/data/models/inputs/account_input.dart';
 import 'package:expense_tracker_app/src/data/models/inputs/transfer_input.dart';
 import 'package:expense_tracker_app/src/data/models/sort_type.dart';
@@ -18,6 +19,7 @@ import 'package:expense_tracker_app/src/data/exceptions/transaction_exception.da
 import 'package:expense_tracker_app/src/data/models/frequent_transaction.dart';
 
 import 'package:expense_tracker_app/src/data/models/inputs/transaction_input.dart';
+import 'package:expense_tracker_app/src/data/models/transaction_filter.dart';
 import 'package:expense_tracker_app/src/data/models/transactions_of_date.dart';
 
 import 'package:expense_tracker_app/src/data/models/uid.dart';
@@ -51,7 +53,7 @@ class TransactionRepository {
   Future<List<TransactionsOfDate>> getTransactionsOfDates(
       {List<String>? categories,
       SortType? sortType,
-      TransactionType? type}) async {
+      TransactionFilter? type}) async {
     try {
       final response = await _api.get("/transactionOfDates");
       return mapArrayToTransactionsOfDates(response.data["data"]);
@@ -188,5 +190,17 @@ class TransactionRepository {
   Stream<List<Account>> onAccountsChange() {
     // TODO: implement onAccountsChange
     throw UnimplementedError();
+  }
+
+  Future<FinancialReport> readFinancialReport(DateTime date) async {
+    try {
+      final response = await _api.get(
+        ApiConfig.financialReportPath,
+      );
+      return FinancialReport.fromMap(response.data["data"]);
+    } catch (e) {
+      log(e.toString());
+      throw const TransactionException.serverError();
+    }
   }
 }

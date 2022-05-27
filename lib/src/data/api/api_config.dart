@@ -8,4 +8,5 @@ class ApiConfig {
   static const categoryPath = "/category";
   static const financesPath = "/finance";
   static const transferPath = "/transaction/transfer";
+  static const financialReportPath = "/financialReport";
 }

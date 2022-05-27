@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'widgets/filter_button.dart';
 import 'widgets/financial_report_button.dart';
+import 'widgets/month_drop_down_button.dart';
 
 class TransactionPage extends StatelessWidget {
   const TransactionPage({Key? key}) : super(key: key);
@@ -13,23 +14,28 @@ class TransactionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TransactionCubit, TransactionsState>(
-      builder: (context, state) => SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                child: AppBar(
-                  actions: [FilterButton()],
-                ),
-              ),
-              const FinancialReportButton(),
-              TransactionsOfDateListView(
-                transactionsOfDates: state.transactionsOfDates,
-              )
-            ],
+      builder: (context, state) => SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const MonthDropDownButton(),
+                        FilterButton(isFilterActive: state.isFilterActive)
+                      ],
+                    )),
+                const FinancialReportButton(),
+                TransactionsOfDateListView(
+                  transactionsOfDates: state.transactionsOfDates,
+                )
+              ],
+            ),
           ),
         ),
       ),
