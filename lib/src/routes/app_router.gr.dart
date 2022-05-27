@@ -25,6 +25,10 @@ class _$AppRouter extends RootStackRouter {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const OnBoardingPage());
     },
+    FinancialReportRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const FinancialReportPage());
+    },
     SignupRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const SignupPage());
@@ -97,6 +101,7 @@ class _$AppRouter extends RootStackRouter {
   List<RouteConfig> get routes => [
         RouteConfig(SplashRoute.name, path: '/'),
         RouteConfig(OnBoardingRoute.name, path: '/on-boarding-page'),
+        RouteConfig(FinancialReportRoute.name, path: '/financial-report-page'),
         RouteConfig(SignupRoute.name, path: '/signup-page'),
         RouteConfig(TransactionDetailsRoute.name,
             path: '/transaction-details-page'),
@@ -139,6 +144,15 @@ class OnBoardingRoute extends PageRouteInfo<void> {
       : super(OnBoardingRoute.name, path: '/on-boarding-page');
 
   static const String name = 'OnBoardingRoute';
+}
+
+/// generated route for
+/// [FinancialReportPage]
+class FinancialReportRoute extends PageRouteInfo<void> {
+  const FinancialReportRoute()
+      : super(FinancialReportRoute.name, path: '/financial-report-page');
+
+  static const String name = 'FinancialReportRoute';
 }
 
 /// generated route for

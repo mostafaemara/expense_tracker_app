@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'filter_card.dart';
 
 class FilterButton extends StatelessWidget {
-  FilterButton({
+  const FilterButton({
+    required this.isFilterActive,
     Key? key,
   }) : super(key: key);
-  bool isFilterActive = true;
+  final bool isFilterActive;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -19,12 +20,15 @@ class FilterButton extends StatelessWidget {
             width: 56,
             height: 56,
             child: Card(
+              color: Colors.transparent,
               shape: RoundedRectangleBorder(
                   side: const BorderSide(color: AppColors.light60),
                   borderRadius: BorderRadius.circular(
                     16,
                   )),
-              child: Image.asset("assets/images/sort.png"),
+              child: Image.asset(
+                "assets/images/sort.png",
+              ),
               elevation: 0,
             ),
           ),

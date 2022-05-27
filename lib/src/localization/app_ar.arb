@@ -12,7 +12,9 @@
   "backToLgin": "العودة إلى تسجيل الدخول",
   "balance": "الرصيد",
   "bankAccount": "حساب البنك",
+  "biggestSpend": " وأكبر إنفاق لك هي من",
   "budget": "ميزانية",
+  "budgetExceed": "ميزانيات تجاوزت الحد",
   "cal": "سعرات حرارية",
   "camera": "الكاميرا",
   "category": "فئة",
@@ -55,6 +57,7 @@
   "min": "دقائق",
   "month": "شهر",
   "notifications": "إشعارات",
+  "ofOf": "من",
   "ok": "حسنا",
   "onBoardingBody1": "كن مدير أموالك الخاص واجعل كل سنت مهمًا",
   "onBoardingBody2": "تتبع معاملاتك بسهولة ، مع الفئات والتقرير المالي",
@@ -77,6 +80,7 @@
   "setupAccountTitle": "فلنبدأ في إعداد حسابك!",
   "signUp": "انشاء حساب جديد",
   "spendFrequency": "مخطط الإنفاق",
+  "thisMonth": " هذا الشهر",
   "to": "إلى",
   "today": "اليوم",
   "transaction": "تعاملات",
@@ -88,5 +92,7 @@
   "week": "أسبوع",
   "year": "عام",
   "yesterday": " أمس",
-  "youAreAllSet": "أنت جاهز للبدء"
+  "youAreAllSet": "أنت جاهز للبدء",
+  "youEarned": "ربحت",
+  "youSpend": "أنفقت"
 }

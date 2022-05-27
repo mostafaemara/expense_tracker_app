@@ -1,10 +1,11 @@
 enum SortType {
   newest("newest"),
-  lowest("lowest"),
+  oldest("oldest"),
   highest("highest"),
-  oldest("oldest");
+  lowest("lowest");
 
   final String value;
+
   const SortType(this.value);
 
   factory SortType.parse(String value) {

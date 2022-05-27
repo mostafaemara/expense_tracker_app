@@ -1,10 +1,15 @@
 import 'package:expense_tracker_app/src/bloc/transactions/transactions_cubit.dart';
+import 'package:expense_tracker_app/src/data/models/sort_type.dart';
+import 'package:expense_tracker_app/src/data/models/transaction_filter.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:expense_tracker_app/src/view/main/transaction/widgets/category_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'filter_title.dart';
+import 'rest_button.dart';
 
 class FilterCard extends StatefulWidget {
   const FilterCard({
@@ -22,15 +27,17 @@ class _FilterCardState extends State<FilterCard> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-
+    final transactionState = context.read<TransactionCubit>().state;
     _transactionTypeTabController = TabController(
+      initialIndex: transactionState.transactionType.index,
       vsync: this,
-      length: 4,
+      length: TransactionFilter.values.length,
     );
 
     _sortTypeTabController = TabController(
+      initialIndex: transactionState.sortType.index,
       vsync: this,
-      length: 4,
+      length: SortType.values.length,
     );
   }
 
@@ -58,32 +65,23 @@ class _FilterCardState extends State<FilterCard> with TickerProviderStateMixin {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: const [
-                _Title(
+                FilterTitle(
                   title: "Filter Transaction",
                 ),
-                _RestButton()
+                RestButton()
               ],
             ),
             const SizedBox(
               height: 16,
             ),
-            const _Title(
+            const FilterTitle(
               title: "Filter By",
             ),
             const SizedBox(
               height: 16,
             ),
             TabBar(
-              onTap: (value) {
-                final transCubit =
-                    context.read<TransactionCubit>().restFilter();
-
-                switch (value) {
-                  case 0:
-                    break;
-                  default:
-                }
-              },
+              onTap: _handleOnFilterTap,
               labelPadding: EdgeInsets.zero,
               indicatorSize: TabBarIndicatorSize.tab,
               tabs: const [
@@ -116,13 +114,14 @@ class _FilterCardState extends State<FilterCard> with TickerProviderStateMixin {
             const SizedBox(
               height: 16,
             ),
-            const _Title(
+            const FilterTitle(
               title: "Sort By",
             ),
             const SizedBox(
               height: 16,
             ),
             TabBar(
+              onTap: _handleOnSortTap,
               labelPadding: EdgeInsets.zero,
               indicatorSize: TabBarIndicatorSize.tab,
               tabs: const [
@@ -155,7 +154,7 @@ class _FilterCardState extends State<FilterCard> with TickerProviderStateMixin {
             const SizedBox(
               height: 16,
             ),
-            const _Title(
+            const FilterTitle(
               title: "Category",
             ),
             const SizedBox(
@@ -168,6 +167,7 @@ class _FilterCardState extends State<FilterCard> with TickerProviderStateMixin {
                 child: ElevatedButton(
                     onPressed: () {
                       context.read<TransactionCubit>().applyFilter();
+                      Navigator.pop(context);
                     },
                     child: Text(AppLocalizations.of(context)!.apply))),
             const Spacer(),
@@ -176,49 +176,42 @@ class _FilterCardState extends State<FilterCard> with TickerProviderStateMixin {
       ),
     );
   }
-}
 
-class _RestButton extends StatelessWidget {
-  const _RestButton({
-    Key? key,
-  }) : super(key: key);
+  void _handleOnFilterTap(int index) {
+    final transCubit = context.read<TransactionCubit>();
 
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 71,
-      height: 32,
-      child: ElevatedButton(
-        onPressed: () {
-          context.read<TransactionCubit>().restFilter();
-        },
-        child: const Text(
-          "Rest",
-        ),
-        style: ElevatedButton.styleFrom(
-          primary: AppColors.violet20,
-          onPrimary: AppColors.violet,
-        ),
-      ),
-    );
+    switch (index) {
+      case 0:
+        transCubit.selectTransactionType(TransactionFilter.all);
+        break;
+      case 1:
+        transCubit.selectTransactionType(TransactionFilter.expense);
+        break;
+      case 2:
+        transCubit.selectTransactionType(TransactionFilter.income);
+        break;
+      case 3:
+        transCubit.selectTransactionType(TransactionFilter.transfer);
+        break;
+    }
   }
-}
 
-class _Title extends StatelessWidget {
-  final String title;
-  const _Title({
-    Key? key,
-    required this.title,
-  }) : super(key: key);
+  void _handleOnSortTap(int index) {
+    final transCubit = context.read<TransactionCubit>();
 
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      title,
-      style: Theme.of(context)
-          .textTheme
-          .subtitle1
-          ?.copyWith(fontWeight: FontWeight.w600),
-    );
+    switch (index) {
+      case 0:
+        transCubit.selectSortType(SortType.newest);
+        break;
+      case 1:
+        transCubit.selectSortType(SortType.oldest);
+        break;
+      case 2:
+        transCubit.selectSortType(SortType.highest);
+        break;
+      case 3:
+        transCubit.selectSortType(SortType.lowest);
+        break;
+    }
   }
 }
