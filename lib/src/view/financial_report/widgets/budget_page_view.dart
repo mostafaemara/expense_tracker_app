@@ -1,7 +1,11 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:expense_tracker_app/src/bloc/financial_report/financial_report_bloc.dart';
 import 'package:expense_tracker_app/src/data/models/category.dart';
+import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:expense_tracker_app/src/view/financial_report/widgets/category_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BudgetPageView extends StatelessWidget {
@@ -55,7 +59,6 @@ class BudgetPageView extends StatelessWidget {
                   categories.length,
                   (index) => CategoryCard(
                         category: categories[index],
-                        isExpense: true,
                       )),
             ),
             const Spacer(),
@@ -65,7 +68,13 @@ class BudgetPageView extends StatelessWidget {
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       primary: AppColors.light, onPrimary: AppColors.violet),
-                  onPressed: () {},
+                  onPressed: () {
+                    AutoRouter.of(context).navigate(FinancialDetailsRoute(
+                        financialReport: context
+                            .read<FinancialReportCubit>()
+                            .state
+                            .financialReport));
+                  },
                   child: Text(AppLocalizations.of(context)!.seeFullDetail)),
             ),
             const SizedBox(

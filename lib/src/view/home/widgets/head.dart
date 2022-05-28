@@ -1,11 +1,11 @@
 import 'package:expense_tracker_app/src/bloc/home/home_cubit.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
+import 'package:expense_tracker_app/src/view/common/currency.dart';
+import 'package:expense_tracker_app/src/view/common/home_app_bar.dart';
+import 'package:expense_tracker_app/src/view/common/transaction_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'currency.dart';
-import 'home_app_bar.dart';
-import 'transaction_card.dart';
 
 class Head extends StatelessWidget {
   const Head({

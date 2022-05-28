@@ -7,7 +7,7 @@ import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../helpers/transaction_helper.dart';
+import '../../helpers/transaction_helper.dart';
 
 class TransactionListItem extends StatelessWidget {
   const TransactionListItem({Key? key, required this.transaction})
@@ -16,10 +16,7 @@ class TransactionListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _transactionIconColor =
-        context.transactionIconColor(transaction.type);
-    final _transactionBackgroundColor =
-        context.transactionBackgroundColor(transaction.type);
+    final _transactionColor = context.transactionIconColor(transaction.type);
 
     return GestureDetector(
       onTap: () {
@@ -32,14 +29,14 @@ class TransactionListItem extends StatelessWidget {
           children: [
             Container(
                 decoration: BoxDecoration(
-                    color: _transactionBackgroundColor,
+                    color: transaction.category.color.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(16)),
                 height: 60,
                 width: 60,
                 child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: CachedNetworkImage(
-                    color: _transactionIconColor,
+                    color: transaction.category.color,
                     height: 40,
                     width: 40,
                     imageUrl: transaction.category.iconUrl,
@@ -88,8 +85,7 @@ class TransactionListItem extends StatelessWidget {
                   Text(
                     transaction.formatAmount(context),
                     style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                        color: _transactionIconColor,
-                        fontWeight: FontWeight.w600),
+                        color: _transactionColor, fontWeight: FontWeight.w600),
                   ),
                   Text(
                     transaction.date.formatTimeHHMMAMPM(),

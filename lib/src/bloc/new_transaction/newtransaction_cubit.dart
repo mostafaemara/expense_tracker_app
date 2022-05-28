@@ -7,14 +7,11 @@ import 'package:expense_tracker_app/src/bloc/old_sub_state/submission_state.dart
 import 'package:expense_tracker_app/src/data/exceptions/transaction_exception.dart';
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
 import 'package:expense_tracker_app/src/data/repositories/transaction_repository.dart';
-import 'package:expense_tracker_app/src/helpers/acount_list_helpers.dart';
 import 'package:expense_tracker_app/src/helpers/categories_helper.dart';
 import 'package:expense_tracker_app/src/helpers/image_helper.dart';
 import 'package:expense_tracker_app/src/data/models/category.dart';
 
 import 'package:expense_tracker_app/src/data/models/inputs/transaction_input.dart';
-
-import 'package:expense_tracker_app/src/helpers/transaction_list_helper.dart';
 
 import 'package:image_picker/image_picker.dart';
 
@@ -60,11 +57,6 @@ class NewTransactionCubit extends Cubit<NewTransactionState> {
       final double amount = double.tryParse(balance)!;
       emit(state.copyWith(submissionState: const SubmissionState.submitting()));
 
-      if (transactionType == TransactionType.expense ||
-          transactionType == TransactionType.sent) {
-        await _checkIfAccountBalanceIsEnough(accountId, amount);
-      }
-
       await _transactionRepository.addTransaction(TransactionInput(
           title: title,
           accountId: accountId,
@@ -78,23 +70,6 @@ class NewTransactionCubit extends Cubit<NewTransactionState> {
     } on TransactionException catch (e) {
       emit(state.copyWith(submissionState: SubmissionState.failed(failure: e)));
     }
-  }
-
-  Future _checkIfAccountBalanceIsEnough(String accountId, double amount) async {
-    final accountBalance = await _accountBalance(accountId);
-    if (amount > accountBalance) {
-      throw TransactionException.notEnoughBalance(
-          availbleBalance: accountBalance);
-    }
-  }
-
-  Future<double> _accountBalance(String id) async {
-    final transactions = await _transactionRepository.getAllTransactions();
-    final selectedAccount = state.accounts.findById(id);
-    final accountBalance = selectedAccount.balance;
-    final accountTransactions = transactions.filterByAccountId(id);
-    final totalAmount = accountTransactions.totalAmount();
-    return accountBalance + totalAmount;
   }
 
   void selectAttachment(ImageSource imageSource) async {

@@ -2,12 +2,13 @@ import 'package:expense_tracker_app/src/bloc/transactions/transactions_cubit.dar
 import 'package:expense_tracker_app/src/data/models/sort_type.dart';
 import 'package:expense_tracker_app/src/data/models/transaction_filter.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
-import 'package:expense_tracker_app/src/view/main/transaction/widgets/category_filter.dart';
+
 import 'package:flutter/material.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'category_filter.dart';
 import 'filter_title.dart';
 import 'rest_button.dart';
 

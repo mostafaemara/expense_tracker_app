@@ -36,21 +36,20 @@ const $TransactionFormType = _$TransactionFormTypeTearOff();
 
 /// @nodoc
 mixin _$TransactionFormType {
-  @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() expense,
     required TResult Function() income,
     required TResult Function() transfer,
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? expense,
     TResult Function()? income,
     TResult Function()? transfer,
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? expense,
     TResult Function()? income,
@@ -58,21 +57,21 @@ mixin _$TransactionFormType {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult map<TResult extends Object?>({
     required TResult Function(_Expense value) expense,
     required TResult Function(_Income value) income,
     required TResult Function(_Transfer value) transfer,
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Expense value)? expense,
     TResult Function(_Income value)? income,
     TResult Function(_Transfer value)? transfer,
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Expense value)? expense,
     TResult Function(_Income value)? income,
@@ -136,7 +135,6 @@ class _$_Expense implements _Expense {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() expense,
     required TResult Function() income,
@@ -146,7 +144,6 @@ class _$_Expense implements _Expense {
   }
 
   @override
-  @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? expense,
     TResult Function()? income,
@@ -156,7 +153,6 @@ class _$_Expense implements _Expense {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? expense,
     TResult Function()? income,
@@ -170,7 +166,6 @@ class _$_Expense implements _Expense {
   }
 
   @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Expense value) expense,
     required TResult Function(_Income value) income,
@@ -180,7 +175,6 @@ class _$_Expense implements _Expense {
   }
 
   @override
-  @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Expense value)? expense,
     TResult Function(_Income value)? income,
@@ -190,7 +184,6 @@ class _$_Expense implements _Expense {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Expense value)? expense,
     TResult Function(_Income value)? income,
@@ -245,7 +238,6 @@ class _$_Income implements _Income {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() expense,
     required TResult Function() income,
@@ -255,7 +247,6 @@ class _$_Income implements _Income {
   }
 
   @override
-  @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? expense,
     TResult Function()? income,
@@ -265,7 +256,6 @@ class _$_Income implements _Income {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? expense,
     TResult Function()? income,
@@ -279,7 +269,6 @@ class _$_Income implements _Income {
   }
 
   @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Expense value) expense,
     required TResult Function(_Income value) income,
@@ -289,7 +278,6 @@ class _$_Income implements _Income {
   }
 
   @override
-  @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Expense value)? expense,
     TResult Function(_Income value)? income,
@@ -299,7 +287,6 @@ class _$_Income implements _Income {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Expense value)? expense,
     TResult Function(_Income value)? income,
@@ -354,7 +341,6 @@ class _$_Transfer implements _Transfer {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() expense,
     required TResult Function() income,
@@ -364,7 +350,6 @@ class _$_Transfer implements _Transfer {
   }
 
   @override
-  @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? expense,
     TResult Function()? income,
@@ -374,7 +359,6 @@ class _$_Transfer implements _Transfer {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? expense,
     TResult Function()? income,
@@ -388,7 +372,6 @@ class _$_Transfer implements _Transfer {
   }
 
   @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Expense value) expense,
     required TResult Function(_Income value) income,
@@ -398,7 +381,6 @@ class _$_Transfer implements _Transfer {
   }
 
   @override
-  @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Expense value)? expense,
     TResult Function(_Income value)? income,
@@ -408,7 +390,6 @@ class _$_Transfer implements _Transfer {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Expense value)? expense,
     TResult Function(_Income value)? income,

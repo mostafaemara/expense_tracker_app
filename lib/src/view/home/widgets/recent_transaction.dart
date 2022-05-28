@@ -4,12 +4,11 @@ import 'package:expense_tracker_app/src/bloc/home/home_cubit.dart';
 import 'package:expense_tracker_app/src/data/models/duration_type.dart';
 
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
+import 'package:expense_tracker_app/src/view/common/transaction_list.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import 'transaction_list.dart';
 
 class RecentTransaction extends StatefulWidget {
   const RecentTransaction({Key? key}) : super(key: key);

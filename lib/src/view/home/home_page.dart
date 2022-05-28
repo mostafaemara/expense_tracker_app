@@ -4,7 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'widgets/head.dart';
 import 'widgets/recent_transaction.dart';
-import 'widgets/spend_frequency_chart.dart';
+import '../common/linear_transaction_chart.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -32,10 +33,27 @@ class _HomePageState extends State<HomePage> {
         return SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Head(),
-              SpendFrequencyChart(),
-              RecentTransaction()
+            children: [
+              const Head(),
+              const SizedBox(
+                height: 13,
+              ),
+              Padding(
+                padding: const EdgeInsetsDirectional.only(
+                  start: 16,
+                ),
+                child: Text(
+                  AppLocalizations.of(context)!.spendFrequency,
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle1!
+                      .copyWith(fontWeight: FontWeight.w600),
+                ),
+              ),
+              LinearTransactionChart(
+                transactions: state.transactionsOfSelectedDuration,
+              ),
+              const RecentTransaction()
             ],
           ),
         );

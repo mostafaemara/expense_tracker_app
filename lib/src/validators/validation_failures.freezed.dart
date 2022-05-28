@@ -36,21 +36,19 @@ const $UsernameValidationFailure = _$UsernameValidationFailureTearOff();
 
 /// @nodoc
 mixin _$UsernameValidationFailure {
-  @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalid,
     required TResult Function() empty,
     required TResult Function() tooShort,
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? invalid,
     TResult Function()? empty,
     TResult Function()? tooShort,
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalid,
     TResult Function()? empty,
@@ -58,21 +56,21 @@ mixin _$UsernameValidationFailure {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult map<TResult extends Object?>({
     required TResult Function(_InvalidUserName value) invalid,
     required TResult Function(_Empty value) empty,
     required TResult Function(_TooShortUserName value) tooShort,
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_InvalidUserName value)? invalid,
     TResult Function(_Empty value)? empty,
     TResult Function(_TooShortUserName value)? tooShort,
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InvalidUserName value)? invalid,
     TResult Function(_Empty value)? empty,
@@ -138,7 +136,6 @@ class _$_InvalidUserName implements _InvalidUserName {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalid,
     required TResult Function() empty,
@@ -148,7 +145,6 @@ class _$_InvalidUserName implements _InvalidUserName {
   }
 
   @override
-  @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? invalid,
     TResult Function()? empty,
@@ -158,7 +154,6 @@ class _$_InvalidUserName implements _InvalidUserName {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalid,
     TResult Function()? empty,
@@ -172,7 +167,6 @@ class _$_InvalidUserName implements _InvalidUserName {
   }
 
   @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_InvalidUserName value) invalid,
     required TResult Function(_Empty value) empty,
@@ -182,7 +176,6 @@ class _$_InvalidUserName implements _InvalidUserName {
   }
 
   @override
-  @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_InvalidUserName value)? invalid,
     TResult Function(_Empty value)? empty,
@@ -192,7 +185,6 @@ class _$_InvalidUserName implements _InvalidUserName {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InvalidUserName value)? invalid,
     TResult Function(_Empty value)? empty,
@@ -247,7 +239,6 @@ class _$_Empty implements _Empty {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalid,
     required TResult Function() empty,
@@ -257,7 +248,6 @@ class _$_Empty implements _Empty {
   }
 
   @override
-  @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? invalid,
     TResult Function()? empty,
@@ -267,7 +257,6 @@ class _$_Empty implements _Empty {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalid,
     TResult Function()? empty,
@@ -281,7 +270,6 @@ class _$_Empty implements _Empty {
   }
 
   @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_InvalidUserName value) invalid,
     required TResult Function(_Empty value) empty,
@@ -291,7 +279,6 @@ class _$_Empty implements _Empty {
   }
 
   @override
-  @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_InvalidUserName value)? invalid,
     TResult Function(_Empty value)? empty,
@@ -301,7 +288,6 @@ class _$_Empty implements _Empty {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InvalidUserName value)? invalid,
     TResult Function(_Empty value)? empty,
@@ -358,7 +344,6 @@ class _$_TooShortUserName implements _TooShortUserName {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalid,
     required TResult Function() empty,
@@ -368,7 +353,6 @@ class _$_TooShortUserName implements _TooShortUserName {
   }
 
   @override
-  @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? invalid,
     TResult Function()? empty,
@@ -378,7 +362,6 @@ class _$_TooShortUserName implements _TooShortUserName {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalid,
     TResult Function()? empty,
@@ -392,7 +375,6 @@ class _$_TooShortUserName implements _TooShortUserName {
   }
 
   @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_InvalidUserName value) invalid,
     required TResult Function(_Empty value) empty,
@@ -402,7 +384,6 @@ class _$_TooShortUserName implements _TooShortUserName {
   }
 
   @override
-  @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_InvalidUserName value)? invalid,
     TResult Function(_Empty value)? empty,
@@ -412,7 +393,6 @@ class _$_TooShortUserName implements _TooShortUserName {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InvalidUserName value)? invalid,
     TResult Function(_Empty value)? empty,
@@ -448,38 +428,37 @@ const $EmailValidationFailure = _$EmailValidationFailureTearOff();
 
 /// @nodoc
 mixin _$EmailValidationFailure {
-  @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalid,
     required TResult Function() empty,
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? invalid,
     TResult Function()? empty,
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalid,
     TResult Function()? empty,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult map<TResult extends Object?>({
     required TResult Function(_InvalidEmail value) invalid,
     required TResult Function(_EmailEmpty value) empty,
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_InvalidEmail value)? invalid,
     TResult Function(_EmailEmpty value)? empty,
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InvalidEmail value)? invalid,
     TResult Function(_EmailEmpty value)? empty,
@@ -544,7 +523,6 @@ class _$_InvalidEmail implements _InvalidEmail {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalid,
     required TResult Function() empty,
@@ -553,7 +531,6 @@ class _$_InvalidEmail implements _InvalidEmail {
   }
 
   @override
-  @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? invalid,
     TResult Function()? empty,
@@ -562,7 +539,6 @@ class _$_InvalidEmail implements _InvalidEmail {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalid,
     TResult Function()? empty,
@@ -575,7 +551,6 @@ class _$_InvalidEmail implements _InvalidEmail {
   }
 
   @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_InvalidEmail value) invalid,
     required TResult Function(_EmailEmpty value) empty,
@@ -584,7 +559,6 @@ class _$_InvalidEmail implements _InvalidEmail {
   }
 
   @override
-  @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_InvalidEmail value)? invalid,
     TResult Function(_EmailEmpty value)? empty,
@@ -593,7 +567,6 @@ class _$_InvalidEmail implements _InvalidEmail {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InvalidEmail value)? invalid,
     TResult Function(_EmailEmpty value)? empty,
@@ -649,7 +622,6 @@ class _$_EmailEmpty implements _EmailEmpty {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalid,
     required TResult Function() empty,
@@ -658,7 +630,6 @@ class _$_EmailEmpty implements _EmailEmpty {
   }
 
   @override
-  @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? invalid,
     TResult Function()? empty,
@@ -667,7 +638,6 @@ class _$_EmailEmpty implements _EmailEmpty {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalid,
     TResult Function()? empty,
@@ -680,7 +650,6 @@ class _$_EmailEmpty implements _EmailEmpty {
   }
 
   @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_InvalidEmail value) invalid,
     required TResult Function(_EmailEmpty value) empty,
@@ -689,7 +658,6 @@ class _$_EmailEmpty implements _EmailEmpty {
   }
 
   @override
-  @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_InvalidEmail value)? invalid,
     TResult Function(_EmailEmpty value)? empty,
@@ -698,7 +666,6 @@ class _$_EmailEmpty implements _EmailEmpty {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InvalidEmail value)? invalid,
     TResult Function(_EmailEmpty value)? empty,
@@ -733,38 +700,37 @@ const $PasswordValidationFailure = _$PasswordValidationFailureTearOff();
 
 /// @nodoc
 mixin _$PasswordValidationFailure {
-  @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() shortPassword,
     required TResult Function() empty,
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? shortPassword,
     TResult Function()? empty,
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? shortPassword,
     TResult Function()? empty,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult map<TResult extends Object?>({
     required TResult Function(_ShortPassword value) shortPassword,
     required TResult Function(_PasswordEmpty value) empty,
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_ShortPassword value)? shortPassword,
     TResult Function(_PasswordEmpty value)? empty,
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_ShortPassword value)? shortPassword,
     TResult Function(_PasswordEmpty value)? empty,
@@ -829,7 +795,6 @@ class _$_ShortPassword implements _ShortPassword {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() shortPassword,
     required TResult Function() empty,
@@ -838,7 +803,6 @@ class _$_ShortPassword implements _ShortPassword {
   }
 
   @override
-  @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? shortPassword,
     TResult Function()? empty,
@@ -847,7 +811,6 @@ class _$_ShortPassword implements _ShortPassword {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? shortPassword,
     TResult Function()? empty,
@@ -860,7 +823,6 @@ class _$_ShortPassword implements _ShortPassword {
   }
 
   @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_ShortPassword value) shortPassword,
     required TResult Function(_PasswordEmpty value) empty,
@@ -869,7 +831,6 @@ class _$_ShortPassword implements _ShortPassword {
   }
 
   @override
-  @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_ShortPassword value)? shortPassword,
     TResult Function(_PasswordEmpty value)? empty,
@@ -878,7 +839,6 @@ class _$_ShortPassword implements _ShortPassword {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_ShortPassword value)? shortPassword,
     TResult Function(_PasswordEmpty value)? empty,
@@ -934,7 +894,6 @@ class _$_PasswordEmpty implements _PasswordEmpty {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() shortPassword,
     required TResult Function() empty,
@@ -943,7 +902,6 @@ class _$_PasswordEmpty implements _PasswordEmpty {
   }
 
   @override
-  @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? shortPassword,
     TResult Function()? empty,
@@ -952,7 +910,6 @@ class _$_PasswordEmpty implements _PasswordEmpty {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? shortPassword,
     TResult Function()? empty,
@@ -965,7 +922,6 @@ class _$_PasswordEmpty implements _PasswordEmpty {
   }
 
   @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_ShortPassword value) shortPassword,
     required TResult Function(_PasswordEmpty value) empty,
@@ -974,7 +930,6 @@ class _$_PasswordEmpty implements _PasswordEmpty {
   }
 
   @override
-  @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_ShortPassword value)? shortPassword,
     TResult Function(_PasswordEmpty value)? empty,
@@ -983,7 +938,6 @@ class _$_PasswordEmpty implements _PasswordEmpty {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_ShortPassword value)? shortPassword,
     TResult Function(_PasswordEmpty value)? empty,
@@ -1019,38 +973,37 @@ const $ConfirmPasswordValidationFailure =
 
 /// @nodoc
 mixin _$ConfirmPasswordValidationFailure {
-  @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() passwordNotMatch,
     required TResult Function() empty,
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? passwordNotMatch,
     TResult Function()? empty,
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? passwordNotMatch,
     TResult Function()? empty,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult map<TResult extends Object?>({
     required TResult Function(_PasswordNotMatch value) passwordNotMatch,
     required TResult Function(_ConfirmPasswordEmpty value) empty,
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_PasswordNotMatch value)? passwordNotMatch,
     TResult Function(_ConfirmPasswordEmpty value)? empty,
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PasswordNotMatch value)? passwordNotMatch,
     TResult Function(_ConfirmPasswordEmpty value)? empty,
@@ -1116,7 +1069,6 @@ class _$_PasswordNotMatch implements _PasswordNotMatch {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() passwordNotMatch,
     required TResult Function() empty,
@@ -1125,7 +1077,6 @@ class _$_PasswordNotMatch implements _PasswordNotMatch {
   }
 
   @override
-  @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? passwordNotMatch,
     TResult Function()? empty,
@@ -1134,7 +1085,6 @@ class _$_PasswordNotMatch implements _PasswordNotMatch {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? passwordNotMatch,
     TResult Function()? empty,
@@ -1147,7 +1097,6 @@ class _$_PasswordNotMatch implements _PasswordNotMatch {
   }
 
   @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_PasswordNotMatch value) passwordNotMatch,
     required TResult Function(_ConfirmPasswordEmpty value) empty,
@@ -1156,7 +1105,6 @@ class _$_PasswordNotMatch implements _PasswordNotMatch {
   }
 
   @override
-  @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_PasswordNotMatch value)? passwordNotMatch,
     TResult Function(_ConfirmPasswordEmpty value)? empty,
@@ -1165,7 +1113,6 @@ class _$_PasswordNotMatch implements _PasswordNotMatch {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PasswordNotMatch value)? passwordNotMatch,
     TResult Function(_ConfirmPasswordEmpty value)? empty,
@@ -1221,7 +1168,6 @@ class _$_ConfirmPasswordEmpty implements _ConfirmPasswordEmpty {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() passwordNotMatch,
     required TResult Function() empty,
@@ -1230,7 +1176,6 @@ class _$_ConfirmPasswordEmpty implements _ConfirmPasswordEmpty {
   }
 
   @override
-  @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? passwordNotMatch,
     TResult Function()? empty,
@@ -1239,7 +1184,6 @@ class _$_ConfirmPasswordEmpty implements _ConfirmPasswordEmpty {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? passwordNotMatch,
     TResult Function()? empty,
@@ -1252,7 +1196,6 @@ class _$_ConfirmPasswordEmpty implements _ConfirmPasswordEmpty {
   }
 
   @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_PasswordNotMatch value) passwordNotMatch,
     required TResult Function(_ConfirmPasswordEmpty value) empty,
@@ -1261,7 +1204,6 @@ class _$_ConfirmPasswordEmpty implements _ConfirmPasswordEmpty {
   }
 
   @override
-  @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_PasswordNotMatch value)? passwordNotMatch,
     TResult Function(_ConfirmPasswordEmpty value)? empty,
@@ -1270,7 +1212,6 @@ class _$_ConfirmPasswordEmpty implements _ConfirmPasswordEmpty {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PasswordNotMatch value)? passwordNotMatch,
     TResult Function(_ConfirmPasswordEmpty value)? empty,

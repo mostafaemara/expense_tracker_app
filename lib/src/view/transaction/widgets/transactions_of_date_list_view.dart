@@ -1,6 +1,8 @@
 import 'package:expense_tracker_app/src/data/models/transactions_of_date.dart';
-import 'package:expense_tracker_app/src/view/main/transaction/widgets/transactions_of_date_list_item.dart';
+
 import 'package:flutter/material.dart';
+
+import 'transactions_of_date_list_item.dart';
 
 class TransactionsOfDateListView extends StatelessWidget {
   final List<TransactionsOfDate> transactionsOfDates;

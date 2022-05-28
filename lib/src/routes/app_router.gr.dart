@@ -75,6 +75,13 @@ class _$AppRouter extends RootStackRouter {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const NotificationPage());
     },
+    FinancialDetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<FinancialDetailsRouteArgs>();
+      return MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: FinancialDetailsPage(
+              key: args.key, financialReport: args.financialReport));
+    },
     MainRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const MainPage());
@@ -113,6 +120,8 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(NewTransactionRoute.name, path: '/new-transaction-page'),
         RouteConfig(NewTransferRoute.name, path: '/new-transfer-page'),
         RouteConfig(NotificationRoute.name, path: '/notification-page'),
+        RouteConfig(FinancialDetailsRoute.name,
+            path: '/financial-details-page'),
         RouteConfig(MainRoute.name, path: '/', children: [
           RouteConfig('#redirect',
               path: '',
@@ -274,6 +283,31 @@ class NotificationRoute extends PageRouteInfo<void> {
       : super(NotificationRoute.name, path: '/notification-page');
 
   static const String name = 'NotificationRoute';
+}
+
+/// generated route for
+/// [FinancialDetailsPage]
+class FinancialDetailsRoute extends PageRouteInfo<FinancialDetailsRouteArgs> {
+  FinancialDetailsRoute({Key? key, required FinancialReport financialReport})
+      : super(FinancialDetailsRoute.name,
+            path: '/financial-details-page',
+            args: FinancialDetailsRouteArgs(
+                key: key, financialReport: financialReport));
+
+  static const String name = 'FinancialDetailsRoute';
+}
+
+class FinancialDetailsRouteArgs {
+  const FinancialDetailsRouteArgs({this.key, required this.financialReport});
+
+  final Key? key;
+
+  final FinancialReport financialReport;
+
+  @override
+  String toString() {
+    return 'FinancialDetailsRouteArgs{key: $key, financialReport: $financialReport}';
+  }
 }
 
 /// generated route for

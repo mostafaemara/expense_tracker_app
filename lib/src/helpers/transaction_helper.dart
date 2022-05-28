@@ -11,10 +11,6 @@ extension TransactionColorHelper on BuildContext {
         return AppColors.red;
       case TransactionType.income:
         return AppColors.green;
-      case TransactionType.sent:
-        return AppColors.red;
-      case TransactionType.received:
-        return AppColors.green;
     }
   }
 
@@ -23,10 +19,6 @@ extension TransactionColorHelper on BuildContext {
       case TransactionType.expense:
         return AppColors.red20;
       case TransactionType.income:
-        return AppColors.green20;
-      case TransactionType.sent:
-        return AppColors.red20;
-      case TransactionType.received:
         return AppColors.green20;
     }
   }
@@ -43,12 +35,6 @@ extension TransactionFormatter on Transaction {
         sign = "-";
         break;
       case TransactionType.income:
-        sign = "+";
-        break;
-      case TransactionType.sent:
-        sign = "-";
-        break;
-      case TransactionType.received:
         sign = "+";
         break;
     }
