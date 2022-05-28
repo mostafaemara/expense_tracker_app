@@ -1,7 +1,5 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 part 'periodic_type.freezed.dart';
 
-@freezed
 abstract class PeriodicType with _$PeriodicType {
   const PeriodicType._();
   const factory PeriodicType.daily() = _Daily;

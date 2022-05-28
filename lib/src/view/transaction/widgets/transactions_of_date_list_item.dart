@@ -1,9 +1,11 @@
 import 'package:expense_tracker_app/src/data/models/transactions_of_date.dart';
 import 'package:expense_tracker_app/src/helpers/date_time_helper.dart';
-import 'package:expense_tracker_app/src/view/main/home/widgets/transaction_list_item.dart';
-import 'package:expense_tracker_app/src/view/main/transaction/widgets/section_title.dart';
+import 'package:expense_tracker_app/src/view/common/transaction_list_item.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'section_title.dart';
 
 class TransactionsOfDateListItem extends StatelessWidget {
   const TransactionsOfDateListItem({Key? key, required this.transactionsOfDate})

@@ -3,8 +3,8 @@ import 'package:expense_tracker_app/src/routes/app_router.dart';
 
 import 'package:flutter/material.dart';
 
-import 'widgets/add_new_transaction_button.dart';
-import 'widgets/bottom_nav_bar.dart';
+import 'common/add_new_transaction_button.dart';
+import 'common/bottom_nav_bar.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);

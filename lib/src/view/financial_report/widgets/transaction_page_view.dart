@@ -95,7 +95,6 @@ class TransactionPageView extends StatelessWidget {
                 const Spacer(),
                 CategoryCard(
                   category: category,
-                  isExpense: isExpense,
                 ),
                 const Spacer(),
                 Text(

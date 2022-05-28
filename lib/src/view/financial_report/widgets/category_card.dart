@@ -6,11 +6,9 @@ class CategoryCard extends StatelessWidget {
   const CategoryCard({
     Key? key,
     required this.category,
-    required this.isExpense,
   }) : super(key: key);
 
   final Category category;
-  final bool isExpense;
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +26,11 @@ class CategoryCard extends StatelessWidget {
             height: 32,
             width: 32,
             decoration: BoxDecoration(
-                color: isExpense ? AppColors.red20 : AppColors.green20,
+                color: category.color.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(8)),
             child: Image.network(
               category.iconUrl,
-              color: isExpense ? AppColors.red : AppColors.green,
+              color: category.color,
               width: 18,
               height: 18,
             ),

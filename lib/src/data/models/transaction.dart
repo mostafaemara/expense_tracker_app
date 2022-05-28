@@ -10,7 +10,7 @@ class Transaction {
   final String attachment;
   final Account account;
   final Category category;
-  final String targetAccountId;
+
   final TransactionType type;
 
   Transaction(
@@ -18,7 +18,6 @@ class Transaction {
       required this.title,
       required this.type,
       required this.category,
-      this.targetAccountId = "",
       required this.id,
       required this.account,
       required this.amount,
@@ -35,7 +34,6 @@ class Transaction {
       attachment: map['attachment'] ?? '',
       account: Account.fromMap(map['account']),
       category: Category.fromMap(map['category']),
-      targetAccountId: map['targetAccount'] ?? '',
       type: TransactionType.parse(map['type']),
     );
   }
@@ -51,9 +49,7 @@ List<Transaction> mapArrayToTransactions(dynamic array) {
 
 enum TransactionType {
   expense("expense"),
-  income("income"),
-  sent("sent"),
-  received("received");
+  income("income");
 
   final String value;
 
@@ -67,10 +63,6 @@ enum TransactionType {
         return TransactionType.expense;
       case "income":
         return TransactionType.income;
-      case "sent":
-        return TransactionType.sent;
-      case "received":
-        return TransactionType.received;
 
       default:
         throw const FormatException("invalid transaction type");

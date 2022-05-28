@@ -1,10 +1,12 @@
 import 'package:equatable/equatable.dart';
 
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
+import 'package:flutter/material.dart';
 
 class Category extends Equatable {
   const Category(
       {required this.transactionType,
+      required this.color,
       required this.title,
       required this.iconUrl,
       required this.id});
@@ -12,6 +14,7 @@ class Category extends Equatable {
   final String title;
   final String iconUrl;
   final String id;
+  final Color color;
   final TransactionType transactionType;
 
   @override
@@ -19,6 +22,7 @@ class Category extends Equatable {
 
   factory Category.fromMap(Map<String, dynamic> map) {
     return Category(
+        color: Color(int.parse(map["color"])),
         title: map['title'],
         iconUrl: map['icon'],
         id: map['id'],

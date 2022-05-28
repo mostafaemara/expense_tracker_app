@@ -40,7 +40,6 @@ const $PeriodicType = _$PeriodicTypeTearOff();
 
 /// @nodoc
 mixin _$PeriodicType {
-  @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() daily,
     required TResult Function() weekly,
@@ -48,7 +47,7 @@ mixin _$PeriodicType {
     required TResult Function() yearly,
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? daily,
     TResult Function()? weekly,
@@ -56,7 +55,7 @@ mixin _$PeriodicType {
     TResult Function()? yearly,
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? daily,
     TResult Function()? weekly,
@@ -65,7 +64,7 @@ mixin _$PeriodicType {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult map<TResult extends Object?>({
     required TResult Function(_Daily value) daily,
     required TResult Function(_Weekly value) weekly,
@@ -73,7 +72,7 @@ mixin _$PeriodicType {
     required TResult Function(_Yearly value) yearly,
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Daily value)? daily,
     TResult Function(_Weekly value)? weekly,
@@ -81,7 +80,7 @@ mixin _$PeriodicType {
     TResult Function(_Yearly value)? yearly,
   }) =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
+
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Daily value)? daily,
     TResult Function(_Weekly value)? weekly,
@@ -144,7 +143,6 @@ class _$_Daily extends _Daily {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() daily,
     required TResult Function() weekly,
@@ -155,7 +153,6 @@ class _$_Daily extends _Daily {
   }
 
   @override
-  @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? daily,
     TResult Function()? weekly,
@@ -166,7 +163,6 @@ class _$_Daily extends _Daily {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? daily,
     TResult Function()? weekly,
@@ -181,7 +177,6 @@ class _$_Daily extends _Daily {
   }
 
   @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Daily value) daily,
     required TResult Function(_Weekly value) weekly,
@@ -192,7 +187,6 @@ class _$_Daily extends _Daily {
   }
 
   @override
-  @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Daily value)? daily,
     TResult Function(_Weekly value)? weekly,
@@ -203,7 +197,6 @@ class _$_Daily extends _Daily {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Daily value)? daily,
     TResult Function(_Weekly value)? weekly,
@@ -259,7 +252,6 @@ class _$_Weekly extends _Weekly {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() daily,
     required TResult Function() weekly,
@@ -270,7 +262,6 @@ class _$_Weekly extends _Weekly {
   }
 
   @override
-  @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? daily,
     TResult Function()? weekly,
@@ -281,7 +272,6 @@ class _$_Weekly extends _Weekly {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? daily,
     TResult Function()? weekly,
@@ -296,7 +286,6 @@ class _$_Weekly extends _Weekly {
   }
 
   @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Daily value) daily,
     required TResult Function(_Weekly value) weekly,
@@ -307,7 +296,6 @@ class _$_Weekly extends _Weekly {
   }
 
   @override
-  @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Daily value)? daily,
     TResult Function(_Weekly value)? weekly,
@@ -318,7 +306,6 @@ class _$_Weekly extends _Weekly {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Daily value)? daily,
     TResult Function(_Weekly value)? weekly,
@@ -374,7 +361,6 @@ class _$_Monthly extends _Monthly {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() daily,
     required TResult Function() weekly,
@@ -385,7 +371,6 @@ class _$_Monthly extends _Monthly {
   }
 
   @override
-  @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? daily,
     TResult Function()? weekly,
@@ -396,7 +381,6 @@ class _$_Monthly extends _Monthly {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? daily,
     TResult Function()? weekly,
@@ -411,7 +395,6 @@ class _$_Monthly extends _Monthly {
   }
 
   @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Daily value) daily,
     required TResult Function(_Weekly value) weekly,
@@ -422,7 +405,6 @@ class _$_Monthly extends _Monthly {
   }
 
   @override
-  @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Daily value)? daily,
     TResult Function(_Weekly value)? weekly,
@@ -433,7 +415,6 @@ class _$_Monthly extends _Monthly {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Daily value)? daily,
     TResult Function(_Weekly value)? weekly,
@@ -489,7 +470,6 @@ class _$_Yearly extends _Yearly {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() daily,
     required TResult Function() weekly,
@@ -500,7 +480,6 @@ class _$_Yearly extends _Yearly {
   }
 
   @override
-  @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? daily,
     TResult Function()? weekly,
@@ -511,7 +490,6 @@ class _$_Yearly extends _Yearly {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? daily,
     TResult Function()? weekly,
@@ -526,7 +504,6 @@ class _$_Yearly extends _Yearly {
   }
 
   @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Daily value) daily,
     required TResult Function(_Weekly value) weekly,
@@ -537,7 +514,6 @@ class _$_Yearly extends _Yearly {
   }
 
   @override
-  @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Daily value)? daily,
     TResult Function(_Weekly value)? weekly,
@@ -548,7 +524,6 @@ class _$_Yearly extends _Yearly {
   }
 
   @override
-  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Daily value)? daily,
     TResult Function(_Weekly value)? weekly,

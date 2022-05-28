@@ -12,6 +12,11 @@ class FinancialReportCubit extends Cubit<FinancialReportState> {
   final _transactionsRepo = locator<TransactionRepository>();
   void init() async {
     try {
+      if (state.isLoading == false) {
+        emit(state.copyWith(
+          isLoading: true,
+        ));
+      }
       //TODO Add select month
       final financialReport =
           await _transactionsRepo.readFinancialReport(DateTime.now());
