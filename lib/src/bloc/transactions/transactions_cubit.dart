@@ -4,6 +4,7 @@ import 'package:expense_tracker_app/injection.dart';
 import 'package:expense_tracker_app/src/data/models/sort_type.dart';
 import 'package:expense_tracker_app/src/data/models/transaction_filter.dart';
 import 'package:expense_tracker_app/src/data/repositories/transaction_repository.dart';
+import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,12 +12,13 @@ import 'transactions_state.dart';
 
 class TransactionCubit extends Cubit<TransactionsState> {
   final _transactionsRepo = locator<TransactionRepository>();
-  TransactionCubit() : super(const TransactionsState.init());
+  TransactionCubit() : super(TransactionsState.init());
 
   void init() async {
     try {
       final transactionsOfDates =
-          await _transactionsRepo.getTransactionsOfDates();
+          await _transactionsRepo.getTransactionsOfDates(
+              sortType: state.sortType, type: state.transactionType);
       final categories = await _transactionsRepo.getAllCategories();
       emit(state.copyWith(
           categories: categories,
@@ -70,6 +72,34 @@ class TransactionCubit extends Cubit<TransactionsState> {
       ));
       final transactionsOfDates =
           await _transactionsRepo.getTransactionsOfDates(
+              dateTimeRange: DateTimeRange(
+                  start: DateTime(
+                      state.selectedMonth.year, state.selectedMonth.month, 0),
+                  end: DateTime(state.selectedMonth.year,
+                      state.selectedMonth.month + 1, 0)),
+              sortType: state.sortType,
+              type: state.transactionType);
+      emit(state.copyWith(
+          isLoading: false, transactionsOfDates: transactionsOfDates));
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  void selectMonth(DateTime date) async {
+    try {
+      emit(state.copyWith(
+        selectedMonth: date,
+        isLoading: true,
+      ));
+
+      final transactionsOfDates =
+          await _transactionsRepo.getTransactionsOfDates(
+              dateTimeRange: DateTimeRange(
+                  start: DateTime(
+                      state.selectedMonth.year, state.selectedMonth.month, 0),
+                  end: DateTime(state.selectedMonth.year,
+                      state.selectedMonth.month + 1, 1)),
               categories: state.selectedCategories,
               sortType: state.sortType,
               type: state.transactionType);

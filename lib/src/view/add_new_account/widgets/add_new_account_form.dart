@@ -35,8 +35,8 @@ class _AddNewAccountFormState extends State<AddNewAccountForm> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<NewAccountCubit, SubmissionState>(
-      child: Form(
+    return BlocConsumer<NewAccountCubit, SubmissionState>(
+      builder: (context, state) => Form(
         key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,6 +69,8 @@ class _AddNewAccountFormState extends State<AddNewAccountForm> {
                     height: 24,
                   ),
                   SubmitButton(
+                    isLoading: state.maybeWhen(
+                        submitting: () => true, orElse: () => false),
                     onPressed: _handleSubmittion,
                   ),
                   const SizedBox(
@@ -119,7 +121,7 @@ class _AddNewAccountFormState extends State<AddNewAccountForm> {
     showDialog(
       context: context,
       builder: (context) => ErrorDialog(
-        title: AppLocalizations.of(context)!.error,
+        title: AppLocalizations.of(context)!.serverError,
         body: failure,
       ),
     );

@@ -2,8 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:expense_tracker_app/injection.dart';
 import 'package:expense_tracker_app/src/data/repositories/user_repository.dart';
 
-
-class AuthInterceptor extends Interceptor {
+class HeaderBuilderInterceptor extends Interceptor {
   final _userRepository = locator<UserRepository>();
   @override
   void onRequest(

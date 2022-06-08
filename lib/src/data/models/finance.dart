@@ -8,8 +8,8 @@ class Finance {
   factory Finance.fromMap(Map<String, dynamic> map) {
     return Finance(
       balance: map['balance']?.toDouble(),
-      income: map['income']?.toDouble(),
-      expense: map['expense']?.toDouble(),
+      income: map['incomes']?.toDouble(),
+      expense: map['expenses']?.toDouble(),
     );
   }
 }

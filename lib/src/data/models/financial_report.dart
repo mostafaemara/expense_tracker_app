@@ -1,47 +1,39 @@
 import 'dart:convert';
 
-import 'package:expense_tracker_app/src/data/models/category.dart';
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
 
-class FinancialReport {
-  final double totalExpense;
-  final double totalIncome;
-  final double biggestExpense;
-  final double biggestIncome;
+import 'budget.dart';
 
-  final Category highestExpenseCategory;
-  final Category highestIncomeCategory;
-  final int budgets;
-  final int exceededBudgets;
-  final List<Category> exceededBudgetsCategories;
+class FinancialReport {
+  final double expensesAmount;
+  final double incomesAmount;
+  final Transaction highestExpense;
+  final Transaction highestIncome;
+
+  final List<Budget> budgets;
+  final List<Budget> exceededBudgets;
+
   final List<Transaction> expenses;
   final List<Transaction> incomes;
 
   FinancialReport(
-      this.totalExpense,
-      this.totalIncome,
-      this.biggestExpense,
-      this.biggestIncome,
-      this.highestExpenseCategory,
-      this.highestIncomeCategory,
+      this.expensesAmount,
+      this.incomesAmount,
+      this.highestExpense,
+      this.highestIncome,
       this.budgets,
       this.exceededBudgets,
-      this.exceededBudgetsCategories,
       this.expenses,
       this.incomes);
 
   factory FinancialReport.fromMap(Map<String, dynamic> map) {
     return FinancialReport(
-      map['totalExpense']?.toDouble() ?? 0.0,
-      map['totalIncome']?.toDouble() ?? 0.0,
-      map['biggestExpense']?.toDouble() ?? 0.0,
-      map['biggestIncome']?.toDouble() ?? 0.0,
-      Category.fromMap(map['highestExpenseCategory']),
-      Category.fromMap(map['highestIncomeCategory']),
-      map['budgets']?.toInt() ?? 0,
-      map['exceededBudgets']?.toInt() ?? 0,
-      List<Category>.from(
-          map['exceededBudgetsCategories']?.map((x) => Category.fromMap(x))),
+      map['expensesAmount']?.toDouble() ?? 0.0,
+      map['incomesAmount']?.toDouble() ?? 0.0,
+      Transaction.fromMap(map['highestExpense']),
+      Transaction.fromMap(map['highestIncome']),
+      List<Budget>.from(map['budgets']?.map((x) => Budget.fromMap(x))),
+      List<Budget>.from(map['exceededBudgets']?.map((x) => Budget.fromMap(x))),
       List<Transaction>.from(
           map['expenses']?.map((x) => Transaction.fromMap(x))),
       List<Transaction>.from(

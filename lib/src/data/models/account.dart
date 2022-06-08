@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 class Account {
   Account(
@@ -44,6 +45,7 @@ enum AccountType {
   const AccountType(this.value);
 
   factory AccountType.parse(String value) {
+    log("helllo");
     if (value == "bankAccount") {
       return AccountType.bankAccount;
     } else if (value == "wallet") {

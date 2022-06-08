@@ -27,8 +27,16 @@ class TransactionPage extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const MonthDropDownButton(),
-                        FilterButton(isFilterActive: state.isFilterActive)
+                        MonthDropDownButton(
+                            value: state.selectedMonth,
+                            onChanged: (date) {
+                              if (date != null) {
+                                context
+                                    .read<TransactionCubit>()
+                                    .selectMonth(date);
+                              }
+                            }),
+                        FilterButton(isFilterActive: state.isFilterActive())
                       ],
                     )),
                 const FinancialReportButton(),

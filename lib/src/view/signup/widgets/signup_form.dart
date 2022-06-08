@@ -1,4 +1,4 @@
-import 'package:expense_tracker_app/src/bloc/submission_state.dart';
+import 'package:expense_tracker_app/src/bloc/submission_status.dart';
 import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 
@@ -103,13 +103,13 @@ class _SignupFormState extends State<SignupForm> {
 
   void _handleState(SubmissionState state) {
     switch (state.submissionStatus) {
-      case SubmissionStatus.success:
+      case Status.success:
         context.replaceRoute(const MainRoute());
         break;
-      case SubmissionStatus.error:
+      case Status.error:
         _showErrorDialog(context, state.error);
         break;
-      case SubmissionStatus.submitting:
+      case Status.loading:
         showDialog(
           barrierDismissible: false,
           context: context,
@@ -168,7 +168,7 @@ class _SignupFormState extends State<SignupForm> {
     showDialog(
       context: context,
       builder: (context) => ErrorDialog(
-        title: AppLocalizations.of(context)!.error,
+        title: AppLocalizations.of(context)!.serverError,
         body: failure,
       ),
     );

@@ -1,15 +1,15 @@
+import 'dart:ui';
+
 import 'package:bloc/bloc.dart';
 
-import 'package:expense_tracker_app/src/data/exceptions/auth_exception.dart';
-import 'package:expense_tracker_app/src/data/exceptions/connection_exception.dart';
-import 'package:expense_tracker_app/src/data/exceptions/server_exception.dart';
 import 'package:expense_tracker_app/src/data/models/inputs/login_input.dart';
 import 'package:expense_tracker_app/src/data/repositories/auth_repository.dart';
 import 'package:expense_tracker_app/src/data/repositories/user_repository.dart';
+import 'package:expense_tracker_app/src/helpers/exception_helper.dart';
 import 'package:expense_tracker_app/src/manger/connection_manger.dart';
 
 import '../../../../injection.dart';
-import '../submission_state.dart';
+import '../submission_status.dart';
 
 class LoginCubit extends Cubit<SubmissionState> {
   LoginCubit() : super(const SubmissionState.init());
@@ -22,8 +22,7 @@ class LoginCubit extends Cubit<SubmissionState> {
     required String password,
   }) async {
     try {
-      emit(state.copyWith(
-          submissionStatus: SubmissionStatus.submitting, error: ""));
+      emit(state.copyWith(submissionStatus: Status.loading, error: ""));
       await _connectionManger.checkConnection();
 
       final user = await _authService
@@ -31,16 +30,10 @@ class LoginCubit extends Cubit<SubmissionState> {
 
       await _userRepo.writeUser(user);
 
-      emit(state.copyWith(
-          submissionStatus: SubmissionStatus.success, error: ""));
-    } on AuthException catch (e) {
-      emit(state.copyWith(error: e.message));
-    } on ServerException {
-      emit(state.copyWith(
-          submissionStatus: SubmissionStatus.error, error: "server"));
-    } on ConnectionException {
-      emit(state.copyWith(
-          submissionStatus: SubmissionStatus.error, error: "no internet "));
+      emit(state.copyWith(submissionStatus: Status.success, error: ""));
+    } on Exception catch (e) {
+      final error = await e.parse(const Locale("en"));
+      emit(state.copyWith(error: error, submissionStatus: Status.error));
     }
   }
 }

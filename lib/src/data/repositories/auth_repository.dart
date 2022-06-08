@@ -1,8 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:expense_tracker_app/injection.dart';
-import 'package:expense_tracker_app/src/data/api/api_config.dart';
-import 'package:expense_tracker_app/src/data/exceptions/auth_exception.dart';
-import 'package:expense_tracker_app/src/data/exceptions/server_exception.dart';
 import 'package:expense_tracker_app/src/data/models/inputs/login_input.dart';
 import 'package:expense_tracker_app/src/data/models/inputs/signup_input.dart';
 
@@ -18,11 +15,11 @@ class AuthRepository {
       final response =
           await _api.dio.post(ApiConfig.loginPath, data: input.toMap());
 
-      final user = User.fromMap(response.data["data"]["user"]);
+      final user = User.fromMap(response.data["data"]);
 
       return user;
     } on DioError catch (e) {
-      throw _handleError(e);
+      throw e.mapToAppExceptions();
     }
   }
 
@@ -36,7 +33,7 @@ class AuthRepository {
 
       return user;
     } on DioError catch (e) {
-      throw _handleError(e);
+      throw e.mapToAppExceptions();
     }
   }
 
@@ -46,13 +43,5 @@ class AuthRepository {
 
   Stream<User?> onAuthChange() {
     throw UnimplementedError();
-  }
-
-  Exception _handleError(DioError error) {
-    if (error.response?.statusCode == 401) {
-      return AuthException(error.response?.data["message"]);
-    }
-
-    return ServerException();
   }
 }

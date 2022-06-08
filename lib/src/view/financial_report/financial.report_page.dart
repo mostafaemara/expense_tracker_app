@@ -1,5 +1,6 @@
 import 'package:expense_tracker_app/src/bloc/financial_report/financial_report_bloc.dart';
 import 'package:expense_tracker_app/src/bloc/financial_report/financial_report_state.dart';
+import 'package:expense_tracker_app/src/bloc/transactions/transactions_cubit.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:expense_tracker_app/src/view/financial_report/widgets/budget_page_view.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,9 @@ import 'package:page_indicator/page_indicator.dart';
 import 'widgets/transaction_page_view.dart';
 
 class FinancialReportPage extends StatefulWidget {
-  const FinancialReportPage({Key? key}) : super(key: key);
+  const FinancialReportPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<FinancialReportPage> createState() => _FinancialReportPageState();
@@ -21,7 +24,9 @@ class _FinancialReportPageState extends State<FinancialReportPage> {
 
   @override
   void initState() {
-    context.read<FinancialReportCubit>().init();
+    context
+        .read<FinancialReportCubit>()
+        .init(context.read<TransactionCubit>().state.selectedMonth);
     super.initState();
     controller = PageController();
   }
@@ -38,20 +43,14 @@ class _FinancialReportPageState extends State<FinancialReportPage> {
               child: PageView(
                 children: <Widget>[
                   TransactionPageView(
-                    isExpense: true,
-                    amount: state.financialReport.totalExpense,
-                    biggestAmmount: state.financialReport.biggestExpense,
-                    category: state.financialReport.highestExpenseCategory,
+                    highestTransaction: state.financialReport.highestExpense,
+                    transactionsAmount: state.financialReport.expensesAmount,
                   ),
                   TransactionPageView(
-                    isExpense: false,
-                    amount: state.financialReport.totalIncome,
-                    biggestAmmount: state.financialReport.biggestIncome,
-                    category: state.financialReport.highestIncomeCategory,
+                    transactionsAmount: state.financialReport.incomesAmount,
+                    highestTransaction: state.financialReport.highestIncome,
                   ),
                   BudgetPageView(
-                      categories:
-                          state.financialReport.exceededBudgetsCategories,
                       budgets: state.financialReport.budgets,
                       exceededBudgets: state.financialReport.exceededBudgets)
                 ],

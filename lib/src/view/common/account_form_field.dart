@@ -8,21 +8,25 @@ class AccountFormField extends StatelessWidget {
     this.onChanged,
     this.selectedAccount,
     required this.accounts,
+    this.targetAccountId,
   }) : super(key: key);
   final Function(String?)? onChanged;
   final String? selectedAccount;
   final List<Account> accounts;
+  final String? targetAccountId;
   @override
   Widget build(BuildContext context) {
+    var filteredAccounts = [...accounts];
+    filteredAccounts.removeWhere((element) => element.id == targetAccountId);
     return DropdownButtonFormField<String>(
       onChanged: onChanged,
       hint: Text(AppLocalizations.of(context)!.accountName),
       value: selectedAccount,
       items: List.generate(
-          accounts.length,
+          filteredAccounts.length,
           (index) => DropdownMenuItem(
-                child: Text(accounts[index].title),
-                value: accounts[index].id,
+                child: Text(filteredAccounts[index].title),
+                value: filteredAccounts[index].id,
               )),
     );
   }

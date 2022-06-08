@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:expense_tracker_app/src/data/models/account.dart';
 import 'package:expense_tracker_app/src/data/models/category.dart';
+import 'package:expense_tracker_app/src/styles/app_colors.dart';
 
 class Transaction {
   final String id;
@@ -28,8 +31,8 @@ class Transaction {
     return Transaction(
       title: map["title"],
       id: map['id'],
-      date: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
-      amount: map['amount']?.toDouble() ?? 0.0,
+      date: DateTime.parse(map['created_at']),
+      amount: map['amount'].toDouble(),
       description: map['description'] ?? '',
       attachment: map['attachment'] ?? '',
       account: Account.fromMap(map['account']),
@@ -66,6 +69,16 @@ enum TransactionType {
 
       default:
         throw const FormatException("invalid transaction type");
+    }
+  }
+
+  Color toColor() {
+    switch (this) {
+      case TransactionType.expense:
+        return AppColors.red;
+
+      case TransactionType.income:
+        return AppColors.green;
     }
   }
 }
