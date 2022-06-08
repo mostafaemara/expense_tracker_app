@@ -1,6 +1,9 @@
 enum TransactionFilter {
-  all,
-  expense,
-  income,
-  transfer,
+  all("all"),
+  expense("expense"),
+  income("income");
+
+  final String value;
+
+  const TransactionFilter(this.value);
 }

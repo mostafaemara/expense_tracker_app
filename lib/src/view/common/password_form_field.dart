@@ -1,7 +1,6 @@
-import 'package:expense_tracker_app/src/validators/auth_validators.dart';
+import 'package:expense_tracker_app/src/validators/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import "package:expense_tracker_app/src/helpers/validation_failure_translator.dart";
 
 class PasswordFormField extends StatefulWidget {
   final TextEditingController controller;
@@ -24,7 +23,7 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      validator: (value) => passwordValidator(value!)?.toLocaleString(context),
+      validator: (value) => passwordValidator(value!)?.translate(context),
       controller: widget.controller,
       obscureText: _isPasswordObscure,
       decoration: InputDecoration(

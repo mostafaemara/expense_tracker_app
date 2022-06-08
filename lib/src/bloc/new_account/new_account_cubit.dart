@@ -1,12 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:expense_tracker_app/injection.dart';
 import 'package:expense_tracker_app/src/data/models/inputs/account_input.dart';
-import 'package:expense_tracker_app/src/data/repositories/transaction_repository.dart';
+import 'package:expense_tracker_app/src/data/repositories/account_repository.dart';
 
 import '../old_sub_state/submission_state.dart';
 
 class NewAccountCubit extends Cubit<SubmissionState> {
-  final _accountsRepository = locator<TransactionRepository>();
+  final _accountsRepository = locator<AccountRepository>();
 
   NewAccountCubit() : super(const SubmissionState.idle());
 

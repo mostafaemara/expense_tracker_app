@@ -1,28 +1,25 @@
-import 'package:expense_tracker_app/src/data/models/category.dart';
+import 'package:expense_tracker_app/src/data/models/transaction.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:expense_tracker_app/src/view/financial_report/widgets/category_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TransactionPageView extends StatelessWidget {
-  final double amount;
-  final double biggestAmmount;
-  final Category category;
-  final bool isExpense;
+  final double transactionsAmount;
+  final Transaction highestTransaction;
 
   const TransactionPageView(
       {Key? key,
-      required this.amount,
-      required this.category,
-      required this.biggestAmmount,
-      required this.isExpense})
+      required this.transactionsAmount,
+      required this.highestTransaction})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final isExpense = highestTransaction.type == TransactionType.expense;
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        color: isExpense ? AppColors.red : AppColors.green,
+        color: highestTransaction.type.toColor(),
         child: Column(
           children: [
             const SizedBox(
@@ -63,7 +60,7 @@ class TransactionPageView extends StatelessWidget {
               height: 24,
             ),
             Text(
-              "\$$amount",
+              "\$$transactionsAmount",
               style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w700,
@@ -94,11 +91,11 @@ class TransactionPageView extends StatelessWidget {
                 ),
                 const Spacer(),
                 CategoryCard(
-                  category: category,
+                  category: highestTransaction.category,
                 ),
                 const Spacer(),
                 Text(
-                  "\$$biggestAmmount",
+                  "\$${highestTransaction.amount}",
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                       color: AppColors.dark,

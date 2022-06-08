@@ -1,64 +1,36 @@
-import 'package:expense_tracker_app/src/data/exceptions/transaction_exception.dart';
 import 'package:expense_tracker_app/src/data/models/account.dart';
 import 'package:expense_tracker_app/src/data/models/category.dart';
 
-import '../old_sub_state/submission_state.dart';
+import '../submission_status.dart';
 
 class NewTransactionState {
   final List<Category> categories;
-  final SubmissionState<TransactionException> submissionState;
-  final bool isInit;
+  final Status status;
+
   final List<Account> accounts;
-  final List<Account> targetAccounts;
+  final String error;
 
-  final Category? selectedCategory;
-  final String? selectedAccount;
-  final String? selectedTargetAccount;
-  final String? selectedAttachment;
-
-  const NewTransactionState({
-    required this.targetAccounts,
-    required this.selectedTargetAccount,
-    required this.selectedAttachment,
-    required this.selectedAccount,
-    required this.selectedCategory,
-    required this.categories,
-    required this.submissionState,
-    required this.isInit,
-    required this.accounts,
-  });
+  const NewTransactionState(
+      {required this.categories,
+      required this.status,
+      required this.accounts,
+      required this.error});
 
   const NewTransactionState.init()
-      : isInit = false,
-        selectedTargetAccount = null,
-        selectedAttachment = null,
-        selectedCategory = null,
-        selectedAccount = null,
-        targetAccounts = const [],
-        accounts = const [],
+      : accounts = const [],
         categories = const [],
-        submissionState = const SubmissionState.idle();
+        error = "",
+        status = Status.idle;
 
   NewTransactionState copyWith(
       {List<Category>? categories,
       List<Account>? accounts,
-      List<Account>? targetAccounts,
-      bool? isInit,
-      Category? selectedCategory,
-      String? selectedAccount,
-      String? selectedTargetAccount,
-      String? selectedAttachment,
-      SubmissionState<TransactionException>? submissionState}) {
+      String? error,
+      Status? status}) {
     return NewTransactionState(
-        selectedTargetAccount:
-            selectedTargetAccount ?? this.selectedTargetAccount,
-        targetAccounts: targetAccounts ?? this.targetAccounts,
-        selectedAttachment: selectedAttachment ?? this.selectedAttachment,
-        selectedCategory: selectedCategory ?? this.selectedCategory,
-        selectedAccount: selectedAccount ?? this.selectedAccount,
+        error: error ?? this.error,
         accounts: accounts ?? this.accounts,
-        isInit: isInit ?? this.isInit,
         categories: categories ?? this.categories,
-        submissionState: submissionState ?? this.submissionState);
+        status: status ?? this.status);
   }
 }

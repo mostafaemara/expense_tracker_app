@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:expense_tracker_app/src/data/models/duration_type.dart';
+import 'package:expense_tracker_app/src/data/models/sort_type.dart';
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
+import 'package:expense_tracker_app/src/data/models/transaction_filter.dart';
 
 import 'package:expense_tracker_app/src/data/repositories/transaction_repository.dart';
 
@@ -16,10 +18,13 @@ class HomeCubit extends Cubit<HomeState> {
 
   void init() async {
     try {
-      final transactions = await _transactionRepository.getRecentTransactions();
+      final transactions = await _transactionRepository.readTransactions(
+          sortType: SortType.newest, limit: 3, type: TransactionFilter.all);
       final finance = await _transactionRepository.readFinance();
-      final spendTransactions = await _transactionRepository
-          .getTransactionsByDate(state.selectedDuration.toDateRange());
+      final spendTransactions = await _transactionRepository.readTransactions(
+          sortType: SortType.newest,
+          type: TransactionFilter.expense,
+          dateTimeRange: state.selectedDuration.toDateRange());
 
       emit(state.copyWith(
           isLoading: false,
@@ -35,11 +40,16 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  void selectSpendDuration(DurationType type) async {
+  void selectSpendDuration(
+    DurationType type,
+  ) async {
     try {
       emit(state.copyWith(selectedDuration: type));
-      final spendTransactions = await _transactionRepository
-          .getTransactionsByDate(state.selectedDuration.toDateRange());
+      final spendTransactions = await _transactionRepository.readTransactions(
+          sortType: SortType.newest,
+          type: TransactionFilter.expense,
+          dateTimeRange: state.selectedDuration.toDateRange());
+      log(spendTransactions.length.toString());
       emit(state.copyWith(spendTransactions: spendTransactions));
     } catch (e) {
       log(

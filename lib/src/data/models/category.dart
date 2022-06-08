@@ -23,7 +23,7 @@ class Category extends Equatable {
   factory Category.fromMap(Map<String, dynamic> map) {
     return Category(
         color: Color(int.parse(map["color"])),
-        title: map['title'],
+        title: map['title']["en"],
         iconUrl: map['icon'],
         id: map['id'],
         transactionType: TransactionType.parse(map["type"]));

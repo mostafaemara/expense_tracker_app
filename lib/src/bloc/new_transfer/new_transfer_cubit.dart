@@ -1,99 +1,44 @@
-import 'dart:developer';
+import 'dart:ui';
 
 import 'package:bloc/bloc.dart';
 import 'package:expense_tracker_app/injection.dart';
 
-import 'package:expense_tracker_app/src/data/exceptions/transaction_exception.dart';
 import 'package:expense_tracker_app/src/data/models/inputs/transfer_input.dart';
+import 'package:expense_tracker_app/src/data/repositories/account_repository.dart';
 import 'package:expense_tracker_app/src/data/repositories/transaction_repository.dart';
+import 'package:expense_tracker_app/src/helpers/exception_helper.dart';
 
-import 'package:expense_tracker_app/src/helpers/image_helper.dart';
-
-import 'package:image_picker/image_picker.dart';
-
-import '../old_sub_state/submission_state.dart';
+import '../submission_status.dart';
 import 'new_tranfer_state.dart';
 
 class NewTransferCubit extends Cubit<NewTransferState> {
   NewTransferCubit() : super(const NewTransferState.init());
 
   final _transactionRepository = locator<TransactionRepository>();
-
+  final _accountRepo = locator<AccountRepository>();
   void init() async {
     try {
-      final accounts = await _transactionRepository.getAccounts();
+      final accounts = await _accountRepo.getAccounts();
 
-      emit(state.copyWith(
-          isInit: true, targetAccounts: accounts, accounts: accounts));
-    } catch (e) {
-      log(e.toString());
+      emit(state.copyWith(accounts: accounts));
+    } on Exception catch (e) {
+      final error = await e.parse(const Locale("en"));
+      emit(state.copyWith(error: error, status: Status.error));
     }
   }
 
-  void addTransaction(
-    String balance,
-    String description,
-  ) async {
+  void addTransfer(TransferInput input) async {
     try {
-      if (state.selectedAccount == null ||
-          state.selectedTargetAccount == null) {
-        emit(state.copyWith(
-            submissionState: const SubmissionState.failed(
-                failure: TransactionException.serverError())));
-        return;
-      }
-      final String account = state.selectedAccount!;
-      final String targetAccount = state.selectedTargetAccount!;
-      final double amount = double.tryParse(balance)!;
-      emit(state.copyWith(submissionState: const SubmissionState.submitting()));
+      emit(state.copyWith(status: Status.loading));
 
-      await _transactionRepository.addTransfer(TransferInput(
-          title: "Transfer",
-          account: account,
-          amount: amount,
-          targetAccount: targetAccount,
-          description: description,
-          attachment: state.selectedAttachment ?? ""));
+      await _transactionRepository.addTransfer(input);
 
-      emit(state.copyWith(submissionState: const SubmissionState.success()));
-    } on TransactionException catch (e) {
-      emit(state.copyWith(submissionState: SubmissionState.failed(failure: e)));
+      emit(state.copyWith());
+    } on Exception catch (e) {
+      final error = await e.parse(const Locale("en"));
+      emit(
+        state.copyWith(error: error, status: Status.error),
+      );
     }
-  }
-
-  void selectAttachment(ImageSource imageSource) async {
-    final file = await ImagePicker()
-        .pickImage(source: imageSource, maxHeight: 800, maxWidth: 600);
-    if (file != null) {
-      final selectedAttachment = await file.convertToBase64Image();
-      emit(state.copyWith(selectedAttachment: selectedAttachment));
-    }
-  }
-
-  void selectAccount(String? accountId) {
-    if (accountId == null) {
-      return;
-    }
-
-    final targetAccounts = [...state.accounts];
-
-    targetAccounts.removeWhere(
-      (element) => element.id == accountId,
-    );
-    log("account changed");
-    emit(state.copyWith(
-        selectedAccount: accountId, targetAccounts: targetAccounts));
-  }
-
-  void selectTargetAccount(String? accountId) {
-    if (accountId == null) {
-      return;
-    }
-
-    emit(state.copyWith(selectedTargetAccount: accountId));
-  }
-
-  void cancelAttachment() {
-    emit(state.copyWith(selectedAttachment: null));
   }
 }

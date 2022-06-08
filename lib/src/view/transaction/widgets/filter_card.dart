@@ -95,9 +95,6 @@ class _FilterCardState extends State<FilterCard> with TickerProviderStateMixin {
                 Tab(
                   text: "Income",
                 ),
-                Tab(
-                  text: "Transfer",
-                ),
               ],
               isScrollable: false,
               indicatorColor: Theme.of(context).colorScheme.secondary,
@@ -190,9 +187,6 @@ class _FilterCardState extends State<FilterCard> with TickerProviderStateMixin {
         break;
       case 2:
         transCubit.selectTransactionType(TransactionFilter.income);
-        break;
-      case 3:
-        transCubit.selectTransactionType(TransactionFilter.transfer);
         break;
     }
   }

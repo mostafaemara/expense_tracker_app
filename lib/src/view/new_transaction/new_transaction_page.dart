@@ -1,8 +1,6 @@
 import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_cubit.dart';
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
 
-import 'package:expense_tracker_app/src/styles/app_colors.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -49,26 +47,15 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
         value: widget.transactionType,
         child: Scaffold(
           resizeToAvoidBottomInset: false,
-          backgroundColor: _getBackgroundColor(),
+          backgroundColor: widget.transactionType.toColor(),
           appBar: MyAppBar(title: _getPageTitle(context)),
           body: BlocProvider.value(
             value: _newTransactionCubit,
-            child: const TransactionForm(),
+            child: TransactionForm(transactionType: widget.transactionType),
           ),
         ),
       ),
     );
-  }
-
-  Color _getBackgroundColor() {
-    switch (widget.transactionType) {
-      case TransactionType.expense:
-        return AppColors.red;
-      case TransactionType.income:
-        return AppColors.green;
-      default:
-        throw const FormatException("Invalid Value");
-    }
   }
 
   String _getPageTitle(BuildContext context) {

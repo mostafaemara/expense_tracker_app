@@ -1,7 +1,6 @@
-import 'package:expense_tracker_app/src/validators/auth_validators.dart';
+import 'package:expense_tracker_app/src/validators/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import "../../../helpers/validation_failure_translator.dart";
 
 class ConfirmPasswordFormField extends StatefulWidget {
   final TextEditingController controller;
@@ -29,7 +28,7 @@ class _ConfirmPasswordFormFieldState extends State<ConfirmPasswordFormField> {
     return TextFormField(
       validator: (value) =>
           confirmPasswordValidator(value!, widget.passwordController.value.text)
-              ?.toLocaleString(context),
+              ?.translate(context),
       controller: widget.controller,
       obscureText: _isConfirmPasswordObscure,
       decoration: InputDecoration(

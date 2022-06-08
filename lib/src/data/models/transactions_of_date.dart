@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
 
 class TransactionsOfDate {
@@ -7,8 +9,9 @@ class TransactionsOfDate {
   TransactionsOfDate({required this.date, required this.transactions});
 
   factory TransactionsOfDate.fromMap(Map<String, dynamic> map) {
+    log(map['date'].toString());
     return TransactionsOfDate(
-      date: DateTime.fromMillisecondsSinceEpoch(map['date']),
+      date: DateTime.parse(map['date']),
       transactions: List<Transaction>.from(
           map['transactions']?.map((x) => Transaction.fromMap(x))),
     );

@@ -1,15 +1,15 @@
 class SubmissionState {
   const SubmissionState.init()
-      : submissionStatus = SubmissionStatus.idle,
+      : submissionStatus = Status.idle,
         error = "";
   SubmissionState(this.error, this.submissionStatus);
 
   final String error;
-  final SubmissionStatus submissionStatus;
+  final Status submissionStatus;
 
   SubmissionState copyWith({
     String? error,
-    SubmissionStatus? submissionStatus,
+    Status? submissionStatus,
   }) {
     return SubmissionState(
       error ?? this.error,
@@ -18,4 +18,4 @@ class SubmissionState {
   }
 }
 
-enum SubmissionStatus { idle, success, error, submitting }
+enum Status { idle, success, error, loading }

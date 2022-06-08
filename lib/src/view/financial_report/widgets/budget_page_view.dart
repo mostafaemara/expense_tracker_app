@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expense_tracker_app/src/bloc/financial_report/financial_report_bloc.dart';
-import 'package:expense_tracker_app/src/data/models/category.dart';
+import 'package:expense_tracker_app/src/data/models/budget.dart';
 import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:expense_tracker_app/src/view/financial_report/widgets/category_card.dart';
@@ -9,13 +9,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BudgetPageView extends StatelessWidget {
-  final List<Category> categories;
-  final int budgets;
-  final int exceededBudgets;
+  final List<Budget> budgets;
+  final List<Budget> exceededBudgets;
 
   const BudgetPageView({
     Key? key,
-    required this.categories,
     required this.budgets,
     required this.exceededBudgets,
   }) : super(key: key);
@@ -41,7 +39,7 @@ class BudgetPageView extends StatelessWidget {
               height: 142,
             ),
             Text(
-              "$exceededBudgets ${AppLocalizations.of(context)!.ofOf} $budgets ${AppLocalizations.of(context)!.budgetExceed}",
+              "${exceededBudgets.length} ${AppLocalizations.of(context)!.ofOf} ${budgets.length} ${AppLocalizations.of(context)!.budgetExceed}",
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: AppColors.light,
@@ -56,9 +54,9 @@ class BudgetPageView extends StatelessWidget {
               spacing: 8,
               runSpacing: 8,
               children: List.generate(
-                  categories.length,
+                  exceededBudgets.length,
                   (index) => CategoryCard(
-                        category: categories[index],
+                        category: exceededBudgets[index].category,
                       )),
             ),
             const Spacer(),
@@ -70,10 +68,11 @@ class BudgetPageView extends StatelessWidget {
                       primary: AppColors.light, onPrimary: AppColors.violet),
                   onPressed: () {
                     AutoRouter.of(context).navigate(FinancialDetailsRoute(
-                        financialReport: context
-                            .read<FinancialReportCubit>()
-                            .state
-                            .financialReport));
+                      financialReport: context
+                          .read<FinancialReportCubit>()
+                          .state
+                          .financialReport,
+                    ));
                   },
                   child: Text(AppLocalizations.of(context)!.seeFullDetail)),
             ),

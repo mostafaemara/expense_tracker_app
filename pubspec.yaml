@@ -15,9 +15,9 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   auto_route: ^4.0.1
-  introduction_screen: ^2.1.0
-  syncfusion_flutter_charts: ^20.1.57
-  bubble_tab_indicator: "^0.1.5"
+  introduction_screen: ^3.0.2
+  syncfusion_flutter_charts: ^20.1.58+1
+  bubble_tab_indicator: ^0.1.6
   intl: ^0.17.0
   get_it: ^7.2.0
 
@@ -28,14 +28,14 @@ dependencies:
   validators: ^3.0.0
   equatable: ^2.0.3
 
-  image_picker: ^0.8.4+4
-  multi_select_flutter: ^4.0.0
+  image_picker: ^0.8.5+3
+  multi_select_flutter: ^4.1.2
   arabic_numbers: ^1.0.0
   cached_network_image: ^3.2.0
   ntp: ^2.0.0
   path_provider: ^2.0.8
   shared_preferences: ^2.0.13
-  dio: ^4.0.4
+  dio: ^4.0.6
   pretty_dio_logger: ^1.2.0-beta-1
   connectivity_plus: ^2.3.0
   page_indicator: ^0.4.1

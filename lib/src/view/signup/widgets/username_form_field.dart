@@ -1,7 +1,6 @@
-import 'package:expense_tracker_app/src/validators/auth_validators.dart';
+import 'package:expense_tracker_app/src/validators/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import "../../../helpers/validation_failure_translator.dart";
 
 class UsernameFormField extends StatelessWidget {
   final TextEditingController controller;
@@ -14,7 +13,7 @@ class UsernameFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      validator: (value) => userNameValidator(value!)?.toLocaleString(context),
+      validator: (value) => userNameValidator(value!)?.translate(context),
       decoration: InputDecoration(
           hintText: AppLocalizations.of(context)!.formFiledHintName),
     );

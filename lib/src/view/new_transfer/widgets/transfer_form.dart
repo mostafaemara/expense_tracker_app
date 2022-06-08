@@ -1,23 +1,18 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expense_tracker_app/src/bloc/new_transfer/new_tranfer_state.dart';
 import 'package:expense_tracker_app/src/bloc/new_transfer/new_transfer_cubit.dart';
+import 'package:expense_tracker_app/src/bloc/submission_status.dart';
 
-import 'package:expense_tracker_app/src/data/exceptions/transaction_exception.dart';
-import 'package:expense_tracker_app/src/helpers/number_helper.dart';
+import 'package:expense_tracker_app/src/data/models/inputs/transfer_input.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../../../routes/app_router.dart';
 import '../../common/account_form_field.dart';
 import '../../common/add_attachment_button.dart';
-import '../../common/attachment_bottom_sheet.dart';
 import '../../common/balance_text_field.dart';
-import '../../common/description_form_field.dart';
-import '../../common/error_dialog.dart';
-import '../../common/loading_dialog.dart';
 
 class TransferForm extends StatefulWidget {
   const TransferForm({
@@ -32,13 +27,12 @@ class _TransferFormState extends State<TransferForm> {
   static final _formKey = GlobalKey<FormState>();
   final _balanceController = TextEditingController(text: "0.00");
   final _descriptionController = TextEditingController();
-
+  String? _fromAcountId;
+  String? _toAcountId;
   @override
   Widget build(BuildContext context) {
-    final bloc = context.read<NewTransferCubit>();
     return BlocConsumer<NewTransferCubit, NewTransferState>(
-      buildWhen: (previous, current) => previous.isInit != current.isInit,
-      builder: (context, state) => !state.isInit
+      builder: (context, state) => state.status == Status.loading
           ? const Center(
               child: CircularProgressIndicator(),
             )
@@ -69,34 +63,32 @@ class _TransferFormState extends State<TransferForm> {
                           children: [
                             Expanded(
                               child: AccountFormField(
-                                onChanged: bloc.selectAccount,
+                                targetAccountId: _toAcountId,
+                                onChanged: _onFromAccountIdChange,
                                 accounts: state.accounts,
-                                selectedAccount: state.selectedAccount,
+                                selectedAccount: _fromAcountId,
                               ),
                             ),
                             Image.asset(
                                 "assets/images/colored_transaction.png"),
                             Expanded(
                               child: AccountFormField(
-                                onChanged: bloc.selectTargetAccount,
-                                accounts: state.targetAccounts,
-                                selectedAccount: state.selectedTargetAccount,
+                                onChanged: _onToAccountIdChange,
+                                accounts: state.accounts,
+                                selectedAccount: _toAcountId,
+                                targetAccountId: _fromAcountId,
                               ),
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        DescriptionFormField(
-                            controller: _descriptionController),
 
                         const SizedBox(
                           height: 16,
                         ),
                         AddAttachmentButton(
                             onPressed: () => _showChooseAttachmentModal(
-                                context, bloc.selectAttachment)),
+                                  context,
+                                )),
 
                         //  RepeatSwitchButton(),
                         const SizedBox(
@@ -120,57 +112,56 @@ class _TransferFormState extends State<TransferForm> {
                 ],
               )),
       listener: (context, state) {
-        state.submissionState.whenOrNull(
-          submitting: () => showDialog(
-            barrierDismissible: false,
-            context: context,
-            builder: (context) => const LoadingDialog(),
-          ),
-          success: () => context.replaceRoute(const MainRoute()),
-          failed: _handleFailure,
-        );
+        if (state.status == Status.success) {
+          context.replaceRoute(const MainRoute());
+        }
+        if (state.status == Status.error) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(state.error)));
+        }
       },
     );
   }
 
-  void _handleFailure(TransactionException failure) {
-    late String massege = failure.when(
-        serverError: () => AppLocalizations.of(context)!.serverError,
-        notEnoughBalance: (availbleBalance) =>
-            "${AppLocalizations.of(context)!.accountBalanceNotEnough} ${availbleBalance.translate(context)}");
-    _showErrorDialog(context, massege);
-  }
-
   void _showChooseAttachmentModal(
-      BuildContext context, Function(ImageSource) selectAttachment) {
-    showModalBottomSheet(
-      context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(24),
-          topRight: Radius.circular(24),
-        ),
-      ),
-      builder: (context) =>
-          AttachmentBottomSheet(selectAttachment: selectAttachment),
-    );
+    BuildContext context,
+  ) {
+    // showModalBottomSheet(
+    //   context: context,
+    //   shape: const RoundedRectangleBorder(
+    //     borderRadius: BorderRadius.only(
+    //       topLeft: Radius.circular(24),
+    //       topRight: Radius.circular(24),
+    //     ),
+    //   ),
+    //   builder: (context) =>
+    //       AttachmentBottomSheet(selectAttachment: selectAttachment),
+    // );
   }
 
   void _handleSubmittion() {
     if (_formKey.currentState!.validate()) {
-      BlocProvider.of<NewTransferCubit>(context)
-          .addTransaction(_balanceController.text, _descriptionController.text);
+      if (_fromAcountId != null && _toAcountId != null) {
+        BlocProvider.of<NewTransferCubit>(context).addTransfer(TransferInput(
+            fromAccountId: _fromAcountId!,
+            toAccountId: _toAcountId!,
+            amount: double.parse(_balanceController.text)));
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("Select Accounts")));
+      }
     }
   }
 
-  void _showErrorDialog(BuildContext context, String failure) {
-    Navigator.of(context).pop();
-    showDialog(
-      context: context,
-      builder: (context) => ErrorDialog(
-        title: AppLocalizations.of(context)!.error,
-        body: failure,
-      ),
-    );
+  void _onToAccountIdChange(String? id) {
+    setState(() {
+      _toAcountId = id;
+    });
+  }
+
+  void _onFromAccountIdChange(String? id) {
+    setState(() {
+      _fromAcountId = id;
+    });
   }
 }
