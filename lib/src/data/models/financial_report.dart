@@ -7,8 +7,8 @@ import 'budget.dart';
 class FinancialReport {
   final double expensesAmount;
   final double incomesAmount;
-  final Transaction highestExpense;
-  final Transaction highestIncome;
+  final Transaction? highestExpense;
+  final Transaction? highestIncome;
 
   final List<Budget> budgets;
   final List<Budget> exceededBudgets;
@@ -30,8 +30,12 @@ class FinancialReport {
     return FinancialReport(
       map['expensesAmount']?.toDouble() ?? 0.0,
       map['incomesAmount']?.toDouble() ?? 0.0,
-      Transaction.fromMap(map['highestExpense']),
-      Transaction.fromMap(map['highestIncome']),
+      map['highestExpense'] != null
+          ? Transaction.fromMap(map['highestExpense'])
+          : null,
+      map['highestIncome'] != null
+          ? Transaction.fromMap(map['highestIncome'])
+          : null,
       List<Budget>.from(map['budgets']?.map((x) => Budget.fromMap(x))),
       List<Budget>.from(map['exceededBudgets']?.map((x) => Budget.fromMap(x))),
       List<Transaction>.from(

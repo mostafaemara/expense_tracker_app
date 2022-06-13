@@ -19,27 +19,43 @@ class FinancialReportCubit extends Cubit<FinancialReportState> {
           isLoading: true,
         ));
       }
+      log("bloc" + selectedDate.toIso8601String());
       //TODO Add select month
-      final financialReport =
-          await _transactionsRepo.readFinancialReport(DateTime.now());
-      emit(state.copyWith(isLoading: false, financialReport: financialReport));
+      final financialReport = await _transactionsRepo.readFinancialReport(
+        selectedDate,
+      );
+      emit(state.copyWith(
+          isLoading: false,
+          financialReport: financialReport,
+          selectedMonth: selectedDate));
     } catch (e) {
       log(e.toString());
     }
   }
 
   void selectMonth(DateTime? month) async {
-    try {
-      emit(state.copyWith(isLoading: true, selectedMonth: month));
-      final financialReport =
-          await _transactionsRepo.readFinancialReport(state.selectedMonth);
-      emit(state.copyWith(isLoading: false, financialReport: financialReport));
-    } catch (e) {
-      log(e.toString());
+    if (month != null) {
+      try {
+        emit(state.copyWith(
+          isLoading: true,
+        ));
+        final _financialReport =
+            await _transactionsRepo.readFinancialReport(month);
+        log("Month updated" + month.toIso8601String());
+        emit(state.copyWith(
+            isLoading: false,
+            financialReport: _financialReport,
+            selectedMonth: month));
+      } catch (e) {
+        log(e.toString() + e.runtimeType.toString());
+      }
     }
   }
 
-  void selectChart(ChartType type) {}
+  void selectChart(ChartType type) {
+    emit(state.copyWith(chartType: type));
+  }
+
   void selectTransactionType(TransactionType type) async {
     emit(state.copyWith(transactionType: type));
   }

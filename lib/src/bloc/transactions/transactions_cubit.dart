@@ -97,7 +97,7 @@ class TransactionCubit extends Cubit<TransactionsState> {
           await _transactionsRepo.getTransactionsOfDates(
               dateTimeRange: DateTimeRange(
                   start: DateTime(
-                      state.selectedMonth.year, state.selectedMonth.month, 0),
+                      state.selectedMonth.year, state.selectedMonth.month, 1),
                   end: DateTime(state.selectedMonth.year,
                       state.selectedMonth.month + 1, 1)),
               categories: state.selectedCategories,

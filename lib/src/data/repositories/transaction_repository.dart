@@ -160,9 +160,10 @@ class TransactionRepository {
   }
 
   Future<FinancialReport> readFinancialReport(DateTime date) async {
+    log(date.toIso8601String());
     try {
       final response = await _api.get(ApiConfig.financialReportPath,
-          queryParameters: {"date": "2022-06-04"});
+          queryParameters: {"date": date.toIso8601String()});
       return FinancialReport.fromMap(response.data["data"]);
     } on DioError catch (e) {
       throw e.mapToAppExceptions();
