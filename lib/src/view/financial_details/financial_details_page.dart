@@ -3,7 +3,9 @@ import 'package:expense_tracker_app/src/bloc/financial_report/financial_report_s
 import 'package:expense_tracker_app/src/data/models/chart_type.dart';
 import 'package:expense_tracker_app/src/data/models/financial_report.dart';
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
+import 'package:expense_tracker_app/src/helpers/transaction_helper.dart';
 import 'package:expense_tracker_app/src/view/common/linear_transaction_chart.dart';
+import 'package:expense_tracker_app/src/view/financial_details/widgets/chart_tab_bar.dart';
 import 'package:expense_tracker_app/src/view/financial_details/widgets/pie_transaction_chart.dart';
 import 'package:expense_tracker_app/src/view/financial_details/widgets/transaction_tab_bar.dart';
 import 'package:expense_tracker_app/src/view/financial_details/widgets/transactions_sheet.dart';
@@ -34,30 +36,48 @@ class _FinancialDetailsPageState extends State<FinancialDetailsPage> {
       ),
       body: BlocBuilder<FinancialReportCubit, FinancialReportState>(
         builder: ((context, state) {
-          final transactions = state.transactionType == TransactionType.expense
-              ? widget.financialReport.expenses
-              : widget.financialReport.incomes;
+          final _transactions = state.transactionType == TransactionType.expense
+              ? state.financialReport.expenses
+              : state.financialReport.incomes;
+
+          final amount = state.transactionType == TransactionType.expense
+              ? state.financialReport.expensesAmount
+              : state.financialReport.incomesAmount;
           return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  MonthDropDownButton(
-                      value: state.selectedMonth, onChanged: bloc.selectMonth),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      MonthDropDownButton(
+                          value: state.selectedMonth,
+                          onChanged: bloc.selectMonth),
+                      ChartTabBar(onChange: bloc.selectChart)
+                    ],
+                  ),
                   const SizedBox(
                     height: 8,
                   ),
                   state.chartType == ChartType.pie
                       ? PieTransactionChart(
-                          transactions: transactions,
-                          type: TransactionType.expense,
-                          isByCategory: true,
+                          transactions: _transactions.groupByCategory(),
+                          totalAmount: amount,
                         )
-                      : LinearTransactionChart(transactions: transactions),
+                      : LinearTransactionChart(transactions: _transactions),
+                  const SizedBox(
+                    height: 58,
+                  ),
                   TransactionTabBar(onChange: bloc.selectTransactionType),
+                  const SizedBox(
+                    height: 12,
+                  ),
                   Expanded(
                     child: TransactionSheet(
-                        chartType: state.chartType, transactions: transactions),
+                        amount: amount,
+                        chartType: state.chartType,
+                        transactions: _transactions),
                   )
                 ],
               ));

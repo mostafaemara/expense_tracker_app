@@ -27,44 +27,51 @@ class _FinancialReportPageState extends State<FinancialReportPage> {
     context
         .read<FinancialReportCubit>()
         .init(context.read<TransactionCubit>().state.selectedMonth);
+
     super.initState();
     controller = PageController();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: BlocBuilder<FinancialReportCubit, FinancialReportState>(
-      builder: (context, state) => state.isLoading
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : PageIndicatorContainer(
-              child: PageView(
-                children: <Widget>[
-                  TransactionPageView(
-                    highestTransaction: state.financialReport.highestExpense,
-                    transactionsAmount: state.financialReport.expensesAmount,
-                  ),
-                  TransactionPageView(
-                    transactionsAmount: state.financialReport.incomesAmount,
-                    highestTransaction: state.financialReport.highestIncome,
-                  ),
-                  BudgetPageView(
-                      budgets: state.financialReport.budgets,
-                      exceededBudgets: state.financialReport.exceededBudgets)
-                ],
-                controller: controller,
-              ),
-              align: IndicatorAlign.top,
-              shape: IndicatorShape.roundRectangleShape(
-                  size: Size(MediaQuery.of(context).size.width / 4, 4)),
-              length: 3,
-              padding: const EdgeInsets.only(top: 63),
-              indicatorColor: AppColors.light20,
-              indicatorSelectorColor: AppColors.light,
-              indicatorSpace: 10.0,
-            ),
-    ));
+    return Scaffold(body:
+        BlocBuilder<FinancialReportCubit, FinancialReportState>(
+            builder: (context, state) {
+      if (state.isLoading) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+      final pages = [
+        if (state.financialReport.highestExpense != null)
+          TransactionPageView(
+            highestTransaction: state.financialReport.highestExpense!,
+            transactionsAmount: state.financialReport.expensesAmount,
+          ),
+        if (state.financialReport.highestIncome != null)
+          TransactionPageView(
+            transactionsAmount: state.financialReport.incomesAmount,
+            highestTransaction: state.financialReport.highestIncome!,
+          ),
+        BudgetPageView(
+            budgets: state.financialReport.budgets,
+            exceededBudgets: state.financialReport.exceededBudgets)
+      ];
+
+      return PageIndicatorContainer(
+        child: PageView(
+          children: pages,
+          controller: controller,
+        ),
+        align: IndicatorAlign.top,
+        shape: IndicatorShape.roundRectangleShape(
+            size: Size(MediaQuery.of(context).size.width / 4, 4)),
+        length: pages.length,
+        padding: const EdgeInsets.only(top: 63),
+        indicatorColor: AppColors.light20,
+        indicatorSelectorColor: AppColors.light,
+        indicatorSpace: 10.0,
+      );
+    }));
   }
 }

@@ -12,7 +12,9 @@ class TransactionsListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
         itemCount: transactions.length,
-        itemBuilder: (_, i) =>
-            TransactionListItem(transaction: transactions[i]));
+        itemBuilder: (_, i) => TransactionListItem(
+              transaction: transactions[i],
+              key: Key(transactions[i].id),
+            ));
   }
 }
