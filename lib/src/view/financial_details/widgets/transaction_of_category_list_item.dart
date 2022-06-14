@@ -1,4 +1,6 @@
+import 'package:expense_tracker_app/src/data/models/transaction.dart';
 import 'package:expense_tracker_app/src/data/models/transaction_of_category.dart';
+import 'package:expense_tracker_app/src/helpers/transaction_helper.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -18,31 +20,51 @@ class TransactionOfCategoryListItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                      color: transactionOfCategory.category.color,
-                      borderRadius: BorderRadius.circular(14)),
-                  width: 14,
-                  height: 14,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          color: transactionOfCategory.category.color,
+                          borderRadius: BorderRadius.circular(14)),
+                      width: 14,
+                      height: 14,
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Text(
+                      transactionOfCategory.category.title,
+                    )
+                  ],
                 ),
-                const SizedBox(
-                  width: 8,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(32),
+                  border: Border.all(width: 1, color: AppColors.light60),
                 ),
-                Text(
-                  transactionOfCategory.category.title,
-                )
-              ],
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(32),
-              border: Border.all(width: 1, color: AppColors.light60),
-            ),
-            height: 34,
+                height: 34,
+              ),
+              Text(
+                transactionOfCategory.amount.formatAmount(
+                  context,
+                  transactionOfCategory.category.transactionType,
+                ),
+                style: TextStyle(
+                  fontSize: 24,
+                  color: transactionOfCategory.category.transactionType ==
+                          TransactionType.expense
+                      ? AppColors.red
+                      : AppColors.green,
+                ),
+              )
+            ],
           ),
           const SizedBox(
             height: 8,

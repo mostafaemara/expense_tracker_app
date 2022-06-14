@@ -9,7 +9,7 @@ import 'package:expense_tracker_app/src/view/financial_details/widgets/chart_tab
 import 'package:expense_tracker_app/src/view/financial_details/widgets/pie_transaction_chart.dart';
 import 'package:expense_tracker_app/src/view/financial_details/widgets/transaction_tab_bar.dart';
 import 'package:expense_tracker_app/src/view/financial_details/widgets/transactions_sheet.dart';
-import 'package:expense_tracker_app/src/view/transaction/widgets/month_drop_down_button.dart';
+import 'package:expense_tracker_app/src/view/common/month_drop_down_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
