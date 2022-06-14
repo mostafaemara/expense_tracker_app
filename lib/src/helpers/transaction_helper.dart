@@ -51,6 +51,33 @@ extension TransactionFormatter on Transaction {
   }
 }
 
+extension AmmountFormatter on double {
+  String formatAmount(BuildContext context, TransactionType type) {
+    final convertedAmount = translate(
+      context,
+    );
+    final locale = Localizations.localeOf(context);
+    String sign = "";
+
+    switch (type) {
+      case TransactionType.expense:
+        sign = "-";
+        break;
+      case TransactionType.income:
+        sign = "+";
+        break;
+    }
+
+    late String formattedAmount;
+    if (locale.languageCode == "ar") {
+      formattedAmount = "$convertedAmount$sign";
+    } else {
+      formattedAmount = "$sign$convertedAmount";
+    }
+    return formattedAmount;
+  }
+}
+
 extension TransactionTransformer on List<Transaction> {
   groupByCategory() {
     List<TransactionOfCategory> transactionsOfCategory = [];

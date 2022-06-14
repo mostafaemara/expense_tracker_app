@@ -82,6 +82,18 @@ class _$AppRouter extends RootStackRouter {
           child: FinancialDetailsPage(
               key: args.key, financialReport: args.financialReport));
     },
+    NewBudgetRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const NewBudgetPage());
+    },
+    AccountsRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const AccountsPage());
+    },
+    AccountDetailsRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const AccountDetailsPage());
+    },
     MainRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const MainPage());
@@ -122,6 +134,9 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(NotificationRoute.name, path: '/notification-page'),
         RouteConfig(FinancialDetailsRoute.name,
             path: '/financial-details-page'),
+        RouteConfig(NewBudgetRoute.name, path: '/new-budget-page'),
+        RouteConfig(AccountsRoute.name, path: '/accounts-page'),
+        RouteConfig(AccountDetailsRoute.name, path: '/account-details-page'),
         RouteConfig(MainRoute.name, path: '/', children: [
           RouteConfig('#redirect',
               path: '',
@@ -308,6 +323,31 @@ class FinancialDetailsRouteArgs {
   String toString() {
     return 'FinancialDetailsRouteArgs{key: $key, financialReport: $financialReport}';
   }
+}
+
+/// generated route for
+/// [NewBudgetPage]
+class NewBudgetRoute extends PageRouteInfo<void> {
+  const NewBudgetRoute() : super(NewBudgetRoute.name, path: '/new-budget-page');
+
+  static const String name = 'NewBudgetRoute';
+}
+
+/// generated route for
+/// [AccountsPage]
+class AccountsRoute extends PageRouteInfo<void> {
+  const AccountsRoute() : super(AccountsRoute.name, path: '/accounts-page');
+
+  static const String name = 'AccountsRoute';
+}
+
+/// generated route for
+/// [AccountDetailsPage]
+class AccountDetailsRoute extends PageRouteInfo<void> {
+  const AccountDetailsRoute()
+      : super(AccountDetailsRoute.name, path: '/account-details-page');
+
+  static const String name = 'AccountDetailsRoute';
 }
 
 /// generated route for
