@@ -2,6 +2,8 @@ import 'package:expense_tracker_app/src/data/models/transaction.dart';
 import 'package:expense_tracker_app/src/data/models/transaction_of_category.dart';
 import 'package:expense_tracker_app/src/helpers/transaction_helper.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
+import 'package:expense_tracker_app/src/view/common/category_tag.dart';
+import 'package:expense_tracker_app/src/view/common/percentage_bar.dart';
 import 'package:flutter/material.dart';
 
 class TransactionOfCategoryListItem extends StatelessWidget {
@@ -24,32 +26,9 @@ class TransactionOfCategoryListItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          color: transactionOfCategory.category.color,
-                          borderRadius: BorderRadius.circular(14)),
-                      width: 14,
-                      height: 14,
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    Text(
-                      transactionOfCategory.category.title,
-                    )
-                  ],
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(32),
-                  border: Border.all(width: 1, color: AppColors.light60),
-                ),
-                height: 34,
+              CategoryTag(
+                title: transactionOfCategory.category.title,
+                color: transactionOfCategory.category.color,
               ),
               Text(
                 transactionOfCategory.amount.formatAmount(
@@ -69,24 +48,10 @@ class TransactionOfCategoryListItem extends StatelessWidget {
           const SizedBox(
             height: 8,
           ),
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: AppColors.light40,
-            ),
-            child: Container(
-              alignment: AlignmentDirectional.centerStart,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: transactionOfCategory.category.color,
-                ),
-                width: (width * transactionOfCategory.amount) / totalAmount,
-                height: 12,
-              ),
-            ),
-          ),
+          PercentageBar(
+              amount: transactionOfCategory.amount,
+              color: transactionOfCategory.category.color,
+              totalAmount: totalAmount),
         ],
       ),
     );

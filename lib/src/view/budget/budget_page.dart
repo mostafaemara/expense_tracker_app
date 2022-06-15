@@ -3,6 +3,7 @@ import 'package:expense_tracker_app/src/bloc/budgets/budgets_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/budgets/budgets_state.dart';
 import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
+import 'package:expense_tracker_app/src/view/budget/widgets/budget_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -59,10 +60,12 @@ class _BudgetPageState extends State<BudgetPage> {
                                 ? const Text(
                                     "You don’t have a budget.Let’s make one so you in control.")
                                 : ListView.builder(
+                                    padding: const EdgeInsets.all(16),
                                     itemCount: state.budgets.length,
-                                    itemBuilder: (context, index) => ListTile(
-                                        title: Text(state.budgets[index].amount
-                                            .toString())),
+                                    itemBuilder: (context, index) =>
+                                        BudgetListItem(
+                                            budget: state.budgets[index],
+                                            onPressed: () {}),
                                   ),
                           )),
                           Container(
