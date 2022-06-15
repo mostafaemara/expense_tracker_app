@@ -64,8 +64,8 @@ class _BudgetPageState extends State<BudgetPage> {
                                     itemCount: state.budgets.length,
                                     itemBuilder: (context, index) =>
                                         BudgetListItem(
-                                            budget: state.budgets[index],
-                                            onPressed: () {}),
+                                      budget: state.budgets[index],
+                                    ),
                                   ),
                           )),
                           Container(
@@ -75,7 +75,7 @@ class _BudgetPageState extends State<BudgetPage> {
                               child: ElevatedButton(
                                   onPressed: () {
                                     AutoRouter.of(context)
-                                        .navigate(const NewBudgetRoute());
+                                        .navigate(NewBudgetRoute());
                                   },
                                   child: const Text("Create a Budget"))),
                           const SizedBox(

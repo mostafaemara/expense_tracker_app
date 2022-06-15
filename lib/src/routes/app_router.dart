@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:expense_tracker_app/src/data/models/budget.dart';
 import 'package:expense_tracker_app/src/data/models/financial_report.dart';
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
 
@@ -7,6 +8,7 @@ import 'package:expense_tracker_app/src/view/accounts/accounts_page.dart';
 import 'package:expense_tracker_app/src/view/acount_details/account_details_page.dart';
 import 'package:expense_tracker_app/src/view/add_new_account/add_new_account_page.dart';
 import 'package:expense_tracker_app/src/view/budget/budget_page.dart';
+import 'package:expense_tracker_app/src/view/budget_details/budget_details_page.dart';
 import 'package:expense_tracker_app/src/view/financial_details/financial_details_page.dart';
 import 'package:expense_tracker_app/src/view/financial_report/financial.report_page.dart';
 import 'package:expense_tracker_app/src/view/home/home_page.dart';
@@ -78,6 +80,9 @@ part 'app_router.gr.dart';
     ),
     AutoRoute(
       page: AccountDetailsPage,
+    ),
+    AutoRoute(
+      page: BudgetDetailsPage,
     ),
     AutoRoute(page: MainPage, path: "/", children: [
       AutoRoute(path: "home", initial: true, page: HomePage),

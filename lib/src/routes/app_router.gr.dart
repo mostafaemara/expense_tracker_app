@@ -83,8 +83,11 @@ class _$AppRouter extends RootStackRouter {
               key: args.key, financialReport: args.financialReport));
     },
     NewBudgetRoute.name: (routeData) {
+      final args = routeData.argsAs<NewBudgetRouteArgs>(
+          orElse: () => const NewBudgetRouteArgs());
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const NewBudgetPage());
+          routeData: routeData,
+          child: NewBudgetPage(key: args.key, budget: args.budget));
     },
     AccountsRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
@@ -93,6 +96,12 @@ class _$AppRouter extends RootStackRouter {
     AccountDetailsRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const AccountDetailsPage());
+    },
+    BudgetDetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<BudgetDetailsRouteArgs>();
+      return MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: BudgetDetailsPage(key: args.key, budget: args.budget));
     },
     MainRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
@@ -137,6 +146,7 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(NewBudgetRoute.name, path: '/new-budget-page'),
         RouteConfig(AccountsRoute.name, path: '/accounts-page'),
         RouteConfig(AccountDetailsRoute.name, path: '/account-details-page'),
+        RouteConfig(BudgetDetailsRoute.name, path: '/budget-details-page'),
         RouteConfig(MainRoute.name, path: '/', children: [
           RouteConfig('#redirect',
               path: '',
@@ -327,10 +337,26 @@ class FinancialDetailsRouteArgs {
 
 /// generated route for
 /// [NewBudgetPage]
-class NewBudgetRoute extends PageRouteInfo<void> {
-  const NewBudgetRoute() : super(NewBudgetRoute.name, path: '/new-budget-page');
+class NewBudgetRoute extends PageRouteInfo<NewBudgetRouteArgs> {
+  NewBudgetRoute({Key? key, Budget? budget})
+      : super(NewBudgetRoute.name,
+            path: '/new-budget-page',
+            args: NewBudgetRouteArgs(key: key, budget: budget));
 
   static const String name = 'NewBudgetRoute';
+}
+
+class NewBudgetRouteArgs {
+  const NewBudgetRouteArgs({this.key, this.budget});
+
+  final Key? key;
+
+  final Budget? budget;
+
+  @override
+  String toString() {
+    return 'NewBudgetRouteArgs{key: $key, budget: $budget}';
+  }
 }
 
 /// generated route for
@@ -348,6 +374,30 @@ class AccountDetailsRoute extends PageRouteInfo<void> {
       : super(AccountDetailsRoute.name, path: '/account-details-page');
 
   static const String name = 'AccountDetailsRoute';
+}
+
+/// generated route for
+/// [BudgetDetailsPage]
+class BudgetDetailsRoute extends PageRouteInfo<BudgetDetailsRouteArgs> {
+  BudgetDetailsRoute({Key? key, required Budget budget})
+      : super(BudgetDetailsRoute.name,
+            path: '/budget-details-page',
+            args: BudgetDetailsRouteArgs(key: key, budget: budget));
+
+  static const String name = 'BudgetDetailsRoute';
+}
+
+class BudgetDetailsRouteArgs {
+  const BudgetDetailsRouteArgs({this.key, required this.budget});
+
+  final Key? key;
+
+  final Budget budget;
+
+  @override
+  String toString() {
+    return 'BudgetDetailsRouteArgs{key: $key, budget: $budget}';
+  }
 }
 
 /// generated route for

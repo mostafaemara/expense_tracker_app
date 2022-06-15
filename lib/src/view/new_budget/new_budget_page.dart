@@ -1,3 +1,4 @@
+import 'package:expense_tracker_app/src/data/models/budget.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:expense_tracker_app/src/view/common/balance_text_field.dart';
 import 'package:expense_tracker_app/src/view/common/submit_button.dart';
@@ -5,7 +6,8 @@ import 'package:expense_tracker_app/src/view/new_transaction/widgets/category_fo
 import 'package:flutter/material.dart';
 
 class NewBudgetPage extends StatefulWidget {
-  const NewBudgetPage({Key? key}) : super(key: key);
+  final Budget? budget;
+  const NewBudgetPage({Key? key, this.budget}) : super(key: key);
 
   @override
   State<NewBudgetPage> createState() => _NewBudgetPageState();

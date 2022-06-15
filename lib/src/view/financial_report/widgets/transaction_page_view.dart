@@ -1,6 +1,6 @@
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
-import 'package:expense_tracker_app/src/view/financial_report/widgets/category_card.dart';
+import 'package:expense_tracker_app/src/view/common/category_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

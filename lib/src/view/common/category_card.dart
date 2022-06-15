@@ -28,11 +28,15 @@ class CategoryCard extends StatelessWidget {
             decoration: BoxDecoration(
                 color: category.color.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(8)),
-            child: Image.network(
-              category.iconUrl,
-              color: category.color,
-              width: 18,
-              height: 18,
+            child: Center(
+              child: SizedBox(
+                child: Image.network(
+                  category.iconUrl,
+                  color: category.color,
+                  width: 18,
+                  height: 18,
+                ),
+              ),
             ),
           ),
           const SizedBox(
