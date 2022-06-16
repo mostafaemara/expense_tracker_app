@@ -1,3 +1,5 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +18,9 @@ class AccountListView extends StatelessWidget {
             ProfileListTile(
               image: "assets/images/wallet.png",
               color: AppColors.violet,
-              onPressed: () {},
+              onPressed: () {
+                AutoRouter.of(context).navigate(const AccountsRoute());
+              },
               title: "Account",
             ),
             const SizedBox(
