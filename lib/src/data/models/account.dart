@@ -54,4 +54,12 @@ enum AccountType {
       throw const FormatException("invalid Account Type!");
     }
   }
+
+  String iconPath() {
+    if (this == AccountType.wallet) {
+      return "assets/images/wallet.png";
+    } else {
+      return "assets/images/credit_card.png";
+    }
+  }
 }

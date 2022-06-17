@@ -4,10 +4,10 @@ import 'package:expense_tracker_app/src/bloc/transactions/transactions_state.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../common/transactions_of_date_list_view.dart';
 import 'widgets/filter_button.dart';
 import 'widgets/financial_report_button.dart';
 import '../common/month_drop_down_button.dart';
-import 'widgets/transactions_of_date_list_view.dart';
 
 class TransactionPage extends StatelessWidget {
   const TransactionPage({Key? key}) : super(key: key);
