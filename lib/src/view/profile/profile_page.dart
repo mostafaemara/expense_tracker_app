@@ -1,5 +1,5 @@
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
-import 'package:expense_tracker_app/src/view/profile/widgets/account_list_view.dart';
+import 'package:expense_tracker_app/src/view/profile/widgets/profile_list_view.dart';
 import 'package:expense_tracker_app/src/view/profile/widgets/profile_header.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +19,7 @@ class ProfilePage extends StatelessWidget {
             SizedBox(
               height: 40,
             ),
-            AccountListView()
+            ProfileListView()
           ]),
         ),
       ),
