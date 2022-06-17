@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:expense_tracker_app/src/data/models/account.dart';
 import 'package:expense_tracker_app/src/data/models/budget.dart';
 import 'package:expense_tracker_app/src/data/models/financial_report.dart';
 import 'package:expense_tracker_app/src/data/models/transaction.dart';

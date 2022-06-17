@@ -94,8 +94,10 @@ class _$AppRouter extends RootStackRouter {
           routeData: routeData, child: const AccountsPage());
     },
     AccountDetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<AccountDetailsRouteArgs>();
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const AccountDetailsPage());
+          routeData: routeData,
+          child: AccountDetailsPage(key: args.key, account: args.account));
     },
     BudgetDetailsRoute.name: (routeData) {
       final args = routeData.argsAs<BudgetDetailsRouteArgs>();
@@ -369,11 +371,26 @@ class AccountsRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [AccountDetailsPage]
-class AccountDetailsRoute extends PageRouteInfo<void> {
-  const AccountDetailsRoute()
-      : super(AccountDetailsRoute.name, path: '/account-details-page');
+class AccountDetailsRoute extends PageRouteInfo<AccountDetailsRouteArgs> {
+  AccountDetailsRoute({Key? key, required Account account})
+      : super(AccountDetailsRoute.name,
+            path: '/account-details-page',
+            args: AccountDetailsRouteArgs(key: key, account: account));
 
   static const String name = 'AccountDetailsRoute';
+}
+
+class AccountDetailsRouteArgs {
+  const AccountDetailsRouteArgs({this.key, required this.account});
+
+  final Key? key;
+
+  final Account account;
+
+  @override
+  String toString() {
+    return 'AccountDetailsRouteArgs{key: $key, account: $account}';
+  }
 }
 
 /// generated route for
