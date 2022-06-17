@@ -1,3 +1,4 @@
+import 'package:expense_tracker_app/src/bloc/accounts/accounts_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/auth/auth_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/budgets/budgets_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/financial_report/financial_report_bloc.dart';
@@ -57,6 +58,10 @@ void main() async {
       BlocProvider(
         lazy: false,
         create: (context) => BudgetsCubit(),
+      ),
+      BlocProvider(
+        lazy: false,
+        create: (context) => AccountsCubit()..init(),
       )
     ], child: MyApp()),
   );

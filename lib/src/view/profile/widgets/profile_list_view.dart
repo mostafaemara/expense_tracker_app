@@ -3,8 +3,8 @@ import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class AccountListView extends StatelessWidget {
-  const AccountListView({Key? key}) : super(key: key);
+class ProfileListView extends StatelessWidget {
+  const ProfileListView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

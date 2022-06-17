@@ -43,12 +43,14 @@ class TransactionRepository {
     }
   }
 
-  Future<List<TransactionsOfDate>> getTransactionsOfDates(
-      {required TransactionFilter type,
-      int? limit,
-      DateTimeRange? dateTimeRange,
-      required SortType sortType,
-      List<String>? categories}) async {
+  Future<List<TransactionsOfDate>> getTransactionsOfDates({
+    required TransactionFilter type,
+    int? limit,
+    DateTimeRange? dateTimeRange,
+    required SortType sortType,
+    List<String>? categories,
+    String? accountId,
+  }) async {
     try {
       final dateFilter = dateTimeRange != null
           ? {
