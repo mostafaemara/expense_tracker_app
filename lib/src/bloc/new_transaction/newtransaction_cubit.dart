@@ -1,66 +1,67 @@
 import 'package:bloc/bloc.dart';
 import 'package:expense_tracker_app/injection.dart';
-import 'package:expense_tracker_app/src/bloc/accounts/accounts_cubit.dart';
-import 'package:expense_tracker_app/src/bloc/auth/auth_cubit.dart';
-import 'package:expense_tracker_app/src/bloc/submission_state.dart';
-import 'package:expense_tracker_app/src/bloc/transactions/transactions_cubit.dart';
-import 'package:expense_tracker_app/src/exceptions/transaction_exception.dart';
-import 'package:expense_tracker_app/src/models/transaction_input.dart';
-import "../../extenstions/transaction_list_helper.dart";
-import "../../extenstions/acount_list_helpers.dart";
-import 'package:expense_tracker_app/src/repositories/transaction_repository.dart';
+import 'package:expense_tracker_app/src/bloc/submission_status.dart';
+import "package:expense_tracker_app/src/helpers/exception_helper.dart";
+import 'package:expense_tracker_app/src/data/models/transaction.dart';
+import 'package:expense_tracker_app/src/data/repositories/account_repository.dart';
+import 'package:expense_tracker_app/src/data/repositories/transaction_repository.dart';
+import 'package:expense_tracker_app/src/helpers/categories_helper.dart';
 
-class NewTransactionCubit extends Cubit<SubmissionState<TransactionException>> {
-  NewTransactionCubit(
-      {required this.authCubit,
-      required this.transactionsCubit,
-      required this.accountsCubit})
-      : super(const SubmissionState.idle());
+import 'package:expense_tracker_app/src/data/models/inputs/transaction_input.dart';
+import 'package:flutter/rendering.dart';
 
-  final AuthCubit authCubit;
-  final TransactionsCubit transactionsCubit;
-  final AccountsCubit accountsCubit;
+import 'newtransaction_state.dart';
+
+class NewTransactionCubit extends Cubit<NewTransactionState> {
+  NewTransactionCubit({
+    required this.transactionType,
+  }) : super(const NewTransactionState.init());
+
   final _transactionRepository = locator<TransactionRepository>();
+  final _accountRepo = locator<AccountRepository>();
+  final TransactionType transactionType;
 
-  void addTransaction(TransactionInput transactionInput) {
-    final accountId = transactionInput.accountId;
-    final amount = transactionInput.amount;
+  void init() async {
+    try {
+      final accounts = await _accountRepo.getAccounts();
 
-    authCubit.state.whenOrNull(
-      authenticated: (user) async {
-        try {
-          emit(const SubmissionState.submitting());
-          transactionInput.type.whenOrNull(
-            expense: () => _checkIfAccountBalanceIsEnough(accountId, amount),
-            sentTransfer: () =>
-                _checkIfAccountBalanceIsEnough(accountId, amount),
-          );
+      final categories = await _transactionRepository.getAllCategories();
 
-          final transaction = await _transactionRepository.addTransaction(
-              transactionInput, user.uid);
-          transactionsCubit.addTransaction(transaction);
-          emit(const SubmissionState.success());
-        } on TransactionException catch (e) {
-          emit(SubmissionState.failed(failure: e));
-        }
-      },
-    );
-  }
+      final categoriesOfSelectedType =
+          categories.filterByTransactionType(transactionType);
 
-  void _checkIfAccountBalanceIsEnough(String accountId, double amount) {
-    final accountBalance = _accountBalance(accountId);
-    if (amount > accountBalance) {
-      throw TransactionException.notEnoughBalance(
-          availbleBalance: accountBalance);
+      emit(state.copyWith(
+          status: Status.idle,
+          categories: categoriesOfSelectedType,
+          accounts: accounts));
+    } on Exception catch (e) {
+      final error = await e.parse(const Locale("en"));
+      emit(state.copyWith(error: error));
     }
   }
 
-  double _accountBalance(String id) {
-    final transactions = transactionsCubit.state.transactions;
-    final selectedAccount = accountsCubit.state.accounts.findById(id);
-    final accountBalance = selectedAccount.balance;
-    final accountTransactions = transactions.filterByAccountId(id);
-    final totalAmount = accountTransactions.totalAmount();
-    return accountBalance + totalAmount;
+  void addTransaction(TransactionInput input) async {
+    try {
+      emit(state.copyWith(
+        status: Status.loading,
+      ));
+
+      await _transactionRepository.addTransaction(input);
+
+      emit(state.copyWith(status: Status.success));
+    } on Exception catch (e) {
+      final error = await e.parse(const Locale("en"));
+      emit(state.copyWith(status: Status.error, error: error));
+    }
   }
+
+  // void selectAttachment(ImageSource imageSource) async {
+  //   final file = await ImagePicker()
+  //       .pickImage(source: imageSource, maxHeight: 800, maxWidth: 600);
+  //   if (file != null) {
+  //     final selectedAttachment = await file.convertToBase64Image();
+  //     emit(state.copyWith(selectedAttachment: selectedAttachment));
+  //   }
+  // }
+
 }

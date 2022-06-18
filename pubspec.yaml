@@ -2,48 +2,50 @@ name: expense_tracker_app
 description: A new Flutter project.
 
 # Prevent accidental publishing to pub.dev.
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  auto_route: ^3.1.3
-  introduction_screen: ^2.1.0
-  syncfusion_flutter_charts: ^19.3.54
-  bubble_tab_indicator: "^0.1.5"
+  auto_route: ^4.0.1
+  introduction_screen: ^3.0.2
+  syncfusion_flutter_charts: ^20.1.58+1
+  bubble_tab_indicator: ^0.1.6
   intl: ^0.17.0
   get_it: ^7.2.0
-  firebase_auth: ^3.3.4
-  firebase_core: ^1.10.6
-  cloud_firestore: ^3.1.5
+
   flutter_bloc: ^8.0.1
   freezed: ^1.0.2
   freezed_annotation: ^1.0.0
   fluttertoast:
   validators: ^3.0.0
   equatable: ^2.0.3
-  workmanager: ^0.4.1
-  image_picker: ^0.8.4+4
-  
+
+  image_picker: ^0.8.5+3
+  multi_select_flutter: ^4.1.2
   arabic_numbers: ^1.0.0
   cached_network_image: ^3.2.0
   ntp: ^2.0.0
   path_provider: ^2.0.8
-  hive: ^2.0.5
-  hive_flutter: ^1.1.0
-  
-  
+  shared_preferences: ^2.0.13
+  dio: ^4.0.6
+  pretty_dio_logger: ^1.2.0-beta-1
+  connectivity_plus: ^2.3.0
+  page_indicator: ^0.4.1
+  collection: ^1.16.0
+  carousel_slider: ^4.1.1
+
 dev_dependencies:
   build_runner:
- 
-  auto_route_generator: ^3.1.0 
+
+  auto_route_generator: ^4.0.0
   flutter_test:
     sdk: flutter
 
@@ -61,8 +63,6 @@ flutter:
   fonts:
     - family: Inter
       fonts:
-      - asset: assets/fonts/Inter-Regular.ttf
-      - asset: assets/fonts/Inter-Bold.ttf
-        weight: 700
-
-
+        - asset: assets/fonts/Inter-Regular.ttf
+        - asset: assets/fonts/Inter-Bold.ttf
+          weight: 700
