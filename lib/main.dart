@@ -1,30 +1,24 @@
-import 'package:expense_tracker_app/src/bloc/Home/home_cubit.dart';
+import 'package:expense_tracker_app/src/bloc/account_details/account_details_bloc.dart';
 import 'package:expense_tracker_app/src/bloc/accounts/accounts_cubit.dart';
-import 'package:expense_tracker_app/src/bloc/categories/categories_cubit.dart';
-import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_cubit.dart';
+import 'package:expense_tracker_app/src/bloc/auth/auth_cubit.dart';
+import 'package:expense_tracker_app/src/bloc/budgets/budgets_cubit.dart';
+import 'package:expense_tracker_app/src/bloc/financial_report/financial_report_bloc.dart';
+import 'package:expense_tracker_app/src/bloc/home/home_cubit.dart';
+import 'package:expense_tracker_app/src/bloc/login/login_cubit.dart';
+import 'package:expense_tracker_app/src/bloc/signup/signup_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/transactions/transactions_cubit.dart';
 
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:hive_flutter/hive_flutter.dart';
-import 'firebase_options.dart';
 import 'injection.dart';
 import 'src/app.dart';
-import 'src/bloc/auth/auth_cubit.dart';
-import 'src/bloc/login/login_cubit.dart';
-import 'src/bloc/signup/signup_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  initializeDependencies();
-  await Hive.initFlutter();
+  await initializeDependencies();
   // Workmanager().initialize(
   //     callbackDispatcher, // The top level function, aka callbackDispatcher
   //     isInDebugMode:
@@ -40,41 +34,39 @@ void main() async {
     MultiBlocProvider(providers: [
       BlocProvider(
         lazy: false,
+        create: (context) => TransactionCubit()..init(),
+      ),
+      BlocProvider(
+        lazy: false,
         create: (context) => AuthCubit(),
       ),
       BlocProvider(
-          lazy: false,
-          create: (context) =>
-              CategoriesCubit(BlocProvider.of<AuthCubit>(context))),
-      BlocProvider(
         lazy: false,
-        create: (context) => AccountsCubit(BlocProvider.of<AuthCubit>(context)),
+        create: (context) => SignupCubit(),
       ),
       BlocProvider(
         lazy: false,
-        create: (context) =>
-            TransactionsCubit(BlocProvider.of<AuthCubit>(context)),
+        create: (context) => LoginCubit(),
       ),
       BlocProvider(
         lazy: false,
-        create: (context) => SignupCubit(BlocProvider.of<AuthCubit>(context)),
+        create: (context) => HomeCubit(),
       ),
       BlocProvider(
         lazy: false,
-        create: (context) => LoginCubit(BlocProvider.of<AuthCubit>(context)),
+        create: (context) => FinancialReportCubit(),
       ),
       BlocProvider(
         lazy: false,
-        create: (context) => NewTransactionCubit(
-            accountsCubit: BlocProvider.of<AccountsCubit>(context),
-            authCubit: BlocProvider.of<AuthCubit>(context),
-            transactionsCubit: BlocProvider.of<TransactionsCubit>(context)),
+        create: (context) => BudgetsCubit(),
       ),
       BlocProvider(
         lazy: false,
-        create: (context) => HomeCubit(
-            transactionsCubit: BlocProvider.of<TransactionsCubit>(context),
-            accountsCubit: BlocProvider.of<AccountsCubit>(context)),
+        create: (context) => AccountsCubit()..init(),
+      ),
+      BlocProvider(
+        lazy: false,
+        create: (context) => AccountDetailsCubit(),
       )
     ], child: MyApp()),
   );
