@@ -1,34 +1,21 @@
-import 'package:bloc/bloc.dart';
-import 'package:expense_tracker_app/injection.dart';
-import 'package:expense_tracker_app/src/bloc/auth/auth_cubit.dart';
-import 'package:expense_tracker_app/src/bloc/new_account/new_account_cubit.dart';
-import 'package:expense_tracker_app/src/models/account.dart';
-import 'package:expense_tracker_app/src/repositories/accounts_repository.dart';
+import 'dart:developer';
 
-part 'accounts_state.dart';
+import 'package:expense_tracker_app/injection.dart';
+import 'package:expense_tracker_app/src/bloc/accounts/accounts_state.dart';
+import 'package:expense_tracker_app/src/data/repositories/account_repository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AccountsCubit extends Cubit<AccountsState> {
-  final _accountsRepo = locator<AccountsRepository>();
-  final AuthCubit _authCubit;
-  AccountsCubit(this._authCubit) : super(AccountsState([])) {
-    _authCubit.stream.listen((state) {
-      state.whenOrNull(
-        authenticated: (user) => _getAccounts(user.uid),
-      );
-    });
-  }
+  final accountsRepo = locator<AccountRepository>();
+  AccountsCubit() : super(const AccountsState.init());
 
-  void _getAccounts(String uid) async {
-    final accounts = await _accountsRepo.getAccounts(uid);
-    emit(AccountsState(accounts));
-  }
+  void init() async {
+    try {
+      final accounts = await accountsRepo.getAccounts();
 
-  void addAccount(Account account) {
-    final newAccounts = [account, ...state.accounts];
-    emit(AccountsState(newAccounts));
-  }
-
-  void deleteAccount(String accountId) {
-    //TODO Delete Account
+      emit(state.copyWith(isLoading: false, accounts: accounts));
+    } catch (e) {
+      log(e.toString());
+    }
   }
 }

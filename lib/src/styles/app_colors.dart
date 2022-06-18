@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class AppColors {
   static const light20 = Color(0xff91919F);
