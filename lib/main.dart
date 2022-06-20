@@ -2,6 +2,7 @@ import 'package:expense_tracker_app/src/bloc/account_details/account_details_blo
 import 'package:expense_tracker_app/src/bloc/accounts/accounts_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/auth/auth_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/budgets/budgets_cubit.dart';
+import 'package:expense_tracker_app/src/bloc/config/config_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/financial_report/financial_report_bloc.dart';
 import 'package:expense_tracker_app/src/bloc/home/home_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/login/login_cubit.dart';
@@ -32,6 +33,10 @@ void main() async {
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(
     MultiBlocProvider(providers: [
+      BlocProvider(
+        lazy: false,
+        create: (context) => ConfigCubit()..init(),
+      ),
       BlocProvider(
         lazy: false,
         create: (context) => TransactionCubit()..init(),

@@ -1,17 +1,30 @@
+import 'package:expense_tracker_app/src/bloc/config/config_cubit.dart';
+
+import 'package:expense_tracker_app/src/data/models/language.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'option_list_tile.dart';
 
 class LanguagePage extends StatelessWidget {
   const LanguagePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final config = context.watch<ConfigCubit>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Language"),
+        title: const Text("Languge"),
       ),
-      body: const Center(
-        child: Text("Language Page"),
-      ),
+      body: Column(
+          children: List.generate(
+              Language.values.length,
+              (index) => OptionListTile(
+                  title: "${Language.values[index]}(${Language.values[index]})",
+                  isSelected: config.state.language == Language.values[index],
+                  onPressed: () {
+                    // config.selectLangugae(  Language.values[index]);
+                  }))),
     );
   }
 }

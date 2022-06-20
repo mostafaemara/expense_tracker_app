@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class Currency extends StatelessWidget {
+class AmountWithCurrency extends StatelessWidget {
   final double amount;
-  const Currency({
+  const AmountWithCurrency({
     Key? key,
     required this.amount,
   }) : super(key: key);
