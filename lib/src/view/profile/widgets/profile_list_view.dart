@@ -33,7 +33,9 @@ class ProfileListView extends StatelessWidget {
             ProfileListTile(
               image: "assets/images/settings.png",
               color: AppColors.violet,
-              onPressed: () {},
+              onPressed: () {
+                AutoRouter.of(context).navigate(const SettingsRoute());
+              },
               title: "Settings",
             ),
             const SizedBox(

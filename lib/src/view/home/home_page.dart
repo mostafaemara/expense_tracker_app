@@ -1,4 +1,5 @@
 import 'package:expense_tracker_app/src/bloc/home/home_cubit.dart';
+import 'package:expense_tracker_app/src/bloc/profile/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,6 +18,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void didChangeDependencies() {
+    context.read<ProfileCubit>().init();
     context.read<HomeCubit>().init();
     super.didChangeDependencies();
   }

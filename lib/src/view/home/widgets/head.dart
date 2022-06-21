@@ -47,7 +47,7 @@ class Head extends StatelessWidget {
                 const SizedBox(
                   height: 9,
                 ),
-                Currency(
+                AmountWithCurrency(
                   amount: state.balance,
                 ),
                 const SizedBox(
