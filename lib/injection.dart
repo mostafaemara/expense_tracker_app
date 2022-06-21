@@ -1,5 +1,6 @@
 import 'package:expense_tracker_app/src/data/repositories/account_repository.dart';
 import 'package:expense_tracker_app/src/data/repositories/budget_repository.dart';
+import 'package:expense_tracker_app/src/data/repositories/config_repository.dart';
 import 'package:expense_tracker_app/src/data/repositories/date_repository.dart';
 
 import 'package:expense_tracker_app/src/data/repositories/transaction_repository.dart';
@@ -19,6 +20,10 @@ Future<void> initializeDependencies() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs;
   });
+
+  locator.registerSingletonWithDependencies<ConfigRepository>(
+      () => ConfigRepository(),
+      dependsOn: [SharedPreferences]);
   locator.registerSingletonWithDependencies<UserRepository>(
       () => UserRepository(),
       dependsOn: [SharedPreferences]);

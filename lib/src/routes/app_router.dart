@@ -25,6 +25,11 @@ import 'package:expense_tracker_app/src/view/notification/notification_page.dart
 import 'package:expense_tracker_app/src/view/onboarding/onboarding_page.dart';
 import 'package:expense_tracker_app/src/view/profile/profile_page.dart';
 import 'package:expense_tracker_app/src/view/rest_password/rest_password_page.dart';
+import 'package:expense_tracker_app/src/view/settings/about_page.dart';
+import 'package:expense_tracker_app/src/view/settings/currency_page.dart';
+import 'package:expense_tracker_app/src/view/settings/language_page.dart';
+import 'package:expense_tracker_app/src/view/settings/settings_page.dart';
+import 'package:expense_tracker_app/src/view/settings/theme_page.dart';
 import 'package:expense_tracker_app/src/view/setup_account/setup_account_page.dart';
 import 'package:expense_tracker_app/src/view/signup/signup_page.dart';
 import 'package:expense_tracker_app/src/view/splash/splash_page.dart';
@@ -84,6 +89,21 @@ part 'app_router.gr.dart';
     ),
     AutoRoute(
       page: BudgetDetailsPage,
+    ),
+    AutoRoute(
+      page: SettingsPage,
+    ),
+    AutoRoute(
+      page: AboutPage,
+    ),
+    AutoRoute(
+      page: CurrencyPage,
+    ),
+    AutoRoute(
+      page: LanguagePage,
+    ),
+    AutoRoute(
+      page: ThemePage,
     ),
     AutoRoute(page: MainPage, path: "/", children: [
       AutoRoute(path: "home", initial: true, page: HomePage),

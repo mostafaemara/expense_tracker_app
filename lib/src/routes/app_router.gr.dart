@@ -105,6 +105,26 @@ class _$AppRouter extends RootStackRouter {
           routeData: routeData,
           child: BudgetDetailsPage(key: args.key, budget: args.budget));
     },
+    SettingsRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const SettingsPage());
+    },
+    AboutRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const AboutPage());
+    },
+    CurrencyRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const CurrencyPage());
+    },
+    LanguageRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const LanguagePage());
+    },
+    ThemeRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const ThemePage());
+    },
     MainRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const MainPage());
@@ -149,6 +169,11 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(AccountsRoute.name, path: '/accounts-page'),
         RouteConfig(AccountDetailsRoute.name, path: '/account-details-page'),
         RouteConfig(BudgetDetailsRoute.name, path: '/budget-details-page'),
+        RouteConfig(SettingsRoute.name, path: '/settings-page'),
+        RouteConfig(AboutRoute.name, path: '/about-page'),
+        RouteConfig(CurrencyRoute.name, path: '/currency-page'),
+        RouteConfig(LanguageRoute.name, path: '/language-page'),
+        RouteConfig(ThemeRoute.name, path: '/theme-page'),
         RouteConfig(MainRoute.name, path: '/', children: [
           RouteConfig('#redirect',
               path: '',
@@ -415,6 +440,46 @@ class BudgetDetailsRouteArgs {
   String toString() {
     return 'BudgetDetailsRouteArgs{key: $key, budget: $budget}';
   }
+}
+
+/// generated route for
+/// [SettingsPage]
+class SettingsRoute extends PageRouteInfo<void> {
+  const SettingsRoute() : super(SettingsRoute.name, path: '/settings-page');
+
+  static const String name = 'SettingsRoute';
+}
+
+/// generated route for
+/// [AboutPage]
+class AboutRoute extends PageRouteInfo<void> {
+  const AboutRoute() : super(AboutRoute.name, path: '/about-page');
+
+  static const String name = 'AboutRoute';
+}
+
+/// generated route for
+/// [CurrencyPage]
+class CurrencyRoute extends PageRouteInfo<void> {
+  const CurrencyRoute() : super(CurrencyRoute.name, path: '/currency-page');
+
+  static const String name = 'CurrencyRoute';
+}
+
+/// generated route for
+/// [LanguagePage]
+class LanguageRoute extends PageRouteInfo<void> {
+  const LanguageRoute() : super(LanguageRoute.name, path: '/language-page');
+
+  static const String name = 'LanguageRoute';
+}
+
+/// generated route for
+/// [ThemePage]
+class ThemeRoute extends PageRouteInfo<void> {
+  const ThemeRoute() : super(ThemeRoute.name, path: '/theme-page');
+
+  static const String name = 'ThemeRoute';
 }
 
 /// generated route for
