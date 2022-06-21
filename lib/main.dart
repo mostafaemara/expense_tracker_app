@@ -1,11 +1,12 @@
 import 'package:expense_tracker_app/src/bloc/account_details/account_details_bloc.dart';
 import 'package:expense_tracker_app/src/bloc/accounts/accounts_cubit.dart';
-import 'package:expense_tracker_app/src/bloc/auth/auth_cubit.dart';
+
 import 'package:expense_tracker_app/src/bloc/budgets/budgets_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/config/config_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/financial_report/financial_report_bloc.dart';
 import 'package:expense_tracker_app/src/bloc/home/home_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/login/login_cubit.dart';
+import 'package:expense_tracker_app/src/bloc/profile/profile_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/signup/signup_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/transactions/transactions_cubit.dart';
 
@@ -43,7 +44,7 @@ void main() async {
       ),
       BlocProvider(
         lazy: false,
-        create: (context) => AuthCubit(),
+        create: (context) => ProfileCubit(),
       ),
       BlocProvider(
         lazy: false,
@@ -72,6 +73,10 @@ void main() async {
       BlocProvider(
         lazy: false,
         create: (context) => AccountDetailsCubit(),
+      ),
+      BlocProvider(
+        lazy: false,
+        create: (context) => ProfileCubit(),
       )
     ], child: MyApp()),
   );

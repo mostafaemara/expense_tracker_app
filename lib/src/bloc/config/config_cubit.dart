@@ -28,4 +28,14 @@ class ConfigCubit extends Cubit<ConfigState> {
     await _configRepo.writeCurrency(currency);
     emit(state.copyWith(currency: currency));
   }
+
+  void selectlanguage(Language language) async {
+    await _configRepo.writeLanguageCode(language);
+    emit(state.copyWith(language: language));
+  }
+
+  void selectTheme(ThemeMode mode) async {
+    await _configRepo.writeThemeMode(mode);
+    emit(state.copyWith(themeMode: mode));
+  }
 }

@@ -20,10 +20,10 @@ class LanguagePage extends StatelessWidget {
           children: List.generate(
               Language.values.length,
               (index) => OptionListTile(
-                  title: "${Language.values[index]}(${Language.values[index]})",
+                  title: Language.values[index].title,
                   isSelected: config.state.language == Language.values[index],
                   onPressed: () {
-                    // config.selectLangugae(  Language.values[index]);
+                    config.selectlanguage(Language.values[index]);
                   }))),
     );
   }
