@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class ProfileImage extends StatelessWidget {
   const ProfileImage({
     Key? key,
+    required this.imageUrl,
   }) : super(key: key);
-
+  final String imageUrl;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,7 +14,7 @@ class ProfileImage extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(40),
             child: Image.network(
-              "https://reviews.tn/ar/wp-content/uploads/2021/05/original-profile-picture-ideas-man_31.jpg",
+              imageUrl,
               fit: BoxFit.cover,
             ),
           ),
