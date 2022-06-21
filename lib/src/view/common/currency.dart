@@ -1,5 +1,6 @@
+import 'package:expense_tracker_app/src/bloc/config/config_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AmountWithCurrency extends StatelessWidget {
   final double amount;
@@ -10,8 +11,10 @@ class AmountWithCurrency extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currency = context.watch<ConfigCubit>().state.currency;
+
     return Text(
-      "${AppLocalizations.of(context)!.currencySymbol}$amount",
+      "${currency.symbol}$amount",
       style: Theme.of(context)
           .textTheme
           .headline4!

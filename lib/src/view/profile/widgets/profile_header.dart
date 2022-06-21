@@ -1,11 +1,14 @@
+import 'package:expense_tracker_app/src/bloc/profile/profile_cubit.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileHeader extends StatelessWidget {
   const ProfileHeader({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final user = context.watch<ProfileCubit>().state.user;
     return SizedBox(
         height: 90,
         child: Row(
@@ -23,7 +26,7 @@ class ProfileHeader extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(80),
                   child: Image.network(
-                    "https://cdn.elwatannews.com/watan/840x473/1086955491635846104.jpg",
+                    user.image,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -35,17 +38,17 @@ class ProfileHeader extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   "Username",
                   style: TextStyle(fontSize: 14, color: AppColors.light20),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 Text(
-                  "Fawzy Al Andaleeb",
-                  style: TextStyle(
+                  user.name,
+                  style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w600,
                       color: AppColors.dark),
