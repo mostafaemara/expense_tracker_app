@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:expense_tracker_app/injection.dart';
 import 'package:expense_tracker_app/src/data/api/api.dart';
@@ -13,8 +15,8 @@ class AccountRepository {
     try {
       final response =
           await _api.post(ApiConfig.accountPath, data: account.toMap());
-
-      return Account.fromMap(response.data);
+      log(response.data.toString());
+      return Account.fromMap(response.data["data"]);
     } on DioError catch (e) {
       throw e.mapToAppExceptions();
     }

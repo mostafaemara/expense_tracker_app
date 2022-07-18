@@ -104,7 +104,7 @@ class _SignupFormState extends State<SignupForm> {
   void _handleState(SubmissionState state) {
     switch (state.submissionStatus) {
       case Status.success:
-        context.replaceRoute(const MainRoute());
+        context.replaceRoute(const SetupAccountRoute());
         break;
       case Status.error:
         _showErrorDialog(context, state.error);
