@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expense_tracker_app/src/bloc/new_account/new_account_cubit.dart';
-import 'package:expense_tracker_app/src/bloc/old_sub_state/submission_state.dart';
+import 'package:expense_tracker_app/src/bloc/submission_status.dart';
+
 import 'package:expense_tracker_app/src/data/models/account.dart';
 
 import 'package:expense_tracker_app/src/data/models/inputs/account_input.dart';
@@ -69,8 +70,7 @@ class _AddNewAccountFormState extends State<AddNewAccountForm> {
                     height: 24,
                   ),
                   SubmitButton(
-                    isLoading: state.maybeWhen(
-                        submitting: () => true, orElse: () => false),
+                    isLoading: state.submissionStatus == Status.loading,
                     onPressed: _handleSubmittion,
                   ),
                   const SizedBox(
@@ -83,16 +83,23 @@ class _AddNewAccountFormState extends State<AddNewAccountForm> {
         ),
       ),
       listener: (context, state) {
-        state.whenOrNull(
-          submitting: () => showDialog(
-            barrierDismissible: false,
-            context: context,
-            builder: (context) => const LoadingDialog(),
-          ),
-          success: () => context.replaceRoute(const AccountAllSetRoute()),
-          failed: (failure) => _showErrorDialog(
-              context, AppLocalizations.of(context)!.serverError),
-        );
+        switch (state.submissionStatus) {
+          case Status.success:
+            context.replaceRoute(const AccountAllSetRoute());
+            break;
+          case Status.error:
+            _showErrorDialog(context, state.error);
+            break;
+          case Status.loading:
+            showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) => const LoadingDialog(),
+            );
+            break;
+          default:
+            break;
+        }
       },
     );
   }
@@ -121,7 +128,7 @@ class _AddNewAccountFormState extends State<AddNewAccountForm> {
     showDialog(
       context: context,
       builder: (context) => ErrorDialog(
-        title: AppLocalizations.of(context)!.serverError,
+        title: AppLocalizations.of(context)!.unownError,
         body: failure,
       ),
     );

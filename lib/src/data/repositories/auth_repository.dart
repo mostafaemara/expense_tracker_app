@@ -29,7 +29,7 @@ class AuthRepository {
     try {
       final response =
           await _api.dio.post(ApiConfig.signupPath, data: input.toMap());
-      final user = User.fromMap(response.data["data"]["user"]);
+      final user = User.fromMap(response.data["data"]);
 
       return user;
     } on DioError catch (e) {
