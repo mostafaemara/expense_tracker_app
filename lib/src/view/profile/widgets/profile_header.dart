@@ -25,10 +25,12 @@ class ProfileHeader extends StatelessWidget {
                 padding: const EdgeInsets.all(3),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(80),
-                  child: Image.network(
-                    user.image,
-                    fit: BoxFit.cover,
-                  ),
+                  child: user.image.isNotEmpty
+                      ? Image.network(
+                          user.image,
+                          fit: BoxFit.cover,
+                        )
+                      : Image.asset("assets/images/user_place_holder.png"),
                 ),
               ),
             ),

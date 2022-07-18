@@ -14,4 +14,8 @@ class ProfileCubit extends Cubit<ProfileState> {
     final user = await _userRepo.readUser();
     emit(state.copyWith(isLoading: false, user: user));
   }
+
+  Future<void> logout() async {
+    await _userRepo.deleteUser();
+  }
 }

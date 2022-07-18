@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:expense_tracker_app/src/bloc/profile/profile_cubit.dart';
 import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileListView extends StatelessWidget {
   const ProfileListView({Key? key}) : super(key: key);
@@ -61,7 +63,10 @@ class ProfileListView extends StatelessWidget {
             ProfileListTile(
               image: "assets/images/logout.png",
               color: AppColors.red,
-              onPressed: () {},
+              onPressed: () async {
+                await context.read<ProfileCubit>().logout();
+                AutoRouter.of(context).replaceAll([const LoginRoute()]);
+              },
               title: "Logout",
             ),
           ],
