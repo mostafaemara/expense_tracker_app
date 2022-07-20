@@ -121,3 +121,24 @@ FormFieldFailure? formFieldValidator(String value) {
   }
   return null;
 }
+
+enum BalanceFieldFailure {
+  empty;
+
+  String translate(BuildContext context) {
+    return AppLocalizations.of(context)!.amountRequired;
+  }
+}
+
+BalanceFieldFailure? balanceFieldValidator(String? value) {
+  if (value == null) {
+    return BalanceFieldFailure.empty;
+  }
+  if (value.isEmpty) {
+    return BalanceFieldFailure.empty;
+  }
+  if (double.parse(value) == 0) {
+    return BalanceFieldFailure.empty;
+  }
+  return null;
+}
