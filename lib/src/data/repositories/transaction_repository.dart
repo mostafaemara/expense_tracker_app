@@ -150,12 +150,10 @@ class TransactionRepository {
     }
   }
 
-  Future<List<Transaction>> addTransfer(TransferInput input) async {
+  Future<void> addTransfer(TransferInput input) async {
     try {
       final response =
           await _api.post(ApiConfig.transferPath, data: input.toMap());
-
-      return mapArrayToTransactions(response.data);
     } on DioError catch (e) {
       throw e.mapToAppExceptions();
     }

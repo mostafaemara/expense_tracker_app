@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:expense_tracker_app/src/bloc/home/home_cubit.dart';
 
 import 'package:expense_tracker_app/src/data/models/duration_type.dart';
+import 'package:expense_tracker_app/src/routes/app_router.dart';
 
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:expense_tracker_app/src/view/common/transaction_list.dart';
@@ -110,7 +112,9 @@ class _RecentTransactionState extends State<RecentTransaction>
                   style: ElevatedButton.styleFrom(
                       onPrimary: Theme.of(context).colorScheme.primary,
                       primary: Theme.of(context).colorScheme.secondary),
-                  onPressed: () {},
+                  onPressed: () {
+                    AutoRouter.of(context).navigate(const TransactionRoute());
+                  },
                   child: Text(AppLocalizations.of(context)!.seeAll))
             ],
           ),

@@ -33,9 +33,10 @@ class NewTransferCubit extends Cubit<NewTransferState> {
 
       await _transactionRepository.addTransfer(input);
 
-      emit(state.copyWith());
+      emit(state.copyWith(status: Status.success));
     } on Exception catch (e) {
       final error = await e.parse(const Locale("en"));
+
       emit(
         state.copyWith(error: error, status: Status.error),
       );
