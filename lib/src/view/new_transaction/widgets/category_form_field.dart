@@ -14,6 +14,9 @@ class CategoryFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
+        validator: (value) => value == null
+            ? AppLocalizations.of(context)!.categoryRequired
+            : null,
         onChanged: onChanged,
         hint: Text(AppLocalizations.of(context)!.category),
         value: value,

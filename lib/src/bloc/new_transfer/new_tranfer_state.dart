@@ -20,6 +20,6 @@ class NewTransferState {
     return NewTransferState(
         accounts: accounts ?? this.accounts,
         status: status ?? this.status,
-        error: '');
+        error: error ?? this.error);
   }
 }

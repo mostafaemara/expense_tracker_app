@@ -19,6 +19,8 @@ class AccountFormField extends StatelessWidget {
     var filteredAccounts = [...accounts];
     filteredAccounts.removeWhere((element) => element.id == targetAccountId);
     return DropdownButtonFormField<String>(
+      validator: (v) =>
+          v == null ? AppLocalizations.of(context)?.accountRequired : null,
       onChanged: onChanged,
       hint: Text(AppLocalizations.of(context)!.accountName),
       value: selectedAccount,

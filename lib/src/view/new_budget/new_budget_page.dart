@@ -14,7 +14,7 @@ class NewBudgetPage extends StatefulWidget {
 }
 
 class _NewBudgetPageState extends State<NewBudgetPage> {
-  final _balanceController = TextEditingController(text: "0.00");
+  final _balanceController = TextEditingController();
   double percent = 50;
   @override
   Widget build(BuildContext context) {

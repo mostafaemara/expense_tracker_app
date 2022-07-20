@@ -26,7 +26,7 @@ class Account {
     return Account(
       title: map['title'],
       type: AccountType.parse(map['type']),
-      balance: map['balance']?.toDouble(),
+      balance: double.parse(map['balance'].toString()),
       id: map['id'],
     );
   }

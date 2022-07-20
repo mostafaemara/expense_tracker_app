@@ -5,8 +5,10 @@ import 'package:expense_tracker_app/src/bloc/submission_status.dart';
 
 import 'package:expense_tracker_app/src/data/models/inputs/transaction_input.dart';
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
+import 'package:expense_tracker_app/src/helpers/ui_helper.dart';
 
 import 'package:expense_tracker_app/src/routes/app_router.dart';
+import 'package:expense_tracker_app/src/styles/app_colors.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,7 +34,7 @@ class TransactionForm extends StatefulWidget {
 
 class _TransactionFormState extends State<TransactionForm> {
   static final _formKey = GlobalKey<FormState>();
-  final _balanceController = TextEditingController(text: "0.00");
+  final _balanceController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _titleController = TextEditingController();
   String? _selectedAccountId;
@@ -110,8 +112,7 @@ class _TransactionFormState extends State<TransactionForm> {
             context.replaceRoute(const MainRoute());
           }
           if (state.status == Status.error) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.error)));
+            context.showSnackBar(state.error, backgroundColor: AppColors.red);
           }
         });
   }
@@ -134,17 +135,15 @@ class _TransactionFormState extends State<TransactionForm> {
 
   void _handleSubmittion() {
     if (_formKey.currentState!.validate()) {
-      if (_selectedCategoryId != null && _selectedAccountId != null) {
-        BlocProvider.of<NewTransactionCubit>(context)
-            .addTransaction(TransactionInput(
-          accountId: _selectedAccountId!,
-          amount: double.parse(_balanceController.text),
-          categoryId: _selectedCategoryId!,
-          description: _descriptionController.text,
-          title: _titleController.text,
-          type: widget.transactionType,
-        ));
-      }
+      BlocProvider.of<NewTransactionCubit>(context)
+          .addTransaction(TransactionInput(
+        accountId: _selectedAccountId!,
+        amount: double.parse(_balanceController.text),
+        categoryId: _selectedCategoryId!,
+        description: _descriptionController.text,
+        title: _titleController.text,
+        type: widget.transactionType,
+      ));
     }
   }
 

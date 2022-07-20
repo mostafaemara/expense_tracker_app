@@ -5,7 +5,7 @@ import 'package:expense_tracker_app/src/data/exceptions/server_exception.dart';
 extension DioExceptionHelper on DioError {
   Exception mapToAppExceptions() {
     if (response?.statusCode == 400) {
-      return InavlidInputException(response?.data["message"]);
+      return InavlidInputException(response!.data["message"].toString());
     }
 
     return ServerException();
