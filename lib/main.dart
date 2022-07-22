@@ -6,6 +6,7 @@ import 'package:expense_tracker_app/src/bloc/config/config_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/financial_report/financial_report_bloc.dart';
 import 'package:expense_tracker_app/src/bloc/home/home_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/login/login_cubit.dart';
+import 'package:expense_tracker_app/src/bloc/new_budget/new_budget_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/profile/profile_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/signup/signup_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/transactions/transactions_cubit.dart';
@@ -77,6 +78,10 @@ void main() async {
       BlocProvider(
         lazy: false,
         create: (context) => ProfileCubit(),
+      ),
+      BlocProvider(
+        lazy: false,
+        create: (context) => NewBudgetCubit(),
       )
     ], child: MyApp()),
   );
