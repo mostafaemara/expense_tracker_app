@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:expense_tracker_app/src/bloc/budgets/budgets_cubit.dart';
 import 'package:expense_tracker_app/src/data/models/budget.dart';
 import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
@@ -6,6 +7,7 @@ import 'package:expense_tracker_app/src/view/common/category_card.dart';
 import 'package:expense_tracker_app/src/view/common/percentage_bar.dart';
 import 'package:expense_tracker_app/src/view/common/remove_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BudgetDetailsPage extends StatelessWidget {
   const BudgetDetailsPage({Key? key, required this.budget}) : super(key: key);
@@ -35,7 +37,10 @@ class BudgetDetailsPage extends StatelessWidget {
             color: AppColors.dark,
             body: "Are you sure do you wanna remove this budget?",
             title: "Remove this budget?",
-            onDeleteConfirmed: () {},
+            onDeleteConfirmed: () async {
+              await context.read<BudgetsCubit>().deleteBudget(budget.id);
+              AutoRouter.of(context).pop(true);
+            },
           )
         ],
       ),

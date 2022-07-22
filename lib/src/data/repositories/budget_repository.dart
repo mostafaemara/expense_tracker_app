@@ -23,4 +23,24 @@ class BudgetRepository {
     }
     return budgets;
   }
+
+  Future<Budget> addBudget(BudgetInput input) async {
+    try {
+      final response =
+          await _api.post(ApiConfig.budgetPath, data: input.toMap());
+      return Budget.fromMap(response.data["data"]);
+    } on DioError catch (e) {
+      throw e.mapToAppExceptions();
+    }
+  }
+
+  Future<void> deleteBudget(String id) async {
+    try {
+      final response = await _api.delete(
+        "${ApiConfig.budgetPath}/$id",
+      );
+    } on DioError catch (e) {
+      throw e.mapToAppExceptions();
+    }
+  }
 }

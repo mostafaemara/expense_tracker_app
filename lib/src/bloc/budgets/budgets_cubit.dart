@@ -30,4 +30,12 @@ class BudgetsCubit extends Cubit<BudgetState> {
       log("Bugets Cubit Somthing went Werong" + e.toString());
     }
   }
+
+  Future<void> deleteBudget(String id) async {
+    try {
+      await budgetRepo.deleteBudget(id);
+    } catch (e) {
+      log(e.toString());
+    }
+  }
 }
