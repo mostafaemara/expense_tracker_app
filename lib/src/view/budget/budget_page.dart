@@ -64,6 +64,16 @@ class _BudgetPageState extends State<BudgetPage> {
                                     itemCount: state.budgets.length,
                                     itemBuilder: (context, index) =>
                                         BudgetListItem(
+                                      onPressed: () async {
+                                        final result =
+                                            await AutoRouter.of(context).push(
+                                                BudgetDetailsRoute(
+                                                    budget:
+                                                        state.budgets[index]));
+                                        if (result != null) {
+                                          context.read<BudgetsCubit>().init();
+                                        }
+                                      },
                                       budget: state.budgets[index],
                                     ),
                                   ),
@@ -73,9 +83,12 @@ class _BudgetPageState extends State<BudgetPage> {
                                   const EdgeInsets.symmetric(horizontal: 16),
                               height: 56,
                               child: ElevatedButton(
-                                  onPressed: () {
-                                    AutoRouter.of(context)
-                                        .navigate(NewBudgetRoute());
+                                  onPressed: () async {
+                                    final result = await AutoRouter.of(context)
+                                        .push(NewBudgetRoute());
+                                    if (result != null) {
+                                      context.read<BudgetsCubit>().init();
+                                    }
                                   },
                                   child: const Text("Create a Budget"))),
                           const SizedBox(
