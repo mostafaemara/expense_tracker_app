@@ -34,6 +34,14 @@ class BudgetRepository {
     }
   }
 
+  Future<void> updateBudget(BudgetInput input, String id) async {
+    try {
+      await _api.patch("${ApiConfig.budgetPath}/$id", data: input.toMap());
+    } on DioError catch (e) {
+      throw e.mapToAppExceptions();
+    }
+  }
+
   Future<void> deleteBudget(String id) async {
     try {
       final response = await _api.delete(
