@@ -45,4 +45,19 @@ class NewBudgetCubit extends Cubit<NewBudgetState> {
       emit(state.copyWith(status: Status.error, error: error));
     }
   }
+
+  void updateBudget(BudgetInput input, String id) async {
+    try {
+      emit(state.copyWith(
+        status: Status.loading,
+      ));
+
+      await _budgetRepo.updateBudget(input, id);
+
+      emit(state.copyWith(status: Status.success));
+    } on Exception catch (e) {
+      final error = await e.parse(const Locale("en"));
+      emit(state.copyWith(status: Status.error, error: error));
+    }
+  }
 }

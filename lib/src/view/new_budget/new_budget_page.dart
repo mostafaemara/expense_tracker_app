@@ -61,14 +61,15 @@ class _NewBudgetPageState extends State<NewBudgetPage> {
                                 topLeft: Radius.circular(32),
                                 topRight: Radius.circular(32))),
                         child: Column(children: [
-                          CategoryFormField(
-                              value: _selectedCategory,
-                              categories: state.categories,
-                              onChanged: (s) {
-                                setState(() {
-                                  _selectedCategory = s;
-                                });
-                              }),
+                          if (widget.budget == null)
+                            CategoryFormField(
+                                value: _selectedCategory,
+                                categories: state.categories,
+                                onChanged: (s) {
+                                  setState(() {
+                                    _selectedCategory = s;
+                                  });
+                                }),
                           const SizedBox(
                             height: 16,
                           ),
@@ -143,12 +144,17 @@ class _NewBudgetPageState extends State<NewBudgetPage> {
   void _handleSubmit() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-
-      context.read<NewBudgetCubit>().addBudget(BudgetInput(
+      final cubit = context.read<NewBudgetCubit>();
+      final input = BudgetInput(
           amount: double.parse(_balanceController.text),
           alertPercentage: percent.round(),
           categoryId: _selectedCategory!,
-          alert: reciveAlertSelected));
+          alert: reciveAlertSelected);
+      if (widget.budget != null) {
+        cubit.updateBudget(input, widget.budget!.id);
+      } else {
+        cubit.addBudget(input);
+      }
     }
   }
 }
