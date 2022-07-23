@@ -116,9 +116,12 @@ class BudgetDetailsPage extends StatelessWidget {
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         textStyle: const TextStyle(fontSize: 18)),
-                    onPressed: () {
-                      AutoRouter.of(context)
-                          .navigate(NewBudgetRoute(budget: budget));
+                    onPressed: () async {
+                      final result = await AutoRouter.of(context)
+                          .push(NewBudgetRoute(budget: budget));
+                      if (result != null) {
+                        AutoRouter.of(context).pop(result);
+                      }
                     },
                     child: const Text("Edit"))),
             const SizedBox(

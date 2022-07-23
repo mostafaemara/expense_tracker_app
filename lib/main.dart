@@ -69,7 +69,7 @@ void main() async {
       ),
       BlocProvider(
         lazy: false,
-        create: (context) => AccountsCubit()..init(),
+        create: (context) => AccountsCubit(),
       ),
       BlocProvider(
         lazy: false,
