@@ -8,8 +8,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'accounts_list_view.dart';
 
-class AccountsPage extends StatelessWidget {
+class AccountsPage extends StatefulWidget {
   const AccountsPage({Key? key}) : super(key: key);
+
+  @override
+  State<AccountsPage> createState() => _AccountsPageState();
+}
+
+class _AccountsPageState extends State<AccountsPage> {
+  @override
+  void initState() {
+    context.read<AccountsCubit>().init();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
