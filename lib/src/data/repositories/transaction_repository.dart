@@ -59,6 +59,7 @@ class TransactionRepository {
             }
           : {};
       final typeFilter = type.value != "all" ? {"type": type.value} : {};
+      final accountFilter = accountId != null ? {"accountId": accountId} : {};
 
       if (categories?.length == 1) {
         categories?.add(categories[0]);
@@ -74,6 +75,7 @@ class TransactionRepository {
         ...sortType.value,
         ...dateFilter,
         ...typeFilter,
+        ...accountFilter,
         "group_by_date": true,
         ...categoriesFilter
       });
