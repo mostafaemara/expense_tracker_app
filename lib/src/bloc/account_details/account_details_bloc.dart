@@ -16,7 +16,9 @@ class AccountDetailsCubit extends Cubit<AccountDetailsState> {
   void init(Account account) async {
     try {
       final transactions = await transactionRepo.getTransactionsOfDates(
-          type: TransactionFilter.all, sortType: SortType.newest);
+          accountId: account.id,
+          type: TransactionFilter.all,
+          sortType: SortType.newest);
 
       emit(state.copyWith(
           account: account, isLoading: false, transactions: transactions));
