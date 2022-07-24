@@ -53,8 +53,13 @@ class _$AppRouter extends RootStackRouter {
           routeData: routeData, child: const SetupAccountPage());
     },
     AddNewAccountRoute.name: (routeData) {
+      final args = routeData.argsAs<AddNewAccountRouteArgs>();
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const AddNewAccountPage());
+          routeData: routeData,
+          child: AddNewAccountPage(
+              key: args.key,
+              account: args.account,
+              isSetupAccount: args.isSetupAccount));
     },
     AccountAllSetRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
@@ -278,11 +283,30 @@ class SetupAccountRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [AddNewAccountPage]
-class AddNewAccountRoute extends PageRouteInfo<void> {
-  const AddNewAccountRoute()
-      : super(AddNewAccountRoute.name, path: '/add-new-account-page');
+class AddNewAccountRoute extends PageRouteInfo<AddNewAccountRouteArgs> {
+  AddNewAccountRoute({Key? key, Account? account, required bool isSetupAccount})
+      : super(AddNewAccountRoute.name,
+            path: '/add-new-account-page',
+            args: AddNewAccountRouteArgs(
+                key: key, account: account, isSetupAccount: isSetupAccount));
 
   static const String name = 'AddNewAccountRoute';
+}
+
+class AddNewAccountRouteArgs {
+  const AddNewAccountRouteArgs(
+      {this.key, this.account, required this.isSetupAccount});
+
+  final Key? key;
+
+  final Account? account;
+
+  final bool isSetupAccount;
+
+  @override
+  String toString() {
+    return 'AddNewAccountRouteArgs{key: $key, account: $account, isSetupAccount: $isSetupAccount}';
+  }
 }
 
 /// generated route for

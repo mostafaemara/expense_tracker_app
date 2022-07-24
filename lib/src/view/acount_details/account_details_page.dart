@@ -31,8 +31,13 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
           title: const Text("Account Details"),
           actions: [
             IconButton(
-                onPressed: () {
-                  AutoRouter.of(context).navigate(const AddNewAccountRoute());
+                onPressed: () async {
+                  final result = await AutoRouter.of(context).push(
+                      AddNewAccountRoute(
+                          account: widget.account, isSetupAccount: false));
+                  if (result != null) {
+                    AutoRouter.of(context).pop(result);
+                  }
                 },
                 icon: Image.asset("assets/images/edit.png"))
           ],

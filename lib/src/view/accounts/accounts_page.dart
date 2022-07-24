@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:expense_tracker_app/src/bloc/accounts/accounts_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/accounts/accounts_state.dart';
@@ -72,9 +74,13 @@ class _AccountsPageState extends State<AccountsPage> {
                   height: 56,
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
-                      AutoRouter.of(context)
-                          .navigate(const AddNewAccountRoute());
+                    onPressed: () async {
+                      log("clicked");
+                      final result = await AutoRouter.of(context)
+                          .push(AddNewAccountRoute(isSetupAccount: false));
+                      if (result != null) {
+                        context.read<AccountsCubit>().init();
+                      }
                     },
                     child: const Text("+ Add new Account"),
                   ),

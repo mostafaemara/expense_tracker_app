@@ -50,7 +50,8 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^1.0.0
-
+dependency_overrides:
+  image_picker_android: 0.8.4+13
 flutter:
   uses-material-design: true
 
