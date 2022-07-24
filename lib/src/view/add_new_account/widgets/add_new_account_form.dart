@@ -19,8 +19,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'account_name_form_field.dart';
 
 class AddNewAccountForm extends StatefulWidget {
+  final bool isSetupAccount;
+  final Account? account;
   const AddNewAccountForm({
     Key? key,
+    this.account,
+    required this.isSetupAccount,
   }) : super(key: key);
 
   @override
@@ -29,10 +33,18 @@ class AddNewAccountForm extends StatefulWidget {
 
 class _AddNewAccountFormState extends State<AddNewAccountForm> {
   final _formKey = GlobalKey<FormState>();
-  final _balanceController = TextEditingController(text: "0.00");
+  final _balanceController = TextEditingController();
   final _accountNameController = TextEditingController();
 
   AccountType? _selectedAccountType;
+  @override
+  void initState() {
+    if (widget.account != null) {
+      _accountNameController.text = widget.account!.title;
+      _selectedAccountType = widget.account!.type;
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +55,11 @@ class _AddNewAccountFormState extends State<AddNewAccountForm> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Spacer(),
-            BalanceFormField(
-              controller: _balanceController,
-              title: AppLocalizations.of(context)!.balance,
-            ),
+            if (widget.account == null)
+              BalanceFormField(
+                controller: _balanceController,
+                title: AppLocalizations.of(context)!.balance,
+              ),
             Container(
               padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
               decoration: BoxDecoration(
@@ -85,7 +98,13 @@ class _AddNewAccountFormState extends State<AddNewAccountForm> {
       listener: (context, state) {
         switch (state.submissionStatus) {
           case Status.success:
-            context.replaceRoute(const AccountAllSetRoute());
+            if (widget.isSetupAccount) {
+              context.replaceRoute(const AccountAllSetRoute());
+            } else {
+              Navigator.of(context).pop();
+              AutoRouter.of(context).pop(true);
+            }
+
             break;
           case Status.error:
             _showErrorDialog(context, state.error);
@@ -115,6 +134,12 @@ class _AddNewAccountFormState extends State<AddNewAccountForm> {
 
   void _handleSubmittion() {
     if (_formKey.currentState!.validate() && _selectedAccountType != null) {
+      if (widget.account != null) {
+        BlocProvider.of<NewAccountCubit>(context).updateAccount(
+            id: widget.account!.id,
+            title: _accountNameController.text,
+            type: _selectedAccountType!);
+      }
       final newAccount = AccountInput(
           balance: double.parse(_balanceController.text),
           title: _accountNameController.text,
