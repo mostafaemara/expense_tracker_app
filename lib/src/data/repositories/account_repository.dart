@@ -22,6 +22,18 @@ class AccountRepository {
     }
   }
 
+  Future<void> updateAccount(
+      {required String id,
+      required String title,
+      required AccountType type}) async {
+    try {
+      await _api.patch("${ApiConfig.accountPath}/$id",
+          data: {"title": title, "type": type.value});
+    } on DioError catch (e) {
+      throw e.mapToAppExceptions();
+    }
+  }
+
   Future<List<Account>> getAccounts() async {
     try {
       final response = await _api.get(
