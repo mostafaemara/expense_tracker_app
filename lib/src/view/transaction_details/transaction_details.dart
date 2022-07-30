@@ -1,9 +1,14 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:expense_tracker_app/src/bloc/submission_status.dart';
+import 'package:expense_tracker_app/src/bloc/transaction_details/transaction_details_cubit.dart';
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
 import 'package:expense_tracker_app/src/helpers/transaction_helper.dart';
+import 'package:expense_tracker_app/src/helpers/ui_helper.dart';
 
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:expense_tracker_app/src/view/common/remove_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../helpers/transaction_helper.dart';
 
 import 'widgets/attachment.dart';
@@ -16,96 +21,111 @@ class TransactionDetailsPage extends StatelessWidget {
   final Transaction transaction;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: context.transactionIconColor(transaction.type),
-        iconTheme: Theme.of(context)
-            .appBarTheme
-            .iconTheme!
-            .copyWith(color: Theme.of(context).colorScheme.onPrimary),
-        title: Text(
-          "Transaction Details",
-          style: Theme.of(context)
+    return BlocListener<TransactionDetailsCubit, SubmissionState>(
+      listener: (context, state) {
+        if (state.submissionStatus == Status.error) {
+          context.showSnackBar(state.error, backgroundColor: AppColors.red);
+        }
+        if (state.submissionStatus == Status.success) {
+          AutoRouter.of(context).pop(true);
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: context.transactionIconColor(transaction.type),
+          iconTheme: Theme.of(context)
               .appBarTheme
-              .titleTextStyle!
+              .iconTheme!
               .copyWith(color: Theme.of(context).colorScheme.onPrimary),
-        ),
-        actions: [
-          DeleteButton(
-            color: AppColors.light,
-            body: "Are you sure do you wanna remove this transaction?",
-            title: "Remove this transaction?",
-            onDeleteConfirmed: () {},
-          )
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  color: context.transactionIconColor(transaction.type),
-                  borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(16),
-                      bottomRight: Radius.circular(16))),
-              height: (MediaQuery.of(context).size.height * 0.35) -
-                  MediaQuery.of(context).padding.top,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Header(
-                    amount: transaction.amount,
-                    description: transaction.description,
-                    date: transaction.date,
-                  ),
-                  ContentFieldsCard(
-                    account: "wallet",
-                    type: transaction.type.name,
-                    category: transaction.category.title,
-                  ),
-                  const SizedBox(
-                    height: 17,
-                  ),
-                  const Divider(),
-                  const SizedBox(
-                    height: 14,
-                  ),
-                  Text(
-                    "Description",
-                    style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                        fontWeight: FontWeight.w600, color: AppColors.light20),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Text(
-                    transaction.description,
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Text(
-                    "Attachment",
-                    style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                        fontWeight: FontWeight.w600, color: AppColors.light20),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Attachment(
-                    attachment: transaction.attachment,
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                ],
-              ),
-            ),
+          title: Text(
+            "Transaction Details",
+            style: Theme.of(context)
+                .appBarTheme
+                .titleTextStyle!
+                .copyWith(color: Theme.of(context).colorScheme.onPrimary),
+          ),
+          actions: [
+            DeleteButton(
+              color: AppColors.light,
+              body: "Are you sure do you wanna remove this transaction?",
+              title: "Remove this transaction?",
+              onDeleteConfirmed: () {
+                BlocProvider.of<TransactionDetailsCubit>(context)
+                    .deleteTransaction(transaction.id);
+              },
+            )
           ],
+        ),
+        body: SingleChildScrollView(
+          child: Stack(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                    color: context.transactionIconColor(transaction.type),
+                    borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(16),
+                        bottomRight: Radius.circular(16))),
+                height: (MediaQuery.of(context).size.height * 0.35) -
+                    MediaQuery.of(context).padding.top,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Header(
+                      amount: transaction.amount,
+                      description: transaction.description,
+                      date: transaction.date,
+                    ),
+                    ContentFieldsCard(
+                      account: "wallet",
+                      type: transaction.type.name,
+                      category: transaction.category.title,
+                    ),
+                    const SizedBox(
+                      height: 17,
+                    ),
+                    const Divider(),
+                    const SizedBox(
+                      height: 14,
+                    ),
+                    Text(
+                      "Description",
+                      style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.light20),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      transaction.description,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      "Attachment",
+                      style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.light20),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Attachment(
+                      attachment: transaction.attachment,
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
