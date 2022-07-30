@@ -171,4 +171,14 @@ class TransactionRepository {
       throw e.mapToAppExceptions();
     }
   }
+
+  Future<void> deleteTransaction(String id) async {
+    try {
+      await _api.delete(
+        "${ApiConfig.transactionPath}/$id",
+      );
+    } on DioError catch (e) {
+      throw e.mapToAppExceptions();
+    }
+  }
 }
