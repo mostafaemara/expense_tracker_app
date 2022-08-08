@@ -1,4 +1,3 @@
-import 'package:expense_tracker_app/src/data/models/transactions_of_date.dart';
 import 'package:expense_tracker_app/src/helpers/date_time_helper.dart';
 import 'package:expense_tracker_app/src/view/common/transaction_list_item.dart';
 
@@ -8,21 +7,23 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'section_title.dart';
 
 class TransactionsOfDateListItem extends StatelessWidget {
-  const TransactionsOfDateListItem({Key? key, required this.transactionsOfDate})
-      : super(key: key);
-  final TransactionsOfDate transactionsOfDate;
+  final DateTime date;
+  final List<TransactionListItem> transactions;
+  const TransactionsOfDateListItem({
+    Key? key,
+    required this.transactions,
+    required this.date,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SectionTitle(
-          title: formateDate(transactionsOfDate.date, context),
+          title: formateDate(date, context),
         ),
-        ...List.generate(
-            transactionsOfDate.transactions.length,
-            (index) => TransactionListItem(
-                transaction: transactionsOfDate.transactions[index])).toList()
+        ...transactions
       ],
     );
   }
