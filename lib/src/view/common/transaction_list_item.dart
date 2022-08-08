@@ -1,27 +1,25 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
 import 'package:expense_tracker_app/src/helpers/date_time_helper.dart';
 
-import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../helpers/transaction_helper.dart';
 
 class TransactionListItem extends StatelessWidget {
-  const TransactionListItem({Key? key, required this.transaction})
+  const TransactionListItem(
+      {Key? key, required this.transaction, required this.onPressed})
       : super(key: key);
   final Transaction transaction;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     final _transactionColor = context.transactionIconColor(transaction.type);
 
     return GestureDetector(
-      onTap: () {
-        context.navigateTo(TransactionDetailsRoute(transaction: transaction));
-      },
+      onTap: onPressed,
       child: Container(
         padding: const EdgeInsets.all(14),
         height: 90,

@@ -1,10 +1,11 @@
 import 'package:expense_tracker_app/src/bloc/transactions/transactions_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/transactions/transactions_state.dart';
+import 'package:expense_tracker_app/src/view/common/transaction_list_item.dart';
+import 'package:expense_tracker_app/src/view/common/transactions_of_date_list_item.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../common/transactions_of_date_list_view.dart';
 import 'widgets/filter_button.dart';
 import 'widgets/financial_report_button.dart';
 import '../common/month_drop_down_button.dart';
@@ -40,9 +41,21 @@ class TransactionPage extends StatelessWidget {
                       ],
                     )),
                 const FinancialReportButton(),
-                TransactionsOfDateListView(
-                  transactionsOfDates: state.transactionsOfDates,
-                )
+                Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 14),
+                    child: Column(
+                        children: state.transactionsOfDates
+                            .map((e) => TransactionsOfDateListItem(
+                                  date: e.date,
+                                  transactions: e.transactions
+                                      .map((t) => TransactionListItem(
+                                            onPressed: () {},
+                                            transaction: t,
+                                          ))
+                                      .toList(),
+                                ))
+                            .toList()))
               ],
             ),
           ),
