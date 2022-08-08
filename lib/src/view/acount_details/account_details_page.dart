@@ -5,7 +5,8 @@ import 'package:expense_tracker_app/src/data/models/account.dart';
 import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/view/common/account_icon.dart';
 import 'package:expense_tracker_app/src/view/common/loading_indecator.dart';
-import 'package:expense_tracker_app/src/view/common/transactions_of_date_list_view.dart';
+import 'package:expense_tracker_app/src/view/common/transaction_list_item.dart';
+import 'package:expense_tracker_app/src/view/common/transactions_of_date_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -73,9 +74,21 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                           const SizedBox(
                             height: 47,
                           ),
-                          TransactionsOfDateListView(
-                            transactionsOfDates: state.transactions,
-                          )
+                          Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 14),
+                              child: Column(
+                                  children: state.transactions
+                                      .map((e) => TransactionsOfDateListItem(
+                                            date: e.date,
+                                            transactions: e.transactions
+                                                .map((t) => TransactionListItem(
+                                                      onPressed: () {},
+                                                      transaction: t,
+                                                    ))
+                                                .toList(),
+                                          ))
+                                      .toList()))
                         ],
                       ),
                     ),
