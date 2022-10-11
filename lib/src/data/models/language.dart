@@ -4,9 +4,9 @@ enum Language {
   english("en", "English"),
   arabic("ar", "العربية");
 
-  final String value;
+  final String langCode;
   final String title;
-  const Language(this.value, this.title);
+  const Language(this.langCode, this.title);
 
   factory Language.parse(String value) {
     switch (value) {
@@ -19,5 +19,5 @@ enum Language {
     }
   }
 
-  Locale locale() => Locale(value);
+  Locale locale() => Locale(langCode);
 }
