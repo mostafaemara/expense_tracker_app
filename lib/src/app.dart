@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       themeMode: config.state.themeMode,
-      locale: Locale(config.state.language.value),
+      locale: Locale(config.state.language.langCode),
       supportedLocales: List.generate(
           Language.values.length, (index) => Language.values[index].locale()),
       onGenerateTitle: (BuildContext context) =>

@@ -20,7 +20,7 @@ class ConfigRepository {
   }
 
   Future<void> writeLanguageCode(Language language) async =>
-      await _db.setString(_languageKey, language.value);
+      await _db.setString(_languageKey, language.langCode);
 
   Future<ThemeMode?> readThemeMode() async {
     final themeValue = _db.getString(_themeModeKey);
