@@ -13,10 +13,10 @@ class SplashCubit extends Cubit<SplashState> {
   SplashCubit() : super(const SplashState.initialize());
 
   final _accountsRepo = locator<AccountRepository>();
-  final _authService = locator<UserRepository>();
+  final _userRepo = locator<UserRepository>();
 
   void init() async {
-    final user = await _authService.readUser();
+    final user = await _userRepo.readUser();
     if (user != null) {
       _handleAccountSetupCheck(user.id);
     } else {
@@ -25,7 +25,7 @@ class SplashCubit extends Cubit<SplashState> {
   }
 
   void _handleAccountSetupCheck(String uid) async {
-    final accountsIsEmpty = await _accountsRepo.accountsIsEmpty();
+    final accountsIsEmpty = await _accountsRepo.accountsIsEmpty(uid);
 
     if (accountsIsEmpty) {
       emit(const SplashState.redirectToSetUpAccount());

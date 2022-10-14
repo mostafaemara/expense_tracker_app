@@ -10,6 +10,7 @@ import 'package:expense_tracker_app/src/helpers/categories_helper.dart';
 import 'package:expense_tracker_app/src/data/models/inputs/transaction_input.dart';
 import 'package:flutter/rendering.dart';
 
+import '../../data/repositories/user_repository.dart';
 import 'newtransaction_state.dart';
 
 class NewTransactionCubit extends Cubit<NewTransactionState> {
@@ -19,11 +20,13 @@ class NewTransactionCubit extends Cubit<NewTransactionState> {
 
   final _transactionRepository = locator<TransactionRepository>();
   final _accountRepo = locator<AccountRepository>();
+  final _userRepo = locator<UserRepository>();
   final TransactionType transactionType;
 
   void init() async {
     try {
-      final accounts = await _accountRepo.getAccounts();
+      final _user = await _userRepo.readUser();
+      final accounts = await _accountRepo.getAccounts(_user!.id);
 
       final categories = await _transactionRepository.getAllCategories();
 

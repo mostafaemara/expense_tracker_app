@@ -7,19 +7,20 @@ import 'package:expense_tracker_app/src/data/repositories/account_repository.dar
 import 'package:expense_tracker_app/src/helpers/exception_helper.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/repositories/user_repository.dart';
+
 class NewAccountCubit extends Cubit<SubmissionState> {
   final _accountsRepository = locator<AccountRepository>();
-
+  final _userRepo = locator<UserRepository>();
   NewAccountCubit() : super(const SubmissionState.init());
 
   void addNewAccount(
     AccountInput accountInput,
   ) async {
     try {
+      final _user = await _userRepo.readUser();
       emit(state.copyWith(submissionStatus: Status.loading, error: ""));
-      await _accountsRepository.addAccount(
-        accountInput,
-      );
+      await _accountsRepository.addAccount(accountInput, _user!.id);
 
       emit(state.copyWith(submissionStatus: Status.success, error: ""));
     } on Exception catch (e) {
