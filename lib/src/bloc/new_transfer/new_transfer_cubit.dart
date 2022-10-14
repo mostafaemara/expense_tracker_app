@@ -8,6 +8,7 @@ import 'package:expense_tracker_app/src/data/repositories/account_repository.dar
 import 'package:expense_tracker_app/src/data/repositories/transaction_repository.dart';
 import 'package:expense_tracker_app/src/helpers/exception_helper.dart';
 
+import '../../data/repositories/user_repository.dart';
 import '../submission_status.dart';
 import 'new_tranfer_state.dart';
 
@@ -16,9 +17,11 @@ class NewTransferCubit extends Cubit<NewTransferState> {
 
   final _transactionRepository = locator<TransactionRepository>();
   final _accountRepo = locator<AccountRepository>();
+  final _userRepo = locator<UserRepository>();
   void init() async {
     try {
-      final accounts = await _accountRepo.getAccounts();
+      final _user = await _userRepo.readUser();
+      final accounts = await _accountRepo.getAccounts(_user!.id);
 
       emit(state.copyWith(accounts: accounts));
     } on Exception catch (e) {

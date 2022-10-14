@@ -30,11 +30,11 @@ final NotificationManger notificationManger = NotificationManger(
 );
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  await initializeDependencies();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await initializeDependencies();
+
   await notificationManger.init();
   final token = await FirebaseMessaging.instance.getToken();
   FirebaseMessaging messaging = FirebaseMessaging.instance;

@@ -1,61 +1,65 @@
-import 'dart:developer';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
-import 'package:expense_tracker_app/injection.dart';
 import 'package:expense_tracker_app/src/data/api/api.dart';
+import 'package:expense_tracker_app/src/data/exceptions/server_exception.dart';
 import 'package:expense_tracker_app/src/data/models/account.dart';
 import 'package:expense_tracker_app/src/data/models/inputs/account_input.dart';
 
 class AccountRepository {
-  final _api = locator<Api>().dio;
+  final accountsRef = "accounts";
+  final userIdRef = "userId";
 
-  Future<Account> addAccount(
-    AccountInput account,
-  ) async {
+  Future<Account> addAccount(AccountInput account, String userId) async {
     try {
-      final response =
-          await _api.post(ApiConfig.accountPath, data: account.toMap());
-      log(response.data.toString());
-      return Account.fromMap(response.data["data"]);
+      final documentRef = await FirebaseFirestore.instance
+          .collection(accountsRef)
+          .add({...account.toMap(), userIdRef: userId});
+
+      return Account.fromMap({...account.toMap(), "id": documentRef.id});
+    } catch (e) {
+      throw ServerException();
+    }
+  }
+
+  Future<void> updateAccount({
+    required String id,
+    required String title,
+    required AccountType type,
+  }) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection(accountsRef)
+          .doc(id)
+          .update({"title": title, "type": type.value});
+    } catch (e) {
+      throw ServerException();
+    }
+  }
+
+  Future<List<Account>> getAccounts(String userId) async {
+    try {
+      final query = await FirebaseFirestore.instance
+          .collection(accountsRef)
+          .where(userIdRef, isEqualTo: userId)
+          .get();
+
+      return _accountsFromDocs(query.docs);
     } on DioError catch (e) {
       throw e.mapToAppExceptions();
     }
   }
 
-  Future<void> updateAccount(
-      {required String id,
-      required String title,
-      required AccountType type}) async {
-    try {
-      await _api.patch("${ApiConfig.accountPath}/$id",
-          data: {"title": title, "type": type.value});
-    } on DioError catch (e) {
-      throw e.mapToAppExceptions();
-    }
-  }
-
-  Future<List<Account>> getAccounts() async {
-    try {
-      final response = await _api.get(
-        ApiConfig.accountPath,
-      );
-
-      return _accountsFromArray(response.data["data"]!);
-    } on DioError catch (e) {
-      throw e.mapToAppExceptions();
-    }
-  }
-
-  List<Account> _accountsFromArray(List<dynamic> array) {
+  List<Account> _accountsFromDocs(
+      List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
     final List<Account> accounts = [];
-    for (final map in array) {
-      accounts.add(Account.fromMap(map));
+    for (final doc in docs) {
+      accounts.add(Account.fromMap({...doc.data(), "id": doc.id}));
     }
     return accounts;
   }
 
-  Future<bool> accountsIsEmpty() async {
-    final accounts = await getAccounts();
+  Future<bool> accountsIsEmpty(String userId) async {
+    final accounts = await getAccounts(userId);
     if (accounts.isEmpty) {
       return true;
     }

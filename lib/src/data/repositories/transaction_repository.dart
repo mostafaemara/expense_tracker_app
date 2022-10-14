@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart' as fb;
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:dio/dio.dart';
 import 'package:expense_tracker_app/injection.dart';
 import 'package:expense_tracker_app/src/data/api/api.dart';
+import 'package:expense_tracker_app/src/data/exceptions/server_exception.dart';
 import 'package:expense_tracker_app/src/data/models/category.dart';
 import 'package:expense_tracker_app/src/data/models/finance.dart';
 import 'package:expense_tracker_app/src/data/models/financial_report.dart';
@@ -21,16 +24,22 @@ import 'package:flutter/material.dart';
 
 class TransactionRepository {
   final _api = locator<Api>().dio;
+  final fireStore = fb.FirebaseFirestore.instance;
+  final fbFunctions = FirebaseFunctions.instance;
 
   Future<Transaction> addTransaction(
     TransactionInput transactionInput,
   ) async {
     try {
-      final response = await _api.post(ApiConfig.transactionPath,
-          data: transactionInput.toMap());
-      return Transaction.fromMap(response.data["data"]);
-    } on DioError catch (e) {
-      throw e.mapToAppExceptions();
+      final result = await fbFunctions
+          .httpsCallable("addTransaction")
+          .call<Map<String, dynamic>>(transactionInput.toMap());
+
+      log(result.data.toString(), name: "Add Transaction Fb ");
+      return Transaction.fromMap(result.data);
+    } catch (e) {
+      log(e.toString(), error: "Add Transaction Fb Error");
+      rethrow;
     }
   }
 
@@ -126,18 +135,23 @@ class TransactionRepository {
 
   Future<List<Category>> getAllCategories() async {
     try {
-      final response = await _api.get(ApiConfig.categoryPath);
-      return _mapArrayToCategories(response.data["data"]);
-    } on DioError catch (e) {
-      throw e.mapToAppExceptions();
+      final snapshot = await fireStore
+          .collection("utils")
+          .doc("expense")
+          .collection("categories")
+          .get();
+
+      return _mapArrayToCategories(snapshot.docs);
+    } catch (e) {
+      throw ServerException();
     }
   }
 
-  List<Category> _mapArrayToCategories(dynamic array) {
+  List<Category> _mapArrayToCategories(
+      List<fb.QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
     List<Category> categories = [];
-    for (final map in array) {
-      log("asdasd");
-      categories.add(Category.fromMap(map));
+    for (final doc in docs) {
+      categories.add(Category.fromMap({...doc.data(), "id": doc.id}));
     }
     return categories;
   }
@@ -147,8 +161,8 @@ class TransactionRepository {
       final response = await _api.get(ApiConfig.financesPath);
 
       return Finance.fromMap(response.data["data"]);
-    } on DioError catch (e) {
-      throw e.mapToAppExceptions();
+    } catch (e) {
+      throw ServerException();
     }
   }
 
