@@ -1,18 +1,26 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:dio/dio.dart';
 import 'package:expense_tracker_app/injection.dart';
 import 'package:expense_tracker_app/src/data/api/api.dart';
 
+import '../exceptions/invalid_input_exception.dart';
+import '../exceptions/server_exception.dart';
 import '../models/budget.dart';
 
 class BudgetRepository {
   final _api = locator<Api>().dio;
+  final fbFunctions = FirebaseFunctions.instance;
   Future<List<Budget>> readBudgets(int monthNumber) async {
     try {
-      final response = await _api
-          .get(ApiConfig.budgetPath, queryParameters: {"month": monthNumber});
-      return _mapArrayToBudgets(response.data["data"]);
-    } on DioError catch (e) {
-      throw e.mapToAppExceptions();
+      final result = await fbFunctions.httpsCallable("getBudgets").call();
+      final map = json.decode(result.data);
+      return _mapArrayToBudgets(map);
+    } catch (e) {
+      log(e.toString());
+      throw ServerException();
     }
   }
 
@@ -26,11 +34,15 @@ class BudgetRepository {
 
   Future<Budget> addBudget(BudgetInput input) async {
     try {
-      final response =
-          await _api.post(ApiConfig.budgetPath, data: input.toMap());
-      return Budget.fromMap(response.data["data"]);
-    } on DioError catch (e) {
-      throw e.mapToAppExceptions();
+      final result =
+          await fbFunctions.httpsCallable("addBudget").call(input.toMap());
+
+      return Budget.fromJson(result.data);
+    } on FirebaseFunctionsException catch (e) {
+      if (e.code == "out-of-range") {
+        throw InavlidInputException(e.message!);
+      }
+      throw ServerException();
     }
   }
 
