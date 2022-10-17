@@ -28,7 +28,7 @@ class Budget {
         map['amount']?.toDouble() ?? 0.0,
         map['alertPercentage'],
         Category.fromMap(map['category']),
-        map["alert"]);
+        map["alert"] == 1);
   }
 
   factory Budget.fromJson(String source) => Budget.fromMap(json.decode(source));

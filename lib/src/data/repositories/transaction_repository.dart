@@ -49,15 +49,6 @@ class TransactionRepository {
     }
   }
 
-  Future<List<Transaction>> getAllTransactions() async {
-    try {
-      final response = await _api.get(ApiConfig.transactionPath);
-      return mapArrayToTransactions(response.data["data"]);
-    } on DioError catch (e) {
-      throw e.mapToAppExceptions();
-    }
-  }
-
   Future<List<TransactionsOfDate>> getTransactionsOfDates({
     required TransactionFilter type,
     int? limit,
