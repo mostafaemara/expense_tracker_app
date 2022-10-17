@@ -1,6 +1,8 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dio/dio.dart';
-import 'package:expense_tracker_app/src/data/api/api.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:expense_tracker_app/src/data/exceptions/server_exception.dart';
 import 'package:expense_tracker_app/src/data/models/account.dart';
 import 'package:expense_tracker_app/src/data/models/inputs/account_input.dart';
@@ -8,7 +10,7 @@ import 'package:expense_tracker_app/src/data/models/inputs/account_input.dart';
 class AccountRepository {
   final accountsRef = "accounts";
   final userIdRef = "userId";
-
+  final fbFunctions = FirebaseFunctions.instance;
   Future<Account> addAccount(AccountInput account, String userId) async {
     try {
       final documentRef = await FirebaseFirestore.instance
@@ -38,22 +40,25 @@ class AccountRepository {
 
   Future<List<Account>> getAccounts(String userId) async {
     try {
-      final query = await FirebaseFirestore.instance
-          .collection(accountsRef)
-          .where(userIdRef, isEqualTo: userId)
-          .get();
+      final result = await fbFunctions
+          .httpsCallable(
+            "getAccounts",
+          )
+          .call();
+      log(result.data.toString());
+      final array = json.decode(result.data);
 
-      return _accountsFromDocs(query.docs);
-    } on DioError catch (e) {
-      throw e.mapToAppExceptions();
+      return _accountsFromDocs(array);
+    } catch (e) {
+      log(e.toString());
+      throw ServerException();
     }
   }
 
-  List<Account> _accountsFromDocs(
-      List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
+  List<Account> _accountsFromDocs(List<dynamic> maps) {
     final List<Account> accounts = [];
-    for (final doc in docs) {
-      accounts.add(Account.fromMap({...doc.data(), "id": doc.id}));
+    for (final map in maps) {
+      accounts.add(Account.fromMap(map));
     }
     return accounts;
   }

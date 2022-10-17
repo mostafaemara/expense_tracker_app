@@ -18,9 +18,10 @@ class HomeCubit extends Cubit<HomeState> {
 
   void init() async {
     try {
+      final finance = await _transactionRepository.readFinance();
       final transactions = await _transactionRepository.readTransactions(
           sortType: SortType.newest, limit: 3, type: TransactionFilter.all);
-      final finance = await _transactionRepository.readFinance();
+
       final spendTransactions = await _transactionRepository.readTransactions(
           sortType: SortType.newest,
           type: TransactionFilter.expense,
