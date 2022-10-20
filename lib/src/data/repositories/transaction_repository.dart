@@ -5,7 +5,6 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart' as fb;
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:dio/dio.dart';
-import 'package:expense_tracker_app/injection.dart';
 import 'package:expense_tracker_app/src/data/api/api.dart';
 import 'package:expense_tracker_app/src/data/exceptions/invalid_input_exception.dart';
 import 'package:expense_tracker_app/src/data/exceptions/server_exception.dart';
@@ -25,7 +24,6 @@ import 'package:expense_tracker_app/src/data/models/transactions_of_date.dart';
 import 'package:flutter/material.dart';
 
 class TransactionRepository {
-  final _api = locator<Api>().dio;
   final transactionsRef = "transactions";
   final accountsRef = "accounts";
   final fireStore = fb.FirebaseFirestore.instance;
@@ -174,8 +172,9 @@ class TransactionRepository {
 
   Future<void> addTransfer(TransferInput input) async {
     try {
-      final response =
-          await _api.post(ApiConfig.transferPath, data: input.toMap());
+      // final response =
+      //     await _api.post(ApiConfig.transferPath, data: input.toMap());
+      await Future.delayed(const Duration(seconds: 1));
     } on DioError catch (e) {
       throw e.mapToAppExceptions();
     }
@@ -184,9 +183,12 @@ class TransactionRepository {
   Future<FinancialReport> readFinancialReport(DateTime date) async {
     log(date.toIso8601String());
     try {
-      final response = await _api.get(ApiConfig.financialReportPath,
-          queryParameters: {"date": date.toIso8601String()});
-      return FinancialReport.fromMap(response.data["data"]);
+      final result = await fbFunctions
+          .httpsCallable("getFinancialReport")
+          .call({"date": date.toIso8601String()});
+      log(result.data.toString());
+
+      return FinancialReport.fromJson(result.data);
     } on DioError catch (e) {
       throw e.mapToAppExceptions();
     }
@@ -194,9 +196,7 @@ class TransactionRepository {
 
   Future<void> deleteTransaction(String id) async {
     try {
-      await _api.delete(
-        "${ApiConfig.transactionPath}/$id",
-      );
+      await fireStore.collection(transactionsRef).doc(id).delete();
     } on DioError catch (e) {
       throw e.mapToAppExceptions();
     }

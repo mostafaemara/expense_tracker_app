@@ -22,6 +22,7 @@ class Budget {
   );
 
   factory Budget.fromMap(Map<String, dynamic> map) {
+    log(map.toString());
     return Budget(
         map['id'] ?? '',
         map['amountSpent']?.toDouble() ?? 0.0,
