@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:dio/dio.dart';
-import 'package:expense_tracker_app/injection.dart';
 import 'package:expense_tracker_app/src/data/api/api.dart';
 
 import '../exceptions/invalid_input_exception.dart';
@@ -11,11 +11,15 @@ import '../exceptions/server_exception.dart';
 import '../models/budget.dart';
 
 class BudgetRepository {
-  final _api = locator<Api>().dio;
+  final fbFireStore = FirebaseFirestore.instance;
   final fbFunctions = FirebaseFunctions.instance;
+  final budgetsRef = "budgets";
   Future<List<Budget>> readBudgets(int monthNumber) async {
     try {
-      final result = await fbFunctions.httpsCallable("getBudgets").call();
+      log("month" + monthNumber.toString());
+      final result = await fbFunctions
+          .httpsCallable("getBudgets")
+          .call({"month": monthNumber - 1});
       final map = json.decode(result.data);
       return _mapArrayToBudgets(map);
     } catch (e) {
@@ -48,7 +52,7 @@ class BudgetRepository {
 
   Future<void> updateBudget(BudgetInput input, String id) async {
     try {
-      await _api.patch("${ApiConfig.budgetPath}/$id", data: input.toMap());
+      await fbFireStore.collection(budgetsRef).doc(id).update(input.toMap());
     } on DioError catch (e) {
       throw e.mapToAppExceptions();
     }
@@ -56,9 +60,7 @@ class BudgetRepository {
 
   Future<void> deleteBudget(String id) async {
     try {
-      final response = await _api.delete(
-        "${ApiConfig.budgetPath}/$id",
-      );
+      await fbFireStore.collection(budgetsRef).doc(id).delete();
     } on DioError catch (e) {
       throw e.mapToAppExceptions();
     }
