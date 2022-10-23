@@ -52,12 +52,14 @@ class TransactionCard extends StatelessWidget {
                   const SizedBox(
                     height: 4,
                   ),
-                  Text(
-                    "${AppLocalizations.of(context)!.currencySymbol}$amount",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6!
-                        .copyWith(color: AppColors.light),
+                  FittedBox(
+                    child: Text(
+                      "${AppLocalizations.of(context)!.currencySymbol}$amount",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6!
+                          .copyWith(color: AppColors.light),
+                    ),
                   ),
                 ],
               ),

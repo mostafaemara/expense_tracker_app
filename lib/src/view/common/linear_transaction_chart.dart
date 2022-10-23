@@ -17,7 +17,7 @@ class LinearTransactionChart extends StatelessWidget {
       child: Stack(
         children: [
           PositionedDirectional(
-              start: 16,
+              start: 50,
               top: 8,
               child: Text(
                 "\$ ${totalAmount()}",
@@ -36,10 +36,10 @@ class LinearTransactionChart extends StatelessWidget {
             ],
             plotAreaBorderWidth: 0,
             primaryXAxis: DateTimeAxis(
-                isVisible: false,
+                isVisible: true,
                 majorGridLines: const MajorGridLines(width: 0)),
             primaryYAxis: NumericAxis(
-                isVisible: false,
+                isVisible: true,
                 majorGridLines: const MajorGridLines(width: 0)),
           ),
         ],
