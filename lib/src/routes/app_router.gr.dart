@@ -19,186 +19,356 @@ class _$AppRouter extends RootStackRouter {
   final Map<String, PageFactory> pagesMap = {
     SplashRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const SplashPage());
+        routeData: routeData,
+        child: const SplashPage(),
+      );
     },
     OnBoardingRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const OnBoardingPage());
+        routeData: routeData,
+        child: const OnBoardingPage(),
+      );
     },
     FinancialReportRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const FinancialReportPage());
+        routeData: routeData,
+        child: const FinancialReportPage(),
+      );
     },
     SignupRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const SignupPage());
+        routeData: routeData,
+        child: const SignupPage(),
+      );
     },
     TransactionDetailsRoute.name: (routeData) {
       final args = routeData.argsAs<TransactionDetailsRouteArgs>();
       return MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: TransactionDetailsPage(
-              key: args.key, transaction: args.transaction));
+        routeData: routeData,
+        child: TransactionDetailsPage(
+          key: args.key,
+          transaction: args.transaction,
+        ),
+      );
     },
     LoginRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const LoginPage());
+        routeData: routeData,
+        child: const LoginPage(),
+      );
     },
     RestPasswordRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const RestPasswordPage());
+        routeData: routeData,
+        child: const RestPasswordPage(),
+      );
     },
     SetupAccountRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const SetupAccountPage());
+        routeData: routeData,
+        child: const SetupAccountPage(),
+      );
     },
     AddNewAccountRoute.name: (routeData) {
       final args = routeData.argsAs<AddNewAccountRouteArgs>();
       return MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: AddNewAccountPage(
-              key: args.key,
-              account: args.account,
-              isSetupAccount: args.isSetupAccount));
+        routeData: routeData,
+        child: AddNewAccountPage(
+          key: args.key,
+          account: args.account,
+          isSetupAccount: args.isSetupAccount,
+        ),
+      );
     },
     AccountAllSetRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const AccountAllSetPage());
+        routeData: routeData,
+        child: const AccountAllSetPage(),
+      );
     },
     NewTransactionRoute.name: (routeData) {
       final args = routeData.argsAs<NewTransactionRouteArgs>();
       return MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: NewTransactionPage(
-              key: args.key, transactionType: args.transactionType));
+        routeData: routeData,
+        child: NewTransactionPage(
+          key: args.key,
+          transactionType: args.transactionType,
+        ),
+      );
     },
     NewTransferRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const NewTransferPage());
+        routeData: routeData,
+        child: const NewTransferPage(),
+      );
     },
     NotificationRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const NotificationPage());
+        routeData: routeData,
+        child: const NotificationPage(),
+      );
     },
     FinancialDetailsRoute.name: (routeData) {
       final args = routeData.argsAs<FinancialDetailsRouteArgs>();
       return MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: FinancialDetailsPage(
-              key: args.key, financialReport: args.financialReport));
+        routeData: routeData,
+        child: FinancialDetailsPage(
+          key: args.key,
+          financialReport: args.financialReport,
+        ),
+      );
     },
     NewBudgetRoute.name: (routeData) {
       final args = routeData.argsAs<NewBudgetRouteArgs>(
           orElse: () => const NewBudgetRouteArgs());
       return MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: NewBudgetPage(key: args.key, budget: args.budget));
+        routeData: routeData,
+        child: NewBudgetPage(
+          key: args.key,
+          budget: args.budget,
+        ),
+      );
     },
     AccountsRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const AccountsPage());
+        routeData: routeData,
+        child: const AccountsPage(),
+      );
     },
     AccountDetailsRoute.name: (routeData) {
       final args = routeData.argsAs<AccountDetailsRouteArgs>();
       return MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: AccountDetailsPage(key: args.key, account: args.account));
+        routeData: routeData,
+        child: AccountDetailsPage(
+          key: args.key,
+          account: args.account,
+        ),
+      );
     },
     BudgetDetailsRoute.name: (routeData) {
       final args = routeData.argsAs<BudgetDetailsRouteArgs>();
       return MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: BudgetDetailsPage(key: args.key, budget: args.budget));
+        routeData: routeData,
+        child: BudgetDetailsPage(
+          key: args.key,
+          budget: args.budget,
+        ),
+      );
     },
     SettingsRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const SettingsPage());
+        routeData: routeData,
+        child: const SettingsPage(),
+      );
     },
     AboutRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const AboutPage());
+        routeData: routeData,
+        child: const AboutPage(),
+      );
     },
     CurrencyRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const CurrencyPage());
+        routeData: routeData,
+        child: const CurrencyPage(),
+      );
     },
     LanguageRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const LanguagePage());
+        routeData: routeData,
+        child: const LanguagePage(),
+      );
     },
     ThemeRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const ThemePage());
+        routeData: routeData,
+        child: const ThemePage(),
+      );
+    },
+    EditeProfileRoute.name: (routeData) {
+      final args = routeData.argsAs<EditeProfileRouteArgs>();
+      return MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: EditeProfilePage(
+          key: args.key,
+          user: args.user,
+        ),
+      );
     },
     MainRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const MainPage());
+        routeData: routeData,
+        child: const MainPage(),
+      );
     },
     HomeRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const HomePage());
+        routeData: routeData,
+        child: const HomePage(),
+      );
     },
     TransactionRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const TransactionPage());
+        routeData: routeData,
+        child: const TransactionPage(),
+      );
     },
     BudgetRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const BudgetPage());
+        routeData: routeData,
+        child: const BudgetPage(),
+      );
     },
     ProfileRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const ProfilePage());
-    }
+        routeData: routeData,
+        child: const ProfilePage(),
+      );
+    },
   };
 
   @override
   List<RouteConfig> get routes => [
-        RouteConfig(SplashRoute.name, path: '/'),
-        RouteConfig(OnBoardingRoute.name, path: '/on-boarding-page'),
-        RouteConfig(FinancialReportRoute.name, path: '/financial-report-page'),
-        RouteConfig(SignupRoute.name, path: '/signup-page'),
-        RouteConfig(TransactionDetailsRoute.name,
-            path: '/transaction-details-page'),
-        RouteConfig(LoginRoute.name, path: '/login-page'),
-        RouteConfig(RestPasswordRoute.name, path: '/rest-password-page'),
-        RouteConfig(SetupAccountRoute.name, path: '/setup-account-page'),
-        RouteConfig(AddNewAccountRoute.name, path: '/add-new-account-page'),
-        RouteConfig(AccountAllSetRoute.name, path: '/account-all-set-page'),
-        RouteConfig(NewTransactionRoute.name, path: '/new-transaction-page'),
-        RouteConfig(NewTransferRoute.name, path: '/new-transfer-page'),
-        RouteConfig(NotificationRoute.name, path: '/notification-page'),
-        RouteConfig(FinancialDetailsRoute.name,
-            path: '/financial-details-page'),
-        RouteConfig(NewBudgetRoute.name, path: '/new-budget-page'),
-        RouteConfig(AccountsRoute.name, path: '/accounts-page'),
-        RouteConfig(AccountDetailsRoute.name, path: '/account-details-page'),
-        RouteConfig(BudgetDetailsRoute.name, path: '/budget-details-page'),
-        RouteConfig(SettingsRoute.name, path: '/settings-page'),
-        RouteConfig(AboutRoute.name, path: '/about-page'),
-        RouteConfig(CurrencyRoute.name, path: '/currency-page'),
-        RouteConfig(LanguageRoute.name, path: '/language-page'),
-        RouteConfig(ThemeRoute.name, path: '/theme-page'),
-        RouteConfig(MainRoute.name, path: '/', children: [
-          RouteConfig('#redirect',
+        RouteConfig(
+          SplashRoute.name,
+          path: '/',
+        ),
+        RouteConfig(
+          OnBoardingRoute.name,
+          path: '/on-boarding-page',
+        ),
+        RouteConfig(
+          FinancialReportRoute.name,
+          path: '/financial-report-page',
+        ),
+        RouteConfig(
+          SignupRoute.name,
+          path: '/signup-page',
+        ),
+        RouteConfig(
+          TransactionDetailsRoute.name,
+          path: '/transaction-details-page',
+        ),
+        RouteConfig(
+          LoginRoute.name,
+          path: '/login-page',
+        ),
+        RouteConfig(
+          RestPasswordRoute.name,
+          path: '/rest-password-page',
+        ),
+        RouteConfig(
+          SetupAccountRoute.name,
+          path: '/setup-account-page',
+        ),
+        RouteConfig(
+          AddNewAccountRoute.name,
+          path: '/add-new-account-page',
+        ),
+        RouteConfig(
+          AccountAllSetRoute.name,
+          path: '/account-all-set-page',
+        ),
+        RouteConfig(
+          NewTransactionRoute.name,
+          path: '/new-transaction-page',
+        ),
+        RouteConfig(
+          NewTransferRoute.name,
+          path: '/new-transfer-page',
+        ),
+        RouteConfig(
+          NotificationRoute.name,
+          path: '/notification-page',
+        ),
+        RouteConfig(
+          FinancialDetailsRoute.name,
+          path: '/financial-details-page',
+        ),
+        RouteConfig(
+          NewBudgetRoute.name,
+          path: '/new-budget-page',
+        ),
+        RouteConfig(
+          AccountsRoute.name,
+          path: '/accounts-page',
+        ),
+        RouteConfig(
+          AccountDetailsRoute.name,
+          path: '/account-details-page',
+        ),
+        RouteConfig(
+          BudgetDetailsRoute.name,
+          path: '/budget-details-page',
+        ),
+        RouteConfig(
+          SettingsRoute.name,
+          path: '/settings-page',
+        ),
+        RouteConfig(
+          AboutRoute.name,
+          path: '/about-page',
+        ),
+        RouteConfig(
+          CurrencyRoute.name,
+          path: '/currency-page',
+        ),
+        RouteConfig(
+          LanguageRoute.name,
+          path: '/language-page',
+        ),
+        RouteConfig(
+          ThemeRoute.name,
+          path: '/theme-page',
+        ),
+        RouteConfig(
+          EditeProfileRoute.name,
+          path: '/edite-profile-page',
+        ),
+        RouteConfig(
+          MainRoute.name,
+          path: '/',
+          children: [
+            RouteConfig(
+              '#redirect',
               path: '',
               parent: MainRoute.name,
               redirectTo: 'home',
-              fullMatch: true),
-          RouteConfig(HomeRoute.name, path: 'home', parent: MainRoute.name),
-          RouteConfig(TransactionRoute.name,
-              path: 'transaction', parent: MainRoute.name),
-          RouteConfig(BudgetRoute.name, path: 'budget', parent: MainRoute.name),
-          RouteConfig(ProfileRoute.name,
-              path: 'profile', parent: MainRoute.name)
-        ])
+              fullMatch: true,
+            ),
+            RouteConfig(
+              HomeRoute.name,
+              path: 'home',
+              parent: MainRoute.name,
+            ),
+            RouteConfig(
+              TransactionRoute.name,
+              path: 'transaction',
+              parent: MainRoute.name,
+            ),
+            RouteConfig(
+              BudgetRoute.name,
+              path: 'budget',
+              parent: MainRoute.name,
+            ),
+            RouteConfig(
+              ProfileRoute.name,
+              path: 'profile',
+              parent: MainRoute.name,
+            ),
+          ],
+        ),
       ];
 }
 
 /// generated route for
 /// [SplashPage]
 class SplashRoute extends PageRouteInfo<void> {
-  const SplashRoute() : super(SplashRoute.name, path: '/');
+  const SplashRoute()
+      : super(
+          SplashRoute.name,
+          path: '/',
+        );
 
   static const String name = 'SplashRoute';
 }
@@ -207,7 +377,10 @@ class SplashRoute extends PageRouteInfo<void> {
 /// [OnBoardingPage]
 class OnBoardingRoute extends PageRouteInfo<void> {
   const OnBoardingRoute()
-      : super(OnBoardingRoute.name, path: '/on-boarding-page');
+      : super(
+          OnBoardingRoute.name,
+          path: '/on-boarding-page',
+        );
 
   static const String name = 'OnBoardingRoute';
 }
@@ -216,7 +389,10 @@ class OnBoardingRoute extends PageRouteInfo<void> {
 /// [FinancialReportPage]
 class FinancialReportRoute extends PageRouteInfo<void> {
   const FinancialReportRoute()
-      : super(FinancialReportRoute.name, path: '/financial-report-page');
+      : super(
+          FinancialReportRoute.name,
+          path: '/financial-report-page',
+        );
 
   static const String name = 'FinancialReportRoute';
 }
@@ -224,7 +400,11 @@ class FinancialReportRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [SignupPage]
 class SignupRoute extends PageRouteInfo<void> {
-  const SignupRoute() : super(SignupRoute.name, path: '/signup-page');
+  const SignupRoute()
+      : super(
+          SignupRoute.name,
+          path: '/signup-page',
+        );
 
   static const String name = 'SignupRoute';
 }
@@ -233,17 +413,26 @@ class SignupRoute extends PageRouteInfo<void> {
 /// [TransactionDetailsPage]
 class TransactionDetailsRoute
     extends PageRouteInfo<TransactionDetailsRouteArgs> {
-  TransactionDetailsRoute({Key? key, required Transaction transaction})
-      : super(TransactionDetailsRoute.name,
-            path: '/transaction-details-page',
-            args: TransactionDetailsRouteArgs(
-                key: key, transaction: transaction));
+  TransactionDetailsRoute({
+    Key? key,
+    required Transaction transaction,
+  }) : super(
+          TransactionDetailsRoute.name,
+          path: '/transaction-details-page',
+          args: TransactionDetailsRouteArgs(
+            key: key,
+            transaction: transaction,
+          ),
+        );
 
   static const String name = 'TransactionDetailsRoute';
 }
 
 class TransactionDetailsRouteArgs {
-  const TransactionDetailsRouteArgs({this.key, required this.transaction});
+  const TransactionDetailsRouteArgs({
+    this.key,
+    required this.transaction,
+  });
 
   final Key? key;
 
@@ -258,7 +447,11 @@ class TransactionDetailsRouteArgs {
 /// generated route for
 /// [LoginPage]
 class LoginRoute extends PageRouteInfo<void> {
-  const LoginRoute() : super(LoginRoute.name, path: '/login-page');
+  const LoginRoute()
+      : super(
+          LoginRoute.name,
+          path: '/login-page',
+        );
 
   static const String name = 'LoginRoute';
 }
@@ -267,7 +460,10 @@ class LoginRoute extends PageRouteInfo<void> {
 /// [RestPasswordPage]
 class RestPasswordRoute extends PageRouteInfo<void> {
   const RestPasswordRoute()
-      : super(RestPasswordRoute.name, path: '/rest-password-page');
+      : super(
+          RestPasswordRoute.name,
+          path: '/rest-password-page',
+        );
 
   static const String name = 'RestPasswordRoute';
 }
@@ -276,7 +472,10 @@ class RestPasswordRoute extends PageRouteInfo<void> {
 /// [SetupAccountPage]
 class SetupAccountRoute extends PageRouteInfo<void> {
   const SetupAccountRoute()
-      : super(SetupAccountRoute.name, path: '/setup-account-page');
+      : super(
+          SetupAccountRoute.name,
+          path: '/setup-account-page',
+        );
 
   static const String name = 'SetupAccountRoute';
 }
@@ -284,18 +483,29 @@ class SetupAccountRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [AddNewAccountPage]
 class AddNewAccountRoute extends PageRouteInfo<AddNewAccountRouteArgs> {
-  AddNewAccountRoute({Key? key, Account? account, required bool isSetupAccount})
-      : super(AddNewAccountRoute.name,
-            path: '/add-new-account-page',
-            args: AddNewAccountRouteArgs(
-                key: key, account: account, isSetupAccount: isSetupAccount));
+  AddNewAccountRoute({
+    Key? key,
+    Account? account,
+    required bool isSetupAccount,
+  }) : super(
+          AddNewAccountRoute.name,
+          path: '/add-new-account-page',
+          args: AddNewAccountRouteArgs(
+            key: key,
+            account: account,
+            isSetupAccount: isSetupAccount,
+          ),
+        );
 
   static const String name = 'AddNewAccountRoute';
 }
 
 class AddNewAccountRouteArgs {
-  const AddNewAccountRouteArgs(
-      {this.key, this.account, required this.isSetupAccount});
+  const AddNewAccountRouteArgs({
+    this.key,
+    this.account,
+    required this.isSetupAccount,
+  });
 
   final Key? key;
 
@@ -313,7 +523,10 @@ class AddNewAccountRouteArgs {
 /// [AccountAllSetPage]
 class AccountAllSetRoute extends PageRouteInfo<void> {
   const AccountAllSetRoute()
-      : super(AccountAllSetRoute.name, path: '/account-all-set-page');
+      : super(
+          AccountAllSetRoute.name,
+          path: '/account-all-set-page',
+        );
 
   static const String name = 'AccountAllSetRoute';
 }
@@ -321,17 +534,26 @@ class AccountAllSetRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [NewTransactionPage]
 class NewTransactionRoute extends PageRouteInfo<NewTransactionRouteArgs> {
-  NewTransactionRoute({Key? key, required TransactionType transactionType})
-      : super(NewTransactionRoute.name,
-            path: '/new-transaction-page',
-            args: NewTransactionRouteArgs(
-                key: key, transactionType: transactionType));
+  NewTransactionRoute({
+    Key? key,
+    required TransactionType transactionType,
+  }) : super(
+          NewTransactionRoute.name,
+          path: '/new-transaction-page',
+          args: NewTransactionRouteArgs(
+            key: key,
+            transactionType: transactionType,
+          ),
+        );
 
   static const String name = 'NewTransactionRoute';
 }
 
 class NewTransactionRouteArgs {
-  const NewTransactionRouteArgs({this.key, required this.transactionType});
+  const NewTransactionRouteArgs({
+    this.key,
+    required this.transactionType,
+  });
 
   final Key? key;
 
@@ -347,7 +569,10 @@ class NewTransactionRouteArgs {
 /// [NewTransferPage]
 class NewTransferRoute extends PageRouteInfo<void> {
   const NewTransferRoute()
-      : super(NewTransferRoute.name, path: '/new-transfer-page');
+      : super(
+          NewTransferRoute.name,
+          path: '/new-transfer-page',
+        );
 
   static const String name = 'NewTransferRoute';
 }
@@ -356,7 +581,10 @@ class NewTransferRoute extends PageRouteInfo<void> {
 /// [NotificationPage]
 class NotificationRoute extends PageRouteInfo<void> {
   const NotificationRoute()
-      : super(NotificationRoute.name, path: '/notification-page');
+      : super(
+          NotificationRoute.name,
+          path: '/notification-page',
+        );
 
   static const String name = 'NotificationRoute';
 }
@@ -364,17 +592,26 @@ class NotificationRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [FinancialDetailsPage]
 class FinancialDetailsRoute extends PageRouteInfo<FinancialDetailsRouteArgs> {
-  FinancialDetailsRoute({Key? key, required FinancialReport financialReport})
-      : super(FinancialDetailsRoute.name,
-            path: '/financial-details-page',
-            args: FinancialDetailsRouteArgs(
-                key: key, financialReport: financialReport));
+  FinancialDetailsRoute({
+    Key? key,
+    required FinancialReport financialReport,
+  }) : super(
+          FinancialDetailsRoute.name,
+          path: '/financial-details-page',
+          args: FinancialDetailsRouteArgs(
+            key: key,
+            financialReport: financialReport,
+          ),
+        );
 
   static const String name = 'FinancialDetailsRoute';
 }
 
 class FinancialDetailsRouteArgs {
-  const FinancialDetailsRouteArgs({this.key, required this.financialReport});
+  const FinancialDetailsRouteArgs({
+    this.key,
+    required this.financialReport,
+  });
 
   final Key? key;
 
@@ -389,16 +626,26 @@ class FinancialDetailsRouteArgs {
 /// generated route for
 /// [NewBudgetPage]
 class NewBudgetRoute extends PageRouteInfo<NewBudgetRouteArgs> {
-  NewBudgetRoute({Key? key, Budget? budget})
-      : super(NewBudgetRoute.name,
-            path: '/new-budget-page',
-            args: NewBudgetRouteArgs(key: key, budget: budget));
+  NewBudgetRoute({
+    Key? key,
+    Budget? budget,
+  }) : super(
+          NewBudgetRoute.name,
+          path: '/new-budget-page',
+          args: NewBudgetRouteArgs(
+            key: key,
+            budget: budget,
+          ),
+        );
 
   static const String name = 'NewBudgetRoute';
 }
 
 class NewBudgetRouteArgs {
-  const NewBudgetRouteArgs({this.key, this.budget});
+  const NewBudgetRouteArgs({
+    this.key,
+    this.budget,
+  });
 
   final Key? key;
 
@@ -413,7 +660,11 @@ class NewBudgetRouteArgs {
 /// generated route for
 /// [AccountsPage]
 class AccountsRoute extends PageRouteInfo<void> {
-  const AccountsRoute() : super(AccountsRoute.name, path: '/accounts-page');
+  const AccountsRoute()
+      : super(
+          AccountsRoute.name,
+          path: '/accounts-page',
+        );
 
   static const String name = 'AccountsRoute';
 }
@@ -421,16 +672,26 @@ class AccountsRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [AccountDetailsPage]
 class AccountDetailsRoute extends PageRouteInfo<AccountDetailsRouteArgs> {
-  AccountDetailsRoute({Key? key, required Account account})
-      : super(AccountDetailsRoute.name,
-            path: '/account-details-page',
-            args: AccountDetailsRouteArgs(key: key, account: account));
+  AccountDetailsRoute({
+    Key? key,
+    required Account account,
+  }) : super(
+          AccountDetailsRoute.name,
+          path: '/account-details-page',
+          args: AccountDetailsRouteArgs(
+            key: key,
+            account: account,
+          ),
+        );
 
   static const String name = 'AccountDetailsRoute';
 }
 
 class AccountDetailsRouteArgs {
-  const AccountDetailsRouteArgs({this.key, required this.account});
+  const AccountDetailsRouteArgs({
+    this.key,
+    required this.account,
+  });
 
   final Key? key;
 
@@ -445,16 +706,26 @@ class AccountDetailsRouteArgs {
 /// generated route for
 /// [BudgetDetailsPage]
 class BudgetDetailsRoute extends PageRouteInfo<BudgetDetailsRouteArgs> {
-  BudgetDetailsRoute({Key? key, required Budget budget})
-      : super(BudgetDetailsRoute.name,
-            path: '/budget-details-page',
-            args: BudgetDetailsRouteArgs(key: key, budget: budget));
+  BudgetDetailsRoute({
+    Key? key,
+    required Budget budget,
+  }) : super(
+          BudgetDetailsRoute.name,
+          path: '/budget-details-page',
+          args: BudgetDetailsRouteArgs(
+            key: key,
+            budget: budget,
+          ),
+        );
 
   static const String name = 'BudgetDetailsRoute';
 }
 
 class BudgetDetailsRouteArgs {
-  const BudgetDetailsRouteArgs({this.key, required this.budget});
+  const BudgetDetailsRouteArgs({
+    this.key,
+    required this.budget,
+  });
 
   final Key? key;
 
@@ -469,7 +740,11 @@ class BudgetDetailsRouteArgs {
 /// generated route for
 /// [SettingsPage]
 class SettingsRoute extends PageRouteInfo<void> {
-  const SettingsRoute() : super(SettingsRoute.name, path: '/settings-page');
+  const SettingsRoute()
+      : super(
+          SettingsRoute.name,
+          path: '/settings-page',
+        );
 
   static const String name = 'SettingsRoute';
 }
@@ -477,7 +752,11 @@ class SettingsRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [AboutPage]
 class AboutRoute extends PageRouteInfo<void> {
-  const AboutRoute() : super(AboutRoute.name, path: '/about-page');
+  const AboutRoute()
+      : super(
+          AboutRoute.name,
+          path: '/about-page',
+        );
 
   static const String name = 'AboutRoute';
 }
@@ -485,7 +764,11 @@ class AboutRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [CurrencyPage]
 class CurrencyRoute extends PageRouteInfo<void> {
-  const CurrencyRoute() : super(CurrencyRoute.name, path: '/currency-page');
+  const CurrencyRoute()
+      : super(
+          CurrencyRoute.name,
+          path: '/currency-page',
+        );
 
   static const String name = 'CurrencyRoute';
 }
@@ -493,7 +776,11 @@ class CurrencyRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [LanguagePage]
 class LanguageRoute extends PageRouteInfo<void> {
-  const LanguageRoute() : super(LanguageRoute.name, path: '/language-page');
+  const LanguageRoute()
+      : super(
+          LanguageRoute.name,
+          path: '/language-page',
+        );
 
   static const String name = 'LanguageRoute';
 }
@@ -501,16 +788,58 @@ class LanguageRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [ThemePage]
 class ThemeRoute extends PageRouteInfo<void> {
-  const ThemeRoute() : super(ThemeRoute.name, path: '/theme-page');
+  const ThemeRoute()
+      : super(
+          ThemeRoute.name,
+          path: '/theme-page',
+        );
 
   static const String name = 'ThemeRoute';
+}
+
+/// generated route for
+/// [EditeProfilePage]
+class EditeProfileRoute extends PageRouteInfo<EditeProfileRouteArgs> {
+  EditeProfileRoute({
+    Key? key,
+    required User user,
+  }) : super(
+          EditeProfileRoute.name,
+          path: '/edite-profile-page',
+          args: EditeProfileRouteArgs(
+            key: key,
+            user: user,
+          ),
+        );
+
+  static const String name = 'EditeProfileRoute';
+}
+
+class EditeProfileRouteArgs {
+  const EditeProfileRouteArgs({
+    this.key,
+    required this.user,
+  });
+
+  final Key? key;
+
+  final User user;
+
+  @override
+  String toString() {
+    return 'EditeProfileRouteArgs{key: $key, user: $user}';
+  }
 }
 
 /// generated route for
 /// [MainPage]
 class MainRoute extends PageRouteInfo<void> {
   const MainRoute({List<PageRouteInfo>? children})
-      : super(MainRoute.name, path: '/', initialChildren: children);
+      : super(
+          MainRoute.name,
+          path: '/',
+          initialChildren: children,
+        );
 
   static const String name = 'MainRoute';
 }
@@ -518,7 +847,11 @@ class MainRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [HomePage]
 class HomeRoute extends PageRouteInfo<void> {
-  const HomeRoute() : super(HomeRoute.name, path: 'home');
+  const HomeRoute()
+      : super(
+          HomeRoute.name,
+          path: 'home',
+        );
 
   static const String name = 'HomeRoute';
 }
@@ -526,7 +859,11 @@ class HomeRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [TransactionPage]
 class TransactionRoute extends PageRouteInfo<void> {
-  const TransactionRoute() : super(TransactionRoute.name, path: 'transaction');
+  const TransactionRoute()
+      : super(
+          TransactionRoute.name,
+          path: 'transaction',
+        );
 
   static const String name = 'TransactionRoute';
 }
@@ -534,7 +871,11 @@ class TransactionRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [BudgetPage]
 class BudgetRoute extends PageRouteInfo<void> {
-  const BudgetRoute() : super(BudgetRoute.name, path: 'budget');
+  const BudgetRoute()
+      : super(
+          BudgetRoute.name,
+          path: 'budget',
+        );
 
   static const String name = 'BudgetRoute';
 }
@@ -542,7 +883,11 @@ class BudgetRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [ProfilePage]
 class ProfileRoute extends PageRouteInfo<void> {
-  const ProfileRoute() : super(ProfileRoute.name, path: 'profile');
+  const ProfileRoute()
+      : super(
+          ProfileRoute.name,
+          path: 'profile',
+        );
 
   static const String name = 'ProfileRoute';
 }

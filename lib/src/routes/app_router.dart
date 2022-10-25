@@ -23,6 +23,7 @@ import 'package:expense_tracker_app/src/view/new_transaction/new_transaction_pag
 import 'package:expense_tracker_app/src/view/new_transfer/new_transfer_page.dart';
 import 'package:expense_tracker_app/src/view/notification/notification_page.dart';
 import 'package:expense_tracker_app/src/view/onboarding/onboarding_page.dart';
+import 'package:expense_tracker_app/src/view/profile/edite_profile_screen.dart.dart';
 import 'package:expense_tracker_app/src/view/profile/profile_page.dart';
 import 'package:expense_tracker_app/src/view/rest_password/rest_password_page.dart';
 import 'package:expense_tracker_app/src/view/settings/about_page.dart';
@@ -37,6 +38,8 @@ import 'package:expense_tracker_app/src/view/transaction/transaction_page.dart';
 import 'package:expense_tracker_app/src/view/transaction_details/transaction_details.dart';
 
 import 'package:flutter/material.dart';
+
+import '../data/models/user.dart';
 
 part 'app_router.gr.dart';
 
@@ -104,6 +107,9 @@ part 'app_router.gr.dart';
     ),
     AutoRoute(
       page: ThemePage,
+    ),
+    AutoRoute(
+      page: EditeProfilePage,
     ),
     AutoRoute(page: MainPage, path: "/", children: [
       AutoRoute(path: "home", initial: true, page: HomePage),

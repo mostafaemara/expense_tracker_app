@@ -1,10 +1,14 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:expense_tracker_app/injection.dart';
 import 'package:expense_tracker_app/src/data/exceptions/invalid_input_exception.dart';
+import 'package:expense_tracker_app/src/data/exceptions/server_exception.dart';
 import 'package:expense_tracker_app/src/data/models/inputs/login_input.dart';
 import 'package:expense_tracker_app/src/data/models/inputs/signup_input.dart';
 import 'package:expense_tracker_app/src/data/models/language.dart';
-
 import 'package:expense_tracker_app/src/data/models/user.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:expense_tracker_app/src/data/repositories/config_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
@@ -12,6 +16,7 @@ import 'package:flutter/material.dart';
 
 class AuthRepository {
   final authApi = fb_auth.FirebaseAuth.instance;
+  final storage = FirebaseStorage.instance;
 
   Future<User> login(LoginInput input) async {
     try {
@@ -97,5 +102,52 @@ class AuthRepository {
 
   Stream<User?> onAuthChange() {
     throw UnimplementedError();
+  }
+
+  Future<User> updateUserName(String username) async {
+    try {
+      await authApi.currentUser!.updateDisplayName(username);
+      final user = authApi.currentUser;
+      if (user != null) {
+        return User(
+            image: user.photoURL ?? "",
+            token: "",
+            email: user.email ?? "",
+            id: user.uid,
+            name: user.displayName ?? "");
+      }
+      throw Exception("user not Authintecated user is null");
+    } catch (e) {
+      throw ServerException();
+    }
+  }
+
+  Future<User> updateUserProfile(File imageFile) async {
+    try {
+      var user = authApi.currentUser;
+      if (user == null) {
+        throw Exception("user not Authintecated user is null");
+      }
+      String fileName = imageFile.path.split('/').last;
+
+      final profileImageRef =
+          storage.ref().child("users_profile_images/${user.uid}_$fileName");
+
+      await profileImageRef.putFile(imageFile);
+      final imageUrl = await profileImageRef.getDownloadURL();
+
+      await authApi.currentUser!.updatePhotoURL(imageUrl);
+
+      user = authApi.currentUser;
+      return User(
+          image: user!.photoURL ?? "",
+          token: "",
+          email: user.email ?? "",
+          id: user.uid,
+          name: user.displayName ?? "");
+    } catch (e) {
+      log(e.toString());
+      throw ServerException();
+    }
   }
 }

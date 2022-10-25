@@ -1,14 +1,18 @@
-import 'package:expense_tracker_app/src/bloc/profile/profile_cubit.dart';
+import 'package:expense_tracker_app/src/data/models/user.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileHeader extends StatelessWidget {
-  const ProfileHeader({Key? key}) : super(key: key);
+  const ProfileHeader({
+    Key? key,
+    required this.user,
+    required this.onEditePressed,
+  }) : super(key: key);
+  final User user;
+  final VoidCallback onEditePressed;
 
   @override
   Widget build(BuildContext context) {
-    final user = context.watch<ProfileCubit>().state.user;
     return SizedBox(
         height: 90,
         child: Row(
@@ -59,7 +63,7 @@ class ProfileHeader extends StatelessWidget {
             ),
             const Spacer(),
             IconButton(
-                onPressed: () {},
+                onPressed: onEditePressed,
                 icon: Image.asset(
                   "assets/images/edit.png",
                   width: 32,
