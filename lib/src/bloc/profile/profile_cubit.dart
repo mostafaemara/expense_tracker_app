@@ -14,7 +14,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   final _authRepo = locator<AuthRepository>();
   final _userRepo = locator<UserRepository>();
 
-  void init() async {
+  Future<void> init() async {
     final user = await _userRepo.readUser();
     emit(state.copyWith(isLoading: false, user: user));
   }

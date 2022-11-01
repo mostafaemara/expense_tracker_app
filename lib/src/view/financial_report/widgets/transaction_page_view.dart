@@ -59,12 +59,14 @@ class TransactionPageView extends StatelessWidget {
             const SizedBox(
               height: 24,
             ),
-            Text(
-              "\$$transactionsAmount",
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 64),
+            FittedBox(
+              child: Text(
+                "\$$transactionsAmount",
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 64),
+              ),
             ),
             const SizedBox(
               height: 120,
@@ -94,13 +96,15 @@ class TransactionPageView extends StatelessWidget {
                   category: highestTransaction.category,
                 ),
                 const Spacer(),
-                Text(
-                  "\$${highestTransaction.amount}",
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      color: AppColors.dark,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 36),
+                FittedBox(
+                  child: Text(
+                    "\$${highestTransaction.amount}",
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        color: AppColors.dark,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 36),
+                  ),
                 ),
                 const SizedBox(
                   height: 21,

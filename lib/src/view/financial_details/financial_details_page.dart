@@ -75,9 +75,7 @@ class _FinancialDetailsPageState extends State<FinancialDetailsPage> {
                   ),
                   Expanded(
                     child: TransactionSheet(
-                        amount: amount,
-                        chartType: state.chartType,
-                        transactions: _transactions),
+                        amount: amount, transactions: _transactions),
                   )
                 ],
               ));

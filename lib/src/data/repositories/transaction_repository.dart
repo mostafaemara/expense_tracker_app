@@ -172,11 +172,13 @@ class TransactionRepository {
 
   Future<void> addTransfer(TransferInput input) async {
     try {
-      // final response =
-      //     await _api.post(ApiConfig.transferPath, data: input.toMap());
-      await Future.delayed(const Duration(seconds: 1));
-    } on DioError catch (e) {
-      throw e.mapToAppExceptions();
+      await fbFunctions.httpsCallable("addTransfer").call(input.toMap());
+    } on FirebaseFunctionsException catch (e) {
+      log(e.toString());
+      if (e.code == "out-of-range") {
+        throw InavlidInputException(e.message!);
+      }
+      throw ServerException();
     }
   }
 

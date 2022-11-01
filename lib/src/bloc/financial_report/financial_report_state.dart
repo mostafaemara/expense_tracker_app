@@ -9,8 +9,13 @@ class FinancialReportState {
   final DateTime selectedMonth;
   final TransactionType transactionType;
   final ChartType chartType;
-  FinancialReportState(this.isLoading, this.financialReport, this.selectedMonth,
-      this.transactionType, this.chartType);
+  FinancialReportState(
+    this.isLoading,
+    this.financialReport,
+    this.selectedMonth,
+    this.transactionType,
+    this.chartType,
+  );
   FinancialReportState.init()
       : isLoading = true,
         selectedMonth = DateTime(DateTime.now().year, DateTime.now().month, 1),
