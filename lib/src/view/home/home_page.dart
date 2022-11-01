@@ -39,92 +39,99 @@ class _HomePageState extends State<HomePage> {
         }
         return Container(
           color: AppColors.homeTopWidgetBackgroundEndColor,
-          child: SingleChildScrollView(
-            child: Container(
-              color: AppColors.light,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Head(),
-                  const SizedBox(
-                    height: 13,
-                  ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.only(
-                      start: 16,
+          child: RefreshIndicator(
+            onRefresh: () async {
+              await context.read<ProfileCubit>().init();
+              await context.read<HomeCubit>().init();
+            },
+            child: SingleChildScrollView(
+              child: Container(
+                color: AppColors.light,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Head(),
+                    const SizedBox(
+                      height: 13,
                     ),
-                    child: Text(
-                      AppLocalizations.of(context)!.spendFrequency,
-                      style: Theme.of(context)
-                          .textTheme
-                          .subtitle1!
-                          .copyWith(fontWeight: FontWeight.w600),
+                    Padding(
+                      padding: const EdgeInsetsDirectional.only(
+                        start: 16,
+                      ),
+                      child: Text(
+                        AppLocalizations.of(context)!.spendFrequency,
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle1!
+                            .copyWith(fontWeight: FontWeight.w600),
+                      ),
                     ),
-                  ),
-                  LinearTransactionChart(
-                    transactions: state.transactionsOfSelectedDuration,
-                  ),
-                  DurationTabbar(
-                    onChanged: (DurationType type) {
-                      context.read<HomeCubit>().selectSpendDuration(type);
-                    },
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!.recentTransaction,
-                          style: Theme.of(context)
-                              .textTheme
-                              .subtitle1!
-                              .copyWith(fontWeight: FontWeight.w600),
-                        ),
-                        ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                onPrimary:
-                                    Theme.of(context).colorScheme.primary,
-                                primary:
-                                    Theme.of(context).colorScheme.secondary),
-                            onPressed: () {
-                              AutoRouter.of(context)
-                                  .navigate(const TransactionRoute());
-                            },
-                            child: Text(AppLocalizations.of(context)!.seeAll))
-                      ],
+                    LinearTransactionChart(
+                      transactions: state.transactionsOfSelectedDuration,
                     ),
-                  ),
-                  SizedBox(
-                    height: 290,
-                    child: BlocBuilder<HomeCubit, HomeState>(
-                      builder: (context, state) {
-                        return Column(
-                          children: List.generate(
-                              state.recentTransactions.length,
-                              (index) => TransactionListItem(
-                                    transaction:
-                                        state.recentTransactions[index],
-                                    onPressed: () async {
-                                      final result = await AutoRouter.of(
-                                              context)
-                                          .push(TransactionDetailsRoute(
-                                              transaction: state
-                                                  .recentTransactions[index]));
-
-                                      if (result != null) {
-                                        context.read<HomeCubit>().init();
-                                      }
-                                    },
-                                  )),
-                        );
+                    DurationTabbar(
+                      onChanged: (DurationType type) {
+                        context.read<HomeCubit>().selectSpendDuration(type);
                       },
                     ),
-                  )
-                ],
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.recentTransaction,
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle1!
+                                .copyWith(fontWeight: FontWeight.w600),
+                          ),
+                          ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  foregroundColor:
+                                      Theme.of(context).colorScheme.primary,
+                                  backgroundColor:
+                                      Theme.of(context).colorScheme.secondary),
+                              onPressed: () {
+                                AutoRouter.of(context)
+                                    .navigate(const TransactionRoute());
+                              },
+                              child: Text(AppLocalizations.of(context)!.seeAll))
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 290,
+                      child: BlocBuilder<HomeCubit, HomeState>(
+                        builder: (context, state) {
+                          return Column(
+                            children: List.generate(
+                                state.recentTransactions.length,
+                                (index) => TransactionListItem(
+                                      transaction:
+                                          state.recentTransactions[index],
+                                      onPressed: () async {
+                                        final result =
+                                            await AutoRouter.of(context).push(
+                                                TransactionDetailsRoute(
+                                                    transaction: state
+                                                            .recentTransactions[
+                                                        index]));
+
+                                        if (result != null) {
+                                          context.read<HomeCubit>().init();
+                                        }
+                                      },
+                                    )),
+                          );
+                        },
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),

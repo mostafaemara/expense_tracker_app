@@ -16,7 +16,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   HomeCubit() : super(const HomeState.init());
 
-  void init() async {
+  Future<void> init() async {
     try {
       final finance = await _transactionRepository.readFinance();
       final transactions = await _transactionRepository.readTransactions(

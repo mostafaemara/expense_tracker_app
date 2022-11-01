@@ -43,15 +43,14 @@ class CategoryCard extends StatelessWidget {
             width: 8,
           ),
           Expanded(
-            child: FittedBox(
-              child: Text(
-                category.title,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                    color: AppColors.dark,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 18),
-              ),
+            child: Text(
+              category.title,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                  color: AppColors.dark,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 15),
             ),
           )
         ]),
