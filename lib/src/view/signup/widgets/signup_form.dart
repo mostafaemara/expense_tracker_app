@@ -87,7 +87,7 @@ class _SignupFormState extends State<SignupForm> {
             ),
             LoginWithGoogleButton(
               onPressed: () {
-                //TODO login with google
+                BlocProvider.of<SignupCubit>(context).loginWithGoolge();
               },
             ),
             const SizedBox(

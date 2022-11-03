@@ -16,7 +16,7 @@ dependencies:
     sdk: flutter
   auto_route: ^4.0.1
   introduction_screen: ^3.0.2
-  syncfusion_flutter_charts: ^20.1.58+1
+  syncfusion_flutter_charts: ^20.3.52
   bubble_tab_indicator: ^0.1.6
   intl: ^0.17.0
   get_it: ^7.2.0
@@ -49,6 +49,7 @@ dependencies:
   firebase_messaging: ^14.0.2
   flutter_local_notifications: ^12.0.2
   cloud_functions: ^4.0.2
+  
   shimmer: ^2.0.0
 
 dev_dependencies:

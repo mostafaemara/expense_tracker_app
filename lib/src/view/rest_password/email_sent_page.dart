@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'widgets/rest_password_form.dart';
+import 'widgets/email_sent.dart';
 
-class RestPasswordPage extends StatelessWidget {
-  const RestPasswordPage({Key? key}) : super(key: key);
+class EmailSentPage extends StatelessWidget {
+  const EmailSentPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class RestPasswordPage extends StatelessWidget {
               SizedBox(
                 height: 56,
               ),
-              RestPasswordForm()
+              EmailSent()
             ],
           ),
         ));
