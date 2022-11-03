@@ -20,6 +20,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   Future<void> logout() async {
+    await _authRepo.logout();
     await _userRepo.deleteUser();
   }
 

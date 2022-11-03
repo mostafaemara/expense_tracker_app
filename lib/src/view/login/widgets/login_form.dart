@@ -61,7 +61,9 @@ class _LoginFormState extends State<LoginForm> {
             const SizedBox(
               height: 12,
             ),
-            LoginWithGoogleButton(onPressed: () {}),
+            LoginWithGoogleButton(onPressed: () {
+              BlocProvider.of<LoginCubit>(context).loginWithGoolge();
+            }),
             const ForgotPasswordButton(),
             const SignupButton(),
           ],

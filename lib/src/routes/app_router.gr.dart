@@ -63,6 +63,12 @@ class _$AppRouter extends RootStackRouter {
         child: const RestPasswordPage(),
       );
     },
+    EmailSentRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const EmailSentPage(),
+      );
+    },
     SetupAccountRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
         routeData: routeData,
@@ -256,6 +262,10 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(
           RestPasswordRoute.name,
           path: '/rest-password-page',
+        ),
+        RouteConfig(
+          EmailSentRoute.name,
+          path: '/email-sent-page',
         ),
         RouteConfig(
           SetupAccountRoute.name,
@@ -466,6 +476,18 @@ class RestPasswordRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'RestPasswordRoute';
+}
+
+/// generated route for
+/// [EmailSentPage]
+class EmailSentRoute extends PageRouteInfo<void> {
+  const EmailSentRoute()
+      : super(
+          EmailSentRoute.name,
+          path: '/email-sent-page',
+        );
+
+  static const String name = 'EmailSentRoute';
 }
 
 /// generated route for

@@ -25,6 +25,7 @@ import 'package:expense_tracker_app/src/view/notification/notification_page.dart
 import 'package:expense_tracker_app/src/view/onboarding/onboarding_page.dart';
 import 'package:expense_tracker_app/src/view/profile/edite_profile_screen.dart.dart';
 import 'package:expense_tracker_app/src/view/profile/profile_page.dart';
+import 'package:expense_tracker_app/src/view/rest_password/email_sent_page.dart';
 import 'package:expense_tracker_app/src/view/rest_password/rest_password_page.dart';
 import 'package:expense_tracker_app/src/view/settings/about_page.dart';
 import 'package:expense_tracker_app/src/view/settings/currency_page.dart';
@@ -60,6 +61,7 @@ part 'app_router.gr.dart';
     AutoRoute(page: TransactionDetailsPage),
     AutoRoute(page: LoginPage),
     AutoRoute(page: RestPasswordPage),
+    AutoRoute(page: EmailSentPage),
     AutoRoute(
       page: SetupAccountPage,
     ),

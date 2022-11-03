@@ -36,4 +36,20 @@ class LoginCubit extends Cubit<SubmissionState> {
       emit(state.copyWith(error: error, submissionStatus: Status.error));
     }
   }
+
+  void loginWithGoolge() async {
+    try {
+      emit(state.copyWith(submissionStatus: Status.loading, error: ""));
+      await _connectionManger.checkConnection();
+
+      final user = await _authService.loginWithGoogle();
+
+      await _userRepo.writeUser(user);
+
+      emit(state.copyWith(submissionStatus: Status.success, error: ""));
+    } on Exception catch (e) {
+      final error = await e.parse(const Locale("en"));
+      emit(state.copyWith(error: error, submissionStatus: Status.error));
+    }
+  }
 }
