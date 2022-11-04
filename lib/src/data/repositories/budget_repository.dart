@@ -3,8 +3,6 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
-import 'package:dio/dio.dart';
-import 'package:expense_tracker_app/src/data/api/api.dart';
 
 import '../exceptions/invalid_input_exception.dart';
 import '../exceptions/server_exception.dart';
@@ -53,16 +51,16 @@ class BudgetRepository {
   Future<void> updateBudget(BudgetInput input, String id) async {
     try {
       await fbFireStore.collection(budgetsRef).doc(id).update(input.toMap());
-    } on DioError catch (e) {
-      throw e.mapToAppExceptions();
+    } catch (e) {
+      throw ServerException();
     }
   }
 
   Future<void> deleteBudget(String id) async {
     try {
       await fbFireStore.collection(budgetsRef).doc(id).delete();
-    } on DioError catch (e) {
-      throw e.mapToAppExceptions();
+    } catch (e) {
+      throw ServerException();
     }
   }
 }

@@ -6,7 +6,6 @@ import 'package:expense_tracker_app/src/data/repositories/date_repository.dart';
 import 'package:expense_tracker_app/src/data/repositories/transaction_repository.dart';
 
 import 'package:expense_tracker_app/src/data/repositories/user_repository.dart';
-import 'package:expense_tracker_app/src/data/api/api.dart';
 
 import 'package:expense_tracker_app/src/data/repositories/auth_repository.dart';
 import 'package:expense_tracker_app/src/manger/connection_manger.dart';
@@ -27,22 +26,20 @@ Future<void> initializeDependencies() async {
   locator.registerSingletonWithDependencies<UserRepository>(
       () => UserRepository(),
       dependsOn: [SharedPreferences]);
-  locator.registerSingletonWithDependencies<Api>(() => Api()..init(),
-      dependsOn: [UserRepository]);
 
-  locator.registerSingletonWithDependencies<AccountRepository>(
-      () => AccountRepository(),
-      dependsOn: [Api]);
-  locator.registerSingletonWithDependencies<AuthRepository>(
-      () => AuthRepository(),
-      dependsOn: [UserRepository, Api]);
+  locator.registerSingleton<AccountRepository>(
+    AccountRepository(),
+  );
+  locator.registerSingleton<AuthRepository>(
+    AuthRepository(),
+  );
   locator.registerSingleton<DateRepository>(DateRepository());
-  locator.registerSingletonWithDependencies<TransactionRepository>(
-      () => TransactionRepository(),
-      dependsOn: [Api]);
-  locator.registerSingletonWithDependencies<BudgetRepository>(
-      () => BudgetRepository(),
-      dependsOn: [Api]);
+  locator.registerSingleton<TransactionRepository>(
+    TransactionRepository(),
+  );
+  locator.registerSingleton<BudgetRepository>(
+    BudgetRepository(),
+  );
 
   return await locator.allReady();
 }

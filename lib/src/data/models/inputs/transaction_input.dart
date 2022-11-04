@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
 
 class TransactionInput {
@@ -6,8 +8,9 @@ class TransactionInput {
   final String title;
   final double amount;
   final String description;
-  final String attachment;
+
   final String accountId;
+  final File? attachment;
 
   TransactionInput(
       {required this.accountId,
@@ -16,7 +19,7 @@ class TransactionInput {
       required this.categoryId,
       required this.amount,
       required this.description,
-      this.attachment = ""});
+      this.attachment});
 
   Map<String, dynamic> toMap() {
     return {
@@ -26,7 +29,6 @@ class TransactionInput {
       "accountId": accountId,
       "amount": amount,
       "description": description,
-      "attachment": attachment,
     };
   }
 }

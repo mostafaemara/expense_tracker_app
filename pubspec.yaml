@@ -35,8 +35,8 @@ dependencies:
   ntp: ^2.0.0
   path_provider: ^2.0.8
   shared_preferences: ^2.0.13
-  dio: ^4.0.6
-  pretty_dio_logger: ^1.2.0-beta-1
+  
+ 
   connectivity_plus: ^2.3.0
   page_indicator: ^0.4.1
   collection: ^1.16.0

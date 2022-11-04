@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_state.dart';
@@ -13,9 +15,11 @@ import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../common/account_form_field.dart';
 import '../../common/add_attachment_button.dart';
+import '../../common/attachment_bottom_sheet.dart';
 import '../../common/balance_text_field.dart';
 import '../../common/description_form_field.dart';
 import '../../common/submit_button.dart';
@@ -39,6 +43,7 @@ class _TransactionFormState extends State<TransactionForm> {
   final _titleController = TextEditingController();
   String? _selectedAccountId;
   String? _selectedCategoryId;
+  File? _selectedAttachment;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<NewTransactionCubit, NewTransactionState>(
@@ -87,6 +92,12 @@ class _TransactionFormState extends State<TransactionForm> {
                           height: 16,
                         ),
                         AddAttachmentButton(
+                            onDelete: () {
+                              setState(() {
+                                _selectedAttachment = null;
+                              });
+                            },
+                            selectedAttachment: _selectedAttachment,
                             onPressed: () => _showChooseAttachmentModal(
                                   context,
                                 )),
@@ -120,23 +131,33 @@ class _TransactionFormState extends State<TransactionForm> {
   void _showChooseAttachmentModal(
     BuildContext context,
   ) {
-    // showModalBottomSheet(
-    //   context: context,
-    //   shape: const RoundedRectangleBorder(
-    //     borderRadius: BorderRadius.only(
-    //       topLeft: Radius.circular(24),
-    //       topRight: Radius.circular(24),
-    //     ),
-    //   ),
-    //   builder: (context) =>
-    //       AttachmentBottomSheet(selectAttachment: selectAttachment),
-    // );
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(24),
+          topRight: Radius.circular(24),
+        ),
+      ),
+      builder: (context) =>
+          AttachmentBottomSheet(selectAttachment: _selectAttachment),
+    );
+  }
+
+  void _selectAttachment(ImageSource source) async {
+    final file = await ImagePicker().pickImage(source: source);
+    if (file != null) {
+      setState(() {
+        _selectedAttachment = File(file.path);
+      });
+    }
   }
 
   void _handleSubmittion() {
     if (_formKey.currentState!.validate()) {
       BlocProvider.of<NewTransactionCubit>(context)
           .addTransaction(TransactionInput(
+        attachment: _selectedAttachment,
         accountId: _selectedAccountId!,
         amount: double.parse(_balanceController.text),
         categoryId: _selectedCategoryId!,

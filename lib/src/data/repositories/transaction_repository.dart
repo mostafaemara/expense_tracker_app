@@ -4,8 +4,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart' as fb;
 import 'package:cloud_functions/cloud_functions.dart';
-import 'package:dio/dio.dart';
-import 'package:expense_tracker_app/src/data/api/api.dart';
+
 import 'package:expense_tracker_app/src/data/exceptions/invalid_input_exception.dart';
 import 'package:expense_tracker_app/src/data/exceptions/server_exception.dart';
 import 'package:expense_tracker_app/src/data/models/category.dart';
@@ -20,6 +19,7 @@ import 'package:expense_tracker_app/src/data/models/frequent_transaction.dart';
 import 'package:expense_tracker_app/src/data/models/inputs/transaction_input.dart';
 import 'package:expense_tracker_app/src/data/models/transaction_filter.dart';
 import 'package:expense_tracker_app/src/data/models/transactions_of_date.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:flutter/material.dart';
 
@@ -28,7 +28,7 @@ class TransactionRepository {
   final accountsRef = "accounts";
   final fireStore = fb.FirebaseFirestore.instance;
   final fbFunctions = FirebaseFunctions.instance;
-
+  final storage = FirebaseStorage.instance;
   Future<Transaction> addTransaction(
     TransactionInput transactionInput,
   ) async {
@@ -37,6 +37,21 @@ class TransactionRepository {
           .httpsCallable("addTransaction")
           .call(transactionInput.toMap());
       final map = json.decode(result.data);
+      if (transactionInput.attachment != null) {
+        final id = map["id"];
+        String fileName = transactionInput.attachment!.path.split('/').last;
+
+        final profileImageRef =
+            storage.ref().child("transactions/${id}_$fileName");
+
+        await profileImageRef.putFile(transactionInput.attachment!);
+        final imageUrl = await profileImageRef.getDownloadURL();
+        await fireStore
+            .collection(transactionsRef)
+            .doc(id)
+            .update({"attachment": imageUrl});
+        map["attachment"] = imageUrl;
+      }
 
       return Transaction.fromMap(map);
     } on FirebaseFunctionsException catch (e) {
@@ -89,8 +104,8 @@ class TransactionRepository {
       log(array.toString());
 
       return mapArrayToTransactionsOfDates(array);
-    } on DioError catch (e) {
-      throw e.mapToAppExceptions();
+    } catch (e) {
+      throw ServerException();
     }
   }
 
@@ -191,16 +206,19 @@ class TransactionRepository {
       log(result.data.toString());
 
       return FinancialReport.fromJson(result.data);
-    } on DioError catch (e) {
-      throw e.mapToAppExceptions();
+    } catch (e) {
+      throw ServerException();
     }
   }
 
   Future<void> deleteTransaction(String id) async {
     try {
-      await fireStore.collection(transactionsRef).doc(id).delete();
-    } on DioError catch (e) {
-      throw e.mapToAppExceptions();
+      await fbFunctions.httpsCallable("deleteTransaction").call({"id": id});
+    } on FirebaseFunctionsException catch (e) {
+      if (e.code == "out-of-range") {
+        throw InavlidInputException(e.message!);
+      }
+      throw ServerException();
     }
   }
 }
