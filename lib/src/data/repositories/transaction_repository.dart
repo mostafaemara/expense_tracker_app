@@ -41,8 +41,7 @@ class TransactionRepository {
         final id = map["id"];
         String fileName = transactionInput.attachment!.path.split('/').last;
 
-        final profileImageRef =
-            storage.ref().child("transactions/${id}_$fileName");
+        final profileImageRef = storage.ref().child("transactions/$id");
 
         await profileImageRef.putFile(transactionInput.attachment!);
         final imageUrl = await profileImageRef.getDownloadURL();
@@ -214,6 +213,9 @@ class TransactionRepository {
   Future<void> deleteTransaction(String id) async {
     try {
       await fbFunctions.httpsCallable("deleteTransaction").call({"id": id});
+      final profileImageRef = storage.ref().child("transactions/$id");
+
+      profileImageRef.delete().ignore();
     } on FirebaseFunctionsException catch (e) {
       if (e.code == "out-of-range") {
         throw InavlidInputException(e.message!);

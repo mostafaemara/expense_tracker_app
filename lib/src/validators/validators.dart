@@ -23,9 +23,7 @@ UsernameValidationFailure? userNameValidator(String value) {
   if (value.isEmpty) {
     return UsernameValidationFailure.empty;
   }
-  if (!isAlphanumeric(value)) {
-    return UsernameValidationFailure.invalid;
-  }
+
   if (value.length < 4) {
     return UsernameValidationFailure.tooShort;
   }

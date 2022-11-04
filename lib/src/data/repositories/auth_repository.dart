@@ -1,19 +1,17 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:expense_tracker_app/injection.dart';
 import 'package:expense_tracker_app/src/data/exceptions/invalid_input_exception.dart';
 import 'package:expense_tracker_app/src/data/exceptions/server_exception.dart';
 import 'package:expense_tracker_app/src/data/models/inputs/login_input.dart';
 import 'package:expense_tracker_app/src/data/models/inputs/signup_input.dart';
-import 'package:expense_tracker_app/src/data/models/language.dart';
 import 'package:expense_tracker_app/src/data/models/user.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:expense_tracker_app/src/data/repositories/config_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
-import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import '../../../injection.dart';
 
 class AuthRepository {
   final authApi = fb_auth.FirebaseAuth.instance;
@@ -33,7 +31,8 @@ class AuthRepository {
 
       return user;
     } on fb_auth.FirebaseAuthException catch (e) {
-      final appLocalizations = await loadAppLocalizations();
+      final appLocalizations =
+          await locator<ConfigRepository>().loadAppLocalizations();
       switch (e.code) {
         case "user-disabled":
           throw InavlidInputException(appLocalizations.userDisabled);
@@ -72,7 +71,8 @@ class AuthRepository {
           name: userCredential.user!.displayName ?? "");
       return user;
     } on fb_auth.FirebaseAuthException catch (e) {
-      final appLocalizations = await loadAppLocalizations();
+      final appLocalizations =
+          await locator<ConfigRepository>().loadAppLocalizations();
 
       switch (e.code) {
         case "email-already-in-use":
@@ -94,7 +94,8 @@ class AuthRepository {
       await authApi.sendPasswordResetEmail(email: email);
     } on fb_auth.FirebaseAuthException catch (e) {
       log(e.code);
-      final appLocalizations = await loadAppLocalizations();
+      final appLocalizations =
+          await locator<ConfigRepository>().loadAppLocalizations();
 
       switch (e.code) {
         case "invalid-email":
@@ -124,7 +125,8 @@ class AuthRepository {
 
       return user;
     } on fb_auth.FirebaseAuthException catch (e) {
-      final appLocalizations = await loadAppLocalizations();
+      final appLocalizations =
+          await locator<ConfigRepository>().loadAppLocalizations();
       switch (e.code) {
         case "email-already-in-use":
           throw InavlidInputException(appLocalizations.emailAlreadyInUse);
@@ -194,15 +196,5 @@ class AuthRepository {
       log(e.toString());
       throw ServerException();
     }
-  }
-
-  Future<AppLocalizations> loadAppLocalizations() async {
-    final configRepo = locator<ConfigRepository>();
-
-    final lang = await configRepo.readLanguageCode();
-    final locale = lang == null
-        ? Locale(Language.english.langCode)
-        : Locale(lang.langCode);
-    return await AppLocalizations.delegate.load(locale);
   }
 }

@@ -24,7 +24,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     await _userRepo.deleteUser();
   }
 
-  void updateProfile({String? userName, File? image}) async {
+  Future<void> updateProfile({String? userName, File? image}) async {
     emit(state.copyWith(isLoading: true));
     if (userName != null) {
       final user = await _authRepo.updateUserName(userName);
