@@ -25,6 +25,7 @@ import 'firebase_options.dart';
 import 'injection.dart';
 import 'src/app.dart';
 import 'src/bloc/transaction_details/transaction_details_cubit.dart';
+import 'src/bloc/update_profile/update_profile.dart';
 
 final NotificationManger notificationManger = NotificationManger(
   (p0) {},
@@ -128,9 +129,10 @@ void main() async {
         lazy: false,
         create: (context) => TransactionDetailsCubit(),
       ),
+      BlocProvider(lazy: false, create: (context) => RestPasswordBLoc()),
       BlocProvider(
         lazy: false,
-        create: (context) => RestPasswordBLoc(),
+        create: (context) => UpdateProfileCubit(),
       )
     ], child: MyApp()),
   );

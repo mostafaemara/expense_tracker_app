@@ -1,7 +1,7 @@
 import 'package:expense_tracker_app/injection.dart';
 import 'package:expense_tracker_app/src/data/models/currency.dart';
 import 'package:expense_tracker_app/src/data/models/language.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,6 +44,15 @@ class ConfigRepository {
 
   Future<void> writeCurrency(Currency currency) async =>
       _db.setString(_currencyKey, currency.code);
+  Future<AppLocalizations> loadAppLocalizations() async {
+    final configRepo = locator<ConfigRepository>();
+
+    final lang = await configRepo.readLanguageCode();
+    final locale = lang == null
+        ? Locale(Language.english.langCode)
+        : Locale(lang.langCode);
+    return await AppLocalizations.delegate.load(locale);
+  }
 }
 
 extension ThemeModeMapper on ThemeMode {
