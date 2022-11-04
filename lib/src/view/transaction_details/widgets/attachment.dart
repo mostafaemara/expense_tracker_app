@@ -1,4 +1,3 @@
-import 'package:expense_tracker_app/src/helpers/image_helper.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -18,8 +17,8 @@ class Attachment extends StatelessWidget {
       child: attachment.isNotEmpty
           ? ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.memory(
-                attachment.base64ToImage(),
+              child: Image.network(
+                attachment,
                 fit: BoxFit.cover,
               ),
             )

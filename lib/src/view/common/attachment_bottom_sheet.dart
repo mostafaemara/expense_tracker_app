@@ -33,11 +33,11 @@ class AttachmentBottomSheet extends StatelessWidget {
             imagePath: "assets/images/gallery.png",
             onPressed: () => selectAttachment(ImageSource.gallery),
           ),
-          AttachmentSourceButton(
-            title: AppLocalizations.of(context)!.document,
-            imagePath: "assets/images/file.png",
-            onPressed: () async {},
-          ),
+          // AttachmentSourceButton(
+          //   title: AppLocalizations.of(context)!.document,
+          //   imagePath: "assets/images/file.png",
+          //   onPressed: () async {},
+          // ),
         ],
       ),
     );

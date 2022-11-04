@@ -1,14 +1,19 @@
-import 'package:expense_tracker_app/src/helpers/image_helper.dart';
+import 'dart:io';
+
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddAttachmentButton extends StatelessWidget {
   const AddAttachmentButton(
-      {Key? key, required this.onPressed, this.selectedAttachment})
+      {Key? key,
+      required this.onPressed,
+      this.selectedAttachment,
+      required this.onDelete})
       : super(key: key);
   final VoidCallback onPressed;
-  final String? selectedAttachment;
+  final VoidCallback onDelete;
+  final File? selectedAttachment;
   @override
   Widget build(BuildContext context) {
     return selectedAttachment == null
@@ -25,31 +30,40 @@ class AddAttachmentButton extends StatelessWidget {
             ),
           )
         : Container(
-            height: 112,
+            height: 150,
             alignment: AlignmentDirectional.centerStart,
             width: double.infinity,
             child: SizedBox(
-              height: 112,
-              width: 112,
-              child: Stack(
-                fit: StackFit.expand,
+              height: 150,
+              width: 100,
+              child: Column(
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.memory(
-                      selectedAttachment!.base64ToImage(),
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(8),
+                        topRight: Radius.circular(8)),
+                    child: Image.file(
+                      selectedAttachment!,
                       fit: BoxFit.cover,
+                      width: 100,
+                      height: 120,
                     ),
                   ),
-                  Positioned.fill(
-                    left: 80,
-                    bottom: 80,
-                    child: IconButton(
-                        color: AppColors.light.withOpacity(0.32),
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.cancel_sharp,
-                        )),
+                  SizedBox(
+                    height: 30,
+                    width: 100,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(8),
+                                  bottomLeft: Radius.circular(8))),
+                          backgroundColor: AppColors.red),
+                      child: const Icon(
+                        Icons.delete,
+                      ),
+                      onPressed: onDelete,
+                    ),
                   ),
                 ],
               ),

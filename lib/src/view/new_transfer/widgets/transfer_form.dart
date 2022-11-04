@@ -15,7 +15,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../routes/app_router.dart';
 import '../../common/account_form_field.dart';
-import '../../common/add_attachment_button.dart';
 import '../../common/balance_text_field.dart';
 
 class TransferForm extends StatefulWidget {
@@ -89,10 +88,6 @@ class _TransferFormState extends State<TransferForm> {
                         const SizedBox(
                           height: 16,
                         ),
-                        AddAttachmentButton(
-                            onPressed: () => _showChooseAttachmentModal(
-                                  context,
-                                )),
 
                         //  RepeatSwitchButton(),
                         const SizedBox(
