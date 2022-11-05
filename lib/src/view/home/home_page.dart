@@ -65,6 +65,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     LinearTransactionChart(
                       transactions: state.transactionsOfSelectedDuration,
+                      durationType: state.selectedDuration,
                     ),
                     DurationTabbar(
                       onChanged: (DurationType type) {
