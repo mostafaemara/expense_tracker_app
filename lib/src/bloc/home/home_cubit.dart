@@ -9,15 +9,18 @@ import 'package:expense_tracker_app/src/data/models/transaction_filter.dart';
 import 'package:expense_tracker_app/src/data/repositories/transaction_repository.dart';
 
 import '../../../injection.dart';
+import '../../data/models/user.dart';
+import '../../data/repositories/user_repository.dart';
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   final _transactionRepository = locator<TransactionRepository>();
-
+  final _userRepo = locator<UserRepository>();
   HomeCubit() : super(const HomeState.init());
 
   Future<void> init() async {
     try {
+      final user = await _userRepo.readUser();
       final finance = await _transactionRepository.readFinance();
       final transactions = await _transactionRepository.readTransactions(
           sortType: SortType.newest, limit: 3, type: TransactionFilter.all);
@@ -28,6 +31,7 @@ class HomeCubit extends Cubit<HomeState> {
           dateTimeRange: state.selectedDuration.toDateRange());
 
       emit(state.copyWith(
+          user: user!,
           isLoading: false,
           spendTransactions: spendTransactions,
           recentTransactions: transactions,

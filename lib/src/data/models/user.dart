@@ -7,7 +7,7 @@ class User {
   final String token;
   final String name;
 
-  User(
+  const User(
       {required this.id,
       required this.email,
       required this.name,
