@@ -65,7 +65,9 @@ class _FinancialDetailsPageState extends State<FinancialDetailsPage> {
                           transactions: _transactions.groupByCategory(),
                           totalAmount: amount,
                         )
-                      : LinearTransactionChart(transactions: _transactions),
+                      : LinearTransactionChart(
+                          transactions: _transactions,
+                        ),
                   const SizedBox(
                     height: 58,
                   ),
