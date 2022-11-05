@@ -31,6 +31,7 @@
   "emailAlreadyInUse": "Email already in use",
   "emailOrPasswordIncorrect": "Email or password is incorrect!",
   "emailSent": "Email sent",
+  "emptyTransactions": "No Transactions Found!",
   "enterConfirmPassword": "Enter confirm password",
   "enterEmail": "Enter email",
   "enterField": "Enter field",

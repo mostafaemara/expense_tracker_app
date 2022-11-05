@@ -1,11 +1,13 @@
 import 'package:expense_tracker_app/src/bloc/home/home_cubit.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:expense_tracker_app/src/view/common/currency.dart';
-import 'package:expense_tracker_app/src/view/common/home_app_bar.dart';
 import 'package:expense_tracker_app/src/view/common/transaction_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../common/notification_button.dart';
+import '../../common/profile_image.dart';
 
 class Head extends StatelessWidget {
   const Head({
@@ -33,7 +35,16 @@ class Head extends StatelessWidget {
           child: SafeArea(
             child: Column(
               children: [
-                const HomeAppBar(),
+                SizedBox(
+                  height: 64,
+                  child: Row(
+                    children: [
+                      ProfileImage(imageUrl: state.user.image),
+                      const Spacer(),
+                      const NotificationButton()
+                    ],
+                  ),
+                ),
                 const SizedBox(
                   height: 12,
                 ),

@@ -46,28 +46,26 @@ class TransactionListItem extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 6),
-                child: Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        transaction.category.title.toUpperCase(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .subtitle1!
-                            .copyWith(fontWeight: FontWeight.w600),
-                      ),
-                      Text(
-                        transaction.description,
-                        style: Theme.of(context)
-                            .textTheme
-                            .caption!
-                            .copyWith(color: AppColors.light20),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      transaction.category.title.toUpperCase(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle1!
+                          .copyWith(fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      transaction.description,
+                      style: Theme.of(context)
+                          .textTheme
+                          .caption!
+                          .copyWith(color: AppColors.light20),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
                 ),
               ),
             ),

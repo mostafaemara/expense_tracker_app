@@ -31,6 +31,7 @@
   "emailAlreadyInUse": "البريد الإلكتروني مستخدم بالفعل",
   "emailOrPasswordIncorrect": "البريد الالكتروني او كلمة المرور غير صحيحة!",
   "emailSent": "تم إرسال البريد الإلكتروني بنجاح",
+  "emptyTransactions": " لم يتم العثور على معاملات!",
   "enterConfirmPassword": "أدخل تأكيد كلمة المرور",
   "enterEmail": "أدخل البريد الإلكتروني",
   "enterField": "ادخل قيمة",

@@ -18,9 +18,9 @@ class BudgetPage extends StatefulWidget {
 
 class _BudgetPageState extends State<BudgetPage> {
   @override
-  void initState() {
+  void didChangeDependencies() {
     context.read<BudgetsCubit>().init();
-    super.initState();
+    super.didChangeDependencies();
   }
 
   @override
@@ -29,7 +29,11 @@ class _BudgetPageState extends State<BudgetPage> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         body: BlocBuilder<BudgetsCubit, BudgetState>(
           builder: (context, state) => state.isLoading
-              ? const Center(child: CircularProgressIndicator())
+              ? Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  color: Theme.of(context).colorScheme.surface,
+                  child: const Center(child: CircularProgressIndicator()))
               : Column(
                   children: [
                     const SizedBox(

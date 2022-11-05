@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expense_tracker_app/src/bloc/home/home_cubit.dart';
-import 'package:expense_tracker_app/src/bloc/profile/profile_cubit.dart';
 import 'package:expense_tracker_app/src/data/models/duration_type.dart';
 import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
@@ -23,7 +22,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void didChangeDependencies() {
-    context.read<ProfileCubit>().init();
     context.read<HomeCubit>().init();
     super.didChangeDependencies();
   }
@@ -41,7 +39,6 @@ class _HomePageState extends State<HomePage> {
           color: AppColors.homeTopWidgetBackgroundEndColor,
           child: RefreshIndicator(
             onRefresh: () async {
-              await context.read<ProfileCubit>().init();
               await context.read<HomeCubit>().init();
             },
             child: SingleChildScrollView(

@@ -16,7 +16,7 @@ class CategoryFilter extends StatelessWidget {
         children: [
           const Text("Choose Category"),
           const Spacer(),
-          Text(selectedCategories == null || selectedCategories.isEmpty
+          Text(selectedCategories.isEmpty
               ? "0 Selected"
               : selectedCategories.length.toString()),
           RotatedBox(
@@ -35,11 +35,12 @@ class CategoryFilter extends StatelessWidget {
       context: context,
       builder: (ctx) {
         return MultiSelectDialog<String>(
+          selectedColor: Theme.of(context).colorScheme.primary,
           items: List.generate(
               categories.length,
               (index) => MultiSelectItem(
                   categories[index].id, categories[index].title)),
-          initialValue: const [],
+          initialValue: transactionsBloc.state.selectedCategories,
           onConfirm: (values) {
             transactionsBloc.selectCategories(values);
           },
