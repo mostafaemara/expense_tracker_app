@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 extension UiHelper on BuildContext {
   showSnackBar(String content, {Color? backgroundColor}) {
@@ -7,4 +8,6 @@ extension UiHelper on BuildContext {
       backgroundColor: backgroundColor,
     ));
   }
+
+  AppLocalizations get t => AppLocalizations.of(this)!;
 }

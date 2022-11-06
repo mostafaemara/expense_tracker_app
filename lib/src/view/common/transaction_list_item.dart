@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
 import 'package:expense_tracker_app/src/helpers/date_time_helper.dart';
+import 'package:expense_tracker_app/src/helpers/ui_helper.dart';
 
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class TransactionListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _transactionColor = context.transactionIconColor(transaction.type);
-
+    final _amountSign = transaction.type == TransactionType.expense ? "-" : "+";
     return GestureDetector(
       onTap: onPressed,
       child: Container(
@@ -79,7 +80,7 @@ class TransactionListItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    transaction.formatAmount(context),
+                    context.t.amountWithSign(transaction.amount, _amountSign),
                     style: Theme.of(context).textTheme.subtitle1!.copyWith(
                         color: _transactionColor, fontWeight: FontWeight.w600),
                   ),

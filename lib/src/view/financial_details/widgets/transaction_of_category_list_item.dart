@@ -1,6 +1,6 @@
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
 import 'package:expense_tracker_app/src/data/models/transaction_of_category.dart';
-import 'package:expense_tracker_app/src/helpers/transaction_helper.dart';
+import 'package:expense_tracker_app/src/helpers/ui_helper.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:expense_tracker_app/src/view/common/category_tag.dart';
 import 'package:expense_tracker_app/src/view/common/percentage_bar.dart';
@@ -31,10 +31,12 @@ class TransactionOfCategoryListItem extends StatelessWidget {
                 color: transactionOfCategory.category.color,
               ),
               Text(
-                transactionOfCategory.amount.formatAmount(
-                  context,
-                  transactionOfCategory.category.transactionType,
-                ),
+                context.t.amountWithSign(
+                    transactionOfCategory.amount,
+                    transactionOfCategory.category.transactionType ==
+                            TransactionType.expense
+                        ? "-"
+                        : "+"),
                 style: TextStyle(
                   fontSize: 24,
                   color: transactionOfCategory.category.transactionType ==

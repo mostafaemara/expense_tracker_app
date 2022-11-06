@@ -1,8 +1,12 @@
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
+import 'package:expense_tracker_app/src/helpers/ui_helper.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:expense_tracker_app/src/view/common/category_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../bloc/config/config_cubit.dart';
 
 class TransactionPageView extends StatelessWidget {
   final double transactionsAmount;
@@ -17,6 +21,7 @@ class TransactionPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isExpense = highestTransaction.type == TransactionType.expense;
+    final currency = context.watch<ConfigCubit>().state.currency;
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         color: highestTransaction.type.toColor(),
@@ -61,7 +66,8 @@ class TransactionPageView extends StatelessWidget {
             ),
             FittedBox(
               child: Text(
-                "\$$transactionsAmount",
+                context.t
+                    .amountWithCurrency(transactionsAmount, currency.symbol),
                 style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w700,
@@ -98,7 +104,8 @@ class TransactionPageView extends StatelessWidget {
                 const Spacer(),
                 FittedBox(
                   child: Text(
-                    "\$${highestTransaction.amount}",
+                    context.t.amountWithCurrency(
+                        highestTransaction.amount, currency.symbol),
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                         color: AppColors.dark,

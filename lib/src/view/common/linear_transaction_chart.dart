@@ -1,8 +1,12 @@
 import 'package:expense_tracker_app/src/data/models/duration_type.dart';
+import 'package:expense_tracker_app/src/helpers/ui_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
+
+import '../../bloc/config/config_cubit.dart';
 
 class LinearTransactionChart extends StatelessWidget {
   final List<Transaction> transactions;
@@ -15,6 +19,7 @@ class LinearTransactionChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dateRange = durationType?.toDateRange();
+    final currency = context.watch<ConfigCubit>().state.currency;
     return SizedBox(
       height: 230,
       child: Stack(
@@ -23,7 +28,7 @@ class LinearTransactionChart extends StatelessWidget {
               start: 50,
               top: 8,
               child: Text(
-                "\$ ${totalAmount()}",
+                context.t.amountWithCurrency(totalAmount(), currency.symbol),
                 style:
                     const TextStyle(fontSize: 32, fontWeight: FontWeight.w700),
               )),

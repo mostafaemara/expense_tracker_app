@@ -28,7 +28,7 @@ extension TransactionColorHelper on BuildContext {
 
 extension TransactionFormatter on Transaction {
   String formatAmount(BuildContext context) {
-    final convertedAmount = amount.translate(context);
+    final convertedAmount = amount;
     final locale = Localizations.localeOf(context);
     String sign = "";
 

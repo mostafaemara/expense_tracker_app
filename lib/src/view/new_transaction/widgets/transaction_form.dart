@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/new_transaction/newtransaction_state.dart';
 import 'package:expense_tracker_app/src/bloc/submission_status.dart';
+import 'package:expense_tracker_app/src/data/models/frequency.dart';
 
 import 'package:expense_tracker_app/src/data/models/inputs/transaction_input.dart';
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
@@ -24,7 +25,9 @@ import '../../common/balance_text_field.dart';
 import '../../common/description_form_field.dart';
 import '../../common/submit_button.dart';
 import '../../common/title_form_field.dart';
+
 import 'category_form_field.dart';
+import 'repeat_switch_button.dart';
 
 class TransactionForm extends StatefulWidget {
   const TransactionForm({
@@ -44,6 +47,9 @@ class _TransactionFormState extends State<TransactionForm> {
   String? _selectedAccountId;
   String? _selectedCategoryId;
   File? _selectedAttachment;
+  bool _repeat = false;
+
+  Frequency? _frequency;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<NewTransactionCubit, NewTransactionState>(
@@ -101,8 +107,13 @@ class _TransactionFormState extends State<TransactionForm> {
                             onPressed: () => _showChooseAttachmentModal(
                                   context,
                                 )),
-
-                        //  RepeatSwitchButton(),
+                        RepeatSwitchButton(
+                            onChanged: (value) {
+                              setState(() {
+                                _repeat = value;
+                              });
+                            },
+                            value: _repeat),
                         const SizedBox(
                           height: 24,
                         ),
