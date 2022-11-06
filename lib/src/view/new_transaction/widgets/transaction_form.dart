@@ -27,6 +27,7 @@ import '../../common/submit_button.dart';
 import '../../common/title_form_field.dart';
 
 import 'category_form_field.dart';
+import 'frequency_form_field.dart';
 import 'repeat_switch_button.dart';
 
 class TransactionForm extends StatefulWidget {
@@ -57,8 +58,8 @@ class _TransactionFormState extends State<TransactionForm> {
               key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  const Spacer(),
                   BalanceFormField(
                     controller: _balanceController,
                     title: AppLocalizations.of(context)!.howMuch,
@@ -114,6 +115,17 @@ class _TransactionFormState extends State<TransactionForm> {
                               });
                             },
                             value: _repeat),
+                        if (_repeat)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 24),
+                            child: FrequencyFormField(
+                                onChanged: (value) {
+                                  setState(() {
+                                    _frequency = value;
+                                  });
+                                },
+                                selectedFrequency: _frequency),
+                          ),
                         const SizedBox(
                           height: 24,
                         ),
