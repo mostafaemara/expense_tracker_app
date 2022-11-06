@@ -148,5 +148,8 @@
   "youAreAllSet": "أنت جاهز للبدء",
   "youEarned": "ربحت",
   "youSpend": "أنفقت",
-  "frequency":"التكرار"
+  "frequency":"التكرار",  "daily":"يومي",
+  "weekly":"أسبوعي",
+  "monthly":"شهري",
+  "yearly":"سنوي"
 }
