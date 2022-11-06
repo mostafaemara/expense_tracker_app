@@ -1,13 +1,13 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:expense_tracker_app/src/bloc/accounts/accounts_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/accounts/accounts_state.dart';
+import 'package:expense_tracker_app/src/helpers/ui_helper.dart';
 import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../bloc/config/config_cubit.dart';
 import 'accounts_list_view.dart';
 
 class AccountsPage extends StatefulWidget {
@@ -26,6 +26,7 @@ class _AccountsPageState extends State<AccountsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final currency = context.watch<ConfigCubit>().state.currency;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Accounts"),
@@ -57,7 +58,8 @@ class _AccountsPageState extends State<AccountsPage> {
                           height: 8,
                         ),
                         Text(
-                          "\$${state.accountsBalance()}",
+                          context.t.amountWithCurrency(
+                              state.accountsBalance(), currency.symbol),
                           style: const TextStyle(
                               fontSize: 40,
                               color: AppColors.dark,
@@ -75,7 +77,6 @@ class _AccountsPageState extends State<AccountsPage> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () async {
-                      log("clicked");
                       final result = await AutoRouter.of(context)
                           .push(AddNewAccountRoute(isSetupAccount: false));
                       if (result != null) {

@@ -1,6 +1,6 @@
+import 'package:expense_tracker_app/src/helpers/ui_helper.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TransactionCard extends StatelessWidget {
   const TransactionCard({
@@ -54,7 +54,10 @@ class TransactionCard extends StatelessWidget {
                   ),
                   FittedBox(
                     child: Text(
-                      "${AppLocalizations.of(context)!.currencySymbol}$amount",
+                      context.t.amount(
+                        amount,
+                      ),
+                      //    "${AppLocalizations.of(context)!.currencySymbol}$amount",
                       style: Theme.of(context)
                           .textTheme
                           .headline6!

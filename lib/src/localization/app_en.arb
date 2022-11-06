@@ -1,4 +1,43 @@
 {
+
+  "amountWithCurrency": "{currency}{value}",
+"@amountWithCurrency": {
+  "description": "A message with a formatted int parameter",
+  "placeholders": {
+    "value": {
+      "type": "double",
+      "format": "compact"
+
+    },
+    "currency":{
+     "type": "String"
+    }
+  }
+},  "amount": "{value}",
+"@amount": {
+  "description": "A message with a formatted int parameter",
+  "placeholders": {
+    "value": {
+      "type": "double",
+      "format": "compact"
+
+    }
+ 
+  }
+},  "amountWithSign": "{sign}{value}",
+"@amountWithSign": {
+  "description": "A message with a formatted int parameter",
+  "placeholders": {
+    "value": {
+      "type": "double",
+      "format": "compact"
+
+    },
+    "sign":{
+     "type": "String"
+    }
+  }
+},
   "accountBalance": "Account Balance",
   "accountBalanceNotEnough": "Not enough account balance, availible balance:",
   "accountName": "Account Name",
