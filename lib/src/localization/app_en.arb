@@ -145,5 +145,6 @@
   "yesterday": "Yesterday",
   "youAreAllSet": "You're all set to go",
   "youEarned": "You Earned",
-  "youSpend": "You Spend"
+  "youSpend": "You Spend",
+  "frequency":"Frequency"
 }
