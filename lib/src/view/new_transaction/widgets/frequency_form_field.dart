@@ -1,4 +1,5 @@
 import 'package:expense_tracker_app/src/data/models/frequency.dart';
+import 'package:expense_tracker_app/src/helpers/ui_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -22,9 +23,24 @@ class FrequencyFormField extends StatelessWidget {
       items: List.generate(
           Frequency.values.length,
           (index) => DropdownMenuItem(
-                child: Text(Frequency.values[index].toString()),
+                child:
+                    Text(translateFrequency(Frequency.values[index], context)),
                 value: Frequency.values[index],
               )),
     );
+  }
+
+  String translateFrequency(Frequency frequency, BuildContext context) {
+    switch (frequency) {
+      case Frequency.daily:
+        return context.t.daily;
+
+      case Frequency.weekly:
+        return context.t.weekly;
+      case Frequency.monthly:
+        return context.t.monthly;
+      case Frequency.yearly:
+        return context.t.yearly;
+    }
   }
 }

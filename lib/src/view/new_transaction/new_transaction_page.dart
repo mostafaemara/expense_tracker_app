@@ -74,104 +74,99 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
       child: BlocConsumer<NewTransactionCubit, NewTransactionState>(
           bloc: _newTransactionCubit,
           builder: (context, state) => Scaffold(
-              bottomNavigationBar: Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface,
-                ),
-                child: SubmitButton(
-                    isLoading: state.status == Status.loading,
-                    onPressed: _handleSubmittion),
-              ),
               resizeToAvoidBottomInset: false,
               backgroundColor: widget.transactionType.toColor(),
               appBar: MyAppBar(title: _getPageTitle(context)),
-              body: SingleChildScrollView(
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      BalanceFormField(
-                        controller: _balanceController,
-                        title: AppLocalizations.of(context)!.howMuch,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 24, horizontal: 16),
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.surface,
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(32),
-                                topRight: Radius.circular(32))),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            TitleFormField(controller: _titleController),
-                            const SizedBox(
-                              height: 16,
-                            ),
-                            CategoryFormField(
-                                categories: state.categories,
-                                value: _selectedCategoryId,
-                                onChanged: _onCategoryChange),
-                            const SizedBox(
-                              height: 16,
-                            ),
-                            DescriptionFormField(
-                                controller: _descriptionController),
-                            const SizedBox(
-                              height: 16,
-                            ),
-                            AccountFormField(
-                                accounts: state.accounts,
-                                onChanged: _onAccountChange,
-                                selectedAccount: _selectedAccountId),
-                            const SizedBox(
-                              height: 16,
-                            ),
-                            AddAttachmentButton(
-                                onDelete: () {
-                                  setState(() {
-                                    _selectedAttachment = null;
-                                  });
-                                },
-                                selectedAttachment: _selectedAttachment,
-                                onPressed: () => _showChooseAttachmentModal(
-                                      context,
-                                    )),
-                            RepeatSwitchButton(
-                                onChanged: (value) {
-                                  setState(() {
-                                    _repeat = value;
-                                  });
-                                },
-                                value: _repeat),
-                            if (_repeat)
-                              Padding(
-                                padding: const EdgeInsets.only(top: 24),
-                                child: FrequencyFormField(
-                                    onChanged: (value) {
+              body: CustomScrollView(
+                slivers: [
+                  SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          BalanceFormField(
+                            controller: _balanceController,
+                            title: AppLocalizations.of(context)!.howMuch,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 24, horizontal: 16),
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.surface,
+                                borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(32),
+                                    topRight: Radius.circular(32))),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                TitleFormField(controller: _titleController),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                CategoryFormField(
+                                    categories: state.categories,
+                                    value: _selectedCategoryId,
+                                    onChanged: _onCategoryChange),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                DescriptionFormField(
+                                    controller: _descriptionController),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                AccountFormField(
+                                    accounts: state.accounts,
+                                    onChanged: _onAccountChange,
+                                    selectedAccount: _selectedAccountId),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                AddAttachmentButton(
+                                    onDelete: () {
                                       setState(() {
-                                        _frequency = value;
+                                        _selectedAttachment = null;
                                       });
                                     },
-                                    selectedFrequency: _frequency),
-                              ),
-                            const SizedBox(
-                              height: 24,
+                                    selectedAttachment: _selectedAttachment,
+                                    onPressed: () => _showChooseAttachmentModal(
+                                          context,
+                                        )),
+                                RepeatSwitchButton(
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _repeat = value;
+                                      });
+                                    },
+                                    value: _repeat),
+                                if (_repeat)
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 24),
+                                    child: FrequencyFormField(
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _frequency = value;
+                                          });
+                                        },
+                                        selectedFrequency: _frequency),
+                                  ),
+                                const SizedBox(
+                                  height: 24,
+                                ),
+                                SubmitButton(
+                                    isLoading: state.status == Status.loading,
+                                    onPressed: _handleSubmittion),
+                              ],
                             ),
-                            SizedBox(
-                              height: MediaQuery.of(context).padding.bottom,
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+                          )
+                        ],
+                      ),
+                    ),
+                  )
+                ],
               )),
           listener: (context, state) {
             if (state.status == Status.success) {
@@ -181,19 +176,6 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
               context.showSnackBar(state.error, backgroundColor: AppColors.red);
             }
           }),
-
-      //  Provider.value(
-      //   value: widget.transactionType,
-      //   child: Scaffold(
-      //     resizeToAvoidBottomInset: false,
-      //     backgroundColor: widget.transactionType.toColor(),
-      //     appBar: MyAppBar(title: _getPageTitle(context)),
-      //     body: BlocProvider.value(
-      //       value: _newTransactionCubit,
-      //       child: TransactionForm(transactionType: widget.transactionType),
-      //     ),
-      //   ),
-      // ),
     );
   }
 
@@ -235,16 +217,15 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
 
   void _handleSubmittion() {
     if (_formKey.currentState!.validate()) {
-      BlocProvider.of<NewTransactionCubit>(context)
-          .addTransaction(TransactionInput(
-        attachment: _selectedAttachment,
-        accountId: _selectedAccountId!,
-        amount: double.parse(_balanceController.text),
-        categoryId: _selectedCategoryId!,
-        description: _descriptionController.text,
-        title: _titleController.text,
-        type: widget.transactionType,
-      ));
+      _newTransactionCubit.addTransaction(TransactionInput(
+          attachment: _selectedAttachment,
+          accountId: _selectedAccountId!,
+          amount: double.parse(_balanceController.text),
+          categoryId: _selectedCategoryId!,
+          description: _descriptionController.text,
+          title: _titleController.text,
+          type: widget.transactionType,
+          frequency: _frequency));
     }
   }
 

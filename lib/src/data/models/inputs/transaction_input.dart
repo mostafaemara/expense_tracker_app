@@ -25,7 +25,7 @@ class TransactionInput {
 
   Map<String, dynamic> toMap() {
     return {
-      "frequency": frequency,
+      "frequency": frequency?.value,
       "title": title,
       "type": type.value,
       "categoryId": categoryId,

@@ -146,5 +146,9 @@
   "youAreAllSet": "You're all set to go",
   "youEarned": "You Earned",
   "youSpend": "You Spend",
-  "frequency":"Frequency"
+  "frequency":"Frequency",
+  "daily":"Daily",
+  "weekly":"Weekly",
+  "monthly":"Monthly",
+  "yearly":"Yearly"
 }
