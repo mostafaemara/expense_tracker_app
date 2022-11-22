@@ -12,6 +12,7 @@ import 'package:expense_tracker_app/src/bloc/new_budget/new_budget_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/profile/profile_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/rest_password/rest_password_bloc.dart';
 import 'package:expense_tracker_app/src/bloc/signup/signup_cubit.dart';
+import 'package:expense_tracker_app/src/bloc/transaction_frequencies/transaction_frequencies_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/transactions/transactions_cubit.dart';
 import 'package:expense_tracker_app/src/manger/notification_manger.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -38,7 +39,7 @@ void main() async {
   await initializeDependencies();
 
   await notificationManger.init();
-  final token = await FirebaseMessaging.instance.getToken();
+
   FirebaseMessaging messaging = FirebaseMessaging.instance;
 
   NotificationSettings settings = await messaging.requestPermission(
@@ -51,14 +52,13 @@ void main() async {
     sound: true,
   );
 
-  log(token.toString() + "   Token");
-  // FirebaseMessaging.onBackgroundMessage((message) async {
-  //   if (message.notification != null) {
-  //     log("message Recived" + message.notification.toString());
-  //     await notificationManger.showNotification(DateTime.now().microsecond,
-  //         message.notification!.title!, message.notification!.body!);
-  //   }
-  // });
+  FirebaseMessaging.onBackgroundMessage((message) async {
+    if (message.notification != null) {
+      log("message Recived" + message.notification.toString());
+      await notificationManger.showNotification(DateTime.now().microsecond,
+          message.notification!.title!, message.notification!.body!);
+    }
+  });
   FirebaseMessaging.onMessageOpenedApp.listen((event) async {
     log("message Recived");
     if (event.notification != null) {
@@ -133,6 +133,10 @@ void main() async {
       BlocProvider(
         lazy: false,
         create: (context) => UpdateProfileCubit(),
+      ),
+      BlocProvider(
+        lazy: false,
+        create: (context) => TransactionFrequenciesCubit(),
       )
     ], child: MyApp()),
   );

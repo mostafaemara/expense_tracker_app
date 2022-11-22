@@ -201,6 +201,12 @@ class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    TransactionFrequenciesRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const TransactionFrequenciesPage(),
+      );
+    },
     MainRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
         routeData: routeData,
@@ -334,6 +340,10 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(
           EditeProfileRoute.name,
           path: '/edite-profile-page',
+        ),
+        RouteConfig(
+          TransactionFrequenciesRoute.name,
+          path: '/transaction-frequencies-page',
         ),
         RouteConfig(
           MainRoute.name,
@@ -851,6 +861,18 @@ class EditeProfileRouteArgs {
   String toString() {
     return 'EditeProfileRouteArgs{key: $key, user: $user}';
   }
+}
+
+/// generated route for
+/// [TransactionFrequenciesPage]
+class TransactionFrequenciesRoute extends PageRouteInfo<void> {
+  const TransactionFrequenciesRoute()
+      : super(
+          TransactionFrequenciesRoute.name,
+          path: '/transaction-frequencies-page',
+        );
+
+  static const String name = 'TransactionFrequenciesRoute';
 }
 
 /// generated route for

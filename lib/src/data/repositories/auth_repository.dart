@@ -1,11 +1,13 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expense_tracker_app/src/data/exceptions/invalid_input_exception.dart';
 import 'package:expense_tracker_app/src/data/exceptions/server_exception.dart';
 import 'package:expense_tracker_app/src/data/models/inputs/login_input.dart';
 import 'package:expense_tracker_app/src/data/models/inputs/signup_input.dart';
 import 'package:expense_tracker_app/src/data/models/user.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:expense_tracker_app/src/data/repositories/config_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
@@ -16,18 +18,20 @@ import '../../../injection.dart';
 class AuthRepository {
   final authApi = fb_auth.FirebaseAuth.instance;
   final storage = FirebaseStorage.instance;
-
+  final fireStore = FirebaseFirestore.instance;
   Future<User> login(LoginInput input) async {
     try {
       final userCredential = await authApi.signInWithEmailAndPassword(
           email: input.email, password: input.password);
-
+      final token = await FirebaseMessaging.instance.getToken();
       final user = User(
           image: userCredential.user!.photoURL ?? "",
-          token: "",
+          token: token ?? "",
           email: userCredential.user!.email ?? "",
           id: userCredential.user!.uid,
           name: userCredential.user!.displayName ?? "");
+
+      await fireStore.collection("users").doc(user.id).set({"token": token});
 
       return user;
     } on fb_auth.FirebaseAuthException catch (e) {
@@ -63,12 +67,15 @@ class AuthRepository {
 
       // Once signed in, return the UserCredential
       final userCredential = await authApi.signInWithCredential(credential);
+
       final user = User(
           image: userCredential.user!.photoURL ?? "",
           token: "",
           email: userCredential.user!.email ?? "",
           id: userCredential.user!.uid,
           name: userCredential.user!.displayName ?? "");
+      final token = await FirebaseMessaging.instance.getToken();
+      await fireStore.collection("users").doc(user.id).set({"token": token});
       return user;
     } on fb_auth.FirebaseAuthException catch (e) {
       final appLocalizations =
@@ -86,6 +93,9 @@ class AuthRepository {
         default:
           throw InavlidInputException(appLocalizations.serverError);
       }
+    } catch (e) {
+      log(e.toString());
+      rethrow;
     }
   }
 
@@ -122,7 +132,8 @@ class AuthRepository {
           email: userCredential.user!.email ?? "",
           id: userCredential.user!.uid,
           name: userCredential.user!.displayName ?? "");
-
+      final token = await FirebaseMessaging.instance.getToken();
+      await fireStore.collection("users").doc(user.id).set({"token": token});
       return user;
     } on fb_auth.FirebaseAuthException catch (e) {
       final appLocalizations =
