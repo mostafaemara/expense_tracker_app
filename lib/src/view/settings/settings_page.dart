@@ -27,20 +27,22 @@ class SettingsPage extends StatelessWidget {
                     AutoRouter.of(context).navigate(const CurrencyRoute());
                   },
                 ),
-                SettingsListTile(
-                  title: "Language",
-                  subtitle: "English",
-                  onPressed: () {
-                    AutoRouter.of(context).navigate(const LanguageRoute());
-                  },
-                ),
-                SettingsListTile(
-                  title: "Theme",
-                  subtitle: "Dark",
-                  onPressed: () {
-                    AutoRouter.of(context).navigate(const ThemeRoute());
-                  },
-                ),
+                //TODO add language support
+                // SettingsListTile(
+                //   title: "Language",
+                //   subtitle: "English",
+                //   onPressed: () {
+                //     AutoRouter.of(context).navigate(const LanguageRoute());
+                //   },
+                // ),
+                //TODO add Dark theme support
+                // SettingsListTile(
+                //   title: "Theme",
+                //   subtitle: "Dark",
+                //   onPressed: () {
+                //     AutoRouter.of(context).navigate(const ThemeRoute());
+                //   },
+                // ),
                 const SizedBox(height: 50),
                 SettingsListTile(
                   title: "About",

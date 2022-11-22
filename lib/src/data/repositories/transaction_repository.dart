@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart' as fb;
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:expense_tracker_app/injection.dart';
 
 import 'package:expense_tracker_app/src/data/exceptions/invalid_input_exception.dart';
 import 'package:expense_tracker_app/src/data/exceptions/server_exception.dart';
@@ -19,6 +20,7 @@ import 'package:expense_tracker_app/src/data/models/frequent_transaction.dart';
 import 'package:expense_tracker_app/src/data/models/inputs/transaction_input.dart';
 import 'package:expense_tracker_app/src/data/models/transaction_filter.dart';
 import 'package:expense_tracker_app/src/data/models/transactions_of_date.dart';
+import 'package:expense_tracker_app/src/data/repositories/user_repository.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:flutter/material.dart';
@@ -140,7 +142,7 @@ class TransactionRepository {
     }
   }
 
-  Future<FrequentTransaction> readFrequentTransactions(
+  Future<TransactionFrequency> readFrequentTransactions(
     TransactionType type,
   ) {
     throw UnimplementedError();
@@ -205,6 +207,28 @@ class TransactionRepository {
       log(result.data.toString());
 
       return FinancialReport.fromJson(result.data);
+    } catch (e) {
+      throw ServerException();
+    }
+  }
+
+  Future<List<TransactionFrequency>> readTransactionsFrequencies() async {
+    try {
+      final user = await locator<UserRepository>().readUser();
+      final List<TransactionFrequency> frequencies = [];
+      final snapShots = await fireStore
+          .collection("transactionFrequencies")
+          .where("userId", isEqualTo: user!.id)
+          .get();
+
+      for (final doc in snapShots.docs) {
+        var data = doc.data();
+        data["created_at"] =
+            (data["created_at"] as fb.Timestamp).millisecondsSinceEpoch;
+        frequencies.add(TransactionFrequency.fromMap({...data, "id": doc.id}));
+      }
+
+      return frequencies;
     } catch (e) {
       throw ServerException();
     }

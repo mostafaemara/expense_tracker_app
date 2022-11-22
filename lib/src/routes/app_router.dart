@@ -37,6 +37,7 @@ import 'package:expense_tracker_app/src/view/signup/signup_page.dart';
 import 'package:expense_tracker_app/src/view/splash/splash_page.dart';
 import 'package:expense_tracker_app/src/view/transaction/transaction_page.dart';
 import 'package:expense_tracker_app/src/view/transaction_details/transaction_details.dart';
+import 'package:expense_tracker_app/src/view/transaction_frequencies/transaction_frequencies_page.dart';
 
 import 'package:flutter/material.dart';
 
@@ -112,6 +113,9 @@ part 'app_router.gr.dart';
     ),
     AutoRoute(
       page: EditeProfilePage,
+    ),
+    AutoRoute(
+      page: TransactionFrequenciesPage,
     ),
     AutoRoute(page: MainPage, path: "/", children: [
       AutoRoute(path: "home", initial: true, page: HomePage),

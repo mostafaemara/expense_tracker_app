@@ -48,10 +48,13 @@ class ProfileListView extends StatelessWidget {
               height: 15,
             ),
             ProfileListTile(
-              image: "assets/images/download.png",
+              image: "assets/images/repeat.png",
               color: AppColors.violet,
-              onPressed: () {},
-              title: "Export Data",
+              onPressed: () {
+                AutoRouter.of(context)
+                    .navigate(const TransactionFrequenciesRoute());
+              },
+              title: "Transactions Frequencies",
             ),
             const SizedBox(
               height: 15,

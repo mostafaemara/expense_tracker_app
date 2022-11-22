@@ -1,33 +1,28 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+
+import 'package:expense_tracker_app/src/data/models/frequency.dart';
 import 'package:expense_tracker_app/src/data/models/transaction.dart';
 
-class FrequentTransaction {
-  final String id;
+class TransactionFrequency {
   final DateTime date;
   final double amount;
-  final String description;
-  final String attachment;
-  final String accountId;
-  final String category;
-  final String targetAccountId;
-  final TransactionType type;
-  final List<RepeatedTransaction> repeatedTransactions;
 
-  FrequentTransaction(
-      {required this.date,
-      required this.repeatedTransactions,
-      required this.type,
-      required this.category,
-      this.targetAccountId = "",
-      required this.id,
-      required this.accountId,
-      required this.amount,
-      required this.description,
-      required this.attachment});
-}
-
-class RepeatedTransaction {
+  final String title;
   final String id;
-  final DateTime date;
+  final Frequency frequency;
+  final TransactionType type;
 
-  RepeatedTransaction(this.id, this.date);
+  TransactionFrequency(
+      this.date, this.amount, this.title, this.id, this.frequency, this.type);
+
+  factory TransactionFrequency.fromMap(Map<String, dynamic> map) {
+    return TransactionFrequency(
+      DateTime.fromMillisecondsSinceEpoch(map['created_at'] as int),
+      map['amount'] as double,
+      map['title'] as String,
+      map['id'] as String,
+      Frequency.parse(map['frequency']),
+      TransactionType.parse(map['type']),
+    );
+  }
 }
