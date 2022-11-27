@@ -53,4 +53,24 @@ class NotificationRepository {
       throw ServerException();
     }
   }
+
+  Future<void> markAllAsRead() async {
+    try {
+      final user = await locator<UserRepository>().readUser();
+      final snapShot = await fireStore
+          .collection("notifications")
+          .where("userId", isEqualTo: user!.id)
+          .where("mark_as_read", isEqualTo: false)
+          .get();
+
+      for (final doc in snapShot.docs) {
+        await fireStore
+            .collection("notifications")
+            .doc(doc.id)
+            .update({"mark_as_read": true});
+      }
+    } catch (e) {
+      throw ServerException();
+    }
+  }
 }

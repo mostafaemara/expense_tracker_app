@@ -1,3 +1,4 @@
+import 'package:expense_tracker_app/injection.dart';
 import 'package:expense_tracker_app/src/bloc/config/config_cubit.dart';
 import 'package:expense_tracker_app/src/data/models/language.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   MyApp({
     Key? key,
   }) : super(key: key);
-  final _appRouter = AppRouter();
+  final _appRouter = locator<AppRouter>();
   @override
   Widget build(BuildContext context) {
     final config = context.watch<ConfigCubit>();

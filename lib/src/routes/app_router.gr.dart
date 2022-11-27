@@ -47,7 +47,7 @@ class _$AppRouter extends RootStackRouter {
         routeData: routeData,
         child: TransactionDetailsPage(
           key: args.key,
-          transaction: args.transaction,
+          arg: args.arg,
         ),
       );
     },
@@ -435,13 +435,13 @@ class TransactionDetailsRoute
     extends PageRouteInfo<TransactionDetailsRouteArgs> {
   TransactionDetailsRoute({
     Key? key,
-    required Transaction transaction,
+    required dynamic arg,
   }) : super(
           TransactionDetailsRoute.name,
           path: '/transaction-details-page',
           args: TransactionDetailsRouteArgs(
             key: key,
-            transaction: transaction,
+            arg: arg,
           ),
         );
 
@@ -451,16 +451,16 @@ class TransactionDetailsRoute
 class TransactionDetailsRouteArgs {
   const TransactionDetailsRouteArgs({
     this.key,
-    required this.transaction,
+    required this.arg,
   });
 
   final Key? key;
 
-  final Transaction transaction;
+  final dynamic arg;
 
   @override
   String toString() {
-    return 'TransactionDetailsRouteArgs{key: $key, transaction: $transaction}';
+    return 'TransactionDetailsRouteArgs{key: $key, arg: $arg}';
   }
 }
 

@@ -22,6 +22,26 @@ class Notification {
         DateTime.fromMillisecondsSinceEpoch(map['created_at'] as int),
         map['mark_as_read']);
   }
+
+  Notification copyWith({
+    String? id,
+    String? title,
+    String? body,
+    String? transactionId,
+    NotificationType? type,
+    DateTime? createdAt,
+    bool? markedAsRead,
+  }) {
+    return Notification(
+      id ?? this.id,
+      title ?? this.title,
+      body ?? this.body,
+      transactionId ?? this.transactionId,
+      type ?? this.type,
+      createdAt ?? this.createdAt,
+      markedAsRead ?? this.markedAsRead,
+    );
+  }
 }
 
 enum NotificationType {
