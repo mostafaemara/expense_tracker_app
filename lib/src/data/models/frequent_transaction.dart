@@ -18,7 +18,7 @@ class TransactionFrequency {
   factory TransactionFrequency.fromMap(Map<String, dynamic> map) {
     return TransactionFrequency(
       DateTime.fromMillisecondsSinceEpoch(map['created_at'] as int),
-      map['amount'] as double,
+      map['amount'].toDouble(),
       map['title'] as String,
       map['id'] as String,
       Frequency.parse(map['frequency']),

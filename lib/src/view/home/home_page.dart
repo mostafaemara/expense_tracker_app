@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expense_tracker_app/src/bloc/home/home_cubit.dart';
+import 'package:expense_tracker_app/src/bloc/notification/notification_cubit.dart';
 import 'package:expense_tracker_app/src/data/models/duration_type.dart';
 import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/styles/app_colors.dart';
@@ -23,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void didChangeDependencies() {
     context.read<HomeCubit>().init();
+    context.read<NotificationCubit>().init();
     super.didChangeDependencies();
   }
 
