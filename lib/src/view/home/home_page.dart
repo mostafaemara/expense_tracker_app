@@ -117,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                                         final result =
                                             await AutoRouter.of(context).push(
                                                 TransactionDetailsRoute(
-                                                    transaction: state
+                                                    arg: state
                                                             .recentTransactions[
                                                         index]));
 

@@ -71,7 +71,7 @@ class _TransactionPageState extends State<TransactionPage> {
                                                           .of(context)
                                                       .push(
                                                           TransactionDetailsRoute(
-                                                              transaction: t));
+                                                              arg: t));
 
                                                   if (result != null) {
                                                     context

@@ -142,16 +142,6 @@ class TransactionRepository {
     }
   }
 
-  Future<TransactionFrequency> readFrequentTransactions(
-    TransactionType type,
-  ) {
-    throw UnimplementedError();
-  }
-
-  Stream<List<Transaction>> onTransactionsChange() {
-    throw UnimplementedError();
-  }
-
   Future<List<Category>> getAllCategories() async {
     try {
       final snapshot = await fireStore
@@ -253,6 +243,42 @@ class TransactionRepository {
       if (e.code == "out-of-range") {
         throw InavlidInputException(e.message!);
       }
+      throw ServerException();
+    }
+  }
+
+  Future<Transaction> readTransaction(String id) async {
+    try {
+      final snapshot =
+          await fireStore.collection(transactionsRef).doc(id).get();
+      var transactionData = snapshot.data();
+      transactionData!["id"] = snapshot.id;
+      final accountSnapShot = await fireStore
+          .collection(accountsRef)
+          .doc(transactionData["accountId"])
+          .get();
+      var accountData = accountSnapShot.data();
+      accountData!["id"] = accountSnapShot.id;
+      transactionData["account"] = accountData;
+      final categorySnapShot = await fireStore
+          .collection("utils")
+          .doc("expense")
+          .collection("categories")
+          .doc(transactionData["categoryId"])
+          .get();
+
+      var categoryData = categorySnapShot.data();
+      categoryData!["id"] = categorySnapShot.id;
+
+      transactionData["category"] = categoryData;
+      transactionData["created_at"] =
+          (transactionData["created_at"] as fb.Timestamp)
+              .toDate()
+              .toIso8601String();
+
+      return Transaction.fromMap(transactionData);
+    } catch (e) {
+      log(e.toString());
       throw ServerException();
     }
   }

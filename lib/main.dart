@@ -16,6 +16,7 @@ import 'package:expense_tracker_app/src/bloc/signup/signup_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/transaction_frequencies/transaction_frequencies_cubit.dart';
 import 'package:expense_tracker_app/src/bloc/transactions/transactions_cubit.dart';
 import 'package:expense_tracker_app/src/manger/notification_manger.dart';
+import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
@@ -29,16 +30,20 @@ import 'src/app.dart';
 import 'src/bloc/transaction_details/transaction_details_cubit.dart';
 import 'src/bloc/update_profile/update_profile.dart';
 
-final NotificationManger notificationManger = NotificationManger(
-  (p0) {},
-);
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await initializeDependencies();
-
+  final NotificationManger notificationManger = NotificationManger(
+    (response) {
+      if (response?.payload != null) {
+        locator<AppRouter>()
+            .navigate(TransactionDetailsRoute(arg: response?.payload!));
+      }
+    },
+  );
   await notificationManger.init();
 
   FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -57,21 +62,24 @@ void main() async {
     if (message.notification != null) {
       log("message Recived" + message.notification.toString());
       await notificationManger.showNotification(DateTime.now().microsecond,
-          message.notification!.title!, message.notification!.body!);
+          message.notification!.title!, message.notification!.body!,
+          payload: message.data["transactionId"]);
     }
   });
   FirebaseMessaging.onMessageOpenedApp.listen((event) async {
     log("message Recived");
     if (event.notification != null) {
       await notificationManger.showNotification(DateTime.now().microsecond,
-          event.notification!.title!, event.notification!.body!);
+          event.notification!.title!, event.notification!.body!,
+          payload: event.data["transactionId"]);
     }
   });
   FirebaseMessaging.onMessage.listen((event) async {
     log("message Recived");
     if (event.notification != null) {
       await notificationManger.showNotification(DateTime.now().microsecond,
-          event.notification!.title!, event.notification!.body!);
+          event.notification!.title!, event.notification!.body!,
+          payload: event.data["transactionId"]);
     }
   });
 
