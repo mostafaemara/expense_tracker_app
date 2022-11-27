@@ -230,6 +230,15 @@ class TransactionRepository {
 
       return frequencies;
     } catch (e) {
+      log(e.toString());
+      throw ServerException();
+    }
+  }
+
+  Future<void> deleteTransactionFrequency(String id) async {
+    try {
+      await fireStore.collection("transactionFrequencies").doc(id).delete();
+    } catch (e) {
       throw ServerException();
     }
   }

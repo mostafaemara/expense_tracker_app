@@ -45,8 +45,6 @@ class LinearTransactionChart extends StatelessWidget {
             ],
             plotAreaBorderWidth: 0,
             primaryXAxis: DateTimeAxis(
-                minimum: dateRange?.start,
-                maximum: dateRange?.end,
                 isVisible: true,
                 majorGridLines: const MajorGridLines(width: 0)),
             primaryYAxis: NumericAxis(

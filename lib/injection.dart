@@ -2,6 +2,7 @@ import 'package:expense_tracker_app/src/data/repositories/account_repository.dar
 import 'package:expense_tracker_app/src/data/repositories/budget_repository.dart';
 import 'package:expense_tracker_app/src/data/repositories/config_repository.dart';
 import 'package:expense_tracker_app/src/data/repositories/date_repository.dart';
+import 'package:expense_tracker_app/src/data/repositories/notification_repository.dart';
 
 import 'package:expense_tracker_app/src/data/repositories/transaction_repository.dart';
 
@@ -29,6 +30,9 @@ Future<void> initializeDependencies() async {
 
   locator.registerSingleton<AccountRepository>(
     AccountRepository(),
+  );
+  locator.registerSingleton<NotificationRepository>(
+    NotificationRepository(),
   );
   locator.registerSingleton<AuthRepository>(
     AuthRepository(),
