@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:expense_tracker_app/src/bloc/account_details/account_details_bloc.dart';
 import 'package:expense_tracker_app/src/bloc/account_details/account_details_state.dart';
 import 'package:expense_tracker_app/src/data/models/account.dart';
+import 'package:expense_tracker_app/src/helpers/ui_helper.dart';
 import 'package:expense_tracker_app/src/routes/app_router.dart';
 import 'package:expense_tracker_app/src/view/common/account_icon.dart';
 import 'package:expense_tracker_app/src/view/common/loading_indecator.dart';
@@ -9,6 +10,8 @@ import 'package:expense_tracker_app/src/view/common/transaction_list_item.dart';
 import 'package:expense_tracker_app/src/view/common/transactions_of_date_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../bloc/config/config_cubit.dart';
 
 class AccountDetailsPage extends StatefulWidget {
   final Account account;
@@ -27,6 +30,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final currency = context.watch<ConfigCubit>().state.currency;
     return Scaffold(
         appBar: AppBar(
           title: const Text("Account Details"),
@@ -67,7 +71,8 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                             height: 8,
                           ),
                           Text(
-                            "\$${widget.account.balance}",
+                            context.t.amountWithCurrency(
+                                widget.account.balance, currency.symbol),
                             style: const TextStyle(
                                 fontSize: 32, fontWeight: FontWeight.w700),
                           ),
