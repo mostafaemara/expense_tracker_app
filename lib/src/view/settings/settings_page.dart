@@ -43,14 +43,14 @@ class SettingsPage extends StatelessWidget {
                 //     AutoRouter.of(context).navigate(const ThemeRoute());
                 //   },
                 // ),
-                const SizedBox(height: 50),
-                SettingsListTile(
-                  title: "About",
-                  subtitle: "",
-                  onPressed: () {
-                    AutoRouter.of(context).navigate(const AboutRoute());
-                  },
-                ),
+                // const SizedBox(height: 50),
+                // SettingsListTile(
+                //   title: "About",
+                //   subtitle: "",
+                //   onPressed: () {
+                //     AutoRouter.of(context).navigate(const AboutRoute());
+                //   },
+                // ),
               ]),
       ),
     );

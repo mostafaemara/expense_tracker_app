@@ -155,6 +155,7 @@ class AuthRepository {
 
   Future<void> logout() async {
     await GoogleSignIn().signOut();
+    await FirebaseMessaging.instance.deleteToken();
     await authApi.signOut();
   }
 
