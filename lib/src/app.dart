@@ -26,7 +26,9 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      themeMode: config.state.themeMode,
+      //TODO add dark theme feature
+      //   themeMode: config.state.themeMode,
+      themeMode: ThemeMode.light,
       locale: Locale(config.state.language.langCode),
       supportedLocales: List.generate(
           Language.values.length, (index) => Language.values[index].locale()),
