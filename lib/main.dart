@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:expense_tracker_app/src/bloc/account_details/account_details_bloc.dart';
 import 'package:expense_tracker_app/src/bloc/accounts/accounts_cubit.dart';
 
@@ -60,14 +58,12 @@ void main() async {
 
   FirebaseMessaging.onBackgroundMessage((message) async {
     if (message.notification != null) {
-      log("message Recived" + message.notification.toString());
       await notificationManger.showNotification(DateTime.now().microsecond,
           message.notification!.title!, message.notification!.body!,
           payload: message.data["transactionId"]);
     }
   });
   FirebaseMessaging.onMessageOpenedApp.listen((event) async {
-    log("message Recived");
     if (event.notification != null) {
       await notificationManger.showNotification(DateTime.now().microsecond,
           event.notification!.title!, event.notification!.body!,
@@ -75,7 +71,6 @@ void main() async {
     }
   });
   FirebaseMessaging.onMessage.listen((event) async {
-    log("message Recived");
     if (event.notification != null) {
       await notificationManger.showNotification(DateTime.now().microsecond,
           event.notification!.title!, event.notification!.body!,

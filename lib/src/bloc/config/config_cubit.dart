@@ -21,7 +21,7 @@ class ConfigCubit extends Cubit<ConfigState> {
         isLoading: false,
         currency: currency ?? Currency.usd,
         language: language ?? Language.english,
-        themeMode: themeMode ?? ThemeMode.system));
+        themeMode: themeMode ?? ThemeMode.light));
   }
 
   void selectCurrency(Currency currency) async {
