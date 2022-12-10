@@ -1,0 +1,3 @@
+[submodule "expense_tracker_fb_functions"]
+	path = expense_tracker_fb_functions
+	url = https://github.com/mostafaemara/expense_tracker_fb_functions
