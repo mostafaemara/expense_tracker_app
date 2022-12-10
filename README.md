@@ -48,7 +48,7 @@
 
 ## UI kit
 
-![Design image](https://s3-alpha.figma.com/hub/file/1155580290/25cecea5-1cab-415b-aad4-5cb80a7d8361-cover.png)
+![Design image](resources/ui_kit.png)
 
  [UI kit source page](https://www.figma.com/community/file/998557875473123405)
 
